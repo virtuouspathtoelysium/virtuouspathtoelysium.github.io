@@ -1,0 +1,2123 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="night">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calendar-Fasti &mdash; The Virtuous Path to Elysium</title>
+<meta name="description" content="A combined Roman and Greek festival calendar reckoned against the Gregorian year and the phases of the moon.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M8 28 L50 6 L92 28 Z' fill='none' stroke='%23e0a13a' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M14 26 L50 9 L86 26 Z' fill='none' stroke='%23e0a13a' stroke-width='2'/%3E%3Cpath d='M10 28 H90 V34 H10 Z' fill='none' stroke='%23e0a13a' stroke-width='2'/%3E%3Cpath d='M17 38 V70 M23 38 V70 M38 38 V65 M42 38 V65 M58 38 V65 M62 38 V65 M77 38 V70 M83 38 V70' stroke='%23e0a13a' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M10 74 H90 M6 79 H94 M2 84 H98' stroke='%23e0a13a' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M37 70 H63 V90 H37 Z' fill='%23121722' stroke='%23e0a13a' stroke-width='2.5'/%3E%3Cpath d='M50 40 Q46 48 49 53 Q44 56 42 61 Q42 68 50 70 Q58 68 58 61 Q56 56 51 53 Q54 48 50 40 Z' fill='%23e0a13a'/%3E%3C/svg%3E">
+<style>
+/* ============================================================
+   The Virtuous Path to Elysium — Calendar-Fasti
+   Self-contained. No network requests, no external assets.
+   ============================================================ */
+:root{
+  --ink-0:#0b0e15;
+  --ink-1:#121722;
+  --ink-2:#1a2130;
+  --line:#2a3346;
+  --bone:#e8e3d6;
+  --bone-dim:#98a1b3;
+  --flame:#e0a13a;
+  --verd:#4fa08c;
+  --porph:#a8404f;
+  --marker:#c9973f;
+  --shadow:0 18px 44px -22px rgba(0,0,0,.9);
+  --chip-l:16%; --chip-tl:80%; --chip-s:38%;
+  --grid-gap:1px;
+  --display:Optima,Candara,"Gill Sans MT","Gill Sans","Trebuchet MS",sans-serif;
+  --body:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --data:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+html[data-theme="day"]{
+  --ink-0:#e7e1d2; --ink-1:#f4efe4; --ink-2:#fbf8f0;
+  --line:#cec5b0; --bone:#20242e; --bone-dim:#5f6675;
+  --flame:#a9711a; --verd:#2f6f5f; --porph:#8e2f3d;
+  --marker:#8c5e15;
+  --shadow:0 14px 34px -24px rgba(60,50,30,.7);
+  --chip-l:93%; --chip-tl:26%; --chip-s:45%;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--ink-0); color:var(--bone);
+  font-family:var(--body); font-size:16px; line-height:1.55;
+  -webkit-text-size-adjust:100%;
+}
+button,input,select{font:inherit;color:inherit}
+a{color:var(--verd)}
+:focus-visible{outline:2px solid var(--flame);outline-offset:2px;border-radius:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- banner ---------- */
+.banner{
+  border-bottom:1px solid var(--line);
+  background:
+    radial-gradient(120% 140% at 82% -30%, rgba(224,161,58,.16), transparent 58%),
+    radial-gradient(90% 120% at 8% -20%, rgba(79,160,140,.13), transparent 60%),
+    var(--ink-1);
+}
+.banner-in{max-width:1420px;margin:0 auto;padding:20px 16px;
+  display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.mark{display:flex;gap:14px;align-items:center}
+.mark svg{flex:none;width:46px;height:46px}
+h1{
+  font-family:var(--display); font-weight:600; margin:0;
+  font-size:clamp(18px,2.2vw,26px); letter-spacing:.12em; text-transform:uppercase;
+}
+h1 span{display:block;font-size:.55em;letter-spacing:.28em;color:var(--flame);
+  font-weight:400;margin-bottom:.35em}
+.today-line{
+  font-family:var(--data); font-size:12px; color:var(--bone-dim);
+  text-align:right; line-height:1.7; max-width:40ch;
+}
+.today-line b{color:var(--bone);font-weight:600}
+.today-line em{color:var(--flame);font-style:normal}
+
+/* ---------- toolbar & navigation ---------- */
+.bar{position:sticky;top:0;z-index:40;background:var(--ink-1);
+  border-bottom:1px solid var(--line)}
+.bar-in{max-width:1420px;margin:0 auto;padding:8px 14px;
+  display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+/* Fixed-position navigation controls */
+.nav{display:flex;align-items:center;gap:4px;flex:none}
+.btn{
+  background:var(--ink-2);border:1px solid var(--line);color:var(--bone);
+  padding:7px 11px;border-radius:4px;cursor:pointer;font-family:var(--display);
+  font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;min-height:36px;
+  display:inline-flex;align-items:center;justify-content:center;gap:5px;
+  transition:border-color 0.15s ease, background 0.15s ease;
+}
+.btn:hover{border-color:var(--flame);color:var(--flame)}
+.btn[aria-pressed="true"]{background:var(--flame);border-color:var(--flame);color:var(--ink-0);font-weight:600}
+
+/* Anchored arrow icon sizes */
+.btn.icon{
+  width:36px;min-width:36px;max-width:36px;height:36px;min-height:36px;
+  padding:0;display:inline-flex;align-items:center;justify-content:center;
+  font-family:var(--data);font-size:15px;flex:0 0 36px;
+}
+
+/* Anchored month/period display preventing button jitter */
+.period{
+  font-family:var(--display);font-size:clamp(14px,1.6vw,18px);letter-spacing:.12em;
+  text-transform:uppercase;width:180px;min-width:180px;max-width:180px;
+  text-align:center;padding:0 4px;display:inline-block;flex:0 0 180px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+
+.yearin{
+  background:var(--ink-2);border:1px solid var(--line);border-radius:4px;
+  padding:6px 4px;width:68px;min-width:68px;max-width:68px;flex:0 0 68px;
+  font-family:var(--data);font-size:12.5px;text-align:center;min-height:36px;
+}
+
+.grow{flex:1 1 20px}
+.search{background:var(--ink-2);border:1px solid var(--line);border-radius:4px;
+  padding:7px 10px;width:min(180px,32vw);font-family:var(--data);font-size:12.5px;min-height:36px}
+.count{font-family:var(--data);font-size:11.5px;color:var(--bone-dim);white-space:nowrap}
+
+/* ---------- layout ---------- */
+.wrap{max-width:1420px;margin:0 auto;padding:16px 14px 50px;
+  display:grid;grid-template-columns:270px minmax(0,1fr);gap:18px;align-items:start}
+.rail{position:sticky;top:54px;display:flex;flex-direction:column;gap:12px;
+  max-height:calc(100vh - 70px);overflow:auto}
+.panel{background:var(--ink-1);border:1px solid var(--line);border-radius:4px}
+.panel>h2{
+  font-family:var(--display);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  margin:0;padding:10px 12px;color:var(--bone-dim);border-bottom:1px solid var(--line);
+  display:flex;justify-content:space-between;align-items:center;gap:8px;
+}
+.panel>h2 button{background:none;border:0;color:var(--verd);cursor:pointer;
+  font-family:var(--display);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:0}
+.panel-body{padding:8px 10px 10px;max-height:min(44vh,400px);overflow:auto}
+
+/* system toggles */
+.sys{display:flex;align-items:flex-start;gap:8px;padding:6px 4px;border-radius:3px;cursor:pointer}
+.sys:hover{background:var(--ink-2)}
+.sys input{margin:4px 0 0;accent-color:var(--flame);flex:none;width:15px;height:15px}
+.sys .swatch{width:8px;height:8px;border-radius:50%;margin-top:6px;flex:none;
+  background:hsl(var(--h) 55% 55%)}
+.sys .txt{min-width:0}
+.sys .nm{display:block;font-size:13.5px;line-height:1.3}
+.sys .rg{display:block;font-family:var(--data);font-size:10px;color:var(--bone-dim);
+  letter-spacing:.02em}
+.flag{font-family:var(--data);font-size:9px;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid currentColor;border-radius:2px;padding:0 3px;margin-left:4px;vertical-align:1px}
+.flag.low{color:#c9973f}.flag.placeholder{color:var(--porph)}.flag.medium{color:var(--bone-dim)}
+
+/* deity chips */
+.gods{display:flex;flex-wrap:wrap;gap:4px}
+.god{
+  background:var(--ink-2);border:1px solid var(--line);border-radius:99px;
+  padding:3px 9px;font-size:12px;cursor:pointer;line-height:1.5;
+}
+.god:hover{border-color:var(--verd)}
+.god[aria-pressed="true"]{background:var(--verd);border-color:var(--verd);color:var(--ink-0);font-weight:600}
+.god .n{font-family:var(--data);font-size:9.5px;opacity:.6;margin-left:4px}
+
+/* options */
+.opt{display:flex;align-items:center;gap:8px;padding:5px 4px;font-size:13.5px;cursor:pointer}
+.opt input{accent-color:var(--flame);width:15px;height:15px}
+.opt select{background:var(--ink-2);border:1px solid var(--line);border-radius:3px;
+  padding:4px 6px;font-family:var(--data);font-size:11.5px;margin-left:auto}
+
+/* ---------- month grid ---------- */
+.grid-head{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:var(--grid-gap);
+  margin-bottom:var(--grid-gap)}
+.grid-head div{font-family:var(--display);font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--bone-dim);padding:4px 2px;text-align:center}
+.grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:var(--grid-gap);
+  background:var(--line);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.cell{background:var(--ink-1);height:130px;padding:6px 7px 8px;position:relative;overflow:hidden;
+  text-align:left;border:0;cursor:pointer;display:flex;flex-direction:column;gap:4px;
+  font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
+.cell:hover{background:var(--ink-2)}
+.cell.out{opacity:.3}
+.cell.sel{box-shadow:inset 0 0 0 2px var(--flame)}
+.cell.today .dnum{color:var(--flame)}
+.cell.today .dnum::after{content:"";display:block;height:2px;background:var(--flame);
+  margin-top:2px;border-radius:2px}
+.cell-top{display:flex;align-items:flex-start;justify-content:space-between;gap:4px;flex:none}
+.dnum{font-family:var(--data);font-size:15px;font-weight:600;line-height:1.1}
+.rdate{font-family:var(--data);font-size:9px;color:var(--bone-dim);letter-spacing:.02em;
+  margin-top:2px;display:block}
+.rdate.prominent{color:var(--flame);font-weight:600}
+.moon{opacity:.9;flex:none}
+.cellbody{
+  flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;
+  display:flex;flex-direction:column;gap:3px;padding-right:2px;
+  scrollbar-width:thin;scrollbar-color:hsl(210 12% 45% / .55) transparent;
+}
+.cellbody::-webkit-scrollbar{width:4px}
+.cellbody::-webkit-scrollbar-thumb{background:hsl(210 12% 45% / .5);border-radius:2px}
+.cellbody>*{flex:none}
+.ncount{font-family:var(--data);font-size:9px;color:var(--bone-dim);
+  border:1px solid var(--line);border-radius:99px;padding:0 4px;line-height:14px;flex:none}
+.chip{
+  font-size:11px;line-height:1.3;padding:2px 5px;border-radius:2px;
+  background:hsl(var(--h) var(--chip-s) var(--chip-l));
+  color:hsl(var(--h) 45% var(--chip-tl));
+  border-left:2.5px solid hsl(var(--h) 55% 52%);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.chip.dim{opacity:.55}
+.chip.marker-chip{
+  background:rgba(224,161,58,0.18);
+  color:var(--flame);
+  border-left:2.5px solid var(--flame);
+  font-weight:600;
+}
+.chip.monthly{background:transparent;color:var(--bone-dim);border-left-color:hsl(var(--h) 30% 40%)}
+.noum{
+  font-family:var(--display);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  color:hsl(var(--h) 50% 62%);border-top:1px solid hsl(var(--h) 45% 38%);
+  padding-top:1px;display:flex;align-items:center;gap:3px;white-space:nowrap;overflow:hidden
+}
+
+/* ---------- agenda ---------- */
+.agenda{display:flex;flex-direction:column;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.arow{display:grid;grid-template-columns:105px 1fr;gap:14px;background:var(--ink-1);
+  padding:12px 14px;text-align:left;border:0;font:inherit;color:inherit;cursor:pointer}
+.arow:hover{background:var(--ink-2)}
+.arow.today .adate b{color:var(--flame)}
+.adate{font-family:var(--data);font-size:11.5px;color:var(--bone-dim);line-height:1.5}
+.adate b{display:block;font-size:14.5px;color:var(--bone);letter-spacing:.02em}
+.aitems{display:flex;flex-direction:column;gap:5px;min-width:0}
+.aitem{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.dot{width:7px;height:7px;border-radius:50%;background:hsl(var(--h) 55% 55%);flex:none;
+  transform:translateY(-1px)}
+.dot.marker{background:var(--flame)}
+.aname{font-size:14.5px}
+.ameta{font-family:var(--data);font-size:10.5px;color:var(--bone-dim)}
+.empty{background:var(--ink-1);padding:30px 16px;text-align:center;color:var(--bone-dim);
+  border:1px solid var(--line);border-radius:4px}
+.empty b{display:block;font-family:var(--display);letter-spacing:.12em;text-transform:uppercase;
+  color:var(--bone);margin-bottom:6px;font-size:13px}
+
+/* ---------- day drawer & modals ---------- */
+.scrim{position:fixed;inset:0;background:rgba(4,6,10,.7);z-index:60;border:0;padding:0}
+.drawer{
+  position:fixed;top:0;right:0;bottom:0;width:min(450px,100%);z-index:61;
+  background:var(--ink-1);border-left:1px solid var(--line);box-shadow:var(--shadow);
+  display:flex;flex-direction:column;
+}
+.drawer-head{padding:16px 18px 12px;border-bottom:1px solid var(--line);
+  display:flex;gap:12px;align-items:flex-start;justify-content:space-between;flex:none}
+.drawer-head h3{font-family:var(--display);font-size:18px;letter-spacing:.08em;margin:0 0 2px;
+  text-transform:uppercase;font-weight:600}
+.drawer-body{padding:14px 18px 40px;overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1}
+.close{background:none;border:1px solid var(--line);border-radius:4px;color:var(--bone-dim);
+  cursor:pointer;padding:6px 10px;font-family:var(--data);font-size:13px;flex:none;min-height:34px}
+.close:hover{color:var(--flame);border-color:var(--flame)}
+.moonbox{display:flex;gap:12px;align-items:center;padding:10px 0 14px;border-bottom:1px solid var(--line)}
+.moonbox .t{font-size:13.5px;line-height:1.4}
+.moonbox .t span{display:block;font-family:var(--data);font-size:11px;color:var(--bone-dim)}
+.sec{font-family:var(--display);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--bone-dim);margin:18px 0 8px}
+.native{display:flex;flex-direction:column;gap:4px;font-size:13px}
+.native div{display:flex;gap:8px;align-items:baseline}
+.native .lbl{color:var(--bone-dim);font-size:11.5px;min-width:115px;flex:none}
+.native .val{font-family:var(--data);font-size:12px}
+.native .val.n1{color:var(--flame)}
+.entry{border-left:2.5px solid hsl(var(--h) 55% 52%);
+  background:hsl(var(--h) var(--chip-s) var(--chip-l));
+  padding:12px 14px;border-radius:0 4px 4px 0;margin-bottom:10px}
+.entry.marker-entry{border-left-color:var(--flame);background:rgba(224,161,58,0.1)}
+.entry h4{margin:0 0 3px;font-size:15.5px;font-weight:600;line-height:1.3}
+.entry .src{font-family:var(--data);font-size:10.5px;color:var(--bone-dim);display:block;margin-bottom:6px}
+.entry p{margin:5px 0 0;font-size:13.5px;line-height:1.5}
+.entry .entry-actions{display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap}
+.gcal-btn, .more-btn{
+  display:inline-flex;align-items:center;gap:5px;background:var(--ink-2);
+  border:1px solid var(--line);border-radius:3px;padding:4px 9px;
+  font-family:var(--data);font-size:11px;color:var(--bone);text-decoration:none;
+  transition:border-color .15s ease, color .15s ease, background-color .15s ease;
+}
+.gcal-btn:hover{border-color:var(--flame);color:var(--flame)}
+.more-btn{border-color:var(--verd);color:var(--verd)}
+.more-btn:hover{background:var(--verd);color:var(--ink-0);font-weight:600}
+.entry .gods{margin-top:8px}
+.entry .god{background:transparent;font-size:11px;padding:2px 7px}
+.warn{font-family:var(--data);font-size:10.5px;color:#c9973f;margin-top:6px;display:block}
+
+/* ---------- status box ---------- */
+.status-box{
+  padding:10px 12px;border-radius:4px;margin-bottom:14px;font-size:12.5px;line-height:1.45;
+  display:flex;flex-direction:column;gap:4px;
+}
+.status-box.fas{background:rgba(79,160,140,0.15);border:1px solid var(--verd);color:var(--bone)}
+.status-box.nefas{background:rgba(168,64,79,0.18);border:1px solid var(--porph);color:var(--bone)}
+.status-box.neutral{background:var(--ink-2);border:1px solid var(--line);color:var(--bone-dim)}
+.status-box b{font-family:var(--display);letter-spacing:.08em;text-transform:uppercase;font-size:11.5px}
+
+/* ---------- date checker modal ---------- */
+.modal{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:min(520px,94vw);
+  background:var(--ink-1);border:1px solid var(--line);box-shadow:var(--shadow);
+  border-radius:6px;z-index:80;display:flex;flex-direction:column;max-height:90vh;
+}
+.modal-head{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;
+  align-items:center;justify-content:space-between}
+.modal-head h3{font-family:var(--display);font-size:16px;margin:0;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--flame)}
+.modal-body{padding:16px 18px 22px;overflow-y:auto;display:flex;flex-direction:column;gap:12px}
+.form-row{display:flex;flex-direction:column;gap:6px}
+.form-row label{font-family:var(--display);font-size:12px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--bone-dim)}
+.modal-in{background:var(--ink-2);border:1px solid var(--line);border-radius:4px;
+  padding:8px 10px;font-family:var(--data);font-size:13.5px;color:var(--bone)}
+
+/* ---------- footer & notes ---------- */
+.notes{max-width:1420px;margin:0 auto;padding:0 14px 60px}
+.notes details{background:var(--ink-1);border:1px solid var(--line);border-radius:4px;
+  margin-bottom:10px}
+.notes summary{cursor:pointer;padding:12px 14px;font-family:var(--display);font-size:11.5px;
+  letter-spacing:.14em;text-transform:uppercase}
+.notes summary::marker{color:var(--flame)}
+.notes .inner{padding:2px 16px 16px;max-width:76ch}
+.notes h4{font-family:var(--display);letter-spacing:.1em;text-transform:uppercase;
+  font-size:11.5px;margin:18px 0 5px;color:var(--flame)}
+.notes p,.notes li{font-size:14px;line-height:1.6}
+.notes code{font-family:var(--data);font-size:12px;background:var(--ink-2);
+  padding:1px 4px;border-radius:2px;border:1px solid var(--line)}
+.notes pre{font-family:var(--data);font-size:11.5px;background:var(--ink-2);border:1px solid var(--line);
+  border-radius:3px;padding:10px 12px;overflow:auto;line-height:1.45}
+.colophon{max-width:1420px;margin:0 auto;padding:0 14px 40px;color:var(--bone-dim);
+  font-family:var(--data);font-size:11px;letter-spacing:.02em;text-align:center}
+
+/* ---------- responsive mobile layout ---------- */
+.rail-toggle{display:none}
+@media (max-width:1080px){
+  .wrap{grid-template-columns:1fr}
+  .rail{
+    position:fixed;top:0;left:0;bottom:0;width:min(340px,85vw);z-index:70;
+    background:var(--ink-1);border-right:1px solid var(--line);padding:14px;
+    box-shadow:var(--shadow);max-height:100vh;
+  }
+  .rail-toggle{display:inline-flex}
+  .rail[hidden]{display:none}
+  .panel-body{max-height:none}
+  .rail-scrim{position:fixed;inset:0;background:rgba(4,6,10,.7);z-index:69}
+}
+@media (max-width:720px){
+  .banner-in{gap:10px;padding:14px 12px}
+  .today-line{text-align:left;max-width:none;font-size:11px}
+  .wrap{padding:10px 8px 40px;gap:12px}
+  .bar-in{padding:6px 8px;gap:5px}
+
+  /* Fixed mobile navigation sizing */
+  .period{
+    width:145px;min-width:145px;max-width:145px;flex:0 0 145px;
+    font-size:13px;letter-spacing:.08em;padding:0 2px;
+  }
+  .yearin{
+    width:58px;min-width:58px;max-width:58px;flex:0 0 58px;
+    font-size:11.5px;
+  }
+  .search{width:100%;order:10;margin-top:4px}
+  .grid-head div{font-size:8.5px;letter-spacing:.08em;padding:3px 1px}
+  
+  /* Mobile Day Cell with Text Preview */
+  .cell{
+    height:84px;
+    padding:4px 3px 5px;
+    gap:2px;
+  }
+  .dnum{font-size:12px}
+  .moon{width:11px;height:11px}
+  .rdate,.ncount{display:none}
+  
+  .cellbody{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+    overflow:hidden;
+    max-height:54px;
+    padding-right:0;
+  }
+  .chip{
+    display:block;
+    font-size:8.5px;
+    line-height:1.2;
+    padding:1px 3px;
+    border-radius:2px;
+    border-left-width:2px;
+    letter-spacing:-0.01em;
+  }
+  .noum{
+    font-size:7.5px;
+    padding-top:1px;
+    line-height:1.1;
+  }
+  
+  .arow{grid-template-columns:1fr;gap:6px;padding:10px 12px}
+  .drawer{width:100%;border-left:0}
+  .notes{padding:0 8px 40px}
+}
+@media (prefers-reduced-motion:no-preference){
+  .drawer{animation:slide .2s ease-out}
+  @keyframes slide{from{transform:translateX(20px);opacity:0}to{transform:none;opacity:1}}
+}
+@media print{
+  .bar,.rail,.notes,.scrim,.drawer,.colophon,.rail-scrim{display:none!important}
+  body{background:#fff;color:#000}
+  .cell{min-height:90px}
+  .wrap{display:block;padding:0}
+}
+</style>
+</head>
+<body>
+<header class="banner">
+  <div class="banner-in">
+    <div class="mark">
+      <svg width="46" height="46" viewBox="0 0 100 100" aria-hidden="true">
+        <!-- Pediment & Tympanum -->
+        <path d="M 8 28 L 50 6 L 92 28 Z" fill="none" stroke="var(--flame)" stroke-width="2.5" stroke-linejoin="round"/>
+        <path d="M 14 26 L 50 9 L 86 26 Z" fill="none" stroke="var(--flame)" stroke-width="1.5"/>
+        <!-- Entablature -->
+        <path d="M 10 28 H 90 V 34 H 10 Z" fill="none" stroke="var(--flame)" stroke-width="2"/>
+        <!-- Ionic Columns (Outer & Inner pairs) -->
+        <g stroke="var(--flame)" stroke-width="1.8" fill="none" stroke-linecap="round">
+          <!-- Left Column -->
+          <circle cx="15.5" cy="35" r="2"/>
+          <circle cx="24.5" cy="35" r="2"/>
+          <path d="M 17 38 V 70 M 20 38 V 70 M 23 38 V 70"/>
+          <!-- Center-Left Column -->
+          <circle cx="36.5" cy="35" r="1.8"/>
+          <circle cx="43.5" cy="35" r="1.8"/>
+          <path d="M 38 38 V 65 M 40 38 V 65 M 42 38 V 65"/>
+          <!-- Center-Right Column -->
+          <circle cx="56.5" cy="35" r="1.8"/>
+          <circle cx="63.5" cy="35" r="1.8"/>
+          <path d="M 58 38 V 65 M 60 38 V 65 M 62 38 V 65"/>
+          <!-- Right Column -->
+          <circle cx="75.5" cy="35" r="2"/>
+          <circle cx="84.5" cy="35" r="2"/>
+          <path d="M 77 38 V 70 M 80 38 V 70 M 83 38 V 70"/>
+        </g>
+        <!-- Crepidoma (Steps) -->
+        <path d="M 10 74 H 90 M 6 79 H 94 M 2 84 H 98" stroke="var(--flame)" stroke-width="2.2" stroke-linecap="round"/>
+        <!-- Central Sacrificial Altar -->
+        <path d="M 37 70 H 63 V 90 H 37 Z" fill="var(--ink-1)" stroke="var(--flame)" stroke-width="2.2"/>
+        <path d="M 35 68 H 65 V 71 H 35 Z M 34 89 H 66 V 92 H 34 Z" fill="var(--flame)"/>
+        <rect x="42" y="75" width="16" height="11" rx="1.5" fill="none" stroke="var(--flame)" stroke-width="1.2"/>
+        <!-- Sacred Flame -->
+        <path d="M 50 38 C 45 46 47 52 44 56 C 41 60 42 66 48 68 C 44 63 45 59 48 57 C 50 55 53 58 54 62 C 55 65 54 67 52 68 C 58 67 60 61 57 56 C 54 52 57 48 52 44 C 51 46 50 49 50 51 C 49 46 51 42 50 38 Z" fill="var(--verd)"/>
+        <path d="M 50 44 C 47 49 48 54 46 58 C 45 60 46 64 50 66 C 54 64 54 61 53 58 C 51 55 53 51 50 44 Z" fill="var(--flame)"/>
+      </svg>
+      <h1><span>The Virtuous Path to Elysium</span>Calendar-Fasti</h1>
+    </div>
+    <p class="today-line" id="todayLine"></p>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="bar-in">
+    <div class="nav">
+      <button class="btn icon" id="prev" title="Previous month" aria-label="Previous month">&larr;</button>
+      <span class="period" id="period">&nbsp;</span>
+      <button class="btn icon" id="next" title="Next month" aria-label="Next month">&rarr;</button>
+      <label class="sr" for="yearJump">Jump to year</label>
+      <input class="yearin" id="yearJump" type="number" min="2026" max="3000" step="1"
+             title="Jump to a year between 2026 and 3000">
+    </div>
+    <button class="btn" id="todayBtn">Today</button>
+    <button class="btn" id="viewGrid" aria-pressed="true">Grid</button>
+    <button class="btn" id="viewList" aria-pressed="false">List</button>
+    <button class="btn" id="checkerBtn" title="Check if a date is suitable for weddings or private rites">⚖️ Check Date</button>
+    <button class="btn rail-toggle" id="railBtn" aria-expanded="false">Filters</button>
+    <button class="btn" id="exportIcsBtn" title="Download .ics file for Google Calendar, Apple Calendar, or Outlook">📅 Export .ics</button>
+    <span class="grow"></span>
+    <label class="sr" for="q">Search festivals</label>
+    <input class="search" id="q" type="search" placeholder="Search festivals&hellip;" autocomplete="off">
+    <span class="count" id="count"></span>
+    <button class="btn icon" id="theme" title="Switch between the night and day palettes" aria-label="Switch palette">&#9681;</button>
+  </div>
+</div>
+
+<main class="wrap">
+  <aside class="rail" id="rail" hidden>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+      <span style="font-family:var(--display);font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--flame)">Calendar Filters</span>
+      <button class="close rail-toggle" id="closeRailBtn" aria-label="Close filters">&#10005;</button>
+    </div>
+    <section class="panel">
+      <h2>Traditions <button id="sysAll">All / none</button></h2>
+      <div class="panel-body" id="sysList"></div>
+    </section>
+    <section class="panel">
+      <h2>Gods <button id="godClear">Clear</button></h2>
+      <div class="panel-body" id="godList"></div>
+    </section>
+    <section class="panel">
+      <h2>Display</h2>
+      <div class="panel-body">
+        <label class="opt"><input type="checkbox" id="optMoon" checked> Moon phase each day</label>
+        <label class="opt"><input type="checkbox" id="optRoman" checked> Roman date notation</label>
+        <label class="opt"><input type="checkbox" id="optNoum" checked> Mark new lunar months</label>
+        <label class="opt"><input type="checkbox" id="optMonthly" checked> Kalends, Nones &amp; Ides</label>
+        <label class="opt"><input type="checkbox" id="optApprox" checked> Days fixed by convention</label>
+        <label class="opt">First day of month
+          <select id="optOffset">
+            <option value="0">at conjunction</option>
+            <option value="1" selected>+1 day</option>
+            <option value="2">+2 days</option>
+          </select>
+        </label>
+      </div>
+    </section>
+  </aside>
+  <section id="view" aria-live="polite"></section>
+</main>
+
+<section class="notes">
+  <details>
+    <summary>How this calendar is reckoned</summary>
+    <div class="inner">
+      <p>The frame is the ordinary Gregorian year[cite: 1]. Two different kinds of festival are laid over it[cite: 1].</p>
+      <h4>The Roman year</h4>
+      <p>Roman festivals sit on fixed days, on the same numbered day as in the Republican and Julian
+        <em>fasti</em>: the Parilia on 21 April, the Saturnalia opening on 17 December[cite: 1]. Each day also
+        carries its inscriptional form &mdash; <em>a.d. XI Kal. Sept.</em> &mdash; counted from the Kalends,
+        Nones and Ides of the Gregorian month[cite: 1]. A handful of Roman feasts were <em>feriae conceptivae</em>,
+        announced each year by a magistrate rather than fixed: the Compitalia, the Sementivae, the
+        Ludi[cite: 1]. These are placed on their conventional modern dates and flagged as set by convention[cite: 1].</p>
+      <h4>The Greek year</h4>
+      <p>Every Greek city ran a lunar month against a solar year[cite: 1]. A month begins at the
+        <em>noumenia</em>, the first sighting of the new crescent, and runs 29 or 30 days until the next[cite: 1].
+        The year begins with the first new moon after a fixed solar point &mdash; the summer solstice at
+        Athens, the autumn equinox in Macedon, the winter solstice in Boeotia[cite: 1]. Because twelve lunations
+        fall about eleven days short of the solar year, roughly every third year carries a thirteenth
+        month; this page inserts it as a doubled month (a <em>Second Poseideon</em> at Athens) and does
+        not repeat that month's festivals[cite: 1].</p>
+      <p>New moons and solstices are computed from the periodic series in Meeus,
+        <em>Astronomical Algorithms</em>, and are good to a few minutes[cite: 1]. The conjunction itself is
+        invisible, so the first day of the month is set one day after it by default; ancient practice
+        varied and the offset can be changed under Display[cite: 1]. Shifting it moves every Greek date on the
+        page by that many days[cite: 1].</p>
+      <h4>Games that do not fall every year</h4>
+      <p>The Olympia, the Pythia, the Isthmia, the Nemea and a few others ran on cycles of two, four,
+        seven or eight years[cite: 1]. They appear only in the years they are due, and the day panel says so[cite: 1].
+        The cycles are pinned to the modern convention that the Olympic year is divisible by four, with
+        the Pythia in the third year of each Olympiad; if your tradition counts the Olympiads
+        differently, change the anchor year in the entry rather than the interval[cite: 1].</p>
+      <h4>What the flags mean</h4>
+      <p>A tradition marked <span class="flag medium">medium</span> has a well-attested month list whose
+        order or year-start is reconstructed[cite: 1]. <span class="flag low">low</span> means the month order
+        itself is conjectural; individual festival days in these systems are usually modern conventions
+        placed in the right season[cite: 1]. <span class="flag placeholder">placeholder</span> means the month
+        names have not been entered at all and the system is scaffolding awaiting the epigraphic list[cite: 1].
+        Where only the month or the season of a festival is known, the entry is marked
+        <em>day fixed by convention</em> in the day panel, and those entries can be hidden entirely[cite: 1].</p>
+      <p>The point of the flags is that this calendar should never quietly present a guess as a fact[cite: 1].
+        Where the evidence is thin, celebrate in the right season and say so[cite: 1].</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Extending the calendar to a new year</summary>
+    <div class="inner">
+      <p>Nothing on this page is a lookup table[cite: 1]. Moon phases, month lengths, intercalation and every
+        Greek festival date are computed in the browser, so there is no annual data file to fetch and
+        no yearly update to publish[cite: 1]. <strong>The calendar already runs to December 3000[cite: 1].</strong> Type
+        a year into the box beside the month arrows to go there[cite: 1].</p>
+      <h4>1. How the range works</h4>
+      <p>Near the top of the script block[cite: 1]:</p>
+      <pre>var CFG = {
+  yearStart: 2026,   /* first navigable year */
+  yearEnd:   3000,   /* last navigable year  */</pre>
+      <p>Holding a thousand years of seventeen lunar calendars in memory at once would cost hundreds of
+        megabytes, so the page computes a three-year window around whatever you are looking at and
+        rebuilds it &mdash; in a few milliseconds &mdash; when you walk off the edge[cite: 1]. Widening
+        <code>yearEnd</code> therefore costs nothing at load time[cite: 1]. The underlying algorithms are
+        published for roughly 1000&ndash;3000 CE; beyond that the periodic series drift and the
+        precession terms in the season calculation stop being trustworthy, which is why the ceiling
+        sits where it does[cite: 1].</p>
+      <p>One caveat worth stating plainly: this is astronomy, not history[cite: 1]. A date in 2400 is a correct
+        prediction of where the new moon will fall, not a claim that anyone will be keeping the
+        Karneia then[cite: 1].</p>
+      <h4>2. Spot-check the astronomy</h4>
+      <p>Before publishing a new range, check three or four new moon dates against an ephemeris
+        (the US Naval Observatory or HM Nautical Almanac both publish tables)[cite: 1]. Open a day that is
+        marked as a new lunar month and confirm the conjunction falls where you expect[cite: 1]. An error here
+        would shift a whole system's year, not a single day[cite: 1].</p>
+      <h4>3. Watch for the thirteenth month</h4>
+      <p>Open the day panel on any date and each enabled system reports its month as
+        <em>Hekatombaion 12 &mdash; month 1 of 12</em>[cite: 1]. In an intercalary year it will read
+        <em>month 7 of 13</em> and the doubled month is named[cite: 1]. Confirm that the doubled month falls
+        where your tradition expects it[cite: 1]. The insertion point is the <code>interc</code> field on each
+        system, a zero-based index into its month list &mdash; <code>5</code> doubles the sixth month[cite: 1].</p>
+      <h4>4. Adding or correcting a festival</h4>
+      <p>Roman entries live in the <code>ROMAN</code> array and use the Gregorian month and day[cite: 1]:</p>
+      <pre>{ m:4, d:21, n:'Parilia', g:['pales'], span:1,
+  note:'Text shown in the day panel.' }</pre>
+      <p>Greek entries live in the <code>fest</code> array of their system and use the lunar month
+        number and the day within it[cite: 1]:</p>
+      <pre>{ mi:1, d:12, n:'Kronia', g:['saturn'], span:1,
+  approx:false, note:'...' }</pre>
+      <p>Add <code>cycle:[4,2028]</code> to a festival that is not annual: the first number is the
+        interval in years, the second is any year in which it falls[cite: 1]. The engine tests the year in which
+        that lunar year began, so a festival in a month that lands in January still belongs to the
+        previous anchor year[cite: 1].</p>
+      <p><code>mi</code> is the position in that system's <code>months</code> list, counting from 1[cite: 1].
+        <code>d</code> is the day of the lunar month, where 1 is the noumenia[cite: 1]. Set
+        <code>approx:true</code> whenever you are placing a festival by season rather than by
+        attestation &mdash; that is what keeps the flag honest[cite: 1]. Every key in <code>g</code> must exist in
+        <code>DEITIES</code>, or the god filter will not find it; add new gods there first[cite: 1].</p>
+      <h4>5. Filling in a placeholder system</h4>
+      <p>The two Opuntian Locrian systems ship as numbered scaffolding[cite: 1]. Replace the twelve strings in
+        <code>months</code> with the epigraphic names, set <code>conf</code> to <code>'low'</code> or
+        <code>'medium'</code>, rewrite <code>src</code> to say what the reconstruction rests on, and
+        add festivals[cite: 1]. Until then they are best left switched off[cite: 1].</p>
+      <h4>6. Publishing</h4>
+      <p>The page is a single file with no dependencies[cite: 1]. Commit it as <code>index.html</code> in the
+        repository or in a <code>/docs</code> folder, enable Pages for that branch, and it is live[cite: 1].
+        Because everything is computed, an old cached copy is still correct for its own range &mdash;
+        readers only need to reload to see a corrected one[cite: 1].</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Sources and cautions</summary>
+    <div class="inner">
+      <p>The Roman entries follow the surviving <em>fasti</em> and Ovid's <em>Fasti</em>, which covers
+        January to June in detail and leaves the second half of the year to the calendar inscriptions,
+        Varro, Festus and Macrobius[cite: 1]. Where Ovid gives a story for a day, the note here summarises it in
+        a sentence; the poem itself is worth reading beside the calendar rather than through it[cite: 1].</p>
+      <p>The Athenian festival year is the best documented in the Greek world and its entries can be
+        trusted to the day[cite: 1]. Delphi, Macedon, Rhodes, Thessaly, Boeotia and Epidauros have solid month
+        lists and thinner festival evidence[cite: 1]. Sparta, Argos, Elis, Crete, Aetolia, Corinth and the
+        Sicilian cities are reconstructions: the festivals are real and their seasons are known, but the
+        day within the month is usually a modern choice[cite: 1]. Ozolian Locris genuinely numbered its months
+        rather than naming them[cite: 1].</p>
+      <p>Where a rite was restricted in antiquity &mdash; the Thesmophoria and the Bona Dea to women, the
+        Mysteries to initiates &mdash; the entry records that restriction as a matter of history[cite: 1]. What a
+        modern group does with it is a decision for the group, not for a calendar[cite: 1].</p>
+      <p>A system can look almost empty in a given year without being broken: Elis holds little but the
+        Olympia and its attendant rites, and those fall only every fourth year[cite: 1]. Step forward a year or
+        two and it fills[cite: 1].</p>
+      <p>Corrections are welcome[cite: 1]. A festival moved by good evidence is worth more than a full page[cite: 1].</p>
+    </div>
+  </details>
+</section>
+
+<p class="colophon">Calendar-Fasti &middot; The Virtuous Path to Elysium &middot; computed in the browser &middot; no external resources[cite: 1]</p>
+
+<script>
+/* ============================================================
+   ASTRONOMY CORE (Meeus Algorithms)
+   ============================================================ */
+var D2R = Math.PI / 180;
+var SYNODIC = 29.530588861;
+
+function jdToYMD(jd) {
+  var z = Math.floor(jd + 0.5), f = jd + 0.5 - z, a = z;
+  if (z >= 2299161) { var al = Math.floor((z - 1867216.25) / 36524.25); a = z + 1 + al - Math.floor(al / 4); }
+  var b = a + 1524, c = Math.floor((b - 122.1) / 365.25),
+      d = Math.floor(365.25 * c), e = Math.floor((b - d) / 30.6001);
+  var day = b - d - Math.floor(30.6001 * e) + f;
+  var m = e < 14 ? e - 1 : e - 13;
+  var y = m > 2 ? c - 4716 : c - 4715;
+  return { y: y, m: m, d: Math.floor(day) };
+}
+function ymdToJD(y, m, d) {
+  if (m <= 2) { y -= 1; m += 12; }
+  var A = Math.floor(y / 100), B = 2 - A + Math.floor(A / 4);
+  return Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + d + B - 1524.5;
+}
+function dayNoOf(y, m, d) { return Math.round(ymdToJD(y, m, d) + 0.5); }
+function ymdOf(dayNo) { return jdToYMD(dayNo); }
+function isoOf(dayNo) {
+  var t = ymdOf(dayNo);
+  return t.y + '-' + String(t.m).padStart(2, '0') + '-' + String(t.d).padStart(2, '0');
+}
+function weekdayOf(dayNo) { return (dayNo + 1) % 7; }
+
+/* ---- New moon (Meeus 49) ---- */
+function newMoonJD(k) {
+  var T = k / 1236.85, T2 = T * T, T3 = T2 * T, T4 = T3 * T;
+  var jd = 2451550.09766 + SYNODIC * k + 0.00015437 * T2 - 0.00000015 * T3 + 0.00000000073 * T4;
+  var E = 1 - 0.002516 * T - 0.0000074 * T2;
+  var M  = (2.5534 + 29.1053567 * k - 0.0000014 * T2 - 0.00000011 * T3) * D2R;
+  var Mp = (201.5643 + 385.81693528 * k + 0.0107582 * T2 + 0.00001238 * T3 - 0.000000058 * T4) * D2R;
+  var F  = (160.7108 + 390.67050284 * k - 0.0016118 * T2 - 0.00000227 * T3 + 0.000000011 * T4) * D2R;
+  var O  = (124.7746 - 1.56375588 * k + 0.0020672 * T2 + 0.00000215 * T3) * D2R;
+  var s = Math.sin;
+  jd += -0.4072 * s(Mp) + 0.17241 * E * s(M) + 0.01608 * s(2 * Mp)
+      + 0.01039 * s(2 * F) + 0.00739 * E * s(Mp - M) - 0.00514 * E * s(Mp + M)
+      + 0.00208 * E * E * s(2 * M) - 0.00111 * s(Mp - 2 * F) - 0.00057 * s(Mp + 2 * F)
+      + 0.00056 * E * s(2 * Mp + M) - 0.00042 * s(3 * Mp) + 0.00042 * E * s(M + 2 * F)
+      + 0.00038 * E * s(M - 2 * F) - 0.00024 * E * s(2 * Mp - M) - 0.00017 * s(O)
+      - 0.00007 * s(Mp + 2 * M) + 0.00004 * s(2 * Mp - 2 * F) + 0.00004 * s(3 * M)
+      + 0.00003 * s(Mp + M - 2 * F) + 0.00003 * s(2 * Mp + 2 * F) - 0.00003 * s(Mp + M + 2 * F)
+      + 0.00003 * s(Mp - M + 2 * F) - 0.00002 * s(Mp - M - 2 * F) - 0.00002 * s(3 * Mp + M)
+      + 0.00002 * s(4 * Mp);
+  var A1 = (299.77 + 0.107408 * k - 0.009173 * T2) * D2R,
+      A2 = (251.88 + 0.016321 * k) * D2R,  A3 = (251.83 + 26.651886 * k) * D2R,
+      A4 = (349.42 + 36.412478 * k) * D2R, A5 = (84.66 + 18.206239 * k) * D2R,
+      A6 = (141.74 + 53.303771 * k) * D2R, A7 = (207.14 + 2.453732 * k) * D2R,
+      A8 = (154.84 + 7.30686 * k) * D2R,   A9 = (34.52 + 27.261239 * k) * D2R,
+      A10 = (207.19 + 0.121824 * k) * D2R, A11 = (291.34 + 1.844379 * k) * D2R,
+      A12 = (161.72 + 24.198154 * k) * D2R, A13 = (239.56 + 25.513099 * k) * D2R,
+      A14 = (331.55 + 3.592518 * k) * D2R;
+  jd += 0.000325 * s(A1) + 0.000165 * s(A2) + 0.000164 * s(A3) + 0.000126 * s(A4)
+      + 0.00011 * s(A5) + 0.000062 * s(A6) + 0.00006 * s(A7) + 0.000056 * s(A8)
+      + 0.000047 * s(A9) + 0.000042 * s(A10) + 0.00004 * s(A11) + 0.000037 * s(A12)
+      + 0.000035 * s(A13) + 0.000023 * s(A14);
+  return jd - 69 / 86400;
+}
+function kForDate(y, m, d) {
+  var yf = y + (ymdToJD(y, m, d) - ymdToJD(y, 1, 1)) / 365.25;
+  return (yf - 2000) * 12.3685;
+}
+
+/* ---- Solstices & equinoxes (Meeus 27) ---- */
+var _SE_TERMS = [
+  [485, 324.96, 1934.136], [203, 337.23, 32964.467], [199, 342.08, 20.186],
+  [182, 27.85, 445267.112], [156, 73.14, 45036.886], [136, 171.52, 22518.443],
+  [77, 222.54, 65928.934], [74, 296.72, 3034.906], [70, 243.58, 9037.513],
+  [58, 119.81, 33718.147], [52, 297.17, 150.678], [50, 21.02, 2281.226],
+  [45, 247.54, 29929.562], [44, 325.15, 31555.956], [29, 60.93, 4443.417],
+  [18, 155.12, 67555.328], [17, 288.79, 4562.452], [16, 198.04, 62894.029],
+  [14, 199.76, 31436.921], [12, 95.39, 14577.848], [12, 287.11, 31931.756],
+  [12, 320.81, 34777.259], [9, 227.73, 1222.114], [8, 15.45, 16859.074]
+];
+function seasonJD(kind, year) {
+  var Y = (year - 2000) / 1000, jde0;
+  if (kind === 'mar') jde0 = 2451623.80984 + 365242.37404 * Y + 0.05169 * Y * Y - 0.00411 * Math.pow(Y, 3) - 0.00057 * Math.pow(Y, 4);
+  else if (kind === 'jun') jde0 = 2451716.56767 + 365241.62603 * Y + 0.00325 * Y * Y + 0.00888 * Math.pow(Y, 3) - 0.0003 * Math.pow(Y, 4);
+  else if (kind === 'sep') jde0 = 2451810.21715 + 365242.01767 * Y - 0.11575 * Y * Y + 0.00337 * Math.pow(Y, 3) + 0.00078 * Math.pow(Y, 4);
+  else jde0 = 2451900.05952 + 365242.74049 * Y - 0.06223 * Y * Y - 0.00823 * Math.pow(Y, 3) + 0.00032 * Math.pow(Y, 4);
+  var T = (jde0 - 2451545) / 36525, W = (35999.373 * T - 2.47) * D2R;
+  var dl = 1 + 0.0334 * Math.cos(W) + 0.0007 * Math.cos(2 * W), S = 0;
+  for (var i = 0; i < _SE_TERMS.length; i++) {
+    var t = _SE_TERMS[i];
+    S += t[0] * Math.cos((t[1] + t[2] * T) * D2R);
+  }
+  return jde0 + (0.00001 * S) / dl - 69 / 86400;
+}
+
+function moonForDay(dayNo, moons) {
+  var jd = dayNo, prev = moons[0];
+  for (var i = 0; i < moons.length; i++) { if (moons[i] <= jd) prev = moons[i]; else break; }
+  var age = jd - prev, frac = ((age % SYNODIC) + SYNODIC) % SYNODIC / SYNODIC;
+  var illum = (1 - Math.cos(2 * Math.PI * frac)) / 2;
+  var names = ['New Moon', 'Waxing Crescent', 'First Quarter', 'Waxing Gibbous',
+               'Full Moon', 'Waning Gibbous', 'Last Quarter', 'Waning Crescent'];
+  var b = Math.floor(frac * 8 + 0.5) % 8;
+  return { age: age, frac: frac, illum: illum, name: names[b], bucket: b, waxing: frac < 0.5 };
+}
+
+/* ============================================================
+   DEITY REGISTRY & FESTIVAL DATA
+   ============================================================ */
+var DEITIES = {
+  jupiter:   ['Iuppiter', 'Zeus', 'sky, oaths, the state'],
+  juno:      ['Iuno', 'Hera', 'marriage, women, sovereignty'],
+  minerva:   ['Minerva', 'Athena', 'craft, wisdom, war-skill'],
+  mars:      ['Mars', 'Ares', 'war, fields, boundaries'],
+  venus:     ['Venus', 'Aphrodite', 'love, generation, fortune'],
+  ceres:     ['Ceres', 'Demeter', 'grain, law, the mysteries'],
+  apollo:    ['Apollo', 'Apollon', 'oracle, healing, purification'],
+  latona:    ['Latona', 'Leto', 'mother of the twins'],
+  diana:     ['Diana', 'Artemis', 'wild places, childbirth, the hunt'],
+  mercury:   ['Mercurius', 'Hermes', 'trade, travel, messages'],
+  neptune:   ['Neptunus', 'Poseidon', 'sea, horses, earthquake'],
+  vulcan:    ['Volcanus', 'Hephaistos', 'fire, forge'],
+  vesta:     ['Vesta', 'Hestia', 'hearth, household, city fire'],
+  liber:     ['Liber Pater', 'Dionysos', 'wine, release, theatre'],
+  proserpina:['Proserpina', 'Persephone', 'the underworld, seed'],
+  dis:       ['Dis Pater', 'Haides', 'the dead, wealth below'],
+  saturn:    ['Saturnus', 'Kronos', 'sowing, the golden age'],
+  ops:       ['Ops', 'Rhea', 'abundance, stores'],
+  janus:     ['Ianus', '—', 'doors, beginnings, passage'],
+  quirinus:  ['Quirinus', '—', 'the Roman people in peace'],
+  faunus:    ['Faunus', 'Pan', 'woodland, flocks, prophecy'],
+  silvanus:  ['Silvanus', '—', 'woods, uncultivated land'],
+  terminus:  ['Terminus', '—', 'boundary stones'],
+  tellus:    ['Tellus', 'Gaia', 'the earth itself'],
+  sol:       ['Sol', 'Helios', 'the sun'],
+  luna:      ['Luna', 'Selene', 'the moon'],
+  fortuna:   ['Fortuna', 'Tyche', 'chance, outcome'],
+  victoria:  ['Victoria', 'Nike', 'victory'],
+  spes:      ['Spes', 'Elpis', 'hope'],
+  fides:     ['Fides', 'Pistis', 'good faith, treaties'],
+  pietas:    ['Pietas', 'Eusebeia', 'duty to gods and kin'],
+  concordia: ['Concordia', 'Harmonia', 'civic accord'],
+  salus:     ['Salus', 'Hygieia', 'health, safety'],
+  aesculapius:['Aesculapius', 'Asklepios', 'healing'],
+  hercules:  ['Hercules', 'Herakles', 'labour, protection, oaths'],
+  dioscuri:  ['Castor & Pollux', 'Dioskouroi', 'cavalry, rescue at sea'],
+  magnamater:['Magna Mater', 'Kybele', 'the mountain mother'],
+  attis:     ['Attis', 'Attis', 'death and return'],
+  isis:      ['Isis', 'Isis', 'mysteries, seafaring, magic, motherhood'],
+  osiris:    ['Osiris / Serapis', 'Osiris', 'underworld, resurrection, eternity'],
+  lares:     ['Lares', '—', 'household and crossroads guardians'],
+  penates:   ['Penates', '—', 'the storehouse gods'],
+  manes:     ['Di Manes', '—', 'the ancestral dead'],
+  genius:    ['Genius', 'Daimon', 'the indwelling spirit'],
+  carmentis: ['Carmentis', '—', 'prophecy, childbirth'],
+  flora:     ['Flora', 'Chloris', 'flowering, blossom'],
+  pomona:    ['Pomona', '—', 'orchard fruit'],
+  vertumnus: ['Vertumnus', '—', 'the turning season'],
+  portunus:  ['Portunus', '—', 'harbours, keys'],
+  consus:    ['Consus', '—', 'stored grain'],
+  angerona:  ['Angerona', '—', 'silence, the turning year'],
+  larentia:  ['Acca Larentia', '—', 'ancestral nurse'],
+  robigus:   ['Robigus', '—', 'averting wheat rust'],
+  pales:     ['Pales', '—', 'shepherds and flocks'],
+  furrina:   ['Furrina', '—', 'springs'],
+  volturnus: ['Volturnus', '—', 'rivers'],
+  summanus:  ['Summanus', '—', 'night thunder'],
+  bellona:   ['Bellona', 'Enyo', 'the battle line'],
+  matuta:    ['Mater Matuta', 'Leukothea', 'dawn, sisters children'],
+  bonadea:   ['Bona Dea', '—', 'women rite, healing'],
+  maia:      ['Maia', 'Maia', 'growth, spring increase'],
+  anna:      ['Anna Perenna', '—', 'the circling year'],
+  sancus:    ['Semo Sancus Dius Fidius', '—', 'oaths, treaties'],
+  honos:     ['Honos & Virtus', '—', 'honour and courage'],
+  fons:      ['Fons', '—', 'springs and wells'],
+  moneta:    ['Iuno Moneta', 'Mnemosyne', 'memory, warning, the mint'],
+  carna:     ['Carna', '—', 'hinges, bodily health'],
+  tiberinus: ['Tiberinus', '—', 'the river Tiber'],
+  nymphs:    ['Nymphae', 'Nymphai', 'springs, trees, places'],
+  muses:     ['Camenae', 'Mousai', 'song, memory, learning'],
+  charites:  ['Gratiae', 'Charites', 'grace, reciprocity'],
+  eros:      ['Cupido', 'Eros', 'desire'],
+  hebe:      ['Iuventas', 'Hebe', 'youth'],
+  eileithyia:['Iuno Lucina', 'Eileithyia', 'childbirth'],
+  hekate:    ['Trivia', 'Hekate', 'crossroads, boundaries of night'],
+  gaia:      ['Terra Mater', 'Gaia', 'earth, ancestors below'],
+  kore:      ['Libera', 'Kore', 'the maiden, the returning seed'],
+  theseus:   ['—', 'Theseus', 'hero of Athens'],
+  hyakinthos:['—', 'Hyakinthos', 'hero of Amyklai'],
+  ajax:      ['—', 'Aias', 'hero of the Lokrians'],
+  bendis:    ['—', 'Bendis', 'Thracian huntress'],
+  asklepiadai:['—', 'Machaon & Podaleirios', 'healer heroes'],
+  agathos:   ['—', 'Agathos Daimon', 'the good spirit of the house'],
+  panhellenic:['Di Omnes', 'Theoi Pantes', 'all the gods together']
+};
+
+var ROMAN = [
+  { m:1,  d:1,  n:'Kalendae Ianuariae — Ianus; vota for the year', g:['janus','jupiter','juno'], note:'Sacred to Janus, looking back on the old year and forward into the new; public vows (vota) taken by magistrates; offerings of spelt, honey, and dates.' },
+  { m:1,  d:1,  n:'Dedication of the temples of Aesculapius and Vediovis', g:['aesculapius'], note:'Commemorates the dedication of the temple of Aesculapius on the Tiber Island (291 BCE) and the temple of Vediovis on the Capitoline.' },
+  { m:1,  d:3,  n:'Compitalia', g:['lares'], cf:true, span:1, note:'Crossroads festival honoring the Lares Compitales; woolen effigies (maniae) hung at boundary crossroads for protection.' },
+  { m:1,  d:5,  n:'Dedication of Vica Pota', g:['victoria'], note:'Feast honoring Vica Pota on the Velia, an archaic Roman goddess of victory and conquest.' },
+  { m:1,  d:9,  n:'Agonalia of Ianus', g:['janus'], note:'The Rex Sacrificulus sacrifices a ram in the Regia to Janus to secure harmony and auspicious passage.' },
+  { m:1,  d:11, n:'Carmentalia (first day)', g:['carmentis'], note:'Honors Carmenta, prophetic nymph and mother of Evander; patroness of mothers, childbirth, and weaving.' },
+  { m:1,  d:15, n:'Carmentalia (second day)', g:['carmentis'], note:'Second day of prayers and rites led by Roman matrons honoring Carmenta and her sisters Antevorta and Postvorta.' },
+  { m:1,  d:16, n:'Dedication of Concordia', g:['concordia'], note:'Honors the goddess of civic harmony and political peace, commemorating the vow of Camillus.' },
+  { m:1,  d:24, n:'Sementivae / Paganalia', g:['ceres','tellus'], span:3, cf:true, note:'Movable sowing festival blessing the newly sown winter crops; draught animals rested and garlanded with flowers.' },
+  { m:1,  d:27, n:'Dedication of the temple of Castor and Pollux', g:['dioscuri'], note:'Dedication of the temple in the Forum Romanum commemorating their divine apparition at Lake Regillus.' },
+  { m:2,  d:1,  n:'Iuno Sospita; Kalends of February', g:['juno'], note:'Honors Juno the Savior/Preserver, patroness of state protection, armed defense, and civic vigor.' },
+  { m:2,  d:5,  n:'Concordia on the Capitol', g:['concordia'], note:'Observance of the temple of Concord on the slopes of the Capitoline Hill.' },
+  { m:2,  d:13, n:'Parentalia begins (Faunus on the Island)', g:['manes','faunus'], span:9, note:'Nine days of domestic rites honoring deceased family ancestors (Di Manes); temples closed and magistrates set aside insignias.' },
+  { m:2,  d:15, n:'Lupercalia', g:['faunus'], note:'Archaic pastoral purification rite around the Palatine hill; Luperci priests run the bounds conferring fertility and protection.' },
+  { m:2,  d:17, n:'Quirinalia; Fornacalia (the Feast of Fools)', g:['quirinus'], note:'Honors Quirinus (the deified Romulus); culminating Feast of Ovens where forgotten curiae could bake sacred spelt.' },
+  { m:2,  d:21, n:'Feralia — the public day of the dead', g:['manes'], note:'Public culmination of Parentalia; offerings of wine, milk, honey, roses, and spelt laid directly on ancestral tombs.' },
+  { m:2,  d:22, n:'Caristia / Cara Cognatio — the family meal of reconciliation', g:['lares','genius'], note:'Family reunion feast of reconciliation and harmony; disputes forgiven before the household Lares.' },
+  { m:2,  d:23, n:'Terminalia', g:['terminus'], note:'Festival of boundary stones (Terminus); neighbors gather at property borders to garland markers and share a common feast.' },
+  { m:2,  d:24, n:'Regifugium', g:['janus'], note:'Commemorates the ancient expulsion of the tyrannical Tarquin monarchy and the birth of the Roman Republic.' },
+  { m:2,  d:27, n:'Equirria', g:['mars'], note:'Chariot and horse races on the Campus Martius to train cavalry and consecrate war mounts to Mars.' },
+  { m:3,  d:1,  n:'Matronalia; old New Year; the sacred fire renewed', g:['juno','mars','vesta'], note:'Mothers celebrated in honor of Juno Lucina; wives receive gifts, husbands pray for domestic preservation, and Vesta\'s perpetual flame is renewed.' },
+  { m:3,  d:5,  n:'Navigium Isidis — opening of the seas', g:['isis','neptune'], note:'Major festival of Isis Pelagia celebrating the reopening of navigation; an elaborately decorated votive ship (carrus navalis) carrying spices and flowers is launched into the sea.' },
+  { m:3,  d:7,  n:'Vediovis', g:['jupiter'], note:'Sacrifices to the archaic youth-god Vediovis (the youthful or chthonic Jupiter) to avert misfortune.' },
+  { m:3,  d:9,  n:'Ancilia moved by the Salii', g:['mars'], note:'The leaping priests of Mars (Salii) carry the twelve sacred bronze Ancilia shields through Rome in ritual dance.' },
+  { m:3,  d:14, n:'Equirria; Mamuralia', g:['mars'], note:'Second horse races of Mars; ritual driving out of the scapegoat figure Mamurius Veturius (the old year).' },
+  { m:3,  d:15, n:'Anna Perenna; Idus Martiae', g:['anna','jupiter'], note:'Joyous riverside picnic festival celebrating the circle of the year, longevity, and renewal.' },
+  { m:3,  d:15, n:'Canna intrat — Magna Mater cycle begins', g:['magnamater','attis'], span:1, note:'Procession of reed-bearers opening the springtime mystery rites of Magna Mater (Cybele) and Attis.' },
+  { m:3,  d:16, n:'Argei procession (first)', g:['manes'], note:'Sacred procession visiting the 27 archaic chapels (sacraria) across the four traditional regions of Rome.' },
+  { m:3,  d:17, n:'Liberalia; Agonalia of Mars', g:['liber','kore','mars'], note:'Festival of Liber Pater (Bacchus); Roman boys come of age and put on the white adult toga (Toga Virilis).' },
+  { m:3,  d:19, n:'Quinquatrus', g:['minerva','mars'], span:5, note:'Five-day festival honoring Minerva as patroness of craftsmen, artisans, doctors, students, and teachers.' },
+  { m:3,  d:22, n:'Arbor intrat', g:['magnamater','attis'], note:'The sacred pine tree of Attis is carried by tree-bearers (Dendrophoroi) to the Palatine temple.' },
+  { m:3,  d:23, n:'Tubilustrium — purification of the trumpets', g:['mars','minerva'], note:'Sacred lustration and purification of bronze war trumpets (tubae) under the patronage of Mars and Minerva.' },
+  { m:3,  d:24, n:'Sanguem / Dies Sanguinis', g:['magnamater','attis'], note:'Day of Blood in the rites of Cybele, commemorating Attis with mourning, fasting, and ecstatic dedication.' },
+  { m:3,  d:25, n:'Hilaria (Attis)', g:['magnamater','attis'], note:'Festival of rejoicing celebrating the resurrection of Attis and the rebirth of nature at the spring equinox.' },
+  { m:3,  d:27, n:'Lavatio — the washing of the Mother', g:['magnamater'], note:'Procession bearing the sacred black stone image of Magna Mater to the Almo brook for ceremonial washing.' },
+  { m:3,  d:31, n:'Luna on the Aventine', g:['luna'], note:'Observance honoring Luna (the Moon) at her ancient temple on the Aventine Hill.' },
+  { m:4,  d:1,  n:'Veneralia — Venus Verticordia and Fortuna Virilis', g:['venus','fortuna'], note:'Women bathe and pray to Venus Verticordia (\'Turner of Hearts\') and Fortuna Virilis for marital harmony and good fortune.' },
+  { m:4,  d:4,  n:'Ludi Megalenses', g:['magnamater'], span:7, note:'Theatrical games, banquets, and processions instituted in 204 BCE honoring Magna Mater (Cybele).' },
+  { m:4,  d:12, n:'Ludi Ceriales', g:['ceres'], span:8, note:'Eight-day festival and games honoring Ceres, protector of agriculture and plebeian rights.' },
+  { m:4,  d:15, n:'Fordicidia', g:['tellus'], note:'Archaic rite where pregnant cows are sacrificed to Mother Earth (Tellus) to ensure the fertility of crops and livestock.' },
+  { m:4,  d:19, n:'Cerialia', g:['ceres','proserpina'], note:'Main feast day of Ceres; torches lit and offerings made to safeguard grain ripening in the fields.' },
+  { m:4,  d:21, n:'Parilia — and the birthday of Rome', g:['pales'], note:'Archaic shepherds\' purification festival (jumping through straw fires) and anniversary of the founding of Rome (Roma Natalis).' },
+  { m:4,  d:23, n:'Vinalia Priora', g:['jupiter','venus'], note:'Tasting and blessing of the previous autumn\'s vintage wine, consecrated to Jupiter and Venus.' },
+  { m:4,  d:25, n:'Robigalia', g:['robigus','mars'], note:'Procession to the sacred grove of Robigo to offer prayers against wheat rust and mildew before the summer heat.' },
+  { m:4,  d:28, n:'Floralia (Ludi Florales)', g:['flora'], span:6, note:'Joyous floral festival honoring Flora; theater, dancing, scattering of beans, and release of hares.' },
+  { m:5,  d:1,  n:'Lares Praestites; Bona Dea; Maia', g:['lares','bonadea','maia'], note:'Spring offerings to the guardian spirits of the state, secret women\'s rites of Bona Dea, and sacrifices to Maia.' },
+  { m:5,  d:9,  n:'Lemuria (first)', g:['manes'], note:'Midnight household ritual where the paterfamilias walks barefoot casting black beans to pacify restless ancestral spirits (Lemures).' },
+  { m:5,  d:11, n:'Lemuria (second)', g:['manes'], note:'Second nocturnal observance of the Lemuria to purify the home and ward off unsettled spectres.' },
+  { m:5,  d:13, n:'Lemuria (third)', g:['manes'], note:'Final night of the Lemuria; solemn dismissal of spirits with the ninefold chant: "Manes exite paterni!"' },
+  { m:5,  d:14, n:'Argei — rush figures cast into the Tiber', g:['manes','tiberinus'], note:'The Vestal Virgins throw 27 wicker effigies from the Pons Sublicius into the Tiber to purify the city.' },
+  { m:5,  d:15, n:'Mercuralia; Idus Maiae', g:['mercury','jupiter','maia'], note:'Merchants sprinkle themselves and their merchandise with water from the sacred spring of Mercury for prosperity and honest trade.' },
+  { m:5,  d:21, n:'Agonalia of Vediovis', g:['jupiter'], note:'Sacrificial rites honoring Vediovis to avert sickness and cosmic disharmony.' },
+  { m:5,  d:23, n:'Tubilustrium', g:['vulcan','mars'], note:'Second purification of the sacred bronze trumpets for religious rites and assembly calls.' },
+  { m:5,  d:25, n:'Fortuna Primigenia', g:['fortuna'], note:'Feast honoring Fortuna First-Born on the Quirinal Hill.' },
+  { m:6,  d:1,  n:'Carna; Iuno Moneta; Mars outside the Porta Capena', g:['carna','moneta','mars'], note:'Fabariae Kalendae; offerings of bean porridge and bacon to Carna (goddess of vital organs); honor to Juno the Warner.' },
+  { m:6,  d:3,  n:'Bellona', g:['bellona'], note:'Commemoration of the temple of Bellona, goddess of martial ferocity, outside the sacred pomerium boundary.' },
+  { m:6,  d:5,  n:'Dius Fidius (Semo Sancus)', g:['sancus'], note:'Offerings to Semo Sancus Dius Fidius, divine protector of oaths, treaties, and honest speech.' },
+  { m:6,  d:7,  n:'Vestalia begins — the penus Vestae is opened', g:['vesta'], span:9, note:'The innermost sanctuary (Penus Vestae) is opened to barefoot matrons bringing simple food offerings.' },
+  { m:6,  d:9,  n:'Vestalia — the day proper', g:['vesta'], note:'Millers and bakers feast; work donkeys are crowned with flowers and hung with small bread loaves.' },
+  { m:6,  d:11, n:'Matralia; Fortuna in the Forum Boarium', g:['matuta','fortuna'], note:'Mothers pray for their nieces and nephews to Mater Matuta (goddess of dawn and nurturing growth).' },
+  { m:6,  d:13, n:'Quinquatrus minusculae; Idus Iuniae', g:['minerva','jupiter'], span:3, note:'Lesser Quinquatrus; joyous three-day holiday for the guild of flute players (tibicines) in masks and stolas.' },
+  { m:6,  d:15, n:'Q.St.D.F. — the temple of Vesta is swept and closed', g:['vesta'], note:'Quando Nefas Tollitur; the temple of Vesta is swept clean, its rubbish cast into the Tiber, and normal court business resumes.' },
+  { m:6,  d:19, n:'Minerva on the Aventine', g:['minerva'], note:'Guild feast day for craftspeople, poets, and teachers at Minerva\'s Aventine shrine.' },
+  { m:6,  d:20, n:'Summanus', g:['summanus'], note:'Festival of Summanus, archaic lord of nocturnal lightning and nighttime storms.' },
+  { m:6,  d:24, n:'Fors Fortuna', g:['fortuna'], note:'Holiday where common people sail rowboats down the Tiber with garlands to celebrate Luck and Chance.' },
+  { m:6,  d:27, n:'Lares of the household; Iuppiter Stator', g:['lares','jupiter'], note:'Commemoration of the household guardians and Jupiter who steadies retreating battle lines.' },
+  { m:7,  d:5,  n:'Poplifugia', g:['jupiter'], note:'"Flight of the People", commemorating ancient military panic and the mysterious disappearance of Romulus.' },
+  { m:7,  d:6,  n:'Ludi Apollinares', g:['apollo'], span:8, note:'Theatrical games and circus races instituted during the Second Punic War honoring Apollo.' },
+  { m:7,  d:7,  n:'Nonae Caprotinae; Ancillarum Feriae', g:['juno'], note:'Maidservants feast under wild fig trees honoring Juno Caprotina for saving Rome during the Gallic incursions.' },
+  { m:7,  d:8,  n:'Vitulatio', g:['victoria'], note:'Public thanksgiving and joyous victory celebration.' },
+  { m:7,  d:15, n:'Transvectio Equitum', g:['dioscuri'], note:'Grand parade of five thousand Roman cavalrymen in olive wreaths and purple mantles.' },
+  { m:7,  d:17, n:'Honos and Victoria', g:['honos','victoria'], note:'Commemoration of military honor, virtue, and divine victory.' },
+  { m:7,  d:19, n:'Lucaria (first)', g:['silvanus'], note:'Sacred forest festival held in the woodland clearing between the Via Salaria and the Tiber.' },
+  { m:7,  d:21, n:'Lucaria (second)', g:['silvanus'], note:'Second day of sacred woodland rites appeasing the forest spirits.' },
+  { m:7,  d:23, n:'Neptunalia', g:['neptune'], note:'Midsummer festival of Neptune; shady leafy huts (umbrae) built along waterways to stave off drought.' },
+  { m:7,  d:25, n:'Furrinalia', g:['furrina'], note:'Ancient rites honoring Furrina, patron goddess of deep springs and subterranean waters.' },
+  { m:8,  d:1,  n:'Spes; Victoria on the Palatine', g:['spes','victoria'], note:'Observance honoring Hope and Victory at their Palatine temples.' },
+  { m:8,  d:5,  n:'Salus on the Quirinal', g:['salus'], note:'Feast of Salus Publica, goddess of individual health and public safety.' },
+  { m:8,  d:9,  n:'Sol Indiges', g:['sol'], note:'Offerings to the primordial ancestral Sun god at Lavinium and the Quirinal.' },
+  { m:8,  d:12, n:'Hercules Invictus at the Ara Maxima', g:['hercules'], note:'Great banquet and sacrifice of choice meats at the Great Altar of Hercules near the Forum Boarium.' },
+  { m:8,  d:12, n:'Lychnapsia — festival of lamps', g:['isis','sol'], note:'Nocturnal festival of lamp-lighting and illumination honoring the birth and radiant wisdom of Isis.' },
+  { m:8,  d:13, n:'Nemoralia — Diana at Aricia; Vertumnus; Fortuna Equestris', g:['diana','vertumnus','fortuna'], span:3, note:'Festival of Torches at Lake Nemi honoring Diana, patroness of woods, women, and the marginalized.' },
+  { m:8,  d:17, n:'Portunalia', g:['portunus'], note:'Festival of Portunus, god of keys, doors, and harbors; keys thrown into sacrificial fires.' },
+  { m:8,  d:19, n:'Vinalia Rustica', g:['venus','jupiter'], note:'Autumn wine festival imploring Jupiter and Venus to safeguard the grape harvest from storms.' },
+  { m:8,  d:21, n:'Consualia', g:['consus'], note:'Festival of Consus (god of stored grain); mules, donkeys, and horses rested, groomed, and garlanded with flowers.' },
+  { m:8,  d:23, n:'Volcanalia', g:['vulcan','nymphs'], note:'Sacrifices of small live fish into bonfires to appease Vulcan and protect grain stores from summer fire.' },
+  { m:8,  d:24, n:'Mundus patet — the world of the dead stands open', g:['dis','proserpina'], note:'The sacred underground pit (Mundus) is opened, letting the souls of the dead commune with the living.' },
+  { m:8,  d:25, n:'Opiconsivia', g:['ops'], note:'Secret harvest thanksgiving rites in the Regia to Ops Consiva, goddess of agricultural storehouses.' },
+  { m:8,  d:27, n:'Volturnalia', g:['volturnus'], note:'Offerings to Volturnus, god of the south-east river breeze, to safeguard crops from dry heat.' },
+  { m:9,  d:5,  n:'Ludi Romani', g:['jupiter','juno','minerva'], span:15, note:'The Great Roman Games honoring the Capitoline Triad (Jupiter, Juno, Minerva) with chariot races and pageantry.' },
+  { m:9,  d:13, n:'Epulum Iovis; Idus Septembres', g:['jupiter','juno','minerva'], note:'Sacred ritual banquet held for Jupiter, Juno, and Minerva during the Ludi Romani.' },
+  { m:9,  d:23, n:'Apollo in the Campus; birthday of Augustus', g:['apollo','latona'], note:'Dedication of Apollo\'s temple on the Campus Martius and Augustus\'s birthday ceremonies.' },
+  { m:9,  d:26, n:'Venus Genetrix', g:['venus'], note:'Dedication of Caesar\'s temple honoring Venus as divine mother and ancestress of Rome.' },
+  { m:10, d:1,  n:'Fides Publica; Tigillum Sororium', g:['fides','juno'], note:'Sacrifices to Good Faith where priests ride in a covered carriage with right hands wrapped in white cloth.' },
+  { m:10, d:4,  n:'Ieiunium Cereris — the fast of Ceres', g:['ceres'], note:'Fast of Ceres, a solemn daylight fast instituted in 191 BCE before grain harvest rites.' },
+  { m:10, d:5,  n:'Mundus patet', g:['dis','proserpina'], note:'Second opening of the underground pit of the spirits for autumnal remembrance.' },
+  { m:10, d:9,  n:'Genius Publicus; Fausta Felicitas; Venus Victrix', g:['genius','fortuna','venus'], note:'Rites honoring the indwelling collective spirit of the Roman people and favorable luck.' },
+  { m:10, d:11, n:'Meditrinalia — the first tasting of the new wine', g:['jupiter'], note:'First tasting of the newly pressed grape must mixed with aged wine as a health-giving tonic.' },
+  { m:10, d:13, n:'Fontinalia', g:['fons','nymphs'], note:'Well and fountain festival; garlands of autumn flowers lowered into wells in honor of Fons.' },
+  { m:10, d:15, n:'October Horse; Idus Octobres', g:['mars','jupiter'], note:'Champion right-hand chariot horse sacrificed to Mars on the Campus Martius for martial vigor and crop protection.' },
+  { m:10, d:19, n:'Armilustrium — the arms are purified and stored', g:['mars'], note:'Soldiers purify, wash, and lay away their weapons on the Aventine Hill at the end of the campaign season.' },
+  { m:10, d:28, n:'The Isia (Inventio Osiridis)', g:['isis','osiris'], span:5, note:'Solemn mystery festival reenacting the search for Osiris, mourning, and the joyful Inventio Osiridis (finding and restoration).' },
+  { m:11, d:3,  n:'Hilaria (Isiac conclusion)', g:['isis','osiris'], note:'Joyful festival closing the Isia with games, banquets, and masquerades celebrating the resurrection of Osiris.' },
+  { m:11, d:4,  n:'Ludi Plebeii', g:['jupiter'], span:14, note:'Plebeian Games held in the Circus Flaminius celebrating democratic liberties and reconciliation.' },
+  { m:11, d:8,  n:'Mundus patet', g:['dis','proserpina'], note:'Third and final opening of the sacred Mundus chamber before winter sets in.' },
+  { m:11, d:13, n:'Epulum Iovis; Feronia; Fortuna Primigenia', g:['jupiter','fortuna'], note:'Feast of Jupiter during the Plebeian Games with offerings for the welfare of the citizenry.' },
+  { m:12, d:1,  n:'Neptune; Pietas', g:['neptune','pietas'], note:'Winter offerings honoring Neptune and filial piety.' },
+  { m:12, d:3,  n:'Bona Dea — the rite of the women', g:['bonadea'], note:'Nocturnal women\'s mystery rite held at the home of a senior magistrate, banishing all male presence.' },
+  { m:12, d:5,  n:'Faunalia rustica', g:['faunus'], note:'Countryside festival where herdsmen and cattle roam free through pastures in honor of Faunus.' },
+  { m:12, d:8,  n:'Tiberinus and Gaia', g:['tiberinus','gaia'], note:'Commemoration honoring Father Tiber and Mother Earth.' },
+  { m:12, d:11, n:'Agonalia of Sol Indiges; Septimontium', g:['sol'], note:'Winter solstice sun rites and the hill-festival of the seven archaic mounts of Rome.' },
+  { m:12, d:13, n:'Tellus and Ceres; Idus Decembres', g:['tellus','ceres','jupiter'], note:'Offerings to Mother Earth and Ceres for the fertility of the winter sown crops.' },
+  { m:12, d:15, n:'Consualia', g:['consus'], note:'Second festival of Consus marking the completion and underground sealing of autumn stores.' },
+  { m:12, d:17, n:'Saturnalia', g:['saturn'], span:7, note:'Joyous seven-day festival of the Golden Age; social roles inverted, masters serve slaves, gifts exchanged (Io Saturnalia!).' },
+  { m:12, d:19, n:'Opalia', g:['ops'], note:'Feast of Ops, consort of Saturn, celebrating the abundance of the earth and domestic wealth.' },
+  { m:12, d:21, n:'Divalia / Angeronalia', g:['angerona'], note:'Solstice rites honoring Angerona, goddess of silence and keeper of the secret name of Rome.' },
+  { m:12, d:22, n:'Lares Permarini', g:['lares'], note:'Dedication of the temple honoring the Lares who protect sailors on the seas.' },
+  { m:12, d:23, n:'Larentalia', g:['larentia','manes'], note:'Funeral offerings and memorial rites honoring Acca Larentia, foster-mother of Romulus and Remus.' },
+  { m:12, d:25, n:'Dies Natalis Solis Invicti', g:['sol'], note:'Birth of the Unconquered Sun following the winter solstice turning point.' }
+];
+
+var ROMAN_MONTHLY = {
+  kal: { n:'Kalendae', g:['juno','janus'], note:'The sacred Kalends; opening of the lunar month under Juno and Janus. Inauspicious for weddings and private contracts.' },
+  non: { n:'Nonae', g:['janus'], note:'The sacred Nones; the Rex Sacrorum announces the feasts of the month. Inauspicious for weddings.' },
+  eid: { n:'Idus', g:['jupiter'], note:'The sacred Ides, dedicated to Jupiter Optimus Maximus; the Ovis Idulis is offered. Inauspicious for weddings.' }
+};
+
+var GREEK = [
+{
+  id:'attic', name:'Athenian (Attic)', region:'Athens & Attica', hue:212,
+  anchor:'jun', interc:5, conf:'high',
+  src:'Month order, year-start and most festival days are securely attested; day-numbering within the month follows the forward count.',
+  months:['Hekatombaion','Metageitnion','Boedromion','Pyanopsion','Maimakterion','Poseideon','Gamelion','Anthesterion','Elaphebolion','Mounichion','Thargelion','Skirophorion'],
+  fest:[
+    {mi:1,d:12,n:'Kronia',g:['saturn'],note:'Masters and slaves ate together; the harvest is in and rank is set aside for a day in honor of Kronos.'},
+    {mi:1,d:16,n:'Synoikia',g:['minerva','theseus'],note:'Commemorates the unification (synoecism) of Attica under Athens by Theseus with offerings to Athena.'},
+    {mi:1,d:23,n:'Panathenaia',g:['minerva'],span:6,cycle:[4,2026],note:'The Greater Panathenaia fell every fourth year in the third year of each Olympiad; athletic contests, musical recitations, and civic procession.'},
+    {mi:1,d:28,n:'Panathenaia — the great day',g:['minerva','panhellenic'],cycle:[4,2026],note:'The quadrennial presentation of the newly woven sacred peplos to Athena Polias atop the Acropolis.'},
+    {mi:2,d:7,n:'Metageitnia',g:['apollo'],note:'Honors Apollo Metageitnios, protector of neighborhoods, community solidarity, and friendly migrations.'},
+    {mi:2,d:12,n:'Herakleia at Kynosarges',g:['hercules'],approx:true,note:'Festival and athletic contests for Herakles held at his gymnasium in Kynosarges.'},
+    {mi:2,d:16,n:'Eleusinia',g:['ceres','proserpina'],approx:true,cycle:[2,2026],note:'Biennial games and sacred dramatic performances at Eleusis in honor of Demeter and Kore.'},
+    {mi:3,d:2,n:'Niketeria',g:['minerva','neptune'],note:'Commemoration of Athena\'s victory over Poseidon for the patronage and naming of Athens.'},
+    {mi:3,d:5,n:'Genesia',g:['gaia','manes'],note:'The public state day honoring all departed ancestors and heroes of the polis.'},
+    {mi:3,d:6,n:'Charisteria — Artemis Agrotera',g:['diana'],note:'Thanksgiving celebration for the victory at Marathon, with 500 goats sacrificed to Artemis of the Wilds.'},
+    {mi:3,d:7,n:'Boedromia',g:['apollo'],note:'Honors Apollo the Rescuer who answers the battle shout (boedromos) in times of military peril.'},
+    {mi:3,d:15,n:'Eleusinian Mysteries',g:['ceres','proserpina','dis'],span:9,note:'The Great Mysteries: Agyrmos gathering (15th), procession to Eleusis (19th), and initiation into immortality (21st-22nd).'},
+    {mi:3,d:17,n:'Epidauria — Asklepios received into the Mysteries',g:['aesculapius'],span:2,note:'Commemorates the late arrival and reception of the healing god Asklepios into the Eleusinian rites.'},
+    {mi:4,d:7,n:'Pyanopsia; Oschophoria',g:['apollo','liber','minerva'],note:'Offering of the pulse-bean pot and carrying of the fruit-laden olive branch (eiresione) to ensure bountiful crops.'},
+    {mi:4,d:8,n:'Theseia',g:['theseus','neptune'],note:'Civic festival with athletic contests honoring the hero-founder Theseus and his patronage of the demos.'},
+    {mi:4,d:9,n:'Stenia',g:['ceres','proserpina'],note:'Nocturnal women\'s feast of jesting and ritual abuse preparing for the Thesmophoria.'},
+    {mi:4,d:11,n:'Thesmophoria',g:['ceres','proserpina'],span:3,note:'Women-only fertility mystery: Anodos (ascent), Nesteia (fasting on the earth), and Kalligeneia (fair offspring).'},
+    {mi:4,d:19,n:'Apatouria',g:['jupiter','minerva'],span:3,approx:true,note:'Three-day phratry festival where young children, ephebes, and new brides are officially enrolled in the clan.'},
+    {mi:4,d:30,n:'Chalkeia',g:['minerva','vulcan'],note:'The metalworkers\' and artisans\' festival; the loom for Athena\'s sacred peplos was set up on this day.'},
+    {mi:5,d:20,n:'Maimakteria',g:['jupiter'],approx:true,note:'Winter supplications to Zeus Maimaktes, the tempestuous storm-bringer, asking for mild weather.'},
+    {mi:5,d:28,n:'Pompaia',g:['jupiter','mercury'],approx:true,note:'A purification procession through the city carrying the sacred fleece of Zeus (Dios Kodion) to ward off evil.'},
+    {mi:6,d:8,n:'Poseidea',g:['neptune'],note:'Winter maritime festival honoring Poseidon as master of waves and subterranean earthquakes.'},
+    {mi:6,d:16,n:'Rural Dionysia',g:['liber'],span:3,approx:true,note:'Lively countryside winter festivals across the demes of Attica featuring comedy, song, and the phallus procession.'},
+    {mi:6,d:26,n:'Haloa',g:['ceres','proserpina','liber'],note:'Winter feast of the threshing floor at Eleusis celebrating the pruning of vines and fertility of grain.'},
+    {mi:7,d:8,n:'Poseidon of the month',g:['neptune'],approx:true,note:'Monthly devotion to Poseidon protector of harbors and coastal voyages.'},
+    {mi:7,d:12,n:'Lenaia',g:['liber'],span:4,note:'Winter festival of the Maenads and dramatic theater contests dedicated to Dionysos Lenaios.'},
+    {mi:7,d:27,n:'Theogamia — the marriage of Zeus and Hera',g:['jupiter','juno'],note:'Sacred marriage (Hieros Gamos) of Zeus and Hera; the month of Gamelion is favored for human weddings.'},
+    {mi:8,d:11,n:'Anthesteria — Pithoigia',g:['liber'],note:'Opening of the wine jars; the first tasting of the new vintage dedicated to Dionysos.'},
+    {mi:8,d:12,n:'Anthesteria — Choes',g:['liber'],note:'The Day of Jugs; silent drinking contests, children crowned with flowers, and spirits roaming the earth.'},
+    {mi:8,d:13,n:'Anthesteria — Chytroi',g:['liber','mercury','dis'],note:'The Day of Pots; boiled grain offered to Hermes Chthonios for the dead, ending with the banishment of spirits.'},
+    {mi:8,d:20,n:'Lesser Mysteries at Agrai',g:['ceres','proserpina'],span:5,approx:true,note:'Spring preliminary initiations at Agrai along the Ilissos river preparing mystics for the Greater Mysteries.'},
+    {mi:8,d:23,n:'Diasia',g:['jupiter'],note:'Great public gathering in honor of Zeus Meilichios (the Kindly/Chthonic); bloodless grain cakes and burnt offerings.'},
+    {mi:9,d:6,n:'Elaphebolia',g:['diana'],note:'Festival honoring Artemis the Deer-Huntress, celebrated with stag-shaped cakes made of dough, honey, and sesame.'},
+    {mi:9,d:10,n:'City Dionysia',g:['liber'],span:6,note:'The premier dramatic and poetic festival of Athens; premiere of tragedies, comedies, and dithyrambs.'},
+    {mi:9,d:17,n:'Pandia',g:['jupiter'],note:'Post-Dionysia assembly and sacrifices dedicated to Zeus Pandios in the spring light.'},
+    {mi:10,d:6,n:'Delphinia',g:['apollo','diana'],note:'Young maidens carry suppliant branches bound in white wool to Apollo\'s Delphinion temple before sailing season.'},
+    {mi:10,d:16,n:'Mounichia',g:['diana'],note:'Procession carrying round cakes ringed with burning candles (amphiphontes) to Artemis of the harbor at Piraeus.'},
+    {mi:10,d:19,n:'Olympieia',g:['jupiter'],note:'Splendid equestrian games and cavalry reviews celebrating Zeus Olympios.'},
+    {mi:11,d:6,n:'Thargelia — the purification',g:['diana'],note:'Purification of the city with the expulsion of ritual scapegoats (pharmakoi) prior to harvest.'},
+    {mi:11,d:7,n:'Thargelia — the offering',g:['apollo','diana'],note:'Birthday of Apollo; the first loaf baked from the new crop (thargelos) is offered to the sun god.'},
+    {mi:11,d:19,n:'Bendideia',g:['bendis','diana'],note:'Celebration of the Thracian hunt-goddess Bendis in Piraeus featuring a novel torch race on horseback.'},
+    {mi:11,d:24,n:'Kallynteria',g:['minerva'],note:'The temple of Athena Polias is swept and adorned; sacred hearth fires are rekindled.'},
+    {mi:11,d:25,n:'Plynteria',g:['minerva'],note:'The ancient wooden statue (xoanon) of Athena is stripped of robes, covered, and washed in the sea at Phaleron.'},
+    {mi:12,d:3,n:'Skira (Skirophoria)',g:['minerva','ceres','neptune'],note:'Priests process with white parasols (skira) to Skiron; secret offerings cast into the chasms of Demeter.'},
+    {mi:12,d:12,n:'Arrhephoria',g:['minerva','venus'],approx:true,note:'Young maidens carry secret sacred baskets down underground caverns from the Acropolis to Aphrodite\'s shrine.'},
+    {mi:12,d:14,n:'Dipolieia / Bouphonia',g:['jupiter'],note:'Archaic ritual where an ox is sacrificed for eating grain on Zeus\'s altar, followed by a trial of the axe.'},
+    {mi:12,d:30,n:'Diisoteria',g:['jupiter','minerva'],note:'Solemn sacrifice of thanks to Zeus the Savior (Soter) and Athena Soteira closing out the Athenian civil year.'}
+  ],
+  monthly:[
+    {d:1,n:'Noumenia',g:['panhellenic','apollo','vesta'],note:'The new month: wreaths, incense, and the household gods.'},
+    {d:2,n:'Agathos Daimon',g:['agathos'],note:'Libations poured to the Good Spirit of fortune and household health.'},
+    {d:3,n:'Athena',g:['minerva'],note:'Monthly honor to Athena on the third day of the lunar cycle.'},
+    {d:4,n:'Herakles, Hermes, Aphrodite and Eros',g:['hercules','mercury','venus','eros'],note:'Fourth lunar day sacred to the companions of love, travel, and strength.'},
+    {d:6,n:'Artemis',g:['diana'],note:'Sixth lunar day sacred to Artemis of the hunt and wild spaces.'},
+    {d:7,n:'Apollo',g:['apollo'],note:'Seventh lunar day celebrating the birth and radiant light of Apollo.'},
+    {d:8,n:'Poseidon and Theseus',g:['neptune','theseus'],note:'Eighth lunar day honoring the lord of the sea and the hero Theseus.'}
+  ]
+},
+{
+  id:'delphic', name:'Delphic', region:'Delphi & the Amphiktyony', hue:172,
+  anchor:'jun', interc:5, conf:'medium',
+  src:'Month names are well attested; order and summer year-start follow the standard reconstruction.',
+  months:['Apellaios','Boukatios','Boathoos','Heraios','Daidaphorios','Poitropios','Amalios','Bysios','Theoxenios','Endyspoitropios','Herakleios','Ilaios'],
+  fest:[
+    {mi:1,d:7,n:'Apellai — the phratry month opens',g:['apollo'],approx:true,note:'Opening of the Delphic festival month honoring Apollo with clan assemblies and offerings.'},
+    {mi:2,d:7,n:'Pythia (Pythian Games)',g:['apollo'],span:6,approx:true,cycle:[4,2026],note:'Every fourth year: pan-Hellenic musical, poetic, and athletic games in the 3rd year of each Olympiad commemorating Apollo\'s slaying of the Python.'},
+    {mi:6,d:7,n:'Poitropia — averting rites',g:['apollo','jupiter'],approx:true,note:'Winter apotropaic rites imploring Apollo to avert blight, plague, and harsh frost.'},
+    {mi:8,d:7,n:'Birthday of Apollo; the oracle speaks',g:['apollo'],note:'Bysios 7. The single day in ancient times when the Pythia delivered oracular prophecies to petitioners.'},
+    {mi:9,d:7,n:'Theoxenia — the gods are hosted at table',g:['apollo','dioscuri','panhellenic'],approx:true,note:'The return of Apollo from the Hyperboreans; all gods are invited to feast at a sacred banquet.'},
+    {mi:11,d:7,n:'Herakleia',g:['hercules'],approx:true,note:'Sacrifices and athletic contests honoring Herakles\'s labors and defense of the sanctuary.'},
+    {mi:12,d:7,n:'Septeria; Herois; Charila',g:['apollo','proserpina'],approx:true,cycle:[8,2026],note:'Eight-year cycle rites reenacting Apollo\'s purification in Tempe and the redemption of heroines.'}
+  ]
+},
+{
+  id:'macedonian', name:'Macedonian', region:'Macedon & Hellenistic east', hue:28,
+  anchor:'sep', interc:5, conf:'high',
+  src:'Month order and autumn year-start are secure across Hellenistic kingdoms.',
+  months:['Dios','Apellaios','Audynaios','Peritios','Dystros','Xandikos','Artemisios','Daisios','Panemos','Loios','Gorpiaios','Hyperberetaios'],
+  fest:[
+    {mi:1,d:1,n:'Olympia at Dion',g:['jupiter','muses'],span:9,approx:true,note:'Nine days of games, dramatic spectacles, and sacrifices honoring Zeus Olympios and the Nine Muses.'},
+    {mi:1,d:15,n:'Hetairideia',g:['jupiter'],approx:true,note:'Sacred banquet of the King and the Royal Companions (Hetairoi) honoring Zeus Hetaireios.'},
+    {mi:6,d:1,n:'Xandika — purification of the army',g:['mars','minerva'],span:2,approx:true,note:'Springtime lustrations and mock battle of the Macedonian royal army before campaign season.'},
+    {mi:8,d:15,n:'Daisia',g:['liber'],approx:true,note:'Joyous wine and harvest festival celebrating Dionysian release and civic abundance.'},
+    {mi:11,d:15,n:'Gorpiaia',g:['hercules'],approx:true,note:'Honors Herakles Patroos, the divine ancestor of the Argead Macedonian dynasty.'}
+  ]
+},
+{
+  id:'boeotian', name:'Boeotian', region:'Thebes, Thespiai, Orchomenos', hue:96,
+  anchor:'dec', interc:8, conf:'medium',
+  src:'Winter year-start with Boukatios.',
+  months:['Boukatios','Hermaios','Prostaterios','Agrionios','Homoloios','Theilouthios','Hippodromios','Panamos','Pamboiotios','Damatrios','Alalkomenios','Thiouios'],
+  fest:[
+    {mi:1,d:7,n:'Boukatia',g:['jupiter'],approx:true,note:'Sacred cattle-sacrifice festival opening the Boeotian year in honor of Zeus.'},
+    {mi:4,d:14,n:'Agrionia',g:['liber'],span:3,approx:true,note:'A nocturnal rite of sacred madness and return commemorating the daughters of Minyas.'},
+    {mi:5,d:14,n:'Homoloia',g:['jupiter','ceres'],approx:true,note:'Feast celebrating civic concord and agricultural harmony between Boeotian cities.'},
+    {mi:7,d:14,n:'Ptoia',g:['apollo'],approx:true,cycle:[4,2026],note:'Quadrennial musical and athletic games held at the oracle of Apollo Ptoios.'},
+    {mi:8,d:14,n:'Daidala at Plataia',g:['juno','jupiter'],approx:true,cycle:[7,2026],note:'The wooden bride statue is carried up Mount Kithairon to celebrate the reconciliation of Zeus and Hera. Celebrated as the Little Daidala every 7 years and the Great Daidala every 60 years.'},
+    {mi:9,d:14,n:'Pamboiotia',g:['minerva'],span:3,approx:true,note:'The national federal festival of the Boeotian League held at the temple of Athena Itonia.'},
+    {mi:10,d:14,n:'Damatria',g:['ceres'],approx:true,note:'Harvest festival honoring Demeter Damatria for grain prosperity across the Boeotian plain.'},
+    {mi:11,d:14,n:'Alalkomenia',g:['minerva'],approx:true,note:'Honors Athena Alalkomeneis, ancient tutelary protectress of Boeotia.'}
+  ]
+},
+{
+  id:'laconian', name:'Laconian (Spartan)', region:'Sparta & Lakonia', hue:352,
+  anchor:'sep', interc:5, conf:'low',
+  src:'Attested Spartan months arranged to align Hyakinthia and Karneia in their attested seasons.',
+  months:['Apellaios','Diosthyos','Eleusinios','Gerastios','Artemisios','Phliasios','Herasios','Panamos','Hyakinthios','Hekatombeus','(month unattested)','Karneios'],
+  fest:[
+    {mi:1,d:7,n:'Apellai',g:['apollo'],approx:true,note:'Spartan civic assemblies and sacrificial introductions of young warriors into the state.'},
+    {mi:5,d:16,n:'Artemis Orthia — the endurance of the boys',g:['diana'],approx:true,note:'Severe ritual trial of endurance and flogging at the altar of Artemis Orthia.'},
+    {mi:9,d:10,n:'Hyakinthia at Amyklai',g:['apollo','hyakinthos'],span:3,approx:true,note:'Three days of solemn mourning for the hero Hyakinthos followed by exuberant songs for Apollo.'},
+    {mi:10,d:12,n:'Gymnopaidiai',g:['apollo','diana','liber'],span:3,approx:true,note:'Festivals of unarmed singing, dancing, and choruses under the blazing sun in memory of the fallen at Thyrea.'},
+    {mi:12,d:7,n:'Karneia',g:['apollo'],span:9,approx:true,note:'Nine days of encampment under military tents celebrating Apollo Karneios, during which no Spartan army could march.'}
+  ]
+},
+{
+  id:'corinthian', name:'Corinthian', region:'Corinth & colonies', hue:44,
+  anchor:'sep', interc:5, conf:'medium',
+  src:'Corinthian month list through Corcyra.',
+  months:['Phoinikaios','Kraneios','Lanotropios','Machaneus','Dodekateus','Eukleios','Artemisios','Psydreus','Gameilios','Agrianios','Panamos','Apellaios'],
+  fest:[
+    {mi:4,d:8,n:'Zeus Machaneus',g:['jupiter'],approx:true,note:'Sacrifices to Zeus the Contriver and Inventor of purposeful solutions.'},
+    {mi:6,d:12,n:'Eukleia',g:['diana'],approx:true,note:'Honors Artemis Eukleia, goddess of good fame, civic glory, and modesty.'},
+    {mi:7,d:16,n:'Isthmia',g:['neptune'],span:3,approx:true,cycle:[2,2027],note:'Held in the first and third year of each Olympiad (biennial), in the pine grove at Isthmia.'},
+    {mi:8,d:12,n:'Hellotia',g:['minerva'],approx:true,note:'A torch race and festival honoring Athena Hellotis in Corinth.'},
+    {mi:10,d:12,n:'Aphrodite of Akrokorinth',g:['venus'],approx:true,note:'Celebrations atop the summit citadel of Akrokorinth dedicated to Aphrodite, patroness of seafaring wealth.'}
+  ]
+},
+{
+  id:'argive', name:'Argive', region:'Argos & Argolid', hue:264,
+  anchor:'sep', interc:5, conf:'low',
+  src:'Argive inscriptions composite.',
+  months:['Panamos','Karneios','Agrianios','Hermaios','Amyklaios','Apellaios','Arneios','Teleos','Agyieios','(month unattested)','(month unattested)','(month unattested)'],
+  fest:[
+    {mi:2,d:7,n:'Karneia at Argos',g:['apollo'],span:3,approx:true,note:'Argive pastoral and civic rites honoring Apollo Karneios.'},
+    {mi:6,d:7,n:'Apollo Lykeios',g:['apollo'],approx:true,note:'Main civic sacrifices in the agora of Argos honoring Apollo the Wolf-Slayer.'},
+    {mi:8,d:12,n:'Heraia / Hekatombaia',g:['juno'],span:2,approx:true,cycle:[4,2028],note:'Grand festival at the Argive Heraion; procession with a hundred oxen and bronze shields awarded to victorious athletes (every 4 years in Olympic years).' },
+    {mi:9,d:12,n:'Nemea',g:['jupiter'],span:3,approx:true,cycle:[2,2026],note:'Biennial games for Zeus Nemeios; judges dressed in black mourning robes honoring the hero Opheltes.'},
+    {mi:5,d:12,n:'The bath of Pallas at the Inachos',g:['minerva'],approx:true,note:'Ceremonial washing of the sacred Palladium statue of Athena in the waters of the Inachos river.'}
+  ]
+},
+{
+  id:'epidaurian', name:'Epidaurian', region:'Epidauros & Asklepieion', hue:186,
+  anchor:'sep', interc:5, conf:'medium',
+  src:'Sanctuary inscriptions.',
+  months:['Azosios','Karneios','Praratios','Hermaios','Gamos','Teleos','Posidaios','Artamitios','Agrianios','Panamos','Kyklios','Apellaios'],
+  fest:[
+    {mi:2,d:7,n:'Karneia',g:['apollo'],approx:true,note:'Epidaurian observances honoring Apollo Karneios.'},
+    {mi:8,d:9,n:'Asklepieia',g:['aesculapius','apollo','asklepiadai'],span:9,approx:true,cycle:[4,2027],note:'Great quadrennial healing festival held nine days after the Isthmia; incubation in the abaton, dramatic poetry, and athletic games.'},
+    {mi:8,d:12,n:'Apollo Maleatas',g:['apollo'],approx:true,note:'Hillside sacrifices to Apollo Maleatas, archaic god of healing and mountain breezes.'},
+    {mi:11,d:12,n:'Hygieia',g:['salus'],approx:true,note:'Offerings to Hygieia, goddess of health, sanitation, and disease prevention.'}
+  ]
+},
+{
+  id:'elian', name:'Elean', region:'Elis & Olympia', hue:38,
+  anchor:'jun', interc:5, conf:'low',
+  src:'Elean fragments; Olympic games tied to post-solstice full moon.',
+  months:['Apollonios','Parthenios','Alpheios','Athanaios','Thyios','Elaphios','Diosthyos','(month unattested)','(month unattested)','(month unattested)','(month unattested)','(month unattested)'],
+  fest:[
+    {mi:2,d:11,n:'Olympia',g:['jupiter','hercules','hebe'],span:5,approx:true,cycle:[4,2028],note:'The greatest pan-Hellenic games at Olympia; the Olympic truce (ekecheiria) observed across Greece.'},
+    {mi:2,d:13,n:'Hekatomb at the altar of Zeus',g:['jupiter'],approx:true,cycle:[4,2028],note:'Quadrennial grand sacrifice of one hundred oxen on the great ash altar of Zeus Olympios.'},
+    {mi:3,d:11,n:'Heraia at Olympia',g:['juno'],approx:true,cycle:[4,2028],note:'The quadrennial footrace of the sixteen women and their woven peplos for Hera.'},
+    {mi:5,d:11,n:'Thyia — vats of Dionysos',g:['liber'],approx:true,note:'Mystery rite where empty cauldrons sealed in the temple are found miraculously brimming with wine.'}
+  ]
+},
+{
+  id:'cretan', name:'Cretan', region:'Knossos, Gortyn, Lato', hue:126,
+  anchor:'sep', interc:5, conf:'low',
+  src:'Cretan composite.',
+  months:['Thesmophorion','Hermaios','Eiman','Matarchios','Agyios','Dioskouros','Theodaisios','Pontos','Rhabinthios','Hyperberetos','Nekysios','Welchanios'],
+  fest:[
+    {mi:1,d:11,n:'Thesmophoria',g:['ceres','proserpina'],span:3,approx:true,note:'Cretan agricultural mystery rites honoring Demeter and Persephone.'},
+    {mi:6,d:12,n:'Dioskouria',g:['dioscuri'],approx:true,note:'Festivals honoring Castor and Polydeukes as guardians of youth, cavalry, and seafaring safety.'},
+    {mi:7,d:12,n:'Theodaisia',g:['liber','panhellenic'],approx:true,note:'Communal banquet where all the Olympian gods are invited to feast with the citizens.'},
+    {mi:11,d:12,n:'Nekysia — rites for the dead',g:['manes','dis'],approx:true,note:'Solemn ancestral remembrance and libations poured into the earth for departed kin.'},
+    {mi:12,d:12,n:'Welchania',g:['jupiter'],approx:true,note:'Honors Zeus Welchanos, the youthful Cretan spirit of burgeoning plant life and annual renewal.'}
+  ]
+},
+{
+  id:'rhodian', name:'Rhodian', region:'Rhodes & Peraia', hue:16,
+  anchor:'jun', interc:5, conf:'medium',
+  src:'Epigraphically well attested.',
+  months:['Panamos','Karneios','Dalios','Thesmophorios','Diosthyos','Theudaisios','Pedageitnyos','Badromios','Sminthios','Artamitios','Agrianios','Hyakinthios'],
+  fest:[
+    {mi:1,d:12,n:'Halieia',g:['sol'],span:3,approx:true,cycle:[4,2028],note:'Grand festival for Helios; athletic games and a four-horse chariot cast into the sea for the sun god (celebrated every 4 years in Olympic years).' },
+    {mi:2,d:7,n:'Karneia',g:['apollo'],span:3,approx:true,note:'Rhodian celebrations honoring Apollo Karneios.'},
+    {mi:3,d:12,n:'Dalia — Apollo of Delos',g:['apollo'],approx:true,note:'Sacrifices and choruses dedicated to Delian Apollo.'},
+    {mi:4,d:11,n:'Thesmophoria',g:['ceres','proserpina'],span:3,approx:true,note:'Rhodian women\'s mystery rites honoring Demeter.'},
+    {mi:6,d:12,n:'Theudaisia',g:['liber'],approx:true,note:'Joyous winter feast of Dionysos and divine hospitality.'},
+    {mi:9,d:12,n:'Sminthia',g:['apollo'],approx:true,note:'Honors Apollo Smintheus, protector of crops against mice and vermin.'},
+    {mi:12,d:12,n:'Hyakinthia',g:['apollo','hyakinthos'],approx:true,note:'Summer commemorations of Hyakinthos and Apollo.'}
+  ]
+},
+{
+  id:'thessalian', name:'Thessalian', region:'Larisa & Thessalian league', hue:78,
+  anchor:'sep', interc:5, conf:'medium',
+  src:'Thessalian league calendar.',
+  months:['Itonios','Panamos','Themistios','Agagylios','Hermaios','Apollonios','Leschanorios','Aphrios','Thyios','Homoloios','Hippodromios','Phyllikos'],
+  fest:[
+    {mi:1,d:12,n:'Itonia',g:['minerva','jupiter'],span:3,approx:true,note:'The national festival of the Thessalian League honoring Athena Itonia, goddess of the open plains.'},
+    {mi:3,d:12,n:'Peloria',g:['jupiter'],approx:true,note:'Thanksgiving banquet of Zeus Pelorios; masters serve slaves and strangers are welcomed at tables.'},
+    {mi:6,d:7,n:'Apollo of Larisa',g:['apollo'],approx:true,note:'Spring civic festival honoring Apollo at the acropolis of Larisa.'},
+    {mi:9,d:12,n:'Thyia',g:['liber'],approx:true,note:'Festivals honoring Dionysos and the sacred ecstatic rites of Mount Parnassus.'},
+    {mi:11,d:12,n:'Hippodromia',g:['neptune'],approx:true,note:'Equestrian games and sacrifices to Poseidon Petraios, who split the Thessalian rocks to drain the plains.'},
+    {mi:12,d:12,n:'Eleutheria at Larisa',g:['jupiter'],approx:true,note:'Freedom festival commemorating liberation with torch races and athletic games.'}
+  ]
+},
+{
+  id:'aetolian', name:'Aetolian', region:'Aitolia & League', hue:150,
+  anchor:'sep', interc:5, conf:'low',
+  src:'League decrees at Thermon.',
+  months:['Prokyklios','Athanaios','Boukatios','Dios','Euthyaios','Homoloios','Hermaios','Dadaphorios','Ischys','Laphraios','Panamos','Thermios'],
+  fest:[
+    {mi:2,d:12,n:'Athanaia',g:['minerva'],approx:true,note:'Aetolian federal sacrifices honoring Athena protectress of the League.'},
+    {mi:10,d:12,n:'Laphria',g:['diana'],span:2,approx:true,note:'The great mountain festival of Artemis Laphria celebrated with massive sacrificial bonfires.'},
+    {mi:12,d:12,n:'Thermika',g:['apollo'],span:3,approx:true,note:'The autumn assembly and athletic games at Thermon honoring Apollo Thermios.'},
+    {mi:5,d:12,n:'Soteria at Delphi',g:['jupiter','apollo'],span:3,approx:true,note:'Celebration instituted by the Aetolians to commemorate the miraculous repulse of the Celtic invasion in 279 BCE.'},
+    {mi:8,d:12,n:'Panaitolika',g:['apollo','panhellenic'],approx:true,note:'The spring general assembly and religious council of the Aetolian League.'}
+  ]
+},
+{
+  id:'sicilian', name:'Sicilian Greek (Doric)', region:'Syracuse, Tauromenion', hue:300,
+  anchor:'sep', interc:5, conf:'low',
+  src:'Tauromenion accounts.',
+  months:['Thesmophorios','Dionysios','Artamitios','Karneios','Dalios','Theudaisios','Agrianios','Badromios','Panamos','Lanotropios','Apollonios','Eukleios'],
+  fest:[
+    {mi:1,d:11,n:'Thesmophoria',g:['ceres','proserpina'],span:3,approx:true,note:'Ten-day Sicilian festival of Demeter and Kore, where grain was said to have first appeared on earth.'},
+    {mi:2,d:12,n:'Dionysia at Syracuse',g:['liber'],span:3,approx:true,note:'Theatrical drama and comedy competitions in the great stone amphitheater of Syracuse.'},
+    {mi:3,d:12,n:'Artemisia at Syracuse',g:['diana'],approx:true,note:'Festival honoring Artemis of the spring of Arethousa on Ortygia island.'},
+    {mi:4,d:7,n:'Karneia',g:['apollo'],span:3,approx:true,note:'Sicilian Dorian observance honoring Apollo Karneios.'},
+    {mi:7,d:12,n:'Anthesphoria at Enna',g:['proserpina','kore','ceres'],approx:true,note:'The Flower-Gathering: celebrating the springtime return of Persephone to the blooming meadows of Enna.'},
+    {mi:9,d:12,n:'Koreia',g:['proserpina','ceres'],approx:true,note:'Sacrifices honoring Kore as queen of the harvest and the underworld.'}
+  ]
+},
+{
+  id:'locris_skarpheia', name:'Locrian — Skarpheia', region:'Opuntian Locris', hue:210,
+  anchor:'sep', interc:5, conf:'placeholder',
+  src:'PLACEHOLDER scaffolding.',
+  months:['Skarpheian I','Skarpheian II','Skarpheian III','Skarpheian IV','Skarpheian V','Skarpheian VI','Skarpheian VII','Skarpheian VIII','Skarpheian IX','Skarpheian X','Skarpheian XI','Skarpheian XII'],
+  fest:[
+    {mi:1,d:12,n:'Aianteia — the Lokrian hero Aias',g:['ajax'],approx:true,note:'Heroic rites honoring Ajax the Lesser; an empty seat was kept for him in the battle line.'}
+  ]
+},
+{
+  id:'locris_thronion', name:'Locrian — Thronion', region:'Opuntian Locris', hue:230,
+  anchor:'sep', interc:5, conf:'placeholder',
+  src:'PLACEHOLDER scaffolding.',
+  months:['Thronian I','Thronian II','Thronian III','Thronian IV','Thronian V','Thronian VI','Thronian VII','Thronian VIII','Thronian IX','Thronian X','Thronian XI','Thronian XII'],
+  fest:[]
+},
+{
+  id:'locris_ozolian', name:'Locrian — Ozolian (ordinal)', region:'Ozolian Locris', hue:250,
+  anchor:'sep', interc:5, conf:'medium',
+  src:'Ordinal numbering attested.',
+  months:['First month','Second month','Third month','Fourth month','Fifth month','Sixth month','Seventh month','Eighth month','Ninth month','Tenth month','Eleventh month','Twelfth month'],
+  fest:[
+    {mi:4,d:12,n:'Asklepieia at Naupaktos',g:['aesculapius'],approx:true,note:'Healing rites and prayers for health at the seaside Asklepieion of Naupaktos.'},
+    {mi:10,d:12,n:'Artemis of Amphissa',g:['diana'],approx:true,note:'Feast honoring Artemis patroness of the olive groves of Amphissa.'}
+  ]
+}
+];
+
+/* ============================================================
+   CALENDAR ENGINE
+   ============================================================ */
+var CFG = {
+  yearStart: 2026,
+  yearEnd:   3000,
+  tzHours:   2,
+  noumenia:  1
+};
+
+var MOONS = [];
+function buildMoons(y0, y1) {
+  MOONS = [];
+  var k0 = Math.floor(kForDate(y0 - 2, 1, 1));
+  var k1 = Math.ceil(kForDate(y1 + 2, 12, 31));
+  for (var k = k0; k <= k1; k++) MOONS.push(newMoonJD(k));
+  MOONS.sort(function (a, b) { return a - b; });
+}
+function noumeniaDayNo(jd) {
+  return Math.round(jd + CFG.tzHours / 24 + 0.5) + CFG.noumenia;
+}
+function firstMoonIndexAfter(jd) {
+  for (var i = 0; i < MOONS.length; i++) if (MOONS[i] > jd) return i;
+  return -1;
+}
+
+function buildGreekYear(cal, anchorYear) {
+  var a = seasonJD(cal.anchor, anchorYear);
+  var b = seasonJD(cal.anchor, anchorYear + 1);
+  var i0 = firstMoonIndexAfter(a), i1 = firstMoonIndexAfter(b);
+  if (i0 < 0 || i1 < 0) return [];
+  var count = i1 - i0;
+  var names = [], mis = [], j;
+  for (j = 0; j < 12; j++) { names.push(cal.months[j]); mis.push(j + 1); }
+  if (count === 13) {
+    var idx = Math.min(cal.interc, 11);
+    names.splice(idx + 1, 0, 'Second ' + cal.months[idx]);
+    mis.splice(idx + 1, 0, 0);
+  }
+  var out = [];
+  for (j = 0; j < count; j++) {
+    var s = noumeniaDayNo(MOONS[i0 + j]);
+    var e = noumeniaDayNo(MOONS[i0 + j + 1]);
+    out.push({
+      name: names[j] || ('Month ' + (j + 1)), mi: mis[j] === undefined ? 0 : mis[j],
+      isInterc: mis[j] === 0, start: s, len: e - s,
+      year: anchorYear, ord: j + 1, total: count
+    });
+  }
+  return out;
+}
+
+var ROMAN_MONTH_NAMES = ['Ianuarias','Februarias','Martias','Apriles','Maias','Iunias',
+  'Iulias','Augustas','Septembres','Octobres','Novembres','Decembres'];
+var ROMAN_MONTH_ABL = ['Ianuariis','Februariis','Martiis','Aprilibus','Maiis','Iuniis',
+  'Iuliis','Augustis','Septembribus','Octobribus','Novembribus','Decembribus'];
+var LONG_MONTHS = [3, 5, 7, 10];
+function nonesOf(m) { return LONG_MONTHS.indexOf(m) >= 0 ? 7 : 5; }
+function idesOf(m)  { return LONG_MONTHS.indexOf(m) >= 0 ? 15 : 13; }
+function daysInMonth(y, m) { return [31, (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0 ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][m - 1]; }
+function toRoman(n) {
+  var v = [1000,900,500,400,100,90,50,40,10,9,5,4,1],
+      s = ['M','CM','D','CD','C','XC','L','XL','X','IX','V','IV','I'], r = '';
+  for (var i = 0; i < v.length; i++) while (n >= v[i]) { r += s[i]; n -= v[i]; }
+  return r;
+}
+function romanDateLabel(y, m, d) {
+  var non = nonesOf(m), ide = idesOf(m);
+  if (d === 1) return 'Kal. ' + ROMAN_MONTH_ABL[m - 1];
+  if (d === non) return 'Non. ' + ROMAN_MONTH_ABL[m - 1];
+  if (d === ide) return 'Eid. ' + ROMAN_MONTH_ABL[m - 1];
+  function before(target, label, mIdx) {
+    var diff = target - d + 1;
+    if (diff === 2) return 'prid. ' + label + ' ' + ROMAN_MONTH_NAMES[mIdx];
+    return 'a.d. ' + toRoman(diff) + ' ' + label + ' ' + ROMAN_MONTH_NAMES[mIdx];
+  }
+  if (d < non) return before(non, 'Non.', m - 1);
+  if (d < ide) return before(ide, 'Eid.', m - 1);
+  var nm = m === 12 ? 1 : m + 1;
+  var diff = daysInMonth(y, m) - d + 2;
+  if (diff === 2) return 'prid. Kal. ' + ROMAN_MONTH_NAMES[nm - 1];
+  return 'a.d. ' + toRoman(diff) + ' Kal. ' + ROMAN_MONTH_NAMES[nm - 1];
+}
+
+var INDEX = {};
+var RANGE = { first: 0, last: 0 };
+var WIN = { y0: 0, y1: 0, first: 0, last: 0 };
+function hasData(dn) { return dn >= WIN.first && dn <= WIN.last; }
+
+function slot(dayNo) {
+  if (!INDEX[dayNo]) INDEX[dayNo] = { fests: [], cal: {} };
+  return INDEX[dayNo];
+}
+function addFest(dayNo, f) { slot(dayNo).fests.push(f); }
+
+function buildIndex(y0, y1) {
+  INDEX = {};
+  WIN.y0 = y0; WIN.y1 = y1;
+  WIN.first = dayNoOf(y0, 1, 1);
+  WIN.last  = dayNoOf(y1, 12, 31);
+  buildMoons(y0 - 1, y1 + 1);
+  RANGE.first = dayNoOf(CFG.yearStart, 1, 1);
+  RANGE.last  = dayNoOf(CFG.yearEnd, 12, 31);
+
+  var y, i, j, k;
+
+  for (y = y0; y <= y1; y++) {
+    for (i = 0; i < ROMAN.length; i++) {
+      var r = ROMAN[i], span = r.span || 1;
+      if (r.cycle && ((y - r.cycle[1]) % r.cycle[0] + r.cycle[0]) % r.cycle[0] !== 0) continue;
+      for (j = 0; j < span; j++) {
+        var dn = dayNoOf(y, r.m, r.d) + j;
+        if (!hasData(dn)) continue;
+        addFest(dn, {
+          sys: 'roman', name: r.n, gods: r.g, note: r.note || '',
+          approx: !!r.cf, day: j + 1, span: span, cycle: r.cycle ? r.cycle[0] : 0,
+          native: 'Roman fasti \u00b7 ' + r.d + ' ' + ROMAN_MONTH_NAMES[r.m - 1]
+        });
+      }
+    }
+    for (var m = 1; m <= 12; m++) {
+      var pts = [[1, 'kal'], [nonesOf(m), 'non'], [idesOf(m), 'eid']];
+      for (k = 0; k < pts.length; k++) {
+        var o = ROMAN_MONTHLY[pts[k][1]];
+        var dn2 = dayNoOf(y, m, pts[k][0]);
+        if (!hasData(dn2)) continue;
+        addFest(dn2, {
+          sys: 'roman', isMarker: true, monthly: true, name: '✦ ' + o.n + ' ' + ROMAN_MONTH_NAMES[m - 1],
+          gods: o.g, note: o.note, day: 1, span: 1, native: romanDateLabel(y, m, pts[k][0])
+        });
+      }
+    }
+  }
+
+  for (i = 0; i < GREEK.length; i++) {
+    var cal = GREEK[i];
+    for (y = y0 - 1; y <= y1; y++) {
+      var months = buildGreekYear(cal, y);
+      for (j = 0; j < months.length; j++) {
+        var mo = months[j];
+        for (var d = 0; d < mo.len; d++) {
+          var dn3 = mo.start + d;
+          if (!hasData(dn3)) continue;
+          slot(dn3).cal[cal.id] = { name: mo.name, day: d + 1, len: mo.len, interc: mo.isInterc, ord: mo.ord, total: mo.total };
+        }
+        if (mo.isInterc) continue;
+        var list = (cal.fest || []).filter(function (f) {
+          if (f.mi !== mo.mi) return false;
+          if (f.cycle && ((mo.year - f.cycle[1]) % f.cycle[0] + f.cycle[0]) % f.cycle[0] !== 0) return false;
+          return true;
+        });
+        for (k = 0; k < list.length; k++) {
+          var f = list[k], sp = f.span || 1;
+          for (var s2 = 0; s2 < sp; s2++) {
+            var dd = f.d + s2;
+            if (dd > mo.len) break;
+            var dn4 = mo.start + dd - 1;
+            if (!hasData(dn4)) continue;
+            addFest(dn4, {
+              sys: cal.id, name: f.n, gods: f.g, note: f.note || '',
+              approx: !!f.approx, day: s2 + 1, span: sp, cycle: f.cycle ? f.cycle[0] : 0,
+              native: cal.name + ' \u00b7 ' + mo.name + ' ' + dd
+            });
+          }
+        }
+        if (cal.monthly) {
+          for (k = 0; k < cal.monthly.length; k++) {
+            var mm = cal.monthly[k];
+            if (mm.d > mo.len) continue;
+            var dn5 = mo.start + mm.d - 1;
+            if (!hasData(dn5)) continue;
+            addFest(dn5, {
+              sys: cal.id, monthly: true, name: mm.n, gods: mm.g, note: mm.note || '',
+              day: 1, span: 1, native: cal.name + ' \u00b7 ' + mo.name + ' ' + mm.d
+            });
+          }
+        }
+      }
+    }
+  }
+  return INDEX;
+}
+
+function ensureWindow(y) {
+  if (y >= WIN.y0 && y <= WIN.y1 && WIN.y0) return false;
+  var y0 = Math.max(CFG.yearStart, y - 1), y1 = Math.min(CFG.yearEnd, y + 1);
+  buildIndex(y0, y1);
+  return true;
+}
+
+/* ============================================================
+   INTERFACE & GOOGLE CALENDAR / ICAL ENGINE
+   ============================================================ */
+var SYSTEMS = [{
+  id:'roman', name:'Roman', region:'Rome & Italy', hue:355, conf:'high',
+  src:'Fixed to the days of the Republican and Julian fasti.'
+}].concat(GREEK.map(function (c) {
+  return { id:c.id, name:c.name, region:c.region, hue:c.hue, conf:c.conf, src:c.src, greek:true };
+}));
+var SYS = {};
+SYSTEMS.forEach(function (s) { SYS[s.id] = s; });
+
+var WEEK = [
+  ['Lunae','Monday'],['Martis','Tuesday'],['Mercurii','Wednesday'],['Iovis','Thursday'],
+  ['Veneris','Friday'],['Saturni','Saturday'],['Solis','Sunday']
+];
+var GMONTH = ['January','February','March','April','May','June','July','August',
+  'September','October','November','December'];
+
+var S = {
+  enabled: {}, gods: {}, q: '', view: 'grid',
+  y: 0, m: 0, sel: null,
+  opts: { moon:true, roman:true, noum:true, monthly:true, approx:true, offset:1, theme:'night' }
+};
+
+function save() {
+  try {
+    localStorage.setItem('vpe.Calendar-Fasti', JSON.stringify({
+      enabled:S.enabled, gods:S.gods, opts:S.opts, view:S.view
+    }));
+  } catch (e) {}
+}
+function load() {
+  try {
+    var raw = localStorage.getItem('vpe.Calendar-Fasti');
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch (e) { return null; }
+}
+
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, function (c) {
+    return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
+  });
+}
+function godLabel(k) { var d = DEITIES[k]; if (!d) return k; return d[0] !== '\u2014' ? d[0] : d[1]; }
+function godTitle(k) {
+  var d = DEITIES[k]; if (!d) return k;
+  var pair = d[0] !== '\u2014' && d[1] !== '\u2014' && d[0] !== d[1] ? d[0] + ' / ' + d[1] : godLabel(k);
+  return pair + ' \u2014 ' + d[2];
+}
+
+function festivalSlug(name) {
+  return name.toLowerCase()
+    .replace(/^✦\s*/, '')
+    .replace(/—.*$/, '')
+    .replace(/\(.*?\)/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function moonSVG(size, illum, waxing) {
+  var r = size / 2 - 0.6, k = 1 - 2 * illum, rx = Math.max(0.001, r * Math.abs(k));
+  var outer = waxing ? 1 : 0, inner = waxing ? (k > 0 ? 0 : 1) : (k > 0 ? 1 : 0);
+  var c = size / 2;
+  var lit = 'M ' + c + ' ' + (c - r) + ' A ' + r + ' ' + r + ' 0 0 ' + outer + ' ' + c + ' ' + (c + r) +
+            ' A ' + rx + ' ' + r + ' 0 0 ' + inner + ' ' + c + ' ' + (c - r) + ' Z';
+  return '<svg class="moon" width="' + size + '" height="' + size + '" viewBox="0 0 ' + size + ' ' + size + '" aria-hidden="true">' +
+    '<circle cx="' + c + '" cy="' + c + '" r="' + r + '" fill="none" stroke="var(--line)" stroke-width="1"/>' +
+    (illum > 0.005 ? '<path d="' + lit + '" fill="var(--flame)" opacity="' + (0.35 + 0.6 * illum).toFixed(2) + '"/>' : '') +
+    '</svg>';
+}
+
+function isToday(dayNo) {
+  var n = new Date();
+  return dayNo === dayNoOf(n.getFullYear(), n.getMonth() + 1, n.getDate());
+}
+
+/* ---------- Date Suitability / Wedding Checker Logic ---------- */
+function evaluateSuitability(dn) {
+  var t = ymdOf(dn);
+  var non = nonesOf(t.m), ide = idesOf(t.m);
+  var issues = [];
+  var isMarker = (t.d === 1 || t.d === non || t.d === ide);
+  
+  if (t.d === 1) issues.push('Kalends (Kalendae) — dedicated to Juno/Janus; traditionally avoided for weddings.');
+  if (t.d === non) issues.push('Nones (Nonae) — holy announcement day; inauspicious for weddings.');
+  if (t.d === ide) issues.push('Ides (Idus) — dedicated to Jupiter; inauspicious for weddings and secular contracts.');
+
+  // Roman marriage taboos (Ovid Fasti)
+  if (t.m === 5) {
+    issues.push('Month of May — considered ill-omened for marriages due to Lemuria and purification rites.');
+  }
+  if (t.m === 6 && t.d <= 15) {
+    issues.push('Early June (1–15 June) — Vestalia period until the temple is cleansed (Q.St.D.F.).');
+  }
+  if (t.m === 2 && t.d >= 13 && t.d <= 21) {
+    issues.push('Parentalia / Feralia (13–21 Feb) — ancestral mourning rites; temples closed and weddings barred.');
+  }
+  if ((t.m === 8 && t.d === 24) || (t.m === 10 && t.d === 5) || (t.m === 11 && t.d === 8)) {
+    issues.push('Mundus Patet — underworld chamber open; religious taboo on initiating contracts/marriages.');
+  }
+
+  var fs = (INDEX[dn] ? INDEX[dn].fests : []).filter(function(f) { return !f.isMarker && !f.monthly; });
+  if (fs.length > 0) {
+    fs.forEach(function(f) {
+      issues.push('Festival Day: ' + f.name + ' (' + (SYS[f.sys] ? SYS[f.sys].name : f.sys) + ')');
+    });
+  }
+
+  var suitable = issues.length === 0;
+  return {
+    suitable: suitable,
+    isMarker: isMarker,
+    issues: issues,
+    verdict: suitable ? 'FAS — Clear for Weddings & Private Rites' : 'NEFAS / CONFLICTING — Caution Advised',
+    statusClass: suitable ? 'fas' : 'nefas'
+  };
+}
+
+/* ---------- Google Calendar Links & ICS Export Generator ---------- */
+function buildGCalUrl(f, dn) {
+  var t = ymdOf(dn);
+  var sy = t.y, sm = String(t.m).padStart(2, '0'), sd = String(t.d).padStart(2, '0');
+  var nextDay = ymdOf(dn + 1);
+  var ey = nextDay.y, em = String(nextDay.m).padStart(2, '0'), ed = String(nextDay.d).padStart(2, '0');
+  
+  var title = f.name;
+  var desc = (f.native ? f.native + '\n\n' : '') +
+             (f.note ? f.note + '\n\n' : '') +
+             (f.gods && f.gods.length ? 'Sacred to: ' + f.gods.map(godLabel).join(', ') + '\n\n' : '') +
+             'The Virtuous Path to Elysium — Calendar-Fasti';
+  
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+         '&text=' + encodeURIComponent(title) +
+         '&dates=' + sy + sm + sd + '/' + ey + em + ed +
+         '&details=' + encodeURIComponent(desc) +
+         '&location=' + encodeURIComponent(f.native || 'Sacred Cultus');
+}
+
+function exportMonthICS() {
+  var first = dayNoOf(S.y, S.m, 1), last = first + daysInMonth(S.y, S.m) - 1;
+  var ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Virtuous Path to Elysium//Calendar-Fasti//EN', 'CALSCALE:GREGORIAN'];
+  
+  var count = 0;
+  for (var dn = first; dn <= last; dn++) {
+    if (!hasData(dn)) continue;
+    var fs = festsOn(dn);
+    var t = ymdOf(dn);
+    var nextDay = ymdOf(dn + 1);
+    var dtStart = t.y + String(t.m).padStart(2, '0') + String(t.d).padStart(2, '0');
+    var dtEnd = nextDay.y + String(nextDay.m).padStart(2, '0') + String(nextDay.d).padStart(2, '0');
+    
+    fs.forEach(function(f, idx) {
+      count++;
+      var uid = 'vpe-' + dtStart + '-' + f.sys + '-' + idx + '@virtuouspath.elysium';
+      var summary = f.name.replace(/[,;]/g, ' ');
+      var desc = ((f.native ? f.native + '\\n' : '') +
+                  (f.note ? f.note.replace(/[\n\r]+/g, ' ') + '\\n' : '') +
+                  (f.gods && f.gods.length ? 'Sacred to: ' + f.gods.map(godLabel).join(', ') : '')).replace(/[,;]/g, ' ');
+      
+      ics.push('BEGIN:VEVENT');
+      ics.push('UID:' + uid);
+      ics.push('DTSTAMP:' + dtStart + 'T000000Z');
+      ics.push('DTSTART;VALUE=DATE:' + dtStart);
+      ics.push('DTEND;VALUE=DATE:' + dtEnd);
+      ics.push('SUMMARY:' + summary);
+      ics.push('DESCRIPTION:' + desc);
+      ics.push('END:VEVENT');
+    });
+  }
+  
+  if (count === 0) {
+    alert('No festivals to export for the current filters in ' + GMONTH[S.m - 1] + ' ' + S.y + '.');
+    return;
+  }
+  
+  ics.push('END:VCALENDAR');
+  var blob = new Blob([ics.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'Calendar-Fasti-' + S.y + '-' + String(S.m).padStart(2, '0') + '.ics';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+/* ---------- filtering ---------- */
+function anyGods() { for (var k in S.gods) if (S.gods[k]) return true; return false; }
+function matchQ(f) {
+  if (!S.q) return true;
+  var q = S.q.toLowerCase();
+  if (f.name.toLowerCase().indexOf(q) >= 0) return true;
+  if ((f.note || '').toLowerCase().indexOf(q) >= 0) return true;
+  if ((f.native || '').toLowerCase().indexOf(q) >= 0) return true;
+  for (var i = 0; i < f.gods.length; i++) if (godTitle(f.gods[i]).toLowerCase().indexOf(q) >= 0) return true;
+  return false;
+}
+function visible(f) {
+  if (!S.enabled[f.sys]) return false;
+  if (f.monthly && !S.opts.monthly) return false;
+  if (f.approx && !S.opts.approx) return false;
+  if (anyGods()) {
+    var hit = false;
+    for (var i = 0; i < f.gods.length; i++) if (S.gods[f.gods[i]]) { hit = true; break; }
+    if (!hit) return false;
+  }
+  return matchQ(f);
+}
+function festsOn(dayNo) {
+  var s = INDEX[dayNo];
+  if (!s) return [];
+  return s.fests.filter(visible).sort(function (a, b) {
+    if (a.isMarker !== b.isMarker) return a.isMarker ? -1 : 1;
+    if (a.monthly !== b.monthly) return a.monthly ? 1 : -1;
+    return SYSTEMS.map(function (x) { return x.id; }).indexOf(a.sys) -
+           SYSTEMS.map(function (x) { return x.id; }).indexOf(b.sys);
+  });
+}
+function noumOn(dayNo) {
+  var s = INDEX[dayNo], out = [];
+  if (!s || !S.opts.noum) return out;
+  for (var id in s.cal) if (S.enabled[id] && s.cal[id].day === 1)
+    out.push({ id:id, name:s.cal[id].name, interc:s.cal[id].interc });
+  return out;
+}
+
+/* ---------- rail ---------- */
+function renderRail() {
+  var h = '';
+  SYSTEMS.forEach(function (s) {
+    var flag = s.conf === 'high' ? '' : '<span class="flag ' + s.conf + '">' + s.conf + '</span>';
+    h += '<label class="sys" style="--h:' + s.hue + '" title="' + esc(s.src) + '">' +
+      '<input type="checkbox" data-sys="' + s.id + '"' + (S.enabled[s.id] ? ' checked' : '') + '>' +
+      '<span class="swatch"></span><span class="txt">' +
+      '<span class="nm">' + esc(s.name) + flag + '</span>' +
+      '<span class="rg">' + esc(s.region) + '</span></span></label>';
+  });
+  document.getElementById('sysList').innerHTML = h;
+
+  var counts = {};
+  for (var d in INDEX) INDEX[d].fests.forEach(function (f) {
+    if (!S.enabled[f.sys]) return;
+    if (f.monthly && !S.opts.monthly) return;
+    f.gods.forEach(function (g) { counts[g] = (counts[g] || 0) + 1; });
+  });
+  var keys = Object.keys(counts).sort(function (a, b) {
+    return godLabel(a).localeCompare(godLabel(b));
+  });
+  var g = '';
+  keys.forEach(function (k) {
+    g += '<button class="god" data-god="' + k + '" aria-pressed="' + (S.gods[k] ? 'true' : 'false') +
+      '" title="' + esc(godTitle(k)) + '">' + esc(godLabel(k)) +
+      '<span class="n">' + counts[k] + '</span></button>';
+  });
+  var gl = document.getElementById('godList'), gtop = gl.scrollTop;
+  gl.innerHTML =
+    '<div class="gods">' + (g || '<span class="rg">No gods in the enabled traditions.</span>') + '</div>';
+  gl.scrollTop = gtop;
+}
+
+/* ---------- month grid ---------- */
+function renderGrid() {
+  var first = dayNoOf(S.y, S.m, 1);
+  var lead = (weekdayOf(first) + 6) % 7;
+  var dim = daysInMonth(S.y, S.m);
+  var start = first - lead, total = Math.ceil((lead + dim) / 7) * 7;
+  var non = nonesOf(S.m), ide = idesOf(S.m);
+
+  var h = '<div class="grid-head">';
+  WEEK.forEach(function (w) {
+    h += '<div><abbr title="' + w[1] + '" style="text-decoration:none">' + w[0] + '</abbr></div>';
+  });
+  h += '</div><div class="grid">';
+
+  for (var i = 0; i < total; i++) {
+    var dn = start + i, t = ymdOf(dn), out = t.m !== S.m;
+    var inRange = dn >= RANGE.first && dn <= RANGE.last && hasData(dn);
+    var fs = inRange ? festsOn(dn) : [];
+    var nm = inRange ? noumOn(dn) : [];
+    var mo = inRange ? moonForDay(dn, MOONS) : null;
+    var n = fs.length + nm.length;
+    var isProminent = inRange && (t.d === 1 || t.d === non || t.d === ide);
+
+    h += '<div class="cell' + (out ? ' out' : '') + (isToday(dn) ? ' today' : '') +
+         (S.sel === dn ? ' sel' : '') + '" data-day="' + dn + '" role="button" tabindex="0"' +
+         ' aria-label="' + t.d + ' ' + GMONTH[t.m - 1] + ' ' + t.y +
+         (n ? ', ' + n + ' entr' + (n > 1 ? 'ies' : 'y') : '') + '">';
+    h += '<span class="cell-top"><span><span class="dnum">' + t.d + '</span>' +
+         (S.opts.roman && inRange ? '<span class="rdate' + (isProminent ? ' prominent' : '') + '">' + esc(romanDateLabel(t.y, t.m, t.d)) + '</span>' : '') +
+         '</span><span style="display:flex;align-items:center;gap:4px">' +
+         (n > 3 ? '<span class="ncount" title="' + n + ' entries \u2014 scroll within the day">' + n + '</span>' : '') +
+         (S.opts.moon && mo ? moonSVG(15, mo.illum, mo.waxing) : '') + '</span></span>';
+
+    if (n) {
+      h += '<span class="cellbody' + (n > 3 ? ' many' : '') + '">';
+      nm.forEach(function (x) {
+        h += '<span class="noum" style="--h:' + SYS[x.id].hue + '">&#9679; ' + esc(x.name) +
+             (x.interc ? ' (added)' : '') + '</span>';
+      });
+      fs.forEach(function (f) {
+        var markerClass = f.isMarker ? ' marker-chip' : '';
+        h += '<span class="chip' + markerClass + (f.monthly && !f.isMarker ? ' monthly' : '') + (f.approx ? ' dim' : '') +
+             '" style="--h:' + (f.isMarker ? '40' : SYS[f.sys].hue) + '" title="' + esc(f.name) + '">' +
+             esc(f.name) + (f.span > 1 ? ' <span style="opacity:.6">' + f.day + '/' + f.span + '</span>' : '') +
+             '</span>';
+      });
+      h += '</span>';
+    }
+    h += '</div>';
+  }
+  return h + '</div>';
+}
+
+/* ---------- agenda ---------- */
+function renderList() {
+  var first = dayNoOf(S.y, S.m, 1), last = first + daysInMonth(S.y, S.m) - 1, h = '', n = 0;
+  for (var dn = first; dn <= last; dn++) {
+    if (!hasData(dn)) continue;
+    var fs = festsOn(dn), nm = noumOn(dn);
+    if (!fs.length && (anyGods() || S.q)) continue;
+    if (!fs.length && !nm.length) continue;
+    n++;
+    var t = ymdOf(dn), mo = moonForDay(dn, MOONS);
+    h += '<button class="arow' + (isToday(dn) ? ' today' : '') + '" data-day="' + dn + '">' +
+      '<span class="adate"><b>' + WEEK[(weekdayOf(dn) + 6) % 7][1].slice(0, 3) + ' ' + t.d + '</b>' +
+      (S.opts.roman ? esc(romanDateLabel(t.y, t.m, t.d)) : '') +
+      (S.opts.moon ? '<br>' + Math.round(mo.illum * 100) + '% ' + mo.name.toLowerCase() : '') +
+      '</span><span class="aitems">';
+    nm.forEach(function (x) {
+      h += '<span class="aitem"><i class="dot" style="--h:' + SYS[x.id].hue + '"></i>' +
+        '<span class="aname" style="color:var(--bone-dim)">' + esc(x.name) + ' begins' +
+        (x.interc ? ' (intercalary)' : '') + '</span>' +
+        '<span class="ameta">' + esc(SYS[x.id].name) + ' \u00b7 new moon</span></span>';
+    });
+    fs.forEach(function (f) {
+      h += '<span class="aitem"><i class="dot' + (f.isMarker ? ' marker' : '') + '" style="--h:' + SYS[f.sys].hue + '"></i>' +
+        '<span class="aname' + (f.isMarker ? ' style="color:var(--flame);font-weight:600"' : '') + '">' + esc(f.name) +
+        (f.span > 1 ? ' <span class="ameta">day ' + f.day + ' of ' + f.span + '</span>' : '') + '</span>' +
+        '<span class="ameta">' + esc(f.native) + (f.approx ? ' \u00b7 by convention' : '') + '</span></span>';
+    });
+    h += '</span></button>';
+  }
+  if (!n) return '<div class="empty"><b>Nothing to observe here</b>' +
+    'No days in ' + GMONTH[S.m - 1] + ' ' + S.y + ' match the traditions and gods you have chosen. ' +
+    'Widen the filters, or step to another month.</div>';
+  return '<div class="agenda">' + h + '</div>';
+}
+
+/* ---------- date suitability checker modal dialog ---------- */
+function openChecker() {
+  var oldM = document.getElementById('checkerModal'), oldS = document.getElementById('checkerScrim');
+  if (oldM) oldM.remove(); if (oldS) oldS.remove();
+
+  var defaultIso = isoOf(S.sel || dayNoOf(S.y, S.m, 1));
+  var h = '<div class="modal-head">' +
+          '<h3>⚖️ Check Date Suitability</h3>' +
+          '<button class="close" id="closeChecker" aria-label="Close">&#10005;</button>' +
+          '</div>' +
+          '<div class="modal-body">' +
+          '<div class="form-row">' +
+          '<label for="checkDateInput">Select Date to Evaluate</label>' +
+          '<input type="date" id="checkDateInput" class="modal-in" min="' + CFG.yearStart + '-01-01" max="' + CFG.yearEnd + '-12-31" value="' + defaultIso + '">' +
+          '</div>' +
+          '<div id="checkerResults"></div>' +
+          '</div>';
+
+  var scrim = document.createElement('div');
+  scrim.className = 'scrim'; scrim.id = 'checkerScrim';
+  var modal = document.createElement('div');
+  modal.className = 'modal'; modal.id = 'checkerModal';
+  modal.setAttribute('role', 'dialog'); modal.innerHTML = h;
+
+  document.body.appendChild(scrim);
+  document.body.appendChild(modal);
+
+  function runCheck() {
+    var val = document.getElementById('checkDateInput').value;
+    if (!val) return;
+    var pts = val.split('-');
+    var yy = parseInt(pts[0], 10), mm = parseInt(pts[1], 10), dd = parseInt(pts[2], 10);
+    var dn = dayNoOf(yy, mm, dd);
+    ensureWindow(yy);
+    var evalRes = evaluateSuitability(dn);
+    var rLabel = romanDateLabel(yy, mm, dd);
+
+    var out = '<div class="status-box ' + evalRes.statusClass + '">' +
+              '<b>' + evalRes.verdict + '</b>' +
+              '<span>' + dd + ' ' + GMONTH[mm - 1] + ' ' + yy + ' &middot; <em>' + esc(rLabel) + '</em></span>' +
+              '</div>';
+
+    if (evalRes.issues.length) {
+      out += '<div style="font-size:13px;line-height:1.45"><b style="font-family:var(--display);color:var(--flame)">Prohibitions &amp; Observances:</b><ul style="margin:6px 0 0;padding-left:18px">';
+      evalRes.issues.forEach(function(iss) { out += '<li style="margin-bottom:4px">' + esc(iss) + '</li>'; });
+      out += '</ul></div>';
+    } else {
+      out += '<p style="font-size:13.5px;color:var(--bone-dim);margin:0">This date has no public festivals, is clear of Kalends, Nones, and Ides, and avoids classical marriage taboos. Auspicious for solemn vows and private ceremonies.</p>';
+    }
+
+    document.getElementById('checkerResults').innerHTML = out;
+  }
+
+  document.getElementById('checkDateInput').addEventListener('change', runCheck);
+  scrim.onclick = function() { scrim.remove(); modal.remove(); };
+  document.getElementById('closeChecker').onclick = function() { scrim.remove(); modal.remove(); };
+  runCheck();
+}
+
+/* ---------- day drawer ---------- */
+function closeDay() {
+  S.sel = null;
+  var d = document.getElementById('drawer'), s = document.getElementById('scrim');
+  if (d) d.remove(); if (s) s.remove();
+  render();
+}
+
+function openDay(dn) {
+  S.sel = dn;
+  var t = ymdOf(dn), mo = moonForDay(dn, MOONS), slot = INDEX[dn] || { fests:[], cal:{} };
+  var evalRes = evaluateSuitability(dn);
+
+  var h = '<div class="drawer-head"><div>' +
+    '<h3>' + WEEK[(weekdayOf(dn) + 6) % 7][1] + ' ' + t.d + ' ' + GMONTH[t.m - 1] + '</h3>' +
+    '<span class="ameta" style="font-family:var(--data);font-size:11.5px;color:var(--bone-dim)">' +
+    esc(romanDateLabel(t.y, t.m, t.d)) + ' \u00b7 ' + t.y + ' CE \u00b7 ' + (t.y + 753) + ' AUC</span>' +
+    '</div><button class="close" id="closeDay" aria-label="Close">&#10005;</button></div>';
+
+  h += '<div class="drawer-body">';
+  
+  // Ritual Status Header
+  h += '<div class="status-box ' + evalRes.statusClass + '">' +
+       '<b>' + evalRes.verdict + '</b>' +
+       '<span>' + (evalRes.suitable ? 'No festivals or monthly division taboos on this day.' : evalRes.issues[0]) + '</span>' +
+       '</div>';
+
+  h += '<div class="moonbox">' + moonSVG(42, mo.illum, mo.waxing) +
+    '<div class="t">' + mo.name + '<span>' + Math.round(mo.illum * 100) + '% lit \u00b7 ' +
+    (mo.waxing ? 'waxing' : 'waning') + ' \u00b7 day ' + (Math.floor(mo.age) + 1) + ' of lunation</span></div></div>';
+
+  var natives = SYSTEMS.filter(function (s) { return s.greek && S.enabled[s.id] && slot.cal[s.id]; });
+  if (natives.length) {
+    h += '<p class="sec">This day in the lunar calendars</p><div class="native">';
+    natives.forEach(function (s) {
+      var c = slot.cal[s.id];
+      h += '<div><span class="lbl">' + esc(s.name) + '</span><span class="val' + (c.day === 1 ? ' n1' : '') + '">' +
+        esc(c.name) + ' ' + c.day + '<span style="color:var(--bone-dim)"> \u2014 m.' + c.ord + '/' + c.total +
+        ', ' + c.len + 'd' + (c.interc ? ', intercalary' : '') + '</span></span></div>';
+    });
+    h += '</div>';
+  }
+
+  var fs = festsOn(dn);
+  h += '<p class="sec">' + (fs.length ? fs.length + ' observance' + (fs.length > 1 ? 's' : '') : 'No observances') + '</p>';
+  if (!fs.length) h += '<p style="color:var(--bone-dim);font-size:13.5px">Nothing falls here in the traditions ' +
+    'you have enabled. An ordinary day still opens with a word to Ianus and the household gods.</p>';
+  
+  fs.forEach(function (f) {
+    var gcalLink = buildGCalUrl(f, dn);
+    var slug = festivalSlug(f.name);
+    var detailPageUrl = 'festivals/' + slug + '.html';
+
+    h += '<div class="entry' + (f.isMarker ? ' marker-entry' : '') + '" style="--h:' + SYS[f.sys].hue + '">' +
+      '<h4>' + esc(f.name) + (f.span > 1 ? ' <span style="opacity:.65;font-weight:400">\u2014 day ' + f.day + ' of ' + f.span + '</span>' : '') + '</h4>' +
+      '<span class="src">' + esc(f.native) + '</span>';
+    if (f.note) h += '<p>' + esc(f.note) + '</p>';
+    if (f.gods.length) {
+      h += '<div class="gods">';
+      f.gods.forEach(function (g) {
+        h += '<button class="god" data-god="' + g + '" aria-pressed="' + (S.gods[g] ? 'true' : 'false') +
+          '" title="' + esc(godTitle(g)) + '">' + esc(godLabel(g)) + '</button>';
+      });
+      h += '</div>';
+    }
+    if (f.cycle) h += '<span class="warn" style="color:var(--verd)">Held every ' + f.cycle +
+      ' years \u2014 this is one of those years.</span>';
+    if (f.approx) h += '<span class="warn">Day fixed by convention \u2014 only the month or season is attested.</span>';
+    if (SYS[f.sys].conf === 'low' || SYS[f.sys].conf === 'placeholder')
+      h += '<span class="warn">' + esc(SYS[f.sys].name) + ': ' + esc(SYS[f.sys].src) + '</span>';
+    
+    h += '<div class="entry-actions">' +
+         '<a class="gcal-btn" href="' + gcalLink + '" target="_blank" rel="noopener noreferrer">📅 Add to Google Calendar</a>' +
+         '<a class="more-btn" href="' + detailPageUrl + '">📖 Learn More &rarr;</a>' +
+         '</div>';
+    h += '</div>';
+  });
+  h += '</div>';
+
+  var old = document.getElementById('drawer'); if (old) old.remove();
+  var oldS = document.getElementById('scrim'); if (oldS) oldS.remove();
+  var scrim = document.createElement('div');
+  scrim.className = 'scrim'; scrim.id = 'scrim';
+  scrim.addEventListener('click', closeDay);
+  var dr = document.createElement('div');
+  dr.className = 'drawer'; dr.id = 'drawer';
+  dr.setAttribute('role', 'dialog'); dr.setAttribute('aria-label', 'Day detail');
+  dr.innerHTML = h;
+  document.body.appendChild(scrim); document.body.appendChild(dr);
+  document.getElementById('closeDay').addEventListener('click', closeDay);
+  document.getElementById('closeDay').focus();
+  dr.addEventListener('click', function (e) {
+    var b = e.target.closest('.god');
+    if (b) { toggleGod(b.getAttribute('data-god')); openDay(dn); }
+  });
+  render(true);
+}
+
+/* ---------- top line ---------- */
+function renderToday() {
+  var n = new Date(), dn = dayNoOf(n.getFullYear(), n.getMonth() + 1, n.getDate());
+  var el = document.getElementById('todayLine');
+  var t0 = ymdOf(dn);
+  if (dn < RANGE.first || dn > RANGE.last) {
+    el.innerHTML = '<b>' + t0.d + ' ' + GMONTH[t0.m - 1] + ' ' + t0.y + '</b> (' + (t0.y + 753) + ' AUC)<br>' +
+      'Today falls outside the navigable range of <b>' + CFG.yearStart + '&ndash;' +
+      CFG.yearEnd + '</b>.';
+    return;
+  }
+  if (!hasData(dn)) {
+    el.innerHTML = '<b>' + t0.d + ' ' + GMONTH[t0.m - 1] + ' ' + t0.y + '</b> &middot; <em>' +
+      esc(romanDateLabel(t0.y, t0.m, t0.d)) + '</em> &middot; <b>' + (t0.y + 753) + ' AUC</b><br>' +
+      'Showing ' + WIN.y0 + '&ndash;' + WIN.y1 + '. Press <b>Today</b> to return.';
+    return;
+  }
+  var t = ymdOf(dn), mo = moonForDay(dn, MOONS), slot = INDEX[dn];
+  var att = slot.cal.attic;
+  var fs = festsOn(dn);
+  el.innerHTML = '<b>' + t.d + ' ' + GMONTH[t.m - 1] + ' ' + t.y + '</b> &middot; <em>' +
+    esc(romanDateLabel(t.y, t.m, t.d)) + '</em> &middot; <b>' + (t.y + 753) + ' AUC</b><br>' +
+    (att ? att.name + ' ' + att.day + ' &middot; ' : '') +
+    mo.name.toLowerCase() + ', ' + Math.round(mo.illum * 100) + '% lit<br>' +
+    (fs.length ? '<em>' + esc(fs[0].name) + '</em>' + (fs.length > 1 ? ' and ' + (fs.length - 1) + ' more' : '')
+               : 'no festival in the enabled traditions');
+}
+
+/* ---------- main render ---------- */
+function render(skipDrawer) {
+  document.getElementById('period').textContent = GMONTH[S.m - 1] + ' ' + S.y;
+  document.getElementById('yearJump').value = S.y;
+  document.getElementById('view').innerHTML = S.view === 'grid' ? renderGrid() : renderList();
+  var first = dayNoOf(S.y, S.m, 1), last = first + daysInMonth(S.y, S.m) - 1, c = 0;
+  for (var dn = first; dn <= last; dn++) c += festsOn(dn).length;
+  document.getElementById('count').textContent = c + (c === 1 ? ' fest.' : ' fests.');
+  document.getElementById('prev').disabled = dayNoOf(S.y, S.m, 1) <= RANGE.first;
+  document.getElementById('next').disabled = last >= RANGE.last;
+  renderToday();
+  if (!skipDrawer) renderRail();
+}
+
+function step(d) {
+  var m = S.m + d, y = S.y;
+  if (m < 1) { m = 12; y--; } if (m > 12) { m = 1; y++; }
+  if (dayNoOf(y, m, 1) > RANGE.last || dayNoOf(y, m, daysInMonth(y, m)) < RANGE.first) return;
+  ensureWindow(y);
+  S.y = y; S.m = m; S.sel = null; render();
+}
+function toggleGod(k) { S.gods[k] = !S.gods[k]; if (!S.gods[k]) delete S.gods[k]; save(); render(); }
+
+/* ---------- boot ---------- */
+function boot() {
+  var saved = load();
+  SYSTEMS.forEach(function (s) { S.enabled[s.id] = s.conf !== 'placeholder'; });
+  if (saved) {
+    if (saved.enabled) S.enabled = saved.enabled;
+    if (saved.gods) S.gods = saved.gods;
+    if (saved.opts) for (var k in saved.opts) S.opts[k] = saved.opts[k];
+    if (saved.view) S.view = saved.view;
+  }
+  CFG.noumenia = S.opts.offset;
+
+  var n = new Date(), y = n.getFullYear(), m = n.getMonth() + 1;
+  if (y < CFG.yearStart) { y = CFG.yearStart; m = 1; }
+  if (y > CFG.yearEnd) { y = CFG.yearEnd; m = 12; }
+  S.y = y; S.m = m;
+  ensureWindow(y);
+
+  document.documentElement.setAttribute('data-theme', S.opts.theme);
+  ['moon','roman','noum','monthly','approx'].forEach(function (k) {
+    document.getElementById('opt' + k[0].toUpperCase() + k.slice(1)).checked = S.opts[k];
+  });
+  document.getElementById('optOffset').value = String(S.opts.offset);
+  document.getElementById('viewGrid').setAttribute('aria-pressed', S.view === 'grid');
+  document.getElementById('viewList').setAttribute('aria-pressed', S.view === 'list');
+
+  document.getElementById('prev').onclick = function () { step(-1); };
+  document.getElementById('next').onclick = function () { step(1); };
+  document.getElementById('checkerBtn').onclick = openChecker;
+  document.getElementById('todayBtn').onclick = function () {
+    var d = new Date(), yy = d.getFullYear(), mm = d.getMonth() + 1;
+    if (yy < CFG.yearStart) { yy = CFG.yearStart; mm = 1; }
+    if (yy > CFG.yearEnd) { yy = CFG.yearEnd; mm = 12; }
+    ensureWindow(yy); S.y = yy; S.m = mm; render();
+  };
+  document.getElementById('viewGrid').onclick = function () {
+    S.view = 'grid'; this.setAttribute('aria-pressed', 'true');
+    document.getElementById('viewList').setAttribute('aria-pressed', 'false'); save(); render();
+  };
+  document.getElementById('viewList').onclick = function () {
+    S.view = 'list'; this.setAttribute('aria-pressed', 'true');
+    document.getElementById('viewGrid').setAttribute('aria-pressed', 'false'); save(); render();
+  };
+  
+  /* Mobile filter drawer controls */
+  var rail = document.getElementById('rail');
+  var railScrim = null;
+  function toggleRail(open) {
+    var shouldOpen = open !== undefined ? open : rail.hidden;
+    rail.hidden = !shouldOpen;
+    document.getElementById('railBtn').setAttribute('aria-expanded', String(shouldOpen));
+    if (shouldOpen && window.innerWidth <= 1080) {
+      if (!railScrim) {
+        railScrim = document.createElement('div');
+        railScrim.className = 'rail-scrim';
+        railScrim.onclick = function() { toggleRail(false); };
+        document.body.appendChild(railScrim);
+      }
+    } else {
+      if (railScrim) { railScrim.remove(); railScrim = null; }
+    }
+  }
+
+  document.getElementById('railBtn').onclick = function () { toggleRail(); };
+  document.getElementById('closeRailBtn').onclick = function () { toggleRail(false); };
+
+  document.getElementById('exportIcsBtn').onclick = exportMonthICS;
+
+  document.getElementById('theme').onclick = function () {
+    S.opts.theme = S.opts.theme === 'night' ? 'day' : 'night';
+    document.documentElement.setAttribute('data-theme', S.opts.theme); save();
+  };
+  document.getElementById('q').addEventListener('input', function () { S.q = this.value.trim(); render(); });
+
+  document.getElementById('sysList').addEventListener('change', function (e) {
+    var id = e.target.getAttribute('data-sys'); if (!id) return;
+    S.enabled[id] = e.target.checked; save(); render();
+  });
+  document.getElementById('sysAll').onclick = function () {
+    var on = SYSTEMS.some(function (s) { return !S.enabled[s.id]; });
+    SYSTEMS.forEach(function (s) { S.enabled[s.id] = on; });
+    save(); render();
+  };
+  document.getElementById('godList').addEventListener('click', function (e) {
+    var b = e.target.closest('.god'); if (b) toggleGod(b.getAttribute('data-god'));
+  });
+  document.getElementById('godClear').onclick = function () { S.gods = {}; save(); render(); };
+
+  ['moon','roman','noum','monthly','approx'].forEach(function (k) {
+    document.getElementById('opt' + k[0].toUpperCase() + k.slice(1)).onchange = function () {
+      S.opts[k] = this.checked; save(); render();
+    };
+  });
+  document.getElementById('optOffset').onchange = function () {
+    S.opts.offset = parseInt(this.value, 10); CFG.noumenia = S.opts.offset;
+    save(); buildIndex(WIN.y0, WIN.y1); render();
+  };
+  document.getElementById('yearJump').onchange = function () {
+    var v = parseInt(this.value, 10);
+    if (!v || v < CFG.yearStart || v > CFG.yearEnd) { this.value = S.y; return; }
+    ensureWindow(v); S.y = v; S.sel = null; render();
+  };
+
+  function activate(e) {
+    var b = e.target.closest('[data-day]'); if (!b) return;
+    var dn = parseInt(b.getAttribute('data-day'), 10);
+    var t = ymdOf(dn);
+    if (t.m !== S.m) { S.y = t.y; S.m = t.m; ensureWindow(t.y); }
+    if (dn >= RANGE.first && dn <= RANGE.last && hasData(dn)) openDay(dn);
+  }
+  document.getElementById('view').addEventListener('click', activate);
+  document.getElementById('view').addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    if (!e.target.closest('[data-day]')) return;
+    e.preventDefault(); activate(e);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+    if (e.key === 'Escape') {
+      var m = document.getElementById('checkerModal');
+      if (m) { document.getElementById('checkerScrim').remove(); m.remove(); return; }
+      if (S.sel !== null) closeDay();
+      if (!rail.hidden && window.innerWidth <= 1080) toggleRail(false);
+    }
+    else if (e.key === 'ArrowLeft') step(-1);
+    else if (e.key === 'ArrowRight') step(1);
+  });
+
+  render();
+}
+document.addEventListener('DOMContentLoaded', boot);
+</script>
+</body>
+</html>

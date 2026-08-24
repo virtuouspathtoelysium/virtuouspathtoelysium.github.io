@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="night">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Gods &mdash; The Virtuous Path to Elysium</title>
+<meta name="description" content="The divine pantheon of Cultus Deorum Romanorum and Hellenic sacred tradition. Complete registry of the Olympian, sovereign, civic, nature, and domestic deities.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M8 28 L50 6 L92 28 Z' fill='none' stroke='%23e0a13a' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M14 26 L50 9 L86 26 Z' fill='none' stroke='%23e0a13a' stroke-width='2'/%3E%3Cpath d='M10 28 H90 V34 H10 Z' fill='none' stroke='%23e0a13a' stroke-width='2'/%3E%3Cpath d='M17 38 V70 M23 38 V70 M38 38 V65 M42 38 V65 M58 38 V65 M62 38 V65 M77 38 V70 M83 38 V70' stroke='%23e0a13a' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M10 74 H90 M6 79 H94 M2 84 H98' stroke='%23e0a13a' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M37 70 H63 V90 H37 Z' fill='%23121722' stroke='%23e0a13a' stroke-width='2.5'/%3E%3Cpath d='M50 40 Q46 48 49 53 Q44 56 42 61 Q42 68 50 70 Q58 68 58 61 Q56 56 51 53 Q54 48 50 40 Z' fill='%23e0a13a'/%3E%3C/svg%3E">
+<style>
+/* ============================================================
+   The Virtuous Path to Elysium — Pantheon Registry
+   Self-contained. High performance, scannable, elegant design.
+   ============================================================ */
+:root{
+  --ink-0:#090c12;
+  --ink-1:#111622;
+  --ink-2:#19202f;
+  --line:#283245;
+  --bone:#e9e4d7;
+  --bone-dim:#9ba3b5;
+  --flame:#e0a13a;
+  --flame-glow:rgba(224,161,58,0.18);
+  --verd:#4fa08c;
+  --verd-glow:rgba(79,160,140,0.15);
+  --porph:#a8404f;
+  --shadow:0 22px 50px -20px rgba(0,0,0,.85);
+  --display:Optima,Candara,"Gill Sans MT","Gill Sans","Trebuchet MS",sans-serif;
+  --body:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --data:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+html[data-theme="day"]{
+  --ink-0:#e8e2d4; --ink-1:#f5f0e6; --ink-2:#fcf9f2;
+  --line:#cfc6b2; --bone:#1e232d; --bone-dim:#5d6573;
+  --flame:#a87019; --flame-glow:rgba(168,112,25,0.14);
+  --verd:#2e6e5e; --verd-glow:rgba(46,110,94,0.12);
+  --porph:#8c2e3c;
+  --shadow:0 16px 36px -20px rgba(50,40,25,.5);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none !important}
+
+body{
+  background:var(--ink-0);color:var(--bone);
+  font-family:var(--body);font-size:16px;line-height:1.65;
+  -webkit-text-size-adjust:100%;
+}
+a{color:var(--verd);text-decoration:none;transition:color .15s ease}
+a:hover{color:var(--flame)}
+:focus-visible{outline:2px solid var(--flame);outline-offset:2px;border-radius:2px}
+button,input,select{font:inherit;color:inherit}
+
+/* Navigation */
+.navbar{position:sticky;top:0;z-index:50;background:var(--ink-1);border-bottom:1px solid var(--line)}
+.nav-in{
+  max-width:1240px;margin:0 auto;padding:10px 16px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:12px;color:var(--bone);font-family:var(--display);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:14px}
+.brand svg{flex:none;width:34px;height:34px}
+.nav-menu{display:flex;align-items:center;gap:6px;list-style:none}
+.nav-link{
+  padding:6px 11px;border-radius:4px;font-family:var(--display);font-size:12px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--bone-dim);
+  border:1px solid transparent;transition:all .15s ease;
+}
+.nav-link:hover, .nav-link.active{color:var(--flame);border-color:var(--line);background:var(--ink-2)}
+.btn-cta{
+  background:var(--flame);color:var(--ink-0);border:1px solid var(--flame);
+  padding:7px 14px;border-radius:4px;font-family:var(--display);font-size:11.5px;
+  letter-spacing:.12em;text-transform:uppercase;font-weight:600;cursor:pointer;
+  display:inline-flex;align-items:center;gap:6px;transition:transform .15s ease, box-shadow .15s ease;
+}
+.btn-cta:hover{transform:translateY(-1px);box-shadow:0 4px 14px var(--flame-glow);color:var(--ink-0)}
+.icon-btn{background:var(--ink-2);border:1px solid var(--line);border-radius:4px;width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+
+/* Header Banner */
+.banner{
+  background:
+    radial-gradient(110% 130% at 85% -20%, rgba(224,161,58,.16), transparent 60%),
+    radial-gradient(90% 120% at 15% -20%, rgba(79,160,140,.12), transparent 60%),
+    var(--ink-1);
+  border-bottom:1px solid var(--line);padding:50px 16px 40px;text-align:center;
+}
+.banner-in{max-width:880px;margin:0 auto}
+.badge{
+  display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:99px;
+  background:var(--flame-glow);border:1px solid var(--flame);color:var(--flame);
+  font-family:var(--data);font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;
+}
+.banner h1{
+  font-family:var(--display);font-size:clamp(26px,4vw,38px);line-height:1.2;
+  letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;
+}
+.banner p{color:var(--bone-dim);font-size:16px;max-width:68ch;margin:0 auto}
+
+/* Search & Filter Toolbar */
+.toolbar{
+  position:sticky;top:55px;z-index:40;background:var(--ink-1);border-bottom:1px solid var(--line);
+  padding:10px 16px;box-shadow:0 6px 20px rgba(0,0,0,0.3);
+}
+.tool-in{max-width:1240px;margin:0 auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.search-box{
+  background:var(--ink-2);border:1px solid var(--line);border-radius:4px;
+  padding:7px 12px;font-family:var(--data);font-size:13px;flex:1 1 240px;min-height:36px;
+}
+.cat-select{
+  background:var(--ink-2);border:1px solid var(--line);border-radius:4px;
+  padding:6px 10px;font-family:var(--data);font-size:12px;min-height:36px;cursor:pointer;
+}
+.count-badge{font-family:var(--data);font-size:12px;color:var(--bone-dim);margin-left:auto}
+
+/* Content Container & Category Sections */
+.wrap{max-width:1240px;margin:0 auto;padding:40px 16px 80px;display:flex;flex-direction:column;gap:50px}
+.category-sec{display:flex;flex-direction:column;gap:18px}
+.category-head{
+  border-bottom:1px solid var(--line);padding-bottom:8px;
+  display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;
+}
+.category-head h2{
+  font-family:var(--display);font-size:18px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--flame);
+}
+.category-head span{font-family:var(--data);font-size:11.5px;color:var(--bone-dim)}
+
+/* God Grid & Cards */
+.god-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:16px}
+.god-card{
+  background:var(--ink-1);border:1px solid var(--line);border-radius:6px;
+  padding:18px 18px 20px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow);
+  transition:border-color .15s ease, transform .15s ease;position:relative;
+}
+.god-card:hover{border-color:var(--flame);transform:translateY(-2px)}
+.god-names{display:flex;flex-direction:column;gap:2px}
+.god-primary{font-family:var(--display);font-size:17px;font-weight:600;letter-spacing:.05em;color:var(--bone)}
+.god-syncretic{font-family:var(--data);font-size:12px;color:var(--flame)}
+.god-domain{
+  font-family:var(--data);font-size:11px;letter-spacing:.04em;color:var(--bone-dim);
+  text-transform:uppercase;border-bottom:1px solid var(--line);padding-bottom:8px;
+}
+.god-desc{font-size:13.5px;color:var(--bone-dim);line-height:1.5;flex:1 1 auto}
+.god-offering{
+  background:var(--ink-2);border-radius:4px;padding:6px 10px;
+  font-size:11.5px;font-family:var(--data);color:var(--verd);display:flex;gap:6px;align-items:baseline;
+}
+.god-offering b{color:var(--bone);font-weight:600}
+
+/* Fasti Link Button */
+.fasti-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:5px;
+  background:var(--ink-2);border:1px solid var(--line);border-radius:3px;
+  padding:5px 8px;font-family:var(--data);font-size:11px;color:var(--bone);
+  margin-top:4px;transition:border-color .15s ease, color .15s ease;
+}
+.fasti-btn:hover{border-color:var(--verd);color:var(--verd)}
+
+/* Empty search placeholder */
+.empty{background:var(--ink-1);border:1px solid var(--line);border-radius:6px;padding:40px 20px;text-align:center;color:var(--bone-dim)}
+
+/* Modal */
+.scrim{position:fixed;inset:0;background:rgba(4,6,10,.75);z-index:90;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal{background:var(--ink-1);border:1px solid var(--line);border-radius:6px;max-width:540px;width:100%;box-shadow:var(--shadow);overflow:hidden}
+.modal-head{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.modal-head h3{font-family:var(--display);font-size:16px;letter-spacing:.1em;text-transform:uppercase;color:var(--flame)}
+.modal-body{padding:20px;display:flex;flex-direction:column;gap:14px;font-size:14.5px;color:var(--bone-dim);max-height:75vh;overflow-y:auto}
+.modal-body b{color:var(--bone)}
+.close-btn{background:none;border:1px solid var(--line);border-radius:3px;color:var(--bone-dim);cursor:pointer;padding:4px 8px;font-family:var(--data);font-size:12px}
+.close-btn:hover{border-color:var(--flame);color:var(--flame)}
+
+/* Footer */
+footer{background:var(--ink-1);border-top:1px solid var(--line);padding:35px 16px 45px;text-align:center;color:var(--bone-dim);font-size:13px}
+.foot-links{display:flex;justify-content:center;gap:18px;margin-bottom:12px;list-style:none;flex-wrap:wrap}
+.foot-links a{color:var(--bone-dim);font-family:var(--display);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.foot-links a:hover{color:var(--flame)}
+
+@media(max-width:720px){
+  .banner{padding:35px 14px 30px}
+  .wrap{padding:25px 12px 60px;gap:35px}
+  .toolbar{top:50px}
+}
+</style>
+</head>
+<body>
+
+<!-- Header Navigation -->
+<nav class="navbar">
+  <div class="nav-in">
+    <a href="index.html" class="brand">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M 8 28 L 50 6 L 92 28 Z" fill="none" stroke="var(--flame)" stroke-width="2.5" stroke-linejoin="round"/>
+        <path d="M 14 26 L 50 9 L 86 26 Z" fill="none" stroke="var(--flame)" stroke-width="1.5"/>
+        <path d="M 10 28 H 90 V 34 H 10 Z" fill="none" stroke="var(--flame)" stroke-width="2"/>
+        <g stroke="var(--flame)" stroke-width="1.8" fill="none" stroke-linecap="round">
+          <circle cx="15.5" cy="35" r="2"/><circle cx="24.5" cy="35" r="2"/><path d="M 17 38 V 70 M 20 38 V 70 M 23 38 V 70"/>
+          <circle cx="36.5" cy="35" r="1.8"/><circle cx="43.5" cy="35" r="1.8"/><path d="M 38 38 V 65 M 40 38 V 65 M 42 38 V 65"/>
+          <circle cx="56.5" cy="35" r="1.8"/><circle cx="63.5" cy="35" r="1.8"/><path d="M 58 38 V 65 M 60 38 V 65 M 62 38 V 65"/>
+          <circle cx="75.5" cy="35" r="2"/><circle cx="84.5" cy="35" r="2"/><path d="M 77 38 V 70 M 80 38 V 70 M 83 38 V 70"/>
+        </g>
+        <path d="M 10 74 H 90 M 6 79 H 94 M 2 84 H 98" stroke="var(--flame)" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M 37 70 H 63 V 90 H 37 Z" fill="var(--ink-1)" stroke="var(--flame)" stroke-width="2.2"/>
+        <path d="M 50 38 C 45 46 47 52 44 56 C 41 60 42 66 48 68 C 44 63 45 59 48 57 C 50 55 53 58 54 62 C 55 65 54 67 52 68 C 58 67 60 61 57 56 C 54 52 57 48 52 44 C 51 46 50 49 50 51 C 49 46 51 42 50 38 Z" fill="var(--verd)"/>
+        <path d="M 50 44 C 47 49 48 54 46 58 C 45 60 46 64 50 66 C 54 64 54 61 53 58 C 51 55 53 51 50 44 Z" fill="var(--flame)"/>
+      </svg>
+      The Virtuous Path
+    </a>
+    <ul class="nav-menu">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="gods.html" class="nav-link active">The Gods</a></li>
+      <li><a href="Calendar-Fasti.html" class="nav-link">Sacred Calendar</a></li>
+      <li><a href="about.html" class="nav-link">About &amp; Doctrine</a></li>
+      <li><a href="ritus.html" class="nav-link">Ritus</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:8px">
+      <button class="btn-cta" id="openCultorModal">Become a Cultor</button>
+      <button class="icon-btn" id="themeBtn" title="Switch Theme" aria-label="Switch Theme">&#9681;</button>
+    </div>
+  </div>
+</nav>
+
+<!-- Header -->
+<header class="banner">
+  <div class="banner-in">
+    <div class="badge">🏛 Pantheon &amp; Interpretatio Romana</div>
+    <h1>The Immortal Gods</h1>
+    <p>The universe is animated by sovereign divine forces. We honor the deities through classical ritual precision, bloodless offerings, and the embodiment of the 21 virtues in daily life.</p>
+  </div>
+</header>
+
+<!-- Filter Toolbar -->
+<div class="toolbar">
+  <div class="tool-in">
+    <input type="search" id="godSearch" class="search-box" placeholder="Search by name, Greek equivalent, or domain (e.g. Apollo, Wisdom, Sea)&hellip;" autocomplete="off">
+    <select id="catFilter" class="cat-select">
+      <option value="all">All Categories</option>
+      <option value="consentes">1. The 12 Great Olympians (Dii Consentes)</option>
+      <option value="sovereigns">2. Sovereigns of Time, Earth &amp; Mystery</option>
+      <option value="virtues">3. Moral Virtues &amp; Civic Powers</option>
+      <option value="nature">4. Nature, Water &amp; Agrarian Guardians</option>
+      <option value="domestic">5. Domestic Spirits &amp; Hero Cults</option>
+    </select>
+    <span class="count-badge" id="godCount"></span>
+  </div>
+</div>
+
+<!-- Main Pantheon Container -->
+<main class="wrap" id="pantheonWrap">
+  <!-- Dynamic Category Sections populated by JavaScript -->
+</main>
+
+<!-- Become a Cultor Modal -->
+<div class="scrim" id="cultorModal" hidden>
+  <div class="modal">
+    <div class="modal-head">
+      <h3>Become a Cultor</h3>
+      <button class="close-btn" id="closeCultorModal">&#10005;</button>
+    </div>
+    <div class="modal-body">
+      <p>Walking <b>The Virtuous Path to Elysium</b> is an active, living commitment to the immortal gods through daily virtue and household piety.</p>
+      
+      <p><b>The Three Commitments of a Cultor:</b></p>
+      <ul style="padding-left:18px;line-height:1.55">
+        <li style="margin-bottom:6px"><b>Embody the 21 Virtues:</b> Strive daily for justice, truth, temperance, and benevolence in thought, word, and deed.</li>
+        <li style="margin-bottom:6px"><b>Maintain the Sacred Hearth (Lararium):</b> Honor Janus, the household Lares, and the Olympian deities with bloodless offerings (pure water, wine, honey, incense, spelt).</li>
+        <li style="margin-bottom:6px"><b>Civic Public Service:</b> Demonstrate the faith through quiet public kindness, ecological respect, and community responsibility.</li>
+      </ul>
+
+      <p>Consult our foundational scripture, <b>Ritus</b>, for daily prayer formulas and altar construction guidelines.</p>
+
+      <div style="display:flex;gap:10px;margin-top:10px">
+        <a href="ritus.html" class="btn-cta" style="flex:1;justify-content:center">Read the Ritus Scripture</a>
+        <a href="Calendar-Fasti.html" class="btn-cta" style="flex:1;justify-content:center;background:var(--ink-2);border-color:var(--line);color:var(--bone)">View Sacred Fasti</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <ul class="foot-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="gods.html">The Gods</a></li>
+    <li><a href="Calendar-Fasti.html">Sacred Fasti</a></li>
+    <li><a href="about.html">About &amp; Doctrine</a></li>
+    <li><a href="ritus.html">Ritus</a></li>
+  </ul>
+  <p>&copy; 2026 The Virtuous Path to Elysium &bull; Cultus Deorum Romanorum & Hellenic Traditions</p>
+</footer>
+
+<script>
+/* ============================================================
+   PANTHEON REGISTRY DATA
+   Complete alignment with Fasti DEITIES and Ritus scripture
+   ============================================================ */
+var GODS_DATA = [
+  /* ---------- 1. THE 12 OLYMPIANS (DII CONSENTES) ---------- */
+  {
+    cat: 'consentes', key: 'jupiter',
+    latin: 'Iuppiter Optimus Maximus', greek: 'Zeus',
+    domain: 'Celestial Kingship, Sky, Oaths, State Justice',
+    desc: 'Supreme father and cosmic sovereign of the sky, thunder, and justice. Protector of treaties, truth, and the moral order of human civilization.',
+    offering: 'Pure red wine, honeyed libations, incense, bay laurel',
+    fastiQuery: 'jupiter'
+  },
+  {
+    cat: 'consentes', key: 'juno',
+    latin: 'Iuno Regina / Lucina / Sospita', greek: 'Hera',
+    domain: 'Sovereignty, Marriage, Women, Civic Defense',
+    desc: 'Queen of the immortals and divine protectress of women, family harmony, motherhood, and the sovereignty of the commonwealth.',
+    offering: 'Sweet white wine, cakes of spelt, floral garlands, frankincense',
+    fastiQuery: 'juno'
+  },
+  {
+    cat: 'consentes', key: 'minerva',
+    latin: 'Minerva / Athena Polias', greek: 'Athena',
+    domain: 'Wisdom, Strategic Warfare, Crafts, Law, Reason',
+    desc: 'Virgin goddess of intellect, practical crafts, weaving, and defensive strategy. Born of the divine mind to establish enlightened order.',
+    offering: 'Olive oil libations, fine handicrafts, lavender, fragrant myrrh',
+    fastiQuery: 'minerva'
+  },
+  {
+    cat: 'consentes', key: 'mars',
+    latin: 'Mars Gradivus / Mars Pater', greek: 'Ares',
+    domain: 'Martial Valor, Agricultural Boundaries, Protection',
+    desc: 'Ancient protector of Rome, guardian of farm boundaries, and the divine force of righteous defense, courage, and disciplined strength.',
+    offering: 'Spelt cake (mola salsa), dark wine, bay laurel leaves, cedar',
+    fastiQuery: 'mars'
+  },
+  {
+    cat: 'consentes', key: 'venus',
+    latin: 'Venus Genetrix / Verticordia', greek: 'Aphrodite',
+    domain: 'Love, Generation, Aesthetic Harmony, Prosperity',
+    desc: 'Divine mother of generation, beauty, peace, and mutual attraction. The gentle power that binds nature and turns hearts toward virtue.',
+    offering: 'Myrtle, rose petals, sweet apples, pomegranate, floral perfumes',
+    fastiQuery: 'venus'
+  },
+  {
+    cat: 'consentes', key: 'ceres',
+    latin: 'Ceres Mater / Legifera', greek: 'Demeter',
+    domain: 'Agriculture, Sacred Grain, Holy Law, Mysteries',
+    desc: 'Mother of the earth’s bounty and sacred lawgiver who revealed agriculture and the Eleusinian Mysteries of immortal renewal to mankind.',
+    offering: 'First sheaf of wheat, barley cakes, fresh figs, honey-comb',
+    fastiQuery: 'ceres'
+  },
+  {
+    cat: 'consentes', key: 'apollo',
+    latin: 'Apollo Medicus / Phoebus', greek: 'Apollon',
+    domain: 'Solar Radiance, Prophecy, Healing, Music, Truth',
+    desc: 'The archer of light, master of poetry and melody, inspirer of Delphi, and divine physician who purifies spiritual pollution and disease.',
+    offering: 'Bay laurel branch, pure spring water, frankincense, barley meal',
+    fastiQuery: 'apollo'
+  },
+  {
+    cat: 'consentes', key: 'diana',
+    latin: 'Diana Nemorensis / Lucina', greek: 'Artemis',
+    domain: 'Wild Places, The Hunt, Childbirth, Marginalized',
+    desc: 'Mistress of untouched forests, guardian of wild animals, protector of women and children, and sovereign light of the nighttime groves.',
+    offering: 'Lit beeswax tapers, wild woodland flowers, honey cakes',
+    fastiQuery: 'diana'
+  },
+  {
+    cat: 'consentes', key: 'vulcan',
+    latin: 'Volcanus / Mulciber', greek: 'Hephaistos',
+    domain: 'Sacred Fire, Metalworking, Metallurgy, Forge',
+    desc: 'Lord of subterranean and hearth fire, divine smith of the gods who transmutes raw metals into armor, tools, and artistic marvels.',
+    offering: 'Bonfire hearth libations, oil offerings, cedar wood incense',
+    fastiQuery: 'vulcan'
+  },
+  {
+    cat: 'consentes', key: 'vesta',
+    latin: 'Vesta Mater', greek: 'Hestia',
+    domain: 'Perpetual Hearth, Sacred Flame, Household Center',
+    desc: 'Keeper of the sacred, inextinguishable domestic and civic flame. Present in every hearth fire that warms the home and unifies the state.',
+    offering: 'Pure salted spelt (mola salsa), spring water, olive oil, sweet bread',
+    fastiQuery: 'vesta'
+  },
+  {
+    cat: 'consentes', key: 'mercury',
+    latin: 'Mercurius Psychopompos', greek: 'Hermes',
+    domain: 'Commerce, Honest Travel, Messages, Guide of Souls',
+    desc: 'Swift herald of the immortals, patron of trade, communication, and intellectual wit. Guide who escorts departed souls across the River.',
+    offering: 'Milk and honey libations, coins dedicated to charity, frankincense',
+    fastiQuery: 'mercury'
+  },
+  {
+    cat: 'consentes', key: 'neptune',
+    latin: 'Neptunus Equestris', greek: 'Poseidon',
+    domain: 'The Oceans, Fresh Waters, Earthquakes, Horses',
+    desc: 'Mighty sovereign of the boundless seas, underground springs, and tectonic movements. Patron of mariners and equestrian vitality.',
+    offering: 'Clear sea water, unmixed wine, pine boughs, sweet oil',
+    fastiQuery: 'neptune'
+  },
+
+  /* ---------- 2. SOVEREIGNS OF TIME, EARTH & MYSTERY ---------- */
+  {
+    cat: 'sovereigns', key: 'saturn',
+    latin: 'Saturnus', greek: 'Kronos',
+    domain: 'The Golden Age, Sowing of Seeds, Agriculture, Time',
+    desc: 'Archaic lord of the Golden Age of peace and equality before social hierarchies. Ruler of winter sowing and agricultural bounty.',
+    offering: 'Wax candles, dried figs, vintage wine, wheat stalks',
+    fastiQuery: 'saturn'
+  },
+  {
+    cat: 'sovereigns', key: 'ops',
+    latin: 'Ops Consiva / Regina', greek: 'Rhea / Durga',
+    domain: 'Earthly Abundance, Stored Harvests, Fertility',
+    desc: 'Consort of Saturn and divine personification of material prosperity and stored grain, worshipped touching the bare earth with hands.',
+    offering: 'Freshly harvested grain, libations poured into bare soil',
+    fastiQuery: 'ops'
+  },
+  {
+    cat: 'sovereigns', key: 'janus',
+    latin: 'Ianus Bifrons / Patulcius', greek: '—',
+    domain: 'Beginnings, Gateways, Time, Transitions, Auspices',
+    desc: 'Two-faced guardian of all beginnings, passages, and closures. Receives the first word and first offering of every ritual throughout the year.',
+    offering: 'Spelt cake (strues), dates, honey, new wine',
+    fastiQuery: 'janus'
+  },
+  {
+    cat: 'sovereigns', key: 'liber',
+    latin: 'Liber Pater / Bacchus', greek: 'Dionysos',
+    domain: 'Wine, Spiritual Freedom, Theater, Rebirth',
+    desc: 'Giver of joyful release, patron of viticulture, fertility, and dramatic poetry. Initiator into divine ecstatic freedom and civic renewal.',
+    offering: 'Sweet unwatered wine, ivy garlands, figs, pomegranates',
+    fastiQuery: 'liber'
+  },
+  {
+    cat: 'sovereigns', key: 'dis',
+    latin: 'Dis Pater / Orcus', greek: 'Haides / Pluto',
+    domain: 'The Underworld, Mineral Wealth, Resting of Souls',
+    desc: 'Benevolent ruler of the subterranean realm and mineral riches of the earth. Receiver of ancestors awaiting their rebirth or Elysian rest.',
+    offering: 'Libations of milk and honey poured directly into the ground',
+    fastiQuery: 'dis'
+  },
+  {
+    cat: 'sovereigns', key: 'proserpina',
+    latin: 'Proserpina / Libera', greek: 'Persephone / Kore',
+    domain: 'The Returning Seed, Queen of the Underworld',
+    desc: 'Daughter of Ceres who embodies the annual cycle of grain beneath the soil and its radiant springtime resurgence above the earth.',
+    offering: 'Pomegranate seeds, spring flowers, barley water, sweet wine',
+    fastiQuery: 'proserpina'
+  },
+  {
+    cat: 'sovereigns', key: 'sol',
+    latin: 'Sol Indiges / Sol Invictus', greek: 'Helios',
+    domain: 'The Sun, All-Seeing Eye, Cosmic Vitality',
+    desc: 'The primordial, unconquered sun whose radiant golden light illumines the cosmos, fosters all life, and witnesses all human oaths.',
+    offering: 'Golden oil, pure white wine, frankincense at sunrise',
+    fastiQuery: 'sol'
+  },
+  {
+    cat: 'sovereigns', key: 'luna',
+    latin: 'Luna', greek: 'Selene',
+    domain: 'The Moon, Nocturnal Light, Sacred Months',
+    desc: 'Silver ruler of the night sky whose 29.5-day cycle governs the lunar months (Noumenia) and the rhythmic growth of nature.',
+    offering: 'Crescent cakes, pure milk, silver ribbon, white blossoms',
+    fastiQuery: 'luna'
+  },
+  {
+    cat: 'sovereigns', key: 'tellus',
+    latin: 'Tellus Mater / Terra', greek: 'Gaia',
+    domain: 'Mother Earth, Ancestral Ground, Primordial Life',
+    desc: 'The physical earth itself that nourishes all living beings and receives them gently back into her bosom at the close of physical life.',
+    offering: 'Libations of milk, fresh fruit, seeds buried in the ground',
+    fastiQuery: 'tellus'
+  },
+  {
+    cat: 'sovereigns', key: 'magnamater',
+    latin: 'Magna Mater (Cybele)', greek: 'Kybele',
+    domain: 'The Mountain Mother, Nature, Civic Sovereignty',
+    desc: 'Anatolian Mother of Gods introduced to Rome in 204 BCE. Protector of city walls and untamed nature, accompanied by roaring lions.',
+    offering: 'Pine boughs, herbal incense, honey cakes, percussion music',
+    fastiQuery: 'magnamater'
+  },
+  {
+    cat: 'sovereigns', key: 'attis',
+    latin: 'Attis', greek: 'Attis',
+    domain: 'Vegetation, Death and Resurrection, Spring Rebirth',
+    desc: 'Consort of Magna Mater whose springtime mourning and joyous Hilaria resurrection celebrate the annual triumph of life over winter.',
+    offering: 'Violets, pine needles, sweet milk, springtime fruits',
+    fastiQuery: 'attis'
+  },
+  {
+    cat: 'sovereigns', key: 'isis',
+    latin: 'Isis Regina / Pelagia', greek: 'Isis',
+    domain: 'Seafaring, Magic, Motherhood, Universal Wisdom',
+    desc: 'Great Egyptian goddess adopted across Rome and Greece. Mistress of navigation (Navigium Isidis), sacred mysteries, and marital devotion.',
+    offering: 'Lamps of olive oil, lotus blossoms, milk libations, myrrh',
+    fastiQuery: 'isis'
+  },
+  {
+    cat: 'sovereigns', key: 'osiris',
+    latin: 'Osiris / Serapis', greek: 'Osiris',
+    domain: 'Resurrection, Underworld Harmony, Eternal Truth',
+    desc: 'Lord of rebirth and cosmic justice whose restoration by Isis (Inventio Osiridis) provides hope for the soul’s journey to the afterlife.',
+    offering: 'Pure river water, barley cakes, sweet wine, frankincense',
+    fastiQuery: 'osiris'
+  },
+  {
+    cat: 'sovereigns', key: 'bendis',
+    latin: 'Bendis', greek: 'Bendis',
+    domain: 'Thracian Wild Hunt, Torch Races, Nocturnal Forest',
+    desc: 'Thracian huntress adopted in Athens at Piraeus, celebrated with sacred equestrian torch races and wilderness vigils.',
+    offering: 'Pine torches, woodland berries, mountain honey',
+    fastiQuery: 'bendis'
+  },
+
+  /* ---------- 3. MORAL VIRTUES & CIVIC POWERS ---------- */
+  {
+    cat: 'virtues', key: 'quirinus',
+    latin: 'Quirinus', greek: '—',
+    domain: 'The Roman People in Peace, Civic Order',
+    desc: 'Deified guardian spirit of the citizens of Rome, representing the armed populace assembled peacefully in civic concord.',
+    offering: 'Toasted spelt porridge (puls), unmixed wine, myrtle',
+    fastiQuery: 'quirinus'
+  },
+  {
+    cat: 'virtues', key: 'bellona',
+    latin: 'Bellona', greek: 'Enyo',
+    domain: 'Martial Ferocity, Righteous Battle-Lines',
+    desc: 'Goddess of defensive war and fortitude, whose temple outside the Pomerium hosted foreign embassies and declarations of just defense.',
+    offering: 'Dark red wine, incense, spear-shaped bread offerings',
+    fastiQuery: 'bellona'
+  },
+  {
+    cat: 'virtues', key: 'terminus',
+    latin: 'Terminus', greek: '—',
+    domain: 'Boundary Stones, Property Integrity, Treaties',
+    desc: 'Inviolable guardian of boundaries and property markers. Teaches that borders and covenants must never be shifted through deceit.',
+    offering: 'Floral wreaths on border stones, honey cakes, wine',
+    fastiQuery: 'terminus'
+  },
+  {
+    cat: 'virtues', key: 'concordia',
+    latin: 'Concordia', greek: 'Harmonia',
+    domain: 'Civic Accord, Political Harmony, Peace',
+    desc: 'Divine power that binds citizens, households, and nations in mutual understanding, reconciliation, and cooperative peace.',
+    offering: 'Sweet white wine, white lilies, olive branches, incense',
+    fastiQuery: 'concordia'
+  },
+  {
+    cat: 'virtues', key: 'salus',
+    latin: 'Salus Publica', greek: 'Hygieia',
+    domain: 'Public Well-being, Physical & Spiritual Health',
+    desc: 'Goddess of societal safety and personal health. Invoked in annual state vows (vota) to preserve the vitality of the citizenry.',
+    offering: 'Clean herbal tea infusions, pure spring water, fresh fruit',
+    fastiQuery: 'salus'
+  },
+  {
+    cat: 'virtues', key: 'fides',
+    latin: 'Fides Publica', greek: 'Pistis',
+    domain: 'Good Faith, Sacred Treaties, Trustworthiness',
+    desc: 'Divine personification of honorable promises and integrity. Priests sacrificed to her with right hands wrapped in pure white linen.',
+    offering: 'White flowers, pure wheat bread, unwatered wine',
+    fastiQuery: 'fides'
+  },
+  {
+    cat: 'virtues', key: 'spes',
+    latin: 'Spes', greek: 'Elpis',
+    domain: 'Hope, Future Bounty, Auspicious Enterprise',
+    desc: 'The youthful spirit of enduring hope that sustains the farmer awaiting harvest and the soul striving toward virtue in adversity.',
+    offering: 'Freshly budding flowers, young wine, barley cakes',
+    fastiQuery: 'spes'
+  },
+  {
+    cat: 'virtues', key: 'victoria',
+    latin: 'Victoria', greek: 'Nike',
+    domain: 'Righteous Triumph, Overcoming Adversity, Success',
+    desc: 'Winged messenger who confers victory and triumph upon those who labor with discipline, courage, and moral excellence.',
+    offering: 'Palm branches, bay laurel wreaths, sweet wine, frankincense',
+    fastiQuery: 'victoria'
+  },
+  {
+    cat: 'virtues', key: 'honos',
+    latin: 'Honos & Virtus', greek: '—',
+    domain: 'Moral Honor, Martial Courage, Civic Excellence',
+    desc: 'Twin divine virtues honored together in Rome; teaching that genuine public honor can only be attained by entering through the door of virtue.',
+    offering: 'Bay laurel, olive oil, spelt cakes, vintage red wine',
+    fastiQuery: 'honos'
+  },
+  {
+    cat: 'virtues', key: 'pietas',
+    latin: 'Pietas', greek: 'Eusebeia',
+    domain: 'Duty, Reverence to Gods, Kin, and Nation',
+    desc: 'The fundamental Roman virtue of selfless devotion, family duty, ancestral respect, and heartfelt veneration of the immortal gods.',
+    offering: 'White incense, libations of pure water, ancestral prayers',
+    fastiQuery: 'pietas'
+  },
+  {
+    cat: 'virtues', key: 'fortuna',
+    latin: 'Fortuna / Fors Fortuna', greek: 'Tyche',
+    domain: 'Destiny, Opportunity, Good Luck, Providence',
+    desc: 'The turning wheel of opportunity and destiny. Honored by citizens of all ranks who seek auspicious beginnings and favorable fortune.',
+    offering: 'Garlands of flowers, honeyed wine, sweet pastries',
+    fastiQuery: 'fortuna'
+  },
+  {
+    cat: 'virtues', key: 'angerona',
+    latin: 'Diva Angerona', greek: '—',
+    domain: 'Sacred Silence, Protection of Rome’s Secret Name',
+    desc: 'Goddess of the winter solstice represented with a bound mouth, preserving the quiet strength that dispels anxiety and protects state secrets.',
+    offering: 'Silent libations of wine and grain at the Curia Calabra',
+    fastiQuery: 'angerona'
+  },
+  {
+    cat: 'virtues', key: 'moneta',
+    latin: 'Iuno Moneta', greek: 'Mnemosyne',
+    domain: 'Sacred Memory, Warning, Honest Coinage',
+    desc: 'Guardian of memory and wise counsel who warned Rome of impending perils. Patroness of the state mint and honest trade.',
+    offering: 'Pure incense, fresh honey, libations of spring water',
+    fastiQuery: 'moneta'
+  },
+  {
+    cat: 'virtues', key: 'sancus',
+    latin: 'Semo Sancus Dius Fidius', greek: '—',
+    domain: 'Sanctity of Oaths, Sky Justice, Daylight Truth',
+    desc: 'Ancient Sabine-Roman god of treaties and open-air oaths, worshipped in roofless sanctuaries open to the daylight sky.',
+    offering: 'Open-air libations of clear water and wine, spelt',
+    fastiQuery: 'sancus'
+  },
+
+  /* ---------- 4. NATURE, WATER & AGRARIAN GUARDIANS ---------- */
+  {
+    cat: 'nature', key: 'faunus',
+    latin: 'Faunus / Lupercus', greek: 'Pan',
+    domain: 'Woodlands, Prophetic Breezes, Flocks, Pastures',
+    desc: 'Horned spirit of the wild pastures and prophetic forests. Lord of the pastoral Lupercalia festival that purifies and fertilizes the land.',
+    offering: 'Warm milk, wild honey, pine needles, red wine',
+    fastiQuery: 'faunus'
+  },
+  {
+    cat: 'nature', key: 'silvanus',
+    latin: 'Silvanus', greek: '—',
+    domain: 'Sacred Forests, Farm Clearings, Grove Boundaries',
+    desc: 'Guardian of rustic woodlands, orchards, and clearings where civilized fields meet the wild mountain forests.',
+    offering: 'Grapes, ear of corn, milk, olive oil in sacred groves',
+    fastiQuery: 'silvanus'
+  },
+  {
+    cat: 'nature', key: 'flora',
+    latin: 'Flora', greek: 'Chloris',
+    domain: 'Spring Blossoms, Flowers, Joyous Renewal',
+    desc: 'Goddess of blooming fruit trees, flowers, and seasonal joy whose joyful Floralia festival celebrates the fertile beauty of nature.',
+    offering: 'Floral wreaths, sweet beans, honey, spring wine',
+    fastiQuery: 'flora'
+  },
+  {
+    cat: 'nature', key: 'pomona',
+    latin: 'Pomona', greek: '—',
+    domain: 'Orchard Fruit, Grafting, Tree Cultivation',
+    desc: 'Patron nymph of fruit orchards and pruning knives who turns raw wild saplings into heavy branches bearing sweet apples and pears.',
+    offering: 'Freshly harvested apples, pears, cider, pruning shears blessing',
+    fastiQuery: 'pomona'
+  },
+  {
+    cat: 'nature', key: 'vertumnus',
+    latin: 'Vertumnus', greek: '—',
+    domain: 'Changing Seasons, Ripening Crops, Trade Transformation',
+    desc: 'Etruscan-Roman lord of seasonal change and ripening produce, capable of transforming into any shape to tend blooming garden beds.',
+    offering: 'First ripe fruits of each tree, autumn garlands, wine',
+    fastiQuery: 'vertumnus'
+  },
+  {
+    cat: 'nature', key: 'robigus',
+    latin: 'Robigus / Robigo', greek: '—',
+    domain: 'Averting Grain Rust, Crop Health',
+    desc: 'The divine force of wheat rust and mildew, appeased during the spring Robigalia to keep grain stalks healthy until harvest.',
+    offering: 'Frankincense, wine, spelt meal offered at the sacred grove',
+    fastiQuery: 'robigus'
+  },
+  {
+    cat: 'nature', key: 'pales',
+    latin: 'Pales', greek: '—',
+    domain: 'Shepherds, Flocks, Pasture Purification (Parilia)',
+    desc: 'Tutelary deity of shepherds and herdsmen honored on April 21 (birthday of Rome) by jumping through purifying straw fires.',
+    offering: 'Warm milk, millet cakes, sweet wine, rosemary wreaths',
+    fastiQuery: 'pales'
+  },
+  {
+    cat: 'nature', key: 'portunus',
+    latin: 'Portunus', greek: '—',
+    domain: 'Keys, Doorways, Harbors, River Landings',
+    desc: 'Archaic guardian of harbor keys and maritime thresholds, ensuring safe returns for travelers crossing rivers and oceans.',
+    offering: 'Keys garlanded with bay, spelt bread, river water libation',
+    fastiQuery: 'portunus'
+  },
+  {
+    cat: 'nature', key: 'consus',
+    latin: 'Consus', greek: '—',
+    domain: 'Stored Grain, Secret Earth Vaults, Draft Animals',
+    desc: 'Lord of underground granaries and subterranean harvest vaults. On his feast, mules, donkeys, and work horses are rested and garlanded with flowers.',
+    offering: 'First ears of wheat, libations at subterranean altars',
+    fastiQuery: 'consus'
+  },
+  {
+    cat: 'nature', key: 'furrina',
+    latin: 'Furrina', greek: '—',
+    domain: 'Deep Springs, Subterranean Waters, Sacred Wellsprings',
+    desc: 'Archaic nymph of subterranean springs and deep wells honored with her own flamen in the sacred grove on the Janiculum Hill.',
+    offering: 'Pure well water, milk, unmixed wine in deep groves',
+    fastiQuery: 'furrina'
+  },
+  {
+    cat: 'nature', key: 'volturnus',
+    latin: 'Volturnus', greek: '—',
+    domain: 'River Currents, South-East Breeze, River Moisture',
+    desc: 'God of the winding Tiber currents and gentle southeast breeze that cools crops during the scorching dog days of August.',
+    offering: 'River water, fresh figs, wine, incense',
+    fastiQuery: 'volturnus'
+  },
+  {
+    cat: 'nature', key: 'summanus',
+    latin: 'Summanus', greek: '—',
+    domain: 'Nocturnal Thunder, Night Storms, Midnight Skies',
+    desc: 'Lord of nocturnal lightning and nighttime storms, complement to Jupiter’s daytime sky authority.',
+    offering: 'Wheel-shaped flour cakes (summanalia), dark wine',
+    fastiQuery: 'summanus'
+  },
+  {
+    cat: 'nature', key: 'tiberinus',
+    latin: 'Tiberinus Pater', greek: '—',
+    domain: 'Father Tiber, Sacred Streams, Flowing Waters',
+    desc: 'The divine river spirit of the Tiber who sheltered the basket of Romulus and Remus and cleanses the sacred city of Rome.',
+    offering: 'Libations poured directly into running rivers, rush effigies',
+    fastiQuery: 'tiberinus'
+  },
+  {
+    cat: 'nature', key: 'fons',
+    latin: 'Fons / Fontus', greek: '—',
+    domain: 'Springs, Fountains, Freshwater Wells',
+    desc: 'Son of Janus and deity of all flowing springs and freshwater fountains. On Fontinalia, wells are draped in fragrant floral garlands.',
+    offering: 'Garlands of autumn flowers lowered into wells, fresh wine',
+    fastiQuery: 'fons'
+  },
+  {
+    cat: 'nature', key: 'carna',
+    latin: 'Carna', greek: '—',
+    domain: 'Vital Organs, Door Hinges, Physical Vigor',
+    desc: 'Goddess of bodily strength, vital heart and liver organs, and hinges that protect home doorways from malevolent night spirits.',
+    offering: 'Bean porridge (fabata), bacon fat, hawthorn boughs',
+    fastiQuery: 'carna'
+  },
+  {
+    cat: 'nature', key: 'carmentis',
+    latin: 'Carmentis / Carmenta', greek: '—',
+    domain: 'Prophecy, Birth, Latin Alphabet, Matrons',
+    desc: 'Prophetic nymph and mother of Evander who brought the alphabet to Italy. Patroness of pregnant mothers, midwives, and weavers.',
+    offering: 'Vegetarian porridge, sweet pastries, no leather in her presence',
+    fastiQuery: 'carmentis'
+  },
+  {
+    cat: 'nature', key: 'matuta',
+    latin: 'Mater Matuta', greek: 'Leukothea',
+    domain: 'Morning Dawn, Growth of Children, Harbors',
+    desc: 'Goddess of early morning twilight and child development, where aunts offer maternal prayers for their nieces and nephews during Matralia.',
+    offering: 'Toasted yellow cakes baked in archaic earthen pots, wine',
+    fastiQuery: 'matuta'
+  },
+  {
+    cat: 'nature', key: 'bonadea',
+    latin: 'Bona Dea / Fauna', greek: '—',
+    domain: 'Women’s Secret Mysteries, Herbal Healing, Fertility',
+    desc: 'The "Good Goddess" of healing herbs and female mysteries whose nocturnal sanctuary rites banish all male presence and reference to wine/myrtle.',
+    offering: 'Milk, honey, healing herbs in earthen bowls (women only)',
+    fastiQuery: 'bonadea'
+  },
+  {
+    cat: 'nature', key: 'maia',
+    latin: 'Maia Maiestas', greek: 'Maia',
+    domain: 'Burgeoning Growth, Spring Increase, Motherhood',
+    desc: 'Mother of Mercury and ancient goddess of growth, increase, and spring expansion after whom the month of May is named.',
+    offering: 'Spring vegetables, sweet wine, floral libations',
+    fastiQuery: 'maia'
+  },
+  {
+    cat: 'nature', key: 'anna',
+    latin: 'Anna Perenna', greek: '—',
+    domain: 'The Circling Year, Longevity, New Year Picnic',
+    desc: 'Goddess of the circular year honored on the Ides of March along the river banks, where devotees drink as many cups as they hope to live years.',
+    offering: 'Outdoor river picnic libations, cakes, lively laughter',
+    fastiQuery: 'anna'
+  },
+  {
+    cat: 'nature', key: 'larentia',
+    latin: 'Acca Larentia', greek: '—',
+    domain: 'Ancestral Nurse of Rome, Wealth of the Land',
+    desc: 'Foster mother of Romulus and Remus and generous benefactor who bequeathed the land of Rome to the people.',
+    offering: 'Ancestral funeral libations at the Velabrum tomb',
+    fastiQuery: 'larentia'
+  },
+  {
+    cat: 'nature', key: 'nymphs',
+    latin: 'Nymphae', greek: 'Nymphai',
+    domain: 'Fresh Springs, Rivers, Trees, Sacred Places',
+    desc: 'Immortal spirits of natural waters, mountain grottos, and ancient trees. Honored at every natural spring and outdoor sanctuary.',
+    offering: 'Fresh spring water, honey, milk, wild flowers, fruit',
+    fastiQuery: 'nymphs'
+  },
+  {
+    cat: 'nature', key: 'muses',
+    latin: 'Camenae', greek: 'Mousai',
+    domain: 'Song, Poetry, Sacred Memory, Intellectual Arts',
+    desc: 'The nine divine sisters who inspire poetry, music, history, astronomy, and philosophy in human minds.',
+    offering: 'Clear spring water, honey libations, recitation of poetry',
+    fastiQuery: 'muses'
+  },
+  {
+    cat: 'nature', key: 'charites',
+    latin: 'Gratiae', greek: 'Charites',
+    domain: 'Grace, Beauty, Joy, Generous Reciprocity',
+    desc: 'The Three Graces who bestow elegance, mutual kindness, artistic beauty, and graceful generosity upon human relationships.',
+    offering: 'Sweet white wine, scented flowers, pomegranate',
+    fastiQuery: 'charites'
+  },
+  {
+    cat: 'nature', key: 'eros',
+    latin: 'Cupido / Amor', greek: 'Eros',
+    domain: 'Desire, Creative Vitality, Mutual Affinity',
+    desc: 'The primordial force of attraction and desire that inspires art, procreation, and emotional union across all living beings.',
+    offering: 'Honey, red flowers, sweet pastries, fruit',
+    fastiQuery: 'eros'
+  },
+  {
+    cat: 'nature', key: 'hebe',
+    latin: 'Iuventas', greek: 'Hebe',
+    domain: 'Eternal Youth, Vigor, Cupbearer of Olympus',
+    desc: 'Goddess of eternal youth and physical hardiness who pours nectar for the gods and receives offerings when young Romans reach adulthood.',
+    offering: 'Sweet unfermented grape must, fresh flowers, small cakes',
+    fastiQuery: 'hebe'
+  },
+  {
+    cat: 'nature', key: 'eileithyia',
+    latin: 'Iuno Lucina', greek: 'Eileithyia',
+    domain: 'Childbirth, Safe Delivery, Light of the Newborn',
+    desc: 'Divine protector who brings children safely from the womb into the light of day. Invoked by mothers in labor.',
+    offering: 'Wax candles, pure white linen garments, honey',
+    fastiQuery: 'eileithyia'
+  },
+  {
+    cat: 'nature', key: 'hekate',
+    latin: 'Trivia', greek: 'Hekate',
+    domain: 'Three-Way Crossroads, Thresholds of Night, Torch',
+    desc: 'Guardian of three-way crossroads and night thresholds. Holds golden torches to guide seekers through difficult transitions.',
+    offering: 'Crossroads supper (deipnon): garlic, bread, eggs, honey',
+    fastiQuery: 'hekate'
+  },
+  {
+    cat: 'nature', key: 'latona',
+    latin: 'Latona', greek: 'Leto',
+    domain: 'Mother of Apollo & Diana, Maternal Dignity',
+    desc: 'Gentle Titaness mother of the divine twins who endured great trials to give birth to radiant light and healing.',
+    offering: 'Myrrh, olive branches, sweet wine, barley cakes',
+    fastiQuery: 'latona'
+  },
+
+  /* ---------- 5. DOMESTIC SPIRITS & HERO CULTS ---------- */
+  {
+    cat: 'domestic', key: 'lares',
+    latin: 'Lares Familiares / Compitales', greek: '—',
+    domain: 'Household Guardians, Property, Crossroads',
+    desc: 'Benevolent guardian spirits of the family home, farmstead, and crossroads. Honored daily at the domestic Lararium altar with simple meal offerings.',
+    offering: 'First portion of family dinner, spelt, wine, fresh flowers',
+    fastiQuery: 'lares'
+  },
+  {
+    cat: 'domestic', key: 'penates',
+    latin: 'Di Penates', greek: '—',
+    domain: 'The Inner Storehouse, Pantry Abundance',
+    desc: 'Protectors of the family’s food stores and daily sustenance, ensuring that the household never suffers from scarcity or starvation.',
+    offering: 'Salt, spelt cake, seasonal fruits placed before the pantry',
+    fastiQuery: 'penates'
+  },
+  {
+    cat: 'domestic', key: 'manes',
+    latin: 'Di Manes', greek: '—',
+    domain: 'Ancestral Spirits, The Beloved Dead',
+    desc: 'The collective spirits of virtuous ancestors. Honored with affection during Parentalia and Feralia, but never confused with cosmic gods.',
+    offering: 'Wine, milk, violets, roses, and salted spelt on tombs',
+    fastiQuery: 'manes'
+  },
+  {
+    cat: 'domestic', key: 'genius',
+    latin: 'Genius / Iuno', greek: 'Agathos Daimon',
+    domain: 'Indwelling Spirit of Person, Household Health',
+    desc: 'The divine spark and guardian spirit born with each person and family lineage, celebrated on birthdays and family milestones.',
+    offering: 'Unmixed wine, honey cake, floral garland on birthdays',
+    fastiQuery: 'genius'
+  },
+  {
+    cat: 'domestic', key: 'aesculapius',
+    latin: 'Aesculapius', greek: 'Asklepios',
+    domain: 'Medicine, Physical Healing, Doctors, Abaton Rites',
+    desc: 'The great healing god whose serpent-entwined staff arrived in Rome in 291 BCE to deliver the city from plague. Patron of medicine and recovery.',
+    offering: 'Honey cakes, incense, rooster effigy (bloodless), spring water',
+    fastiQuery: 'aesculapius'
+  },
+  {
+    cat: 'domestic', key: 'asklepiadai',
+    latin: 'Machaon & Podaleirios', greek: 'Asklepiadai',
+    domain: 'Surgical Skill, Internal Medicine, Hero Healers',
+    desc: 'The heroic sons of Asklepios who served as physicians to the Greek forces at Troy, patron heroes of surgical and physical therapy.',
+    offering: 'Healing herbs, frankincense, barley libations',
+    fastiQuery: 'asklepiadai'
+  },
+  {
+    cat: 'domestic', key: 'hercules',
+    latin: 'Hercules Invictus', greek: 'Herakles',
+    domain: 'Labors, Victorious Strength, Commercial Oaths',
+    desc: 'The divine hero who overcame impossible trials to attain immortality. Honored at the Ara Maxima in Rome as protector of honest contracts.',
+    offering: 'Tenth of business profits (decuma), choice meats/wine, olive wreath',
+    fastiQuery: 'hercules'
+  },
+  {
+    cat: 'domestic', key: 'dioscuri',
+    latin: 'Castor & Pollux', greek: 'Dioskouroi',
+    domain: 'Cavalry, Seafaring Rescue, Brotherhood',
+    desc: 'Twin horsemen heroes who appeared miraculously at Lake Regillus to aid Rome. Divine protectors of cavalry and sailors in storms.',
+    offering: 'White horses dedication, twin spelt cakes, pure wine',
+    fastiQuery: 'dioscuri'
+  },
+  {
+    cat: 'domestic', key: 'theseus',
+    latin: 'Theseus', greek: 'Theseus',
+    domain: 'Unification of Athens (Synoikia), Demotic Justice',
+    desc: 'Hero-king who unified Attica and established democratic civic festivals honoring Athena and Poseidon.',
+    offering: 'Olive branches, barley porridge, libations of spring wine',
+    fastiQuery: 'theseus'
+  },
+  {
+    cat: 'domestic', key: 'hyakinthos',
+    latin: 'Hyakinthos', greek: 'Hyakinthos',
+    domain: 'Spartan Hero Cult, Beautiful Youth, Rebirth',
+    desc: 'Hero of Amyklai whose solemn mourning and joyful resurrection cycle forms the heart of the great Spartan Hyakinthia festival.',
+    offering: 'Hyacinth flowers, solemn grain libations, sweet cakes',
+    fastiQuery: 'hyakinthos'
+  },
+  {
+    cat: 'domestic', key: 'ajax',
+    latin: 'Aias', greek: 'Aias (Locrian)',
+    domain: 'Locrian Hero Cult, Martial Steadfastness',
+    desc: 'National hero of the Locrians, honored at Aianteia where an empty seat of honor was kept for him in the battle line.',
+    offering: 'Barley meal, unwatered red wine, laurel branches',
+    fastiQuery: 'ajax'
+  },
+  {
+    cat: 'domestic', key: 'panhellenic',
+    latin: 'Di Omnes', greek: 'Theoi Pantes',
+    domain: 'All Immortal Gods Together, Universal Divine Peace',
+    desc: 'The comprehensive invocation of all gods together in divine unity, ensuring that no forgotten power is omitted in times of prayer.',
+    offering: 'Mixed grain libation, complete frankincense and myrrh incense',
+    fastiQuery: 'panhellenic'
+  }
+];
+
+var CATEGORY_META = {
+  consentes: { title: '1. The Twelve Olympians (Dii Consentes)', desc: 'The sovereign council of twelve major deities of Roman and Hellenic religion.' },
+  sovereigns: { title: '2. Sovereigns of Time, Earth & Mystery', desc: 'Ancient primordial powers, rulers of the afterlife, seasons, and mystery traditions.' },
+  virtues: { title: '3. Moral Virtues & Civic Powers', desc: 'Divine personifications of justice, good faith, courage, and civic harmony.' },
+  nature: { title: '4. Nature, Water & Agrarian Guardians', desc: 'Guardians of fields, sacred groves, springs, and pastoral prosperity.' },
+  domestic: { title: '5. Domestic Spirits & Hero Cults', desc: 'Household protectors of the hearth, ancestor spirits, and immortalized heroes.' }
+};
+
+/* ============================================================
+   RENDER & FILTER ENGINE
+   ============================================================ */
+function renderGods() {
+  var q = document.getElementById('godSearch').value.trim().toLowerCase();
+  var cat = document.getElementById('catFilter').value;
+  var container = document.getElementById('pantheonWrap');
+
+  var filtered = GODS_DATA.filter(function(g){
+    var matchesCat = (cat === 'all' || g.cat === cat);
+    if(!matchesCat) return false;
+    if(!q) return true;
+    return g.latin.toLowerCase().indexOf(q) >= 0 ||
+           g.greek.toLowerCase().indexOf(q) >= 0 ||
+           g.domain.toLowerCase().indexOf(q) >= 0 ||
+           g.desc.toLowerCase().indexOf(q) >= 0 ||
+           g.offering.toLowerCase().indexOf(q) >= 0;
+  });
+
+  document.getElementById('godCount').textContent = filtered.length + (filtered.length === 1 ? ' deity' : ' deities');
+
+  if(filtered.length === 0){
+    container.innerHTML = '<div class="empty"><b>No deities found</b><p style="margin-top:6px">No gods match your current search query. Try widening your search terms.</p></div>';
+    return;
+  }
+
+  var catsToRender = cat === 'all' ? ['consentes','sovereigns','virtues','nature','domestic'] : [cat];
+  var html = '';
+
+  catsToRender.forEach(function(cKey){
+    var inCat = filtered.filter(function(g){ return g.cat === cKey; });
+    if(inCat.length === 0) return;
+
+    var meta = CATEGORY_META[cKey];
+    html += '<section class="category-sec">' +
+            '<div class="category-head">' +
+            '<h2>' + meta.title + '</h2>' +
+            '<span>' + meta.desc + '</span>' +
+            '</div>' +
+            '<div class="god-grid">';
+
+    inCat.forEach(function(g){
+      var syncreticStr = g.greek !== '—' && g.greek !== g.latin ? 'Greek: ' + g.greek : 'Italic / Indigenous';
+      html += '<div class="god-card">' +
+              '<div class="god-names">' +
+              '<div class="god-primary">' + g.latin + '</div>' +
+              '<div class="god-syncretic">' + syncreticStr + '</div>' +
+              '</div>' +
+              '<div class="god-domain">' + g.domain + '</div>' +
+              '<div class="god-desc">' + g.desc + '</div>' +
+              '<div class="god-offering"><b>Sacred Gifts:</b> ' + g.offering + '</div>' +
+              '<a href="Calendar-Fasti.html?god=' + g.key + '" class="fasti-btn">📅 View in Sacred Fasti &rarr;</a>' +
+              '</div>';
+    });
+
+    html += '</div></section>';
+  });
+
+  container.innerHTML = html;
+}
+
+/* ============================================================
+   INITIALIZATION & THEME LOGIC
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', function(){
+  var themeBtn = document.getElementById('themeBtn');
+  var currentTheme = localStorage.getItem('vpe.theme') || 'night';
+  document.documentElement.setAttribute('data-theme', currentTheme);
+
+  themeBtn.onclick = function(){
+    currentTheme = currentTheme === 'night' ? 'day' : 'night';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    localStorage.setItem('vpe.theme', currentTheme);
+  };
+
+  document.getElementById('godSearch').addEventListener('input', renderGods);
+  document.getElementById('catFilter').addEventListener('change', renderGods);
+
+  /* Modal controls */
+  var modal = document.getElementById('cultorModal');
+  var openBtn = document.getElementById('openCultorModal');
+  var closeBtn = document.getElementById('closeCultorModal');
+
+  if(openBtn) openBtn.onclick = function(){ modal.hidden = false; };
+  if(closeBtn) closeBtn.onclick = function(){ modal.hidden = true; };
+  modal.onclick = function(e){ if(e.target === modal) modal.hidden = true; };
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && !modal.hidden) modal.hidden = true;
+  });
+
+  renderGods();
+});
+</script>
+</body>
+</html>
