@@ -216,6 +216,24 @@ h1 span{display:block;font-size:.55em;letter-spacing:.28em;color:var(--flame);
   padding-top:1px;display:flex;align-items:center;gap:3px;white-space:nowrap;overflow:hidden
 }
 
+/* ---------- month band: festivals with no attested day (Placed BELOW the calendar) ---------- */
+.band{border:1px solid var(--line);border-left:3px solid var(--flame);
+  background:var(--ink-1);border-radius:4px;margin:16px 0 12px;padding:10px 13px}
+.band h2{font-family:var(--display);font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--flame);margin:0 0 3px;font-weight:600}
+.band .lede{font-size:12.5px;color:var(--bone-dim);margin:0 0 9px;line-height:1.5}
+.bandrow{display:flex;gap:9px;align-items:baseline;flex-wrap:wrap;padding:5px 0;
+  border-top:1px solid var(--line)}
+.bandrow:first-of-type{border-top:0}
+.bandrow .bmonth{font-family:var(--data);font-size:11px;color:var(--bone-dim);
+  min-width:22ch;flex:none}
+.bandrow .bfests{display:flex;gap:6px;flex-wrap:wrap;flex:1 1 16ch}
+.bandrow .bf{font-size:13px;border:1px solid var(--line);border-radius:3px;padding:2px 7px;
+  background:var(--ink-2);cursor:pointer;text-align:left;
+  border-left:3px solid hsl(var(--h) 45% 52%)}
+.bandrow .bf:hover{border-color:var(--flame)}
+.bandrow .bf em{font-style:normal;color:var(--bone-dim);font-size:11px}
+
 /* ---------- agenda ---------- */
 .agenda{display:flex;flex-direction:column;gap:1px;background:var(--line);
   border:1px solid var(--line);border-radius:4px;overflow:hidden}
@@ -499,7 +517,8 @@ h1 span{display:block;font-size:.55em;letter-spacing:.28em;color:var(--flame);
         <label class="opt"><input type="checkbox" id="optRoman" checked> Roman date notation</label>
         <label class="opt"><input type="checkbox" id="optNoum" checked> Mark new lunar months</label>
         <label class="opt"><input type="checkbox" id="optMonthly" checked> Kalends, Nones &amp; Ides</label>
-        <label class="opt"><input type="checkbox" id="optApprox" checked> Days fixed by convention</label>
+        <label class="opt"><input type="checkbox" id="optApprox" checked> Days argued, not certain</label>
+        <label class="opt"><input type="checkbox" id="optUndated" checked> Undated festivals band</label>
         <label class="opt">First day of month
           <select id="optOffset">
             <option value="0">at conjunction</option>
@@ -517,107 +536,139 @@ h1 span{display:block;font-size:.55em;letter-spacing:.28em;color:var(--flame);
   <details>
     <summary>How this calendar is reckoned</summary>
     <div class="inner">
-      <p>The frame is the ordinary Gregorian year[cite: 1]. Two different kinds of festival are laid over it[cite: 1].</p>
+      <p>The frame is the ordinary Gregorian year[cite: 4]. Two different kinds of festival are laid over it[cite: 4].</p>
       <h4>The Roman year</h4>
       <p>Roman festivals sit on fixed days, on the same numbered day as in the Republican and Julian
-        <em>fasti</em>: the Parilia on 21 April, the Saturnalia opening on 17 December[cite: 1]. Each day also
+        <em>fasti</em>: the Parilia on 21 April, the Saturnalia opening on 17 December[cite: 4]. Each day also
         carries its inscriptional form &mdash; <em>a.d. XI Kal. Sept.</em> &mdash; counted from the Kalends,
-        Nones and Ides of the Gregorian month[cite: 1]. A handful of Roman feasts were <em>feriae conceptivae</em>,
+        Nones and Ides of the Gregorian month[cite: 4]. A handful of Roman feasts were <em>feriae conceptivae</em>,
         announced each year by a magistrate rather than fixed: the Compitalia, the Sementivae, the
-        Ludi[cite: 1]. These are placed on their conventional modern dates and flagged as set by convention[cite: 1].</p>
+        Ludi[cite: 4]. These are placed on their conventional modern dates and flagged as set by convention[cite: 4].</p>
       <h4>The Greek year</h4>
-      <p>Every Greek city ran a lunar month against a solar year[cite: 1]. A month begins at the
-        <em>noumenia</em>, the first sighting of the new crescent, and runs 29 or 30 days until the next[cite: 1].
+      <p>Every Greek city ran a lunar month against a solar year[cite: 4]. A month begins at the
+        <em>noumenia</em>, the first sighting of the new crescent, and runs 29 or 30 days until the next[cite: 4].
         The year begins with the first new moon after a fixed solar point &mdash; the summer solstice at
-        Athens, the autumn equinox in Macedon, the winter solstice in Boeotia[cite: 1]. Because twelve lunations
+        Athens, the autumn equinox in Macedon, the winter solstice in Boeotia[cite: 4]. Because twelve lunations
         fall about eleven days short of the solar year, roughly every third year carries a thirteenth
         month; this page inserts it as a doubled month (a <em>Second Poseideon</em> at Athens) and does
-        not repeat that month's festivals[cite: 1].</p>
+        not repeat that month's festivals[cite: 4].</p>
       <p>New moons and solstices are computed from the periodic series in Meeus,
-        <em>Astronomical Algorithms</em>, and are good to a few minutes[cite: 1]. The conjunction itself is
+        <em>Astronomical Algorithms</em>, and are good to a few minutes[cite: 4]. The conjunction itself is
         invisible, so the first day of the month is set one day after it by default; ancient practice
-        varied and the offset can be changed under Display[cite: 1]. Shifting it moves every Greek date on the
-        page by that many days[cite: 1].</p>
+        varied and the offset can be changed under Display[cite: 4]. Shifting it moves every Greek date on the
+        page by that many days[cite: 4]. This is the one place where the page does fix something the sources
+        leave open, and it cannot be avoided: without a rule for the first day there is no lunar
+        calendar at all[cite: 4]. It is a rule about the moon, not about any festival[cite: 4].</p>
       <h4>Games that do not fall every year</h4>
-      <p>The Olympia, the Pythia, the Isthmia, the Nemea and a few others ran on cycles of two, four,
-        seven or eight years[cite: 1]. They appear only in the years they are due, and the day panel says so[cite: 1].
-        The cycles are pinned to the modern convention that the Olympic year is divisible by four, with
-        the Pythia in the third year of each Olympiad; if your tradition counts the Olympiads
-        differently, change the anchor year in the entry rather than the interval[cite: 1].</p>
+      <p>The Olympia, the Pythia, the Isthmia, the Nemea and a number of others ran on cycles of two,
+        four, five, seven, eight, sixty or a hundred and ten years[cite: 4]. They appear only in the years they
+        are due, and the day panel says so[cite: 4]. The cycles are pinned to the modern convention that the
+        Olympic year is divisible by four; if your tradition counts the Olympiads differently, change
+        the anchor year in the entry rather than the interval[cite: 4].</p>
+      <p>One consequence of the summer year-start is worth spelling out, because it looks like an error
+        and is not[cite: 4]. A Greek year runs from one solstice or equinox to the next, so the second year of an
+        Olympiad begins in the summer after the Olympia and ends the following summer[cite: 4]. A festival in the
+        <em>autumn</em> of that year therefore falls in the modern year of the games themselves, and one
+        in the <em>spring</em> of it falls in the modern year after[cite: 4]. The Isthmia and the Nemea both
+        belong to the second and fourth Olympiad years, but the Nemea are a summer festival and the
+        Isthmia a spring one, so they land in alternate modern years: Nemea in 2025 and 2027, Isthmia in
+        2026 and 2028[cite: 4]. The old sequence still reads straight through — Olympia August 2024, Nemea July
+        2025, Isthmia spring 2026, Pythia August 2026, Nemea July 2027, Isthmia spring 2028, Olympia
+        August 2028 — with the athlete never idle for a whole year[cite: 4].</p>
+      <p>Where a lesser celebration is swallowed by a greater one on the same cycle, the lesser entry
+        carries <code>unless</code> and steps aside in those years: the Lesser Panathenaia yields to the
+        Greater every fourth Hekatombaion, and the Little Daidala to the Great[cite: 4].</p>
       <h4>What the flags mean</h4>
       <p>A tradition marked <span class="flag medium">medium</span> has a well-attested month list whose
-        order or year-start is reconstructed[cite: 1]. <span class="flag low">low</span> means the month order
+        order or year-start is reconstructed[cite: 4]. <span class="flag low">low</span> means the month order
         itself is conjectural; individual festival days in these systems are usually modern conventions
-        placed in the right season[cite: 1]. <span class="flag placeholder">placeholder</span> means the month
-        names have not been entered at all and the system is scaffolding awaiting the epigraphic list[cite: 1].
+        placed in the right season[cite: 4]. <span class="flag placeholder">placeholder</span> means the month
+        names have not been entered at all and the system is scaffolding awaiting the epigraphic list[cite: 4].
         Where only the month or the season of a festival is known, the entry is marked
-        <em>day fixed by convention</em> in the day panel, and those entries can be hidden entirely[cite: 1].</p>
-      <p>The point of the flags is that this calendar should never quietly present a guess as a fact[cite: 1].
-        Where the evidence is thin, celebrate in the right season and say so[cite: 1].</p>
+        <em>day fixed by convention</em> in the day panel, and those entries can be hidden entirely[cite: 4].</p>
+      <p>The point of the flags is that this calendar should never quietly present a guess as a fact[cite: 4].
+        Where the evidence is thin, celebrate in the right season and say so[cite: 4].</p>
     </div>
   </details>
 
   <details>
     <summary>Extending the calendar to a new year</summary>
     <div class="inner">
-      <p>Nothing on this page is a lookup table[cite: 1]. Moon phases, month lengths, intercalation and every
+      <p>Nothing on this page is a lookup table[cite: 4]. Moon phases, month lengths, intercalation and every
         Greek festival date are computed in the browser, so there is no annual data file to fetch and
-        no yearly update to publish[cite: 1]. <strong>The calendar already runs to December 3000[cite: 1].</strong> Type
-        a year into the box beside the month arrows to go there[cite: 1].</p>
+        no yearly update to publish[cite: 4]. <strong>The calendar already runs to December 3000[cite: 4].</strong> Type
+        a year into the box beside the month arrows to go there[cite: 4].</p>
       <h4>1. How the range works</h4>
-      <p>Near the top of the script block[cite: 1]:</p>
+      <p>Near the top of the script block[cite: 4]:</p>
       <pre>var CFG = {
   yearStart: 2026,   /* first navigable year */
   yearEnd:   3000,   /* last navigable year  */</pre>
-      <p>Holding a thousand years of seventeen lunar calendars in memory at once would cost hundreds of
+      <p>Holding a thousand years of nineteen lunar calendars in memory at once would cost hundreds of
         megabytes, so the page computes a three-year window around whatever you are looking at and
-        rebuilds it &mdash; in a few milliseconds &mdash; when you walk off the edge[cite: 1]. Widening
-        <code>yearEnd</code> therefore costs nothing at load time[cite: 1]. The underlying algorithms are
+        rebuilds it &mdash; in a few milliseconds &mdash; when you walk off the edge[cite: 4]. Widening
+        <code>yearEnd</code> therefore costs nothing at load time[cite: 4]. The underlying algorithms are
         published for roughly 1000&ndash;3000 CE; beyond that the periodic series drift and the
         precession terms in the season calculation stop being trustworthy, which is why the ceiling
-        sits where it does[cite: 1].</p>
-      <p>One caveat worth stating plainly: this is astronomy, not history[cite: 1]. A date in 2400 is a correct
+        sits where it does[cite: 4].</p>
+      <p>One caveat worth stating plainly: this is astronomy, not history[cite: 4]. A date in 2400 is a correct
         prediction of where the new moon will fall, not a claim that anyone will be keeping the
-        Karneia then[cite: 1].</p>
+        Karneia then[cite: 4].</p>
       <h4>2. Spot-check the astronomy</h4>
       <p>Before publishing a new range, check three or four new moon dates against an ephemeris
-        (the US Naval Observatory or HM Nautical Almanac both publish tables)[cite: 1]. Open a day that is
-        marked as a new lunar month and confirm the conjunction falls where you expect[cite: 1]. An error here
-        would shift a whole system's year, not a single day[cite: 1].</p>
+        (the US Naval Observatory or HM Nautical Almanac both publish tables)[cite: 4]. Open a day that is
+        marked as a new lunar month and confirm the conjunction falls where you expect[cite: 4]. An error here
+        would shift a whole system's year, not a single day[cite: 4].</p>
       <h4>3. Watch for the thirteenth month</h4>
       <p>Open the day panel on any date and each enabled system reports its month as
-        <em>Hekatombaion 12 &mdash; month 1 of 12</em>[cite: 1]. In an intercalary year it will read
-        <em>month 7 of 13</em> and the doubled month is named[cite: 1]. Confirm that the doubled month falls
-        where your tradition expects it[cite: 1]. The insertion point is the <code>interc</code> field on each
-        system, a zero-based index into its month list &mdash; <code>5</code> doubles the sixth month[cite: 1].</p>
+        <em>Hekatombaion 12 &mdash; month 1 of 12</em>[cite: 4]. In an intercalary year it will read
+        <em>month 7 of 13</em> and the doubled month is named[cite: 4]. Confirm that the doubled month falls
+        where your tradition expects it[cite: 4]. The insertion point is the <code>interc</code> field on each
+        system, a zero-based index into its month list &mdash; <code>5</code> doubles the sixth month[cite: 4].</p>
       <h4>4. Adding or correcting a festival</h4>
-      <p>Roman entries live in the <code>ROMAN</code> array and use the Gregorian month and day[cite: 1]:</p>
+      <p>Roman entries live in the <code>ROMAN</code> array and use the Gregorian month and day[cite: 4]:</p>
       <pre>{ m:4, d:21, n:'Parilia', g:['pales'], span:1,
   note:'Text shown in the day panel.' }</pre>
       <p>Greek entries live in the <code>fest</code> array of their system and use the lunar month
-        number and the day within it[cite: 1]:</p>
+        number and the day within it[cite: 4]:</p>
       <pre>{ mi:1, d:12, n:'Kronia', g:['saturn'], span:1,
   approx:false, note:'...' }</pre>
       <p>Add <code>cycle:[4,2028]</code> to a festival that is not annual: the first number is the
-        interval in years, the second is any year in which it falls[cite: 1]. The engine tests the year in which
+        interval in years, the second is any year in which it falls[cite: 4]. The engine tests the year in which
         that lunar year began, so a festival in a month that lands in January still belongs to the
-        previous anchor year[cite: 1].</p>
-      <p><code>mi</code> is the position in that system's <code>months</code> list, counting from 1[cite: 1].
-        <code>d</code> is the day of the lunar month, where 1 is the noumenia[cite: 1]. Set
+        previous anchor year — which is also why a spring entry on an Olympiad cycle surfaces in the
+        modern year after the one you anchored it to[cite: 4]. Check a new cycle by stepping through four or five
+        due years rather than trusting the arithmetic in your head[cite: 4].</p>
+      <p><code>unless:[4,2026]</code> is the inverse and can be used with or without
+        <code>cycle</code>: the entry is suppressed in every year the interval matches[cite: 4]. Use it for an
+        annual rite that a penteteric one replaces, so the two never print on the same day[cite: 4]. Both keys
+        work in the <code>ROMAN</code> array as well, where they test the Gregorian year directly — the
+        Ludi Saeculares and the Ludi Taurei are carried that way[cite: 4].</p>
+      <p><code>last:true</code> pins an entry to the closing day of its lunar month instead of to a
+        fixed number[cite: 4]. Athens dropped the twenty-ninth in a hollow month and kept the thirtieth as the
+        last day, so a festival of the hene kai nea — the Chalkeia, the Diisoteria — would otherwise
+        vanish in every hollow month; with the flag it moves to day 29 in those years and the day panel
+        reports the real number[cite: 4].</p>
+      <p><code>mi</code> is the position in that system's <code>months</code> list, counting from 1[cite: 4].
+        <code>d</code> is the day of the lunar month, where 1 is the noumenia[cite: 4]. Set
         <code>approx:true</code> whenever you are placing a festival by season rather than by
-        attestation &mdash; that is what keeps the flag honest[cite: 1]. Every key in <code>g</code> must exist in
-        <code>DEITIES</code>, or the god filter will not find it; add new gods there first[cite: 1].</p>
+        attestation &mdash; that is what keeps the flag honest[cite: 4]. Every key in <code>g</code> must exist in
+        <code>DEITIES</code>, or the god filter will not find it; add new gods there first[cite: 4].</p>
       <h4>5. Filling in a placeholder system</h4>
-      <p>The two Opuntian Locrian systems ship as numbered scaffolding[cite: 1]. Replace the twelve strings in
+      <p>The two Opuntian Locrian systems ship as numbered scaffolding[cite: 4]. Replace the twelve strings in
         <code>months</code> with the epigraphic names, set <code>conf</code> to <code>'low'</code> or
         <code>'medium'</code>, rewrite <code>src</code> to say what the reconstruction rests on, and
-        add festivals[cite: 1]. Until then they are best left switched off[cite: 1].</p>
+        add festivals[cite: 4]. Until then they are best left switched off[cite: 4].</p>
       <h4>6. Publishing</h4>
-      <p>The page is a single file with no dependencies[cite: 1]. Commit it as <code>index.html</code> in the
-        repository or in a <code>/docs</code> folder, enable Pages for that branch, and it is live[cite: 1].
+      <p>The page is a single file with no dependencies[cite: 4]. Commit it as <code>index.html</code> in the
+        repository or in a <code>/docs</code> folder, enable Pages for that branch, and it is live[cite: 4].
         Because everything is computed, an old cached copy is still correct for its own range &mdash;
-        readers only need to reload to see a corrected one[cite: 1].</p>
+        readers only need to reload to see a corrected one[cite: 4].</p>
     </div>
+  </details>
+
+  <details id="unplacedBox">
+    <summary>Attested, but not placeable</summary>
+    <div class="inner" id="unplacedBody"></div>
   </details>
 
   <details>
@@ -625,26 +676,55 @@ h1 span{display:block;font-size:.55em;letter-spacing:.28em;color:var(--flame);
     <div class="inner">
       <p>The Roman entries follow the surviving <em>fasti</em> and Ovid's <em>Fasti</em>, which covers
         January to June in detail and leaves the second half of the year to the calendar inscriptions,
-        Varro, Festus and Macrobius[cite: 1]. Where Ovid gives a story for a day, the note here summarises it in
-        a sentence; the poem itself is worth reading beside the calendar rather than through it[cite: 1].</p>
+        Varro, Festus and Macrobius[cite: 4]. Where Ovid gives a story for a day, the note here summarises it in
+        a sentence; the poem itself is worth reading beside the calendar rather than through it[cite: 4].</p>
       <p>The Athenian festival year is the best documented in the Greek world and its entries can be
-        trusted to the day[cite: 1]. Delphi, Macedon, Rhodes, Thessaly, Boeotia and Epidauros have solid month
-        lists and thinner festival evidence[cite: 1]. Sparta, Argos, Elis, Crete, Aetolia, Corinth and the
+        trusted to the day[cite: 4]. Delos is nearly as good for the frame — the hieropoioi's accounts fix the
+        month names, their order and the midwinter year-start — though the day within the month is
+        usually lost[cite: 4]. Delphi, Macedon, Rhodes, Thessaly, Boeotia, Miletos, Kos and Epidauros have solid month
+        lists and festival evidence[cite: 4]. Sparta, Argos, Elis, Crete, Aetolia, Corinth and the
         Sicilian cities are reconstructions: the festivals are real and their seasons are known, but the
-        day within the month is usually a modern choice[cite: 1]. Ozolian Locris genuinely numbered its months
-        rather than naming them[cite: 1].</p>
+        day within the month is usually a modern choice[cite: 4]. Ozolian Locris genuinely numbered its months
+        rather than naming them[cite: 4].</p>
       <p>Where a rite was restricted in antiquity &mdash; the Thesmophoria and the Bona Dea to women, the
-        Mysteries to initiates &mdash; the entry records that restriction as a matter of history[cite: 1]. What a
-        modern group does with it is a decision for the group, not for a calendar[cite: 1].</p>
+        Mysteries to initiates &mdash; the entry records that restriction as a matter of history[cite: 4]. What a
+        modern group does with it is a decision for the group, not for a calendar[cite: 4].</p>
       <p>A system can look almost empty in a given year without being broken: Elis holds little but the
-        Olympia and its attendant rites, and those fall only every fourth year[cite: 1]. Step forward a year or
-        two and it fills[cite: 1].</p>
-      <p>Corrections are welcome[cite: 1]. A festival moved by good evidence is worth more than a full page[cite: 1].</p>
+        Olympia and its attendant rites, and those fall only every fourth year[cite: 4]. Step forward a year or
+        two and it fills[cite: 4].</p>
+      <p>Nothing is entered here on the strength of a month name alone[cite: 4]. A month called Bouphonion is
+        not evidence for a Bouphonia, and a month called Eleusinios is not evidence for an Eleusinia:
+        month names outlived the rites that produced them and travelled between cities that never kept
+        those rites[cite: 4]. Every entry rests on an ancient text or an inscription that names the festival, and
+        several plausible-looking candidates have been left out for want of one[cite: 4].</p>
+      <h4>No date is ever chosen</h4>
+      <p>Whether a festival existed and when it fell are two questions, and the second is far more often
+        lost[cite: 4]. This calendar answers the second only where a source does[cite: 4]. A festival is drawn on a day
+        only if the day is attested or argued from evidence; where the source gives the month and no
+        more, the entry appears in the band below the calendar, against the whole span of that lunar
+        month[cite: 4]. It is never nudged onto a plausible-looking day, or onto the god's day of the month, or
+        onto a neighbouring festival[cite: 4].</p>
+      <p>The same holds for years[cite: 4]. A festival on a cycle is shown in particular years only where the
+        ancient count can be picked up and carried forward — the Olympiad games and everything pinned to
+        them, the Delia from its restoration in 426 BCE, the saeculum from 204 CE, the lustrum from 74
+        CE[cite: 4]. Where the interval is attested but no celebration can be counted from, the festival is not
+        assigned to years at all; it is listed under <em>Attested, but not placeable</em>, together with
+        those whose month is unknown[cite: 4]. Roman <em>feriae conceptivae</em> — the Compitalia, the Sementivae,
+        the Feriae Latinae, the Ambarvalia — were announced by a magistrate and had no fixed day in
+        antiquity either, so they sit in the band with the rest[cite: 4].</p>
+      <p>Two kinds of interval need naming separately[cite: 4]. Some are secure and tied to a known year — the
+        Olympiad cycle and everything pinned to it, and the Roman saeculum as the Augustan and Severan
+        celebrations reckoned it[cite: 4]. Others preserve only the interval: the Ptoia, the Halieia, the
+        Brauronia, the Septeria and the Ludi Taurei are all attested as recurring at a stated number of
+        years, with nothing surviving to say which years those were[cite: 4]. Their anchors here are modern
+        choices, marked <em>day fixed by convention</em>, and moving one by a year or two is a change of
+        convention rather than a correction of fact[cite: 4].</p>
+      <p>Corrections are welcome[cite: 4]. A festival moved by good evidence is worth more than a full page[cite: 4].</p>
     </div>
   </details>
 </section>
 
-<p class="colophon">Calendar-Fasti &middot; The Virtuous Path to Elysium &middot; computed in the browser &middot; no external resources[cite: 1]</p>
+<p class="colophon">Calendar-Fasti &middot; The Virtuous Path to Elysium &middot; computed in the browser &middot; no external resources[cite: 4]</p>
 
 <script>
 /* ============================================================
@@ -833,6 +913,13 @@ var DEITIES = {
   gaia:      ['Terra Mater', 'Gaia', 'earth, ancestors below'],
   kore:      ['Libera', 'Kore', 'the maiden, the returning seed'],
   theseus:   ['—', 'Theseus', 'hero of Athens'],
+  prometheus:['—', 'Prometheus', 'fire carried to mortals'],
+  trophonios:['—', 'Trophonios', 'the oracle in the earth at Lebadeia'],
+  palaimon:  ['—', 'Melikertes-Palaimon', 'the drowned child, harbours'],
+  britomartis:['—', 'Britomartis-Diktynna', 'the Cretan huntress of the nets'],
+  sosipolis: ['—', 'Sosipolis', 'the child-daimon who saved Elis'],
+  tlapolemos:['—', 'Tlapolemos', 'founder-hero of Rhodes'],
+  iolaos:    ['—', 'Iolaos', 'charioteer and companion of Herakles'],
   hyakinthos:['—', 'Hyakinthos', 'hero of Amyklai'],
   ajax:      ['—', 'Aias', 'hero of the Lokrians'],
   bendis:    ['—', 'Bendis', 'Thracian huntress'],
@@ -844,15 +931,16 @@ var DEITIES = {
 var ROMAN = [
   { m:1,  d:1,  n:'Kalendae Ianuariae — Ianus; vota for the year', g:['janus','jupiter','juno'], note:'Sacred to Janus, looking back on the old year and forward into the new; public vows (vota) taken by magistrates; offerings of spelt, honey, and dates.' },
   { m:1,  d:1,  n:'Dedication of the temples of Aesculapius and Vediovis', g:['aesculapius'], note:'Commemorates the dedication of the temple of Aesculapius on the Tiber Island (291 BCE) and the temple of Vediovis on the Capitoline.' },
-  { m:1,  d:3,  n:'Compitalia', g:['lares'], cf:true, span:1, note:'Crossroads festival honoring the Lares Compitales; woolen effigies (maniae) hung at boundary crossroads for protection.' },
+  { m:1,  d:3,  n:'Compitalia', g:['lares'], movable:true, window:'a few days after the Saturnalia', span:1, note:'Crossroads festival honoring the Lares Compitales; woolen effigies (maniae) hung at boundary crossroads for protection.' },
   { m:1,  d:5,  n:'Dedication of Vica Pota', g:['victoria'], note:'Feast honoring Vica Pota on the Velia, an archaic Roman goddess of victory and conquest.' },
   { m:1,  d:9,  n:'Agonalia of Ianus', g:['janus'], note:'The Rex Sacrificulus sacrifices a ram in the Regia to Janus to secure harmony and auspicious passage.' },
   { m:1,  d:11, n:'Carmentalia (first day)', g:['carmentis'], note:'Honors Carmenta, prophetic nymph and mother of Evander; patroness of mothers, childbirth, and weaving.' },
   { m:1,  d:15, n:'Carmentalia (second day)', g:['carmentis'], note:'Second day of prayers and rites led by Roman matrons honoring Carmenta and her sisters Antevorta and Postvorta.' },
   { m:1,  d:16, n:'Dedication of Concordia', g:['concordia'], note:'Honors the goddess of civic harmony and political peace, commemorating the vow of Camillus.' },
-  { m:1,  d:24, n:'Sementivae / Paganalia', g:['ceres','tellus'], span:3, cf:true, note:'Movable sowing festival blessing the newly sown winter crops; draught animals rested and garlanded with flowers.' },
+  { m:1,  d:24, n:'Sementivae / Paganalia', g:['ceres','tellus'], span:3, movable:true, window:'at the winter sowing', note:'Movable sowing festival blessing the newly sown winter crops; draught animals rested and garlanded with flowers.' },
   { m:1,  d:27, n:'Dedication of the temple of Castor and Pollux', g:['dioscuri'], note:'Dedication of the temple in the Forum Romanum commemorating their divine apparition at Lake Regillus.' },
   { m:2,  d:1,  n:'Iuno Sospita; Kalends of February', g:['juno'], note:'Honors Juno the Savior/Preserver, patroness of state protection, armed defense, and civic vigor.' },
+  { m:2,  d:2,  n:'Amburbium', g:['panhellenic','mars'], movable:true, window:'in a year of prodigies', note:'The lustration of the city: the victims of the suovetaurilia led in procession around the whole circuit of Rome before they are offered, carrying the pollution of the old year out beyond the boundary. Movable and announced by the pontiffs, often in a year of prodigies; placed here by convention at the start of February, the month of purification.' },
   { m:2,  d:5,  n:'Concordia on the Capitol', g:['concordia'], note:'Observance of the temple of Concord on the slopes of the Capitoline Hill.' },
   { m:2,  d:13, n:'Parentalia begins (Faunus on the Island)', g:['manes','faunus'], span:9, note:'Nine days of domestic rites honoring deceased family ancestors (Di Manes); temples closed and magistrates set aside insignias.' },
   { m:2,  d:15, n:'Lupercalia', g:['faunus'], note:'Archaic pastoral purification rite around the Palatine hill; Luperci priests run the bounds conferring fertility and protection.' },
@@ -885,6 +973,7 @@ var ROMAN = [
   { m:4,  d:19, n:'Cerialia', g:['ceres','proserpina'], note:'Main feast day of Ceres; torches lit and offerings made to safeguard grain ripening in the fields.' },
   { m:4,  d:21, n:'Parilia — and the birthday of Rome', g:['pales'], note:'Archaic shepherds\' purification festival (jumping through straw fires) and anniversary of the founding of Rome (Roma Natalis).' },
   { m:4,  d:23, n:'Vinalia Priora', g:['jupiter','venus'], note:'Tasting and blessing of the previous autumn\'s vintage wine, consecrated to Jupiter and Venus.' },
+  { m:4,  d:24, n:'Feriae Latinae', g:['jupiter'], span:4, movable:true, window:'announced by the consuls, usually in spring', note:'The oldest common festival of the Latin name, announced each year by the consuls before they left for their provinces and held on the Alban Mount: a pure white heifer sacrificed to Iuppiter Latiaris, the flesh shared among the delegates of the Latin cities, and a truce kept for its duration. Movable by nature — no fixed day exists; placed here by convention in late April.' },
   { m:4,  d:25, n:'Robigalia', g:['robigus','mars'], note:'Procession to the sacred grove of Robigo to offer prayers against wheat rust and mildew before the summer heat.' },
   { m:4,  d:28, n:'Floralia (Ludi Florales)', g:['flora'], span:6, note:'Joyous floral festival honoring Flora; theater, dancing, scattering of beans, and release of hares.' },
   { m:5,  d:1,  n:'Lares Praestites; Bona Dea; Maia', g:['lares','bonadea','maia'], note:'Spring offerings to the guardian spirits of the state, secret women\'s rites of Bona Dea, and sacrifices to Maia.' },
@@ -895,11 +984,15 @@ var ROMAN = [
   { m:5,  d:15, n:'Mercuralia; Idus Maiae', g:['mercury','jupiter','maia'], note:'Merchants sprinkle themselves and their merchandise with water from the sacred spring of Mercury for prosperity and honest trade.' },
   { m:5,  d:21, n:'Agonalia of Vediovis', g:['jupiter'], note:'Sacrificial rites honoring Vediovis to avert sickness and cosmic disharmony.' },
   { m:5,  d:23, n:'Tubilustrium', g:['vulcan','mars'], note:'Second purification of the sacred bronze trumpets for religious rites and assembly calls.' },
+  { m:5,  d:29, n:'Ambarvalia', g:['ceres','mars','tellus'], movable:true, window:'while the corn stands green', note:'The suovetaurilia driven round the standing crops — pig, sheep and bull led three times about the fields before they are offered, with the prayer that Mars keep blight, barrenness and bad weather from the boundary. Movable, kept in the country at the end of May; the Fratres Arvales held the state version in the grove of Dea Dia.' },
+  { m:5,  d:31, n:'Lustrum — the closing of the census', g:['mars','tellus'], movable:true, window:'when the censors lay down office', cycle:[5,2029], note:'The purification that shuts the census: the citizens drawn up by centuries on the Campus Martius, the pig, sheep and bull led three times around them and offered to Mars, and the censors laying down office. The five-year interval gives the word its second meaning; the last recorded lustrum was performed by Vespasian and Titus in 74 CE, and the count here runs forward unbroken from it. No fixed day existed.' },
   { m:5,  d:25, n:'Fortuna Primigenia', g:['fortuna'], note:'Feast honoring Fortuna First-Born on the Quirinal Hill.' },
   { m:6,  d:1,  n:'Carna; Iuno Moneta; Mars outside the Porta Capena', g:['carna','moneta','mars'], note:'Fabariae Kalendae; offerings of bean porridge and bacon to Carna (goddess of vital organs); honor to Juno the Warner.' },
+  { m:6,  d:1,  n:'Ludi Saeculares', g:['dis','proserpina','apollo','diana'], span:3, cycle:[110,2074], note:'The games of the age, held once in a saeculum so that no one should see them twice: nocturnal sacrifices to the Moerae, the Ilithyiae and Terra Mater on the Campus Martius, then daylight rites to Iuppiter, Iuno, Apollo and Diana, and the Carmen Saeculare sung by twenty-seven boys and twenty-seven girls. The Augustan celebration of 17 BCE and the Severan of 204 CE fix the 110-year reckoning followed here; the emperors themselves disagreed about the count, and Claudius and Philip used a 100-year one instead.' },
   { m:6,  d:3,  n:'Bellona', g:['bellona'], note:'Commemoration of the temple of Bellona, goddess of martial ferocity, outside the sacred pomerium boundary.' },
   { m:6,  d:5,  n:'Dius Fidius (Semo Sancus)', g:['sancus'], note:'Offerings to Semo Sancus Dius Fidius, divine protector of oaths, treaties, and honest speech.' },
   { m:6,  d:7,  n:'Vestalia begins — the penus Vestae is opened', g:['vesta'], span:9, note:'The innermost sanctuary (Penus Vestae) is opened to barefoot matrons bringing simple food offerings.' },
+  { m:6,  d:7,  n:'Ludi Piscatorii', g:['volturnus','tiberinus','vulcan'], note:'The fishermen\'s games, held by the urban praetor across the Tiber for the men who fish the river; the live catch is not sold but thrown onto the fire at the altar of Vulcan in place of human lives.' },
   { m:6,  d:9,  n:'Vestalia — the day proper', g:['vesta'], note:'Millers and bakers feast; work donkeys are crowned with flowers and hung with small bread loaves.' },
   { m:6,  d:11, n:'Matralia; Fortuna in the Forum Boarium', g:['matuta','fortuna'], note:'Mothers pray for their nieces and nephews to Mater Matuta (goddess of dawn and nurturing growth).' },
   { m:6,  d:13, n:'Quinquatrus minusculae; Idus Iuniae', g:['minerva','jupiter'], span:3, note:'Lesser Quinquatrus; joyous three-day holiday for the guild of flute players (tibicines) in masks and stolas.' },
@@ -907,6 +1000,7 @@ var ROMAN = [
   { m:6,  d:19, n:'Minerva on the Aventine', g:['minerva'], note:'Guild feast day for craftspeople, poets, and teachers at Minerva\'s Aventine shrine.' },
   { m:6,  d:20, n:'Summanus', g:['summanus'], note:'Festival of Summanus, archaic lord of nocturnal lightning and nighttime storms.' },
   { m:6,  d:24, n:'Fors Fortuna', g:['fortuna'], note:'Holiday where common people sail rowboats down the Tiber with garlands to celebrate Luck and Chance.' },
+  { m:6,  d:25, n:'Ludi Taurei Quinquennales', g:['dis','proserpina'], span:2, movable:true, cycle:[5,0], note:'Circus games for the gods below, held in the Circus Flaminius every fifth year — instituted, Festus says, under Tarquinius Superbus to avert a plague blamed on the meat of pregnant ewes. The five-year interval is attested; the anchor year here is a modern choice.' },
   { m:6,  d:27, n:'Lares of the household; Iuppiter Stator', g:['lares','jupiter'], note:'Commemoration of the household guardians and Jupiter who steadies retreating battle lines.' },
   { m:7,  d:5,  n:'Poplifugia', g:['jupiter'], note:'"Flight of the People", commemorating ancient military panic and the mysterious disappearance of Romulus.' },
   { m:7,  d:6,  n:'Ludi Apollinares', g:['apollo'], span:8, note:'Theatrical games and circus races instituted during the Second Punic War honoring Apollo.' },
@@ -914,6 +1008,7 @@ var ROMAN = [
   { m:7,  d:8,  n:'Vitulatio', g:['victoria'], note:'Public thanksgiving and joyous victory celebration.' },
   { m:7,  d:15, n:'Transvectio Equitum', g:['dioscuri'], note:'Grand parade of five thousand Roman cavalrymen in olive wreaths and purple mantles.' },
   { m:7,  d:17, n:'Honos and Victoria', g:['honos','victoria'], note:'Commemoration of military honor, virtue, and divine victory.' },
+  { m:7,  d:20, n:'Ludi Victoriae Caesaris', g:['venus','victoria'], span:11, note:'Games for Venus Genetrix and the victory of Caesar, first held in 46 BCE; it was during these games in 44 that the comet appeared which was taken for the soul of the deified Caesar.' },
   { m:7,  d:19, n:'Lucaria (first)', g:['silvanus'], note:'Sacred forest festival held in the woodland clearing between the Via Salaria and the Tiber.' },
   { m:7,  d:21, n:'Lucaria (second)', g:['silvanus'], note:'Second day of sacred woodland rites appeasing the forest spirits.' },
   { m:7,  d:23, n:'Neptunalia', g:['neptune'], note:'Midsummer festival of Neptune; shady leafy huts (umbrae) built along waterways to stave off drought.' },
@@ -942,7 +1037,9 @@ var ROMAN = [
   { m:10, d:11, n:'Meditrinalia — the first tasting of the new wine', g:['jupiter'], note:'First tasting of the newly pressed grape must mixed with aged wine as a health-giving tonic.' },
   { m:10, d:13, n:'Fontinalia', g:['fons','nymphs'], note:'Well and fountain festival; garlands of autumn flowers lowered into wells in honor of Fons.' },
   { m:10, d:15, n:'October Horse; Idus Octobres', g:['mars','jupiter'], note:'Champion right-hand chariot horse sacrificed to Mars on the Campus Martius for martial vigor and crop protection.' },
+  { m:10, d:15, n:'Ludi Capitolini', g:['jupiter'], note:'Games for Iuppiter Feretrius kept by the college of Capitolini, said to have been vowed by Camillus in thanks for the Capitol\'s deliverance from the Gauls; an old man in a purple toga wearing a child\'s bulla was led through the forum with a herald crying that the Sardinians were for sale.' },
   { m:10, d:19, n:'Armilustrium — the arms are purified and stored', g:['mars'], note:'Soldiers purify, wash, and lay away their weapons on the Aventine Hill at the end of the campaign season.' },
+  { m:10, d:26, n:'Ludi Victoriae Sullanae', g:['victoria','venus'], span:7, note:'Games vowed by Sulla for Victoria after the battle at the Colline Gate and kept annually thereafter, closing on the Kalends of November with races in the Circus.' },
   { m:10, d:28, n:'The Isia (Inventio Osiridis)', g:['isis','osiris'], span:5, note:'Solemn mystery festival reenacting the search for Osiris, mourning, and the joyful Inventio Osiridis (finding and restoration).' },
   { m:11, d:3,  n:'Hilaria (Isiac conclusion)', g:['isis','osiris'], note:'Joyful festival closing the Isia with games, banquets, and masquerades celebrating the resurrection of Osiris.' },
   { m:11, d:4,  n:'Ludi Plebeii', g:['jupiter'], span:14, note:'Plebeian Games held in the Circus Flaminius celebrating democratic liberties and reconciliation.' },
@@ -959,6 +1056,7 @@ var ROMAN = [
   { m:12, d:19, n:'Opalia', g:['ops'], note:'Feast of Ops, consort of Saturn, celebrating the abundance of the earth and domestic wealth.' },
   { m:12, d:21, n:'Divalia / Angeronalia', g:['angerona'], note:'Solstice rites honoring Angerona, goddess of silence and keeper of the secret name of Rome.' },
   { m:12, d:22, n:'Lares Permarini', g:['lares'], note:'Dedication of the temple honoring the Lares who protect sailors on the seas.' },
+  { m:12, d:23, n:'Sigillaria', g:['saturn','lares'], note:'The last day of the Saturnalia and its fair: little figures of clay and wax, sigilla, bought in the porticoes and given to children and to the household — the old substitutes, Macrobius says, for offerings once made in kind to Saturn and the powers below.' },
   { m:12, d:23, n:'Larentalia', g:['larentia','manes'], note:'Funeral offerings and memorial rites honoring Acca Larentia, foster-mother of Romulus and Remus.' },
   { m:12, d:25, n:'Dies Natalis Solis Invicti', g:['sol'], note:'Birth of the Unconquered Sun following the winter solstice turning point.' }
 ];
@@ -976,53 +1074,64 @@ var GREEK = [
   src:'Month order, year-start and most festival days are securely attested; day-numbering within the month follows the forward count.',
   months:['Hekatombaion','Metageitnion','Boedromion','Pyanopsion','Maimakterion','Poseideon','Gamelion','Anthesterion','Elaphebolion','Mounichion','Thargelion','Skirophorion'],
   fest:[
+    {mi:1,d:4,n:'Aphrodisia',g:['venus','eros'],note:'Hekatombaion 4. The state festival of Aphrodite Pandemos and Peitho, whose cult Solon was said to have founded: the temple and altars were purified with the blood of a dove, the images washed and anointed, and the sanctuary given a fresh coat of paint (IG II² 659). The fourth of every month was already the god\'s day.'},
+    {mi:0,d:0,n:'Anakeia',g:['dioscuri'],note:'The festival of the Anakes, the Dioskouroi as \'the Lords\', whose sanctuary the Anakeion stood below the north slope of the Acropolis; the Athenians credited them with sparing the city when they came for Helen. Neither the month nor the day survives — this placement is a modern convention, and the fourth of every month is their household day.'},
     {mi:1,d:12,n:'Kronia',g:['saturn'],note:'Masters and slaves ate together; the harvest is in and rank is set aside for a day in honor of Kronos.'},
     {mi:1,d:16,n:'Synoikia',g:['minerva','theseus'],note:'Commemorates the unification (synoecism) of Attica under Athens by Theseus with offerings to Athena.'},
-    {mi:1,d:23,n:'Panathenaia',g:['minerva'],span:6,cycle:[4,2026],note:'The Greater Panathenaia fell every fourth year in the third year of each Olympiad; athletic contests, musical recitations, and civic procession.'},
-    {mi:1,d:28,n:'Panathenaia — the great day',g:['minerva','panhellenic'],cycle:[4,2026],note:'The quadrennial presentation of the newly woven sacred peplos to Athena Polias atop the Acropolis.'},
-    {mi:2,d:7,n:'Metageitnia',g:['apollo'],note:'Honors Apollo Metageitnios, protector of neighborhoods, community solidarity, and friendly migrations.'},
-    {mi:2,d:12,n:'Herakleia at Kynosarges',g:['hercules'],approx:true,note:'Festival and athletic contests for Herakles held at his gymnasium in Kynosarges.'},
-    {mi:2,d:16,n:'Eleusinia',g:['ceres','proserpina'],approx:true,cycle:[2,2026],note:'Biennial games and sacred dramatic performances at Eleusis in honor of Demeter and Kore.'},
+    {mi:1,d:23,n:'Greater Panathenaia',g:['minerva'],span:6,cycle:[4,2026],note:'Hekatombaion 23–28, in the third year of each Olympiad — the same summer as the Pythia, and the year before the next Olympia. Athletic and equestrian contests, rhapsodic and musical competitions, and the all-night pannychis before the great procession.'},
+    {mi:1,d:28,n:'Greater Panathenaia — the great day',g:['minerva','panhellenic'],cycle:[4,2026],note:'The quadrennial presentation of the newly woven sacred peplos to Athena Polias, carried up to the Acropolis at the head of the procession and hung on the mast of the Panathenaic ship.'},
+    {mi:1,d:28,n:'Lesser Panathenaia',g:['minerva'],unless:[4,2026],note:'Hekatombaion 28, the birthday of Athena, kept every year that is not a Greater Panathenaia: procession, hecatomb on the great altar, and the distribution of the meat to the demes.'},
+    {mi:0,d:0,n:'Herakleia at Marathon',g:['hercules'],span:2,cycle:[4,0],note:'The penteteric games of the Marathonian Tetrapolis for Herakles, on the plain where the Athenians camped in his precinct before the battle — one of the oldest athletic festivals in Attica (IG I³ 3). The four-year interval is attested; neither the month nor the position in the cycle is, so both are conventions here.'},
+    {mi:2,d:0,n:'Metageitnia',g:['apollo'],note:'Honors Apollo Metageitnios, protector of neighborhoods, community solidarity, and friendly migrations.'},
+    {mi:2,d:2,n:'Herakleia at Kynosarges',g:['hercules'],approx:true,note:'Metageitnion 2, the day given by Parke and treated by Mikalson as probable rather than certain \u2014 argued from evidence, not chosen here. Feast and athletic contests for Herakles at the gymnasium of Kynosarges in the deme Diomeia, outside the walls — the one Athenian festival in which nothoi and non-citizens took a full part. Twelve parasitoi were chosen as the god\'s table-companions, and the sacrificial bulls were lifted bodily onto the altar in emulation of his strength. Parke gives the second of the month; Mikalson treats the day as probable rather than certain.'},
+    {mi:2,d:0,n:'Eleusinia',g:['ceres','proserpina'],span:4,cycle:[2,2025],unless:[4,2027],note:'Metageitnion 15–18. The games at Eleusis — distinct from the Mysteries — with a prize of grain from the sacred Rharian field. Held every second year; the greater celebration in every fourth. The position of the cycle within the Olympiad is disputed (see Rigsby, Mnemosyne 63); it is aligned here with the Isthmian and Nemean years.'},
+    {mi:2,d:0,n:'Greater Eleusinia',g:['ceres','proserpina','panhellenic'],span:4,cycle:[4,2027],note:'The penteteric celebration of the Eleusinian games, with the full athletic, equestrian and musical programme and an expanded sacrifice. Falls in the fourth year of the Olympiad on the alignment used here.'},
     {mi:3,d:2,n:'Niketeria',g:['minerva','neptune'],note:'Commemoration of Athena\'s victory over Poseidon for the patronage and naming of Athens.'},
     {mi:3,d:5,n:'Genesia',g:['gaia','manes'],note:'The public state day honoring all departed ancestors and heroes of the polis.'},
     {mi:3,d:6,n:'Charisteria — Artemis Agrotera',g:['diana'],note:'Thanksgiving celebration for the victory at Marathon, with 500 goats sacrificed to Artemis of the Wilds.'},
     {mi:3,d:7,n:'Boedromia',g:['apollo'],note:'Honors Apollo the Rescuer who answers the battle shout (boedromos) in times of military peril.'},
+    {mi:3,d:0,n:'Kybernesia',g:['theseus','neptune'],note:'Boedromion 8. The steersmen\'s festival at Phaleron for Nausithoos and Phaiax, the helmsman and look-out who brought Theseus to Crete and back; Plutarch says he founded their shrines there himself. The eighth is Theseus\' own day of the month.'},
     {mi:3,d:15,n:'Eleusinian Mysteries',g:['ceres','proserpina','dis'],span:9,note:'The Great Mysteries: Agyrmos gathering (15th), procession to Eleusis (19th), and initiation into immortality (21st-22nd).'},
     {mi:3,d:17,n:'Epidauria — Asklepios received into the Mysteries',g:['aesculapius'],span:2,note:'Commemorates the late arrival and reception of the healing god Asklepios into the Eleusinian rites.'},
+    {mi:4,d:5,n:'Proerosia',g:['ceres','apollo'],approx:true,note:'Pyanopsion 5 or 6, fixed to within a day by the Eleusinian accounts (IG II² 1363). The before-the-ploughing rite at Eleusis, held on the instruction of Delphi during an ancient famine: first-fruits offered for the whole of Greece before the autumn sowing began. The day within the month is secure to within one.'},
     {mi:4,d:7,n:'Pyanopsia; Oschophoria',g:['apollo','liber','minerva'],note:'Offering of the pulse-bean pot and carrying of the fruit-laden olive branch (eiresione) to ensure bountiful crops.'},
     {mi:4,d:8,n:'Theseia',g:['theseus','neptune'],note:'Civic festival with athletic contests honoring the hero-founder Theseus and his patronage of the demos.'},
     {mi:4,d:9,n:'Stenia',g:['ceres','proserpina'],note:'Nocturnal women\'s feast of jesting and ritual abuse preparing for the Thesmophoria.'},
     {mi:4,d:11,n:'Thesmophoria',g:['ceres','proserpina'],span:3,note:'Women-only fertility mystery: Anodos (ascent), Nesteia (fasting on the earth), and Kalligeneia (fair offspring).'},
-    {mi:4,d:19,n:'Apatouria',g:['jupiter','minerva'],span:3,approx:true,note:'Three-day phratry festival where young children, ephebes, and new brides are officially enrolled in the clan.'},
-    {mi:4,d:30,n:'Chalkeia',g:['minerva','vulcan'],note:'The metalworkers\' and artisans\' festival; the loom for Athena\'s sacred peplos was set up on this day.'},
-    {mi:5,d:20,n:'Maimakteria',g:['jupiter'],approx:true,note:'Winter supplications to Zeus Maimaktes, the tempestuous storm-bringer, asking for mild weather.'},
-    {mi:5,d:28,n:'Pompaia',g:['jupiter','mercury'],approx:true,note:'A purification procession through the city carrying the sacred fleece of Zeus (Dios Kodion) to ward off evil.'},
+    {mi:4,d:0,n:'Apatouria',g:['jupiter','minerva'],span:3,note:'Three-day phratry festival where young children, ephebes, and new brides are officially enrolled in the clan.'},
+    {mi:0,d:0,n:'Prometheia',g:['prometheus','vulcan'],note:'The torch race run from the altar of Prometheus in the Academy into the city, the runners passing the flame on without letting it go out — the potters\' and fire-workers\' rite beside the Hephaisteia. Neither the month nor the day is attested; both are placed here by convention.'},
+    {mi:4,d:30,last:true,n:'Chalkeia',g:['minerva','vulcan'],note:'The last day of Pyanopsion — the hene kai nea, \'the old and the new\'. The festival of the smiths and craftsmen under Athena Ergane and Hephaistos, and the day the priestesses and the arrhephoroi set up the loom for the peplos that will be given to Athena at the next Panathenaia. In a hollow month the Athenians dropped the twenty-ninth, not the thirtieth, so this keeps to the closing day whatever its number.'},
+    {mi:0,d:0,last:true,n:'Hephaisteia',g:['vulcan','minerva'],note:'The state festival of Hephaistos, reorganised with a torch race, a musical contest and a great procession in 421/0 BCE (IG I³ 82), and managed by twenty elected hieropoioi. Annual at first; Aristotle records it as penteteric by the archonship of Ktesiphon in 329/8. No year of that later cycle survives, so it is kept here at its older annual reckoning rather than guessing an anchor. The day is not attested either: it is set on the closing day of Pyanopsion beside the Chalkeia, since both belong to the smiths and to Athena Ergane, and moves with it in a hollow month.'},
+    {mi:5,d:0,n:'Maimakteria',g:['jupiter'],note:'Winter supplications to Zeus Maimaktes, the tempestuous storm-bringer, asking for mild weather.'},
+    {mi:5,d:0,n:'Pompaia',g:['jupiter','mercury'],note:'A purification procession through the city carrying the sacred fleece of Zeus (Dios Kodion) to ward off evil.'},
     {mi:6,d:8,n:'Poseidea',g:['neptune'],note:'Winter maritime festival honoring Poseidon as master of waves and subterranean earthquakes.'},
-    {mi:6,d:16,n:'Rural Dionysia',g:['liber'],span:3,approx:true,note:'Lively countryside winter festivals across the demes of Attica featuring comedy, song, and the phallus procession.'},
+    {mi:6,d:0,n:'Dionysia at Piraeus',g:['liber'],note:'The largest of the deme Dionysia, with its own theatre, procession and dramatic contests in the port; Athenian generals attended it as a state occasion. The month is secure, the day is a convention.'},
+    {mi:6,d:0,n:'Rural Dionysia',g:['liber'],span:3,note:'Lively countryside winter festivals across the demes of Attica featuring comedy, song, and the phallus procession.'},
     {mi:6,d:26,n:'Haloa',g:['ceres','proserpina','liber'],note:'Winter feast of the threshing floor at Eleusis celebrating the pruning of vines and fertility of grain.'},
-    {mi:7,d:8,n:'Poseidon of the month',g:['neptune'],approx:true,note:'Monthly devotion to Poseidon protector of harbors and coastal voyages.'},
     {mi:7,d:12,n:'Lenaia',g:['liber'],span:4,note:'Winter festival of the Maenads and dramatic theater contests dedicated to Dionysos Lenaios.'},
     {mi:7,d:27,n:'Theogamia — the marriage of Zeus and Hera',g:['jupiter','juno'],note:'Sacred marriage (Hieros Gamos) of Zeus and Hera; the month of Gamelion is favored for human weddings.'},
     {mi:8,d:11,n:'Anthesteria — Pithoigia',g:['liber'],note:'Opening of the wine jars; the first tasting of the new vintage dedicated to Dionysos.'},
     {mi:8,d:12,n:'Anthesteria — Choes',g:['liber'],note:'The Day of Jugs; silent drinking contests, children crowned with flowers, and spirits roaming the earth.'},
     {mi:8,d:13,n:'Anthesteria — Chytroi',g:['liber','mercury','dis'],note:'The Day of Pots; boiled grain offered to Hermes Chthonios for the dead, ending with the banishment of spirits.'},
-    {mi:8,d:20,n:'Lesser Mysteries at Agrai',g:['ceres','proserpina'],span:5,approx:true,note:'Spring preliminary initiations at Agrai along the Ilissos river preparing mystics for the Greater Mysteries.'},
+    {mi:8,d:0,n:'Lesser Mysteries at Agrai',g:['ceres','proserpina'],span:5,note:'Spring preliminary initiations at Agrai along the Ilissos river preparing mystics for the Greater Mysteries.'},
     {mi:8,d:23,n:'Diasia',g:['jupiter'],note:'Great public gathering in honor of Zeus Meilichios (the Kindly/Chthonic); bloodless grain cakes and burnt offerings.'},
     {mi:9,d:6,n:'Elaphebolia',g:['diana'],note:'Festival honoring Artemis the Deer-Huntress, celebrated with stag-shaped cakes made of dough, honey, and sesame.'},
     {mi:9,d:10,n:'City Dionysia',g:['liber'],span:6,note:'The premier dramatic and poetic festival of Athens; premiere of tragedies, comedies, and dithyrambs.'},
+    {mi:0,d:0,n:'Galaxia',g:['magnamater','ops'],note:'Elaphebolion. Barley porridge boiled in milk (galaxia) offered to the Mother of the Gods. The month is attested by inscription; the day here is a modern placement.'},
     {mi:9,d:17,n:'Pandia',g:['jupiter'],note:'Post-Dionysia assembly and sacrifices dedicated to Zeus Pandios in the spring light.'},
     {mi:10,d:6,n:'Delphinia',g:['apollo','diana'],note:'Young maidens carry suppliant branches bound in white wool to Apollo\'s Delphinion temple before sailing season.'},
     {mi:10,d:16,n:'Mounichia',g:['diana'],note:'Procession carrying round cakes ringed with burning candles (amphiphontes) to Artemis of the harbor at Piraeus.'},
+    {mi:10,d:0,n:'Brauronia',g:['diana'],span:3,cycle:[4,0],note:'The penteteric festival of Artemis at Brauron, where girls between five and ten served as arktoi (\'she-bears\') and ran or danced in saffron robes; a procession went out from the city and rhapsodes recited the Iliad. The month is attested, the day and the position of the four-year cycle are modern conventions.'},
     {mi:10,d:19,n:'Olympieia',g:['jupiter'],note:'Splendid equestrian games and cavalry reviews celebrating Zeus Olympios.'},
     {mi:11,d:6,n:'Thargelia — the purification',g:['diana'],note:'Purification of the city with the expulsion of ritual scapegoats (pharmakoi) prior to harvest.'},
     {mi:11,d:7,n:'Thargelia — the offering',g:['apollo','diana'],note:'Birthday of Apollo; the first loaf baked from the new crop (thargelos) is offered to the sun god.'},
     {mi:11,d:19,n:'Bendideia',g:['bendis','diana'],note:'Celebration of the Thracian hunt-goddess Bendis in Piraeus featuring a novel torch race on horseback.'},
     {mi:11,d:24,n:'Kallynteria',g:['minerva'],note:'The temple of Athena Polias is swept and adorned; sacred hearth fires are rekindled.'},
     {mi:11,d:25,n:'Plynteria',g:['minerva'],note:'The ancient wooden statue (xoanon) of Athena is stripped of robes, covered, and washed in the sea at Phaleron.'},
-    {mi:12,d:3,n:'Skira (Skirophoria)',g:['minerva','ceres','neptune'],note:'Priests process with white parasols (skira) to Skiron; secret offerings cast into the chasms of Demeter.'},
-    {mi:12,d:12,n:'Arrhephoria',g:['minerva','venus'],approx:true,note:'Young maidens carry secret sacred baskets down underground caverns from the Acropolis to Aphrodite\'s shrine.'},
+    {mi:12,d:0,n:'Arrhephoria',g:['minerva','venus'],note:'Skirophorion 3. The two arrhephoroi, girls of seven to eleven who had spent the year on the Acropolis helping to weave the peplos, carry covered baskets whose contents neither they nor the priestess may see down the underground stair toward the precinct of Aphrodite in the Gardens, and bring something else back. The day is a modern convention; only the month is secure.'},
+    {mi:12,d:12,n:'Skira (Skirophoria)',g:['minerva','ceres','neptune'],note:'Skirophorion 12. The priestess of Athena, the priest of Poseidon-Erechtheus and the priest of Helios walk out to Skiron under a great white canopy held over them by the Eteoboutadai, while the women of the city keep their own rites; the old year is dissolved.'},
     {mi:12,d:14,n:'Dipolieia / Bouphonia',g:['jupiter'],note:'Archaic ritual where an ox is sacrificed for eating grain on Zeus\'s altar, followed by a trial of the axe.'},
-    {mi:12,d:30,n:'Diisoteria',g:['jupiter','minerva'],note:'Solemn sacrifice of thanks to Zeus the Savior (Soter) and Athena Soteira closing out the Athenian civil year.'}
+    {mi:12,d:30,last:true,n:'Diisoteria',g:['jupiter','minerva'],note:'The closing day of Skirophorion and of the Athenian year: sacrifice of thanks to Zeus Soter and Athena Soteira in the Piraeus, with a procession and a contest. Kept on the last day of the month whether it runs to twenty-nine days or thirty.'}
   ],
   monthly:[
     {d:1,n:'Noumenia',g:['panhellenic','apollo','vesta'],note:'The new month: wreaths, incense, and the household gods.'},
@@ -1035,18 +1144,73 @@ var GREEK = [
   ]
 },
 {
+  id:'delian', name:'Delian', region:'Delos & the Cyclades', hue:288,
+  anchor:'dec', interc:11, conf:'high',
+  src:'Month names, order and the midwinter year-start are secure from the accounts of the Delian hieropoioi (ID 372, ID 442). Specific days for Apollo, Artemis, Poseidon and the Delia are recorded directly in temple ledgers.',
+  months:['Lenaion','Hieros','Galaxion','Artemision','Thargelion','Panemos','Hekatombaion','Metageitnion','Bouphonion','Apatourion','Aresion','Posideon'],
+  fest:[
+    {mi:2,d:0,n:'Apollonia — the lesser Delia',g:['apollo','diana','latona'],span:3,note:'The annual festival of Apollo on the island of his birth, kept in the month Hieros: sacrifice at the Horned Altar (Keraton), the geranos crane dance, and the arrival of the Athenian sacred ship.'},
+    {mi:3,d:14,n:'Galaxia on Delos',g:['apollo','magnamater'],note:'Galaxion 14. Barley porridge boiled in rich milk offered to Delian Apollo and the Mother of the Gods.'},
+    {mi:3,d:0,n:'Dionysia on Delos',g:['liber'],note:'The island Dionysia, with a procession carrying the phallos, choral contests, and dramatic celebrations.'},
+    {mi:3,d:0,n:'Asklepieia on Delos',g:['aesculapius'],note:'Sacrifice and rites for Asklepios at his Delian seaside sanctuary, recorded in the hieropoioi accounts under Galaxion.'},
+    {mi:4,d:6,n:'Artemisia on Delos',g:['diana'],note:'Artemision 6. Dedicated sacrifices, choruses, and prayers to Artemis at the archaic Artemision on Delos.'},
+    {mi:4,d:0,n:'Letia',g:['latona'],note:'Rites for Leto at the Letoon, honoring the mother who gave birth to Apollo and Artemis on Delos.'},
+    {mi:4,d:0,n:'Britomartia',g:['britomartis','diana'],note:'Festival honoring the Cretan huntress Britomartis-Diktynna worshipped beside Artemis.'},
+    {mi:5,d:6,n:'Birthday of Artemis (Delos)',g:['diana'],note:'Thargelion 6. Offerings commemorating the birth of Artemis on the sacred islet of Ortygia/Delos.'},
+    {mi:5,d:7,n:'Birthday of Apollo (Delos)',g:['apollo','latona'],note:'Thargelion 7. Solemn cattle sacrifices and laurel offerings celebrating Apollo\'s birth beside the sacred palm tree.'},
+    {mi:5,d:15,n:'Delia (Great Delian Panegyris)',g:['apollo','diana','latona','panhellenic'],span:2,cycle:[4,2026],note:'Hieros/Thargelion 15. The great quadrennial pan-Ionian panegyris of Delian Apollo: athletic, choral, and musical games, restored by Athens in 426 BCE.'},
+    {mi:5,d:0,n:'Dioskouria',g:['dioscuri'],note:'The Delian festival of the Twins Castor and Pollux, recorded in temple accounts under Thargelion.'},
+    {mi:8,d:0,n:'Thesmophoria on Delos',g:['ceres','proserpina'],span:3,note:'Women\'s mystery rites of Demeter and Kore, recorded in the accounts under Metageitnion.'},
+    {mi:9,d:7,n:'Apollonia of Bouphonion',g:['apollo'],note:'Bouphonion 7. Seventh-day monthly cattle offering and paean dedication to Apollo.'},
+    {mi:10,d:0,n:'Apatouria',g:['jupiter','minerva'],span:3,note:'The Ionian phratry festival on Delos: registration of youths and brides into ancestral clans.'},
+    {mi:12,d:10,n:'Posideia on Delos',g:['neptune'],note:'Posideon 10. Maritime sacrifices and prayers to Poseidon for the calm of winter waters.'},
+    {mi:12,d:0,n:'Eileithyiaia',g:['eileithyia'],note:'Offerings to Eileithyia, who assisted Leto in childbirth on Delos.'}
+  ]
+},
+{
+  id:'ionian', name:'Ionian (Milesian)', region:'Miletos, Didyma & the Ionian cities', hue:60,
+  anchor:'mar', interc:8, conf:'high',
+  src:'Month order and spring year-start (Taureon) are attested by the Molpoi decree (LSAM 50 / I.Milet 133) and Didyma inscriptions, preserving exact liturgical dates for the Sacred Way.',
+  months:['Taureon','Thargelion','Kalamaion','Panemos','Metageitnion','Boedromion','Kyanepsion','Apatourion','Poseideon','Lenaion','Anthesterion','Artemision'],
+  fest:[
+    {mi:1,d:1,span:5,n:'Procession of the Molpoi to Didyma',g:['apollo'],note:'Taureon 1–5. The sacred singers (Molpoi) process 15 miles along the Sacred Way from the Delphinion in Miletos to Didyma, singing paeans and setting wreaths at boundary shrines.'},
+    {mi:1,d:7,n:'Didyma Spring Feast',g:['apollo'],note:'Taureon 7. Offerings of wine, honey, and barley cakes at the sacred spring and oracle of Apollo Didymeus.'},
+    {mi:5,d:7,n:'Metageitnia at Miletos',g:['apollo'],note:'Metageitnion 7. Festival of neighborhood concord, hospitality, and civic alliance sacred to Apollo.'},
+    {mi:6,d:7,n:'Didymeia (Great Games of Didyma)',g:['apollo','diana'],span:3,note:'Boedromion 7. Major athletic, musical, and oracular games dedicated to Apollo Didymeus and Artemis Pythia.'},
+    {mi:6,d:0,n:'Panionia at Mykale',g:['neptune','panhellenic'],span:2,note:'The federal festival of the twelve Ionian cities at the Panionion on Mykale, sacrificing a bull to Poseidon Helikonios.'},
+    {mi:8,d:0,n:'Apatouria',g:['jupiter','minerva'],span:3,note:'The Ionian phratry festival celebrating lineage enrollment.'},
+    {mi:11,d:0,n:'Anthesteria',g:['liber'],span:3,note:'Archaic Ionian Dionysiac festival of wine tasting, floral crowns, and ancestral spirits.'}
+  ]
+},
+{
+  id:'coan', name:'Coan (Kos)', region:'Kos & the Dodecanese', hue:135,
+  anchor:'jun', interc:5, conf:'high',
+  src:'The Sacred Laws of Kos (LSCG 151 / IG XII 4, 278) preserve a complete stone sacrificial calendar with day-by-day ritual assignments beginning with Panamos at the summer solstice.',
+  months:['Panamos','Dalios','Alseios','Karpathios','Theudaisios','Petageitnyos','Kaphisios','Badromios','Gerastios','Artamitios','Agrianios','Hyakinthios'],
+  fest:[
+    {mi:1,d:27,n:'Zeus Polieus — selection of the bull',g:['jupiter'],note:'Panamos 27. The sacred civic bull is selected and dedicated at the agora before the priests and magistrates of Kos (LSCG 151).'},
+    {mi:1,d:28,n:'Zeus Polieus & Hera Argeia — grand sacrifice',g:['jupiter','juno'],note:'Panamos 28. Solemn procession and sacrifice of the chosen bull to Zeus Polieus and a heifer to Hera Argeia.'},
+    {mi:3,d:20,n:'Alseia — Apollo of the Sacred Grove',g:['apollo'],note:'Alseios 20. Sacred grove festival and offerings of honey, wine, and sheep to Apollo Alseios.'},
+    {mi:4,d:10,n:'Herakleia at Kos',g:['hercules'],note:'Karpathios 10. Sacrifices and athletic offerings to Herakles at the civic sanctuary.'},
+    {mi:8,d:9,n:'Great Asklepieia of Kos',g:['aesculapius','apollo','asklepiadai'],span:2,note:'Badromios 9–10. Sacred lustral rites, sacrifices, and incubation at the great Asklepieion of Kos for Asklepios, Apollo, and the healer heroes.'},
+    {mi:9,d:12,n:'Gerastia — Poseidon of the Cape',g:['neptune'],note:'Gerastios 12. Maritime sacrifices and prayers to Poseidon Gerastios for safe sailing.'},
+    {mi:12,d:20,n:'Charitesia & Hermes',g:['charites','mercury'],note:'Hyakinthios 20. Offerings of barley cakes, honey, and libations to the Charites (Graces) and Hermes.'}
+  ]
+},
+{
   id:'delphic', name:'Delphic', region:'Delphi & the Amphiktyony', hue:172,
   anchor:'jun', interc:5, conf:'medium',
   src:'Month names are well attested; order and summer year-start follow the standard reconstruction.',
   months:['Apellaios','Boukatios','Boathoos','Heraios','Daidaphorios','Poitropios','Amalios','Bysios','Theoxenios','Endyspoitropios','Herakleios','Ilaios'],
   fest:[
-    {mi:1,d:7,n:'Apellai — the phratry month opens',g:['apollo'],approx:true,note:'Opening of the Delphic festival month honoring Apollo with clan assemblies and offerings.'},
-    {mi:2,d:7,n:'Pythia (Pythian Games)',g:['apollo'],span:6,approx:true,cycle:[4,2026],note:'Every fourth year: pan-Hellenic musical, poetic, and athletic games in the 3rd year of each Olympiad commemorating Apollo\'s slaying of the Python.'},
-    {mi:6,d:7,n:'Poitropia — averting rites',g:['apollo','jupiter'],approx:true,note:'Winter apotropaic rites imploring Apollo to avert blight, plague, and harsh frost.'},
+    {mi:1,d:0,n:'Apellai — the phratry month opens',g:['apollo'],note:'Opening of the Delphic festival month honoring Apollo with clan assemblies and offerings.'},
+    {mi:2,d:0,n:'Pythia (Pythian Games)',g:['apollo'],span:6,cycle:[4,2026],note:'Every fourth year, in the third year of each Olympiad — the late summer two years after each Olympia. Musical and poetic contests first, then the athletic and equestrian programme, commemorating Apollo\'s slaying of the Python. The month (Boukatios) is attested; the day is a convention.'},
+    {mi:6,d:0,n:'Poitropia — averting rites',g:['apollo','jupiter'],note:'Winter apotropaic rites imploring Apollo to avert blight, plague, and harsh frost.'},
     {mi:8,d:7,n:'Birthday of Apollo; the oracle speaks',g:['apollo'],note:'Bysios 7. The single day in ancient times when the Pythia delivered oracular prophecies to petitioners.'},
-    {mi:9,d:7,n:'Theoxenia — the gods are hosted at table',g:['apollo','dioscuri','panhellenic'],approx:true,note:'The return of Apollo from the Hyperboreans; all gods are invited to feast at a sacred banquet.'},
-    {mi:11,d:7,n:'Herakleia',g:['hercules'],approx:true,note:'Sacrifices and athletic contests honoring Herakles\'s labors and defense of the sanctuary.'},
-    {mi:12,d:7,n:'Septeria; Herois; Charila',g:['apollo','proserpina'],approx:true,cycle:[8,2026],note:'Eight-year cycle rites reenacting Apollo\'s purification in Tempe and the redemption of heroines.'}
+    {mi:8,d:0,n:'Theophania — the god shows himself',g:['apollo'],note:'The showing of Apollo at Delphi, kept in Bysios when he returns from the Hyperboreans and the sanctuary wakes for the year; the golden image is displayed and the paean sung. Closely bound to the reopening of the oracle on the seventh, and set here on the day after it.'},
+    {mi:9,d:0,n:'Theoxenia — the gods are hosted at table',g:['apollo','dioscuri','panhellenic'],note:'The return of Apollo from the Hyperboreans; all gods are invited to feast at a sacred banquet.'},
+    {mi:11,d:0,n:'Herakleia',g:['hercules'],note:'Sacrifices and athletic contests honoring Herakles\'s labors and defense of the sanctuary.'},
+    {mi:12,d:0,n:'Septeria; Herois; Charila',g:['apollo','proserpina'],cycle:[8,0],note:'The three ennaeteric rites, reckoned by the Greeks as every ninth year and by us as every eighth: the Septeria reenacts the killing of the Python and Apollo\'s exile and purification in Tempe. The anchor year is a modern choice — no ancient year of the cycle is fixed.'}
   ]
 },
 {
@@ -1055,11 +1219,11 @@ var GREEK = [
   src:'Month order and autumn year-start are secure across Hellenistic kingdoms.',
   months:['Dios','Apellaios','Audynaios','Peritios','Dystros','Xandikos','Artemisios','Daisios','Panemos','Loios','Gorpiaios','Hyperberetaios'],
   fest:[
-    {mi:1,d:1,n:'Olympia at Dion',g:['jupiter','muses'],span:9,approx:true,note:'Nine days of games, dramatic spectacles, and sacrifices honoring Zeus Olympios and the Nine Muses.'},
-    {mi:1,d:15,n:'Hetairideia',g:['jupiter'],approx:true,note:'Sacred banquet of the King and the Royal Companions (Hetairoi) honoring Zeus Hetaireios.'},
-    {mi:6,d:1,n:'Xandika — purification of the army',g:['mars','minerva'],span:2,approx:true,note:'Springtime lustrations and mock battle of the Macedonian royal army before campaign season.'},
-    {mi:8,d:15,n:'Daisia',g:['liber'],approx:true,note:'Joyous wine and harvest festival celebrating Dionysian release and civic abundance.'},
-    {mi:11,d:15,n:'Gorpiaia',g:['hercules'],approx:true,note:'Honors Herakles Patroos, the divine ancestor of the Argead Macedonian dynasty.'}
+    {mi:1,d:0,n:'Olympia at Dion',g:['jupiter','muses'],span:9,note:'Nine days of games, dramatic spectacles, and sacrifices honoring Zeus Olympios and the Nine Muses.'},
+    {mi:1,d:0,n:'Hetairideia',g:['jupiter'],note:'Sacred banquet of the King and the Royal Companions (Hetairoi) honoring Zeus Hetaireios.'},
+    {mi:6,d:0,n:'Xandika — purification of the army',g:['mars','minerva'],span:2,note:'Springtime lustrations and mock battle of the Macedonian royal army before campaign season.'},
+    {mi:8,d:0,n:'Daisia',g:['liber'],note:'Joyous wine and harvest festival celebrating Dionysian release and civic abundance.'},
+    {mi:11,d:0,n:'Gorpiaia',g:['hercules'],note:'Honors Herakles Patroos, the divine ancestor of the Argead Macedonian dynasty.'}
   ]
 },
 {
@@ -1068,14 +1232,19 @@ var GREEK = [
   src:'Winter year-start with Boukatios.',
   months:['Boukatios','Hermaios','Prostaterios','Agrionios','Homoloios','Theilouthios','Hippodromios','Panamos','Pamboiotios','Damatrios','Alalkomenios','Thiouios'],
   fest:[
-    {mi:1,d:7,n:'Boukatia',g:['jupiter'],approx:true,note:'Sacred cattle-sacrifice festival opening the Boeotian year in honor of Zeus.'},
-    {mi:4,d:14,n:'Agrionia',g:['liber'],span:3,approx:true,note:'A nocturnal rite of sacred madness and return commemorating the daughters of Minyas.'},
-    {mi:5,d:14,n:'Homoloia',g:['jupiter','ceres'],approx:true,note:'Feast celebrating civic concord and agricultural harmony between Boeotian cities.'},
-    {mi:7,d:14,n:'Ptoia',g:['apollo'],approx:true,cycle:[4,2026],note:'Quadrennial musical and athletic games held at the oracle of Apollo Ptoios.'},
-    {mi:8,d:14,n:'Daidala at Plataia',g:['juno','jupiter'],approx:true,cycle:[7,2026],note:'The wooden bride statue is carried up Mount Kithairon to celebrate the reconciliation of Zeus and Hera. Celebrated as the Little Daidala every 7 years and the Great Daidala every 60 years.'},
-    {mi:9,d:14,n:'Pamboiotia',g:['minerva'],span:3,approx:true,note:'The national federal festival of the Boeotian League held at the temple of Athena Itonia.'},
-    {mi:10,d:14,n:'Damatria',g:['ceres'],approx:true,note:'Harvest festival honoring Demeter Damatria for grain prosperity across the Boeotian plain.'},
-    {mi:11,d:14,n:'Alalkomenia',g:['minerva'],approx:true,note:'Honors Athena Alalkomeneis, ancient tutelary protectress of Boeotia.'}
+    {mi:1,d:0,n:'Boukatia',g:['jupiter'],note:'Sacred cattle-sacrifice festival opening the Boeotian year in honor of Zeus.'},
+    {mi:4,d:0,n:'Agrionia',g:['liber'],span:3,note:'A nocturnal rite of sacred madness and return commemorating the daughters of Minyas.'},
+    {mi:5,d:0,n:'Homoloia',g:['jupiter','ceres'],note:'Feast celebrating civic concord and agricultural harmony between Boeotian cities.'},
+    {mi:7,d:0,n:'Ptoia',g:['apollo'],cycle:[4,0],note:'Quadrennial musical and athletic games at the oracle of Apollo Ptoios above Akraiphia. The four-year interval is attested; its position relative to the Olympiad is not, so the anchor year here is a modern choice.'},
+    {mi:8,d:0,n:'Little Daidala at Plataia',g:['juno','jupiter'],cycle:[7,0],unless:[60,2026],note:'The Plataians take an oak from the grove at Alalkomenai — chosen by watching which tree a raven carries its meat to — carve it into a bride, dress it, and drive it on an ox-cart to the Asopos in memory of the trick that reconciled Hera to Zeus. Pausanias was told the seventh year and thought the true interval shorter; the figure here follows what he was told.'},
+    {mi:8,d:0,n:'Great Daidala at Plataia',g:['juno','jupiter','panhellenic'],cycle:[60,0],note:'Every sixtieth year, kept by all Boiotia and not by Plataia alone: the fourteen daidala stored up from the lesser celebrations are allotted among the cities, carried up Kithairon with a cow and a bull for each, and burnt together on the altar in one great fire. Pausanias\' two intervals do not reconcile arithmetically; both are given as he reports them.'},
+    {mi:3,d:0,n:'Trophoneia at Lebadeia',g:['trophonios','ceres'],note:'The festival at the oracle of Trophonios, named beside the Basileia in the Lebadeian inscriptions. The enquirer bathes in the Herkyna, drinks from Lethe and Mnemosyne, and is drawn feet-first through the narrow mouth of the Katabasion with honey-cakes in both hands for the snakes below. The day is a convention.'},
+    {mi:4,d:0,n:'Herakleia (Iolaeia) at Thebes',g:['hercules','iolaos'],span:2,note:'Games and sacrifice at the Herakleion outside the Elektran gates for Herakles and his charioteer Iolaos, with a tripod for the victor and the whole city feasting. Attested annually; the day is a convention.'},
+    {mi:6,d:0,n:'Basileia at Lebadeia',g:['jupiter'],span:2,cycle:[4,0],note:'The penteteric games for Zeus Basileus, protector of Lebadeia and of the Boiotian koinon, whose victors are named in inscriptions from the third century BCE onward; the festival ran alongside the Trophoneia at the same sanctuary. The four-year interval is attested, but no ancient year of the cycle is, so the anchor here is a modern choice — the common attribution of its founding to Leuktra is a scholarly conjecture and is not relied on.'},
+    {mi:7,d:0,n:'Daphnephoria at Thebes',g:['apollo'],cycle:[8,0],note:'Once in every ninth year — every eighth by our count — a boy of good family and both parents living carries the laurel to Apollo Ismenios, walking behind the kopo, an olive branch hung with bronze globes for sun, moon and stars, and wound with saffron wool. The interval is attested by Proklos; no ancient year of the cycle survives, so the anchor is a modern choice.'},
+    {mi:9,d:0,n:'Pamboiotia',g:['minerva'],span:3,note:'The national federal festival of the Boeotian League held at the temple of Athena Itonia.'},
+    {mi:10,d:0,n:'Damatria',g:['ceres'],note:'Harvest festival honoring Demeter Damatria for grain prosperity across the Boeotian plain.'},
+    {mi:11,d:0,n:'Alalkomenia',g:['minerva'],note:'Honors Athena Alalkomeneis, ancient tutelary protectress of Boeotia.'}
   ]
 },
 {
@@ -1084,11 +1253,12 @@ var GREEK = [
   src:'Attested Spartan months arranged to align Hyakinthia and Karneia in their attested seasons.',
   months:['Apellaios','Diosthyos','Eleusinios','Gerastios','Artemisios','Phliasios','Herasios','Panamos','Hyakinthios','Hekatombeus','(month unattested)','Karneios'],
   fest:[
-    {mi:1,d:7,n:'Apellai',g:['apollo'],approx:true,note:'Spartan civic assemblies and sacrificial introductions of young warriors into the state.'},
-    {mi:5,d:16,n:'Artemis Orthia — the endurance of the boys',g:['diana'],approx:true,note:'Severe ritual trial of endurance and flogging at the altar of Artemis Orthia.'},
-    {mi:9,d:10,n:'Hyakinthia at Amyklai',g:['apollo','hyakinthos'],span:3,approx:true,note:'Three days of solemn mourning for the hero Hyakinthos followed by exuberant songs for Apollo.'},
-    {mi:10,d:12,n:'Gymnopaidiai',g:['apollo','diana','liber'],span:3,approx:true,note:'Festivals of unarmed singing, dancing, and choruses under the blazing sun in memory of the fallen at Thyrea.'},
-    {mi:12,d:7,n:'Karneia',g:['apollo'],span:9,approx:true,note:'Nine days of encampment under military tents celebrating Apollo Karneios, during which no Spartan army could march.'}
+    {mi:1,d:0,n:'Apellai',g:['apollo'],note:'Spartan civic assemblies and sacrificial introductions of young warriors into the state.'},
+    {mi:5,d:0,n:'Artemis Orthia — the endurance of the boys',g:['diana'],note:'Severe ritual trial of endurance and flogging at the altar of Artemis Orthia.'},
+    {mi:5,d:0,n:'Tithenidia',g:['diana'],note:'The nurses\' festival: the tithenai carry the small boys in their charge out to the precinct of Artemis Korythalia by the Tiassos, where suckling pigs and loaves are offered and the phallic korythalistai dance in wooden masks. The day is a convention.'},
+    {mi:9,d:0,n:'Hyakinthia at Amyklai',g:['apollo','hyakinthos'],span:3,note:'Three days of solemn mourning for the hero Hyakinthos followed by exuberant songs for Apollo.'},
+    {mi:10,d:0,n:'Gymnopaidiai',g:['apollo','diana','liber'],span:3,note:'Festivals of unarmed singing, dancing, and choruses under the blazing sun in memory of the fallen at Thyrea.'},
+    {mi:12,d:0,n:'Karneia',g:['apollo'],span:9,note:'Nine days of encampment under military tents celebrating Apollo Karneios, during which no Spartan army could march.'}
   ]
 },
 {
@@ -1097,11 +1267,12 @@ var GREEK = [
   src:'Corinthian month list through Corcyra.',
   months:['Phoinikaios','Kraneios','Lanotropios','Machaneus','Dodekateus','Eukleios','Artemisios','Psydreus','Gameilios','Agrianios','Panamos','Apellaios'],
   fest:[
-    {mi:4,d:8,n:'Zeus Machaneus',g:['jupiter'],approx:true,note:'Sacrifices to Zeus the Contriver and Inventor of purposeful solutions.'},
-    {mi:6,d:12,n:'Eukleia',g:['diana'],approx:true,note:'Honors Artemis Eukleia, goddess of good fame, civic glory, and modesty.'},
-    {mi:7,d:16,n:'Isthmia',g:['neptune'],span:3,approx:true,cycle:[2,2027],note:'Held in the first and third year of each Olympiad (biennial), in the pine grove at Isthmia.'},
-    {mi:8,d:12,n:'Hellotia',g:['minerva'],approx:true,note:'A torch race and festival honoring Athena Hellotis in Corinth.'},
-    {mi:10,d:12,n:'Aphrodite of Akrokorinth',g:['venus'],approx:true,note:'Celebrations atop the summit citadel of Akrokorinth dedicated to Aphrodite, patroness of seafaring wealth.'}
+    {mi:4,d:0,n:'Zeus Machaneus',g:['jupiter'],note:'Sacrifices to Zeus the Contriver and Inventor of purposeful solutions.'},
+    {mi:6,d:0,n:'Eukleia',g:['diana'],note:'Honors Artemis Eukleia, goddess of good fame, civic glory, and modesty.'},
+    {mi:7,d:0,n:'Isthmia',g:['neptune'],span:3,cycle:[2,2027],note:'Biennial games for Poseidon in the pine grove at Isthmia, in the spring of the second and fourth years of each Olympiad. Because the Greek year opens in summer, those springs fall in the modern years of the Olympia and the Pythia, a few months before each — so the Isthmia of 2026 comes before the Pythia of that August, and the Isthmia of 2028 before the Olympia.'},
+    {mi:7,d:0,n:'Palaimonia',g:['palaimon','neptune'],note:'The night rites for Melikertes-Palaimon in the pit beside Poseidon\'s temple at Isthmia: a black bull burnt whole after dark by torchlight, and oaths sworn over the offering held to be unbreakable. Bound to the Isthmia in the years they fall; the day is a convention.'},
+    {mi:8,d:0,n:'Hellotia',g:['minerva'],note:'A torch race and festival honoring Athena Hellotis in Corinth.'},
+    {mi:10,d:0,n:'Aphrodite of Akrokorinth',g:['venus'],note:'Celebrations atop the summit citadel of Akrokorinth dedicated to Aphrodite, patroness of seafaring wealth.'}
   ]
 },
 {
@@ -1110,11 +1281,13 @@ var GREEK = [
   src:'Argive inscriptions composite.',
   months:['Panamos','Karneios','Agrianios','Hermaios','Amyklaios','Apellaios','Arneios','Teleos','Agyieios','(month unattested)','(month unattested)','(month unattested)'],
   fest:[
-    {mi:2,d:7,n:'Karneia at Argos',g:['apollo'],span:3,approx:true,note:'Argive pastoral and civic rites honoring Apollo Karneios.'},
-    {mi:6,d:7,n:'Apollo Lykeios',g:['apollo'],approx:true,note:'Main civic sacrifices in the agora of Argos honoring Apollo the Wolf-Slayer.'},
-    {mi:8,d:12,n:'Heraia / Hekatombaia',g:['juno'],span:2,approx:true,cycle:[4,2028],note:'Grand festival at the Argive Heraion; procession with a hundred oxen and bronze shields awarded to victorious athletes (every 4 years in Olympic years).' },
-    {mi:9,d:12,n:'Nemea',g:['jupiter'],span:3,approx:true,cycle:[2,2026],note:'Biennial games for Zeus Nemeios; judges dressed in black mourning robes honoring the hero Opheltes.'},
-    {mi:5,d:12,n:'The bath of Pallas at the Inachos',g:['minerva'],approx:true,note:'Ceremonial washing of the sacred Palladium statue of Athena in the waters of the Inachos river.'}
+    {mi:2,d:0,n:'Karneia at Argos',g:['apollo'],span:3,note:'Argive pastoral and civic rites honoring Apollo Karneios.'},
+    {mi:6,d:0,n:'Apollo Lykeios',g:['apollo'],note:'Main civic sacrifices in the agora of Argos honoring Apollo the Wolf-Slayer.'},
+    {mi:8,d:0,n:'Heraia / Hekatombaia',g:['juno'],span:2,cycle:[4,0],note:'The penteteric festival at the Argive Heraion: an armed procession along the road from Argos, a hundred oxen, and a bronze shield for the victor — the \'Shield at Argos\' that Pindar names beside the Olympic olive. The four-year interval is secure; its position in the Olympiad is not, and on the alignment used here it falls in the modern year after each Olympia.' },
+    {mi:9,d:0,n:'Nemea',g:['jupiter'],span:3,cycle:[2,2026],note:'Biennial games for Zeus Nemeios in the second and fourth years of each Olympiad, in the summer that opens those years — the modern years between each Olympia and the following Isthmia. Wild celery for the victors and black robes for the judges, who mourn the infant hero Opheltes. The scholiast on Pindar gives the twelfth of Panamos.'},
+    {mi:6,d:0,n:'Lernaia',g:['ceres','proserpina','liber','dis'],note:'The mysteries at Lerna in the grove between the Amymone and the Pontinos, for Demeter Lernaia and Prosymna: fire carried down from Artemis Pyronia on Krathis, thyrsoi and trumpets by night at the Alkyonian lake, and a ram thrown into the chasm for Hades Pylaios. Described by Pausanias and Plutarch; the day is a convention.'},
+    {mi:7,d:0,n:'Hybristika',g:['mars','juno'],note:'The day of outrage at Argos, when women put on men\'s tunics and cloaks and men on women\'s — kept, Plutarch says, in memory of Telesilla and the women who held the walls against Kleomenes. The day is a convention.'},
+    {mi:5,d:0,n:'The bath of Pallas at the Inachos',g:['minerva'],note:'Ceremonial washing of the sacred Palladium statue of Athena in the waters of the Inachos river.'}
   ]
 },
 {
@@ -1123,10 +1296,10 @@ var GREEK = [
   src:'Sanctuary inscriptions.',
   months:['Azosios','Karneios','Praratios','Hermaios','Gamos','Teleos','Posidaios','Artamitios','Agrianios','Panamos','Kyklios','Apellaios'],
   fest:[
-    {mi:2,d:7,n:'Karneia',g:['apollo'],approx:true,note:'Epidaurian observances honoring Apollo Karneios.'},
-    {mi:8,d:9,n:'Asklepieia',g:['aesculapius','apollo','asklepiadai'],span:9,approx:true,cycle:[4,2027],note:'Great quadrennial healing festival held nine days after the Isthmia; incubation in the abaton, dramatic poetry, and athletic games.'},
-    {mi:8,d:12,n:'Apollo Maleatas',g:['apollo'],approx:true,note:'Hillside sacrifices to Apollo Maleatas, archaic god of healing and mountain breezes.'},
-    {mi:11,d:12,n:'Hygieia',g:['salus'],approx:true,note:'Offerings to Hygieia, goddess of health, sanitation, and disease prevention.'}
+    {mi:2,d:0,n:'Karneia',g:['apollo'],note:'Epidaurian observances honoring Apollo Karneios.'},
+    {mi:7,d:0,n:'Asklepieia',g:['aesculapius','apollo','asklepiadai'],span:9,cycle:[4,2027],note:'The great penteteric healing festival, held nine days after the Isthmia — the day here is computed to keep that interval, so it moves with the Corinthian entry. Incubation in the abaton, a musical and dramatic contest, and athletic and equestrian games.'},
+    {mi:8,d:0,n:'Apollo Maleatas',g:['apollo'],note:'Hillside sacrifices to Apollo Maleatas on the terrace above the sanctuary, the older cult into which the worship of Asklepios was grafted.'},
+    {mi:11,d:0,n:'Hygieia',g:['salus'],note:'Offerings to Hygieia, goddess of health, sanitation, and disease prevention.'}
   ]
 },
 {
@@ -1135,10 +1308,11 @@ var GREEK = [
   src:'Elean fragments; Olympic games tied to post-solstice full moon.',
   months:['Apollonios','Parthenios','Alpheios','Athanaios','Thyios','Elaphios','Diosthyos','(month unattested)','(month unattested)','(month unattested)','(month unattested)','(month unattested)'],
   fest:[
-    {mi:2,d:11,n:'Olympia',g:['jupiter','hercules','hebe'],span:5,approx:true,cycle:[4,2028],note:'The greatest pan-Hellenic games at Olympia; the Olympic truce (ekecheiria) observed across Greece.'},
-    {mi:2,d:13,n:'Hekatomb at the altar of Zeus',g:['jupiter'],approx:true,cycle:[4,2028],note:'Quadrennial grand sacrifice of one hundred oxen on the great ash altar of Zeus Olympios.'},
-    {mi:3,d:11,n:'Heraia at Olympia',g:['juno'],approx:true,cycle:[4,2028],note:'The quadrennial footrace of the sixteen women and their woven peplos for Hera.'},
-    {mi:5,d:11,n:'Thyia — vats of Dionysos',g:['liber'],approx:true,note:'Mystery rite where empty cauldrons sealed in the temple are found miraculously brimming with wine.'}
+    {mi:2,d:0,n:'Olympia',g:['jupiter','hercules','hebe'],span:5,cycle:[4,2028],note:'The greatest of the pan-Hellenic games, in the first year of each Olympiad, timed to the second (or third) full moon after the summer solstice; the truce (ekecheiria) held across Greece for the month around it.'},
+    {mi:2,d:0,n:'Hekatomb at the altar of Zeus',g:['jupiter'],cycle:[4,2028],note:'Quadrennial grand sacrifice of one hundred oxen on the great ash altar of Zeus Olympios.'},
+    {mi:3,d:0,n:'Heraia at Olympia (the Heraean Games)',g:['juno'],cycle:[4,0],note:'Every fourth year the Sixteen Women of Elis weave a peplos for Hera and hold the footrace of unmarried girls in three age classes over five-sixths of the stadium, hair loose and the right shoulder bare; victors take an olive crown, a share of the cow sacrificed to Hera, and the right to dedicate a painted portrait. Pausanias gives the four-year interval but not the position of the games within the Olympiad, and whether they preceded or followed the Olympia is disputed; they are set here in the Olympic year, a month after the men\'s games.'},
+    {mi:4,d:0,n:'Eileithyia and Sosipolis at Olympia',g:['eileithyia','sosipolis'],note:'Honey-cakes and water poured for the child Sosipolis in the inner room of Eileithyia\'s shrine on Kronion, where one old woman chosen for life tends him — the infant who is said to have turned into a snake and routed an Arkadian army. The day is a convention.'},
+    {mi:5,d:0,n:'Thyia — vats of Dionysos',g:['liber'],note:'Mystery rite where empty cauldrons sealed in the temple are found miraculously brimming with wine.'}
   ]
 },
 {
@@ -1147,11 +1321,11 @@ var GREEK = [
   src:'Cretan composite.',
   months:['Thesmophorion','Hermaios','Eiman','Matarchios','Agyios','Dioskouros','Theodaisios','Pontos','Rhabinthios','Hyperberetos','Nekysios','Welchanios'],
   fest:[
-    {mi:1,d:11,n:'Thesmophoria',g:['ceres','proserpina'],span:3,approx:true,note:'Cretan agricultural mystery rites honoring Demeter and Persephone.'},
-    {mi:6,d:12,n:'Dioskouria',g:['dioscuri'],approx:true,note:'Festivals honoring Castor and Polydeukes as guardians of youth, cavalry, and seafaring safety.'},
-    {mi:7,d:12,n:'Theodaisia',g:['liber','panhellenic'],approx:true,note:'Communal banquet where all the Olympian gods are invited to feast with the citizens.'},
-    {mi:11,d:12,n:'Nekysia — rites for the dead',g:['manes','dis'],approx:true,note:'Solemn ancestral remembrance and libations poured into the earth for departed kin.'},
-    {mi:12,d:12,n:'Welchania',g:['jupiter'],approx:true,note:'Honors Zeus Welchanos, the youthful Cretan spirit of burgeoning plant life and annual renewal.'}
+    {mi:1,d:0,n:'Thesmophoria',g:['ceres','proserpina'],span:3,note:'Cretan agricultural mystery rites honoring Demeter and Persephone.'},
+    {mi:6,d:0,n:'Dioskouria',g:['dioscuri'],note:'The month Dioskouros is securely attested in the Cretan cities and takes its name from the Twins; the festival itself is known only from the month name and from scattered dedications, so both the day and the place of the month in the year are modern reconstructions. Castor and Polydeukes as guardians of young men under arms, of horses, and of ships in danger.'},
+    {mi:7,d:0,n:'Theodaisia',g:['liber','panhellenic'],note:'Communal banquet where all the Olympian gods are invited to feast with the citizens.'},
+    {mi:11,d:0,n:'Nekysia — rites for the dead',g:['manes','dis'],note:'Solemn ancestral remembrance and libations poured into the earth for departed kin.'},
+    {mi:12,d:0,n:'Welchania',g:['jupiter'],note:'Honors Zeus Welchanos, the youthful Cretan spirit of burgeoning plant life and annual renewal.'}
   ]
 },
 {
@@ -1160,13 +1334,14 @@ var GREEK = [
   src:'Epigraphically well attested.',
   months:['Panamos','Karneios','Dalios','Thesmophorios','Diosthyos','Theudaisios','Pedageitnyos','Badromios','Sminthios','Artamitios','Agrianios','Hyakinthios'],
   fest:[
-    {mi:1,d:12,n:'Halieia',g:['sol'],span:3,approx:true,cycle:[4,2028],note:'Grand festival for Helios; athletic games and a four-horse chariot cast into the sea for the sun god (celebrated every 4 years in Olympic years).' },
-    {mi:2,d:7,n:'Karneia',g:['apollo'],span:3,approx:true,note:'Rhodian celebrations honoring Apollo Karneios.'},
-    {mi:3,d:12,n:'Dalia — Apollo of Delos',g:['apollo'],approx:true,note:'Sacrifices and choruses dedicated to Delian Apollo.'},
-    {mi:4,d:11,n:'Thesmophoria',g:['ceres','proserpina'],span:3,approx:true,note:'Rhodian women\'s mystery rites honoring Demeter.'},
-    {mi:6,d:12,n:'Theudaisia',g:['liber'],approx:true,note:'Joyous winter feast of Dionysos and divine hospitality.'},
-    {mi:9,d:12,n:'Sminthia',g:['apollo'],approx:true,note:'Honors Apollo Smintheus, protector of crops against mice and vermin.'},
-    {mi:12,d:12,n:'Hyakinthia',g:['apollo','hyakinthos'],approx:true,note:'Summer commemorations of Hyakinthos and Apollo.'}
+    {mi:1,d:0,n:'Halieia',g:['sol'],span:3,cycle:[4,0],note:'The great festival of Helios, patron of Rhodes: gymnastic, musical and equestrian games, and a chariot with four horses driven into the sea for the god to take up at the year\'s turning. Annual in a smaller form, penteteric in the grand one; the alignment to the Olympic year is a modern convention.' },
+    {mi:2,d:0,n:'Karneia',g:['apollo'],span:3,note:'Rhodian celebrations honoring Apollo Karneios.'},
+    {mi:3,d:0,n:'Dalia — Apollo of Delos',g:['apollo'],note:'Sacrifices and choruses dedicated to Delian Apollo.'},
+    {mi:4,d:0,n:'Thesmophoria',g:['ceres','proserpina'],span:3,note:'Rhodian women\'s mystery rites honoring Demeter.'},
+    {mi:6,d:0,n:'Theudaisia',g:['liber'],note:'Joyous winter feast of Dionysos and divine hospitality.'},
+    {mi:8,d:0,n:'Tlapolemeia',g:['tlapolemos','hercules'],note:'Games and sacrifice for Tlapolemos son of Herakles, who founded the three Rhodian cities and fell at Troy; Pindar sings of the boys who wrestle for his garlands. The day is a convention.'},
+    {mi:9,d:0,n:'Sminthia',g:['apollo'],note:'Honors Apollo Smintheus, protector of crops against mice and vermin.'},
+    {mi:12,d:0,n:'Hyakinthia',g:['apollo','hyakinthos'],note:'Summer commemorations of Hyakinthos and Apollo.'}
   ]
 },
 {
@@ -1175,12 +1350,12 @@ var GREEK = [
   src:'Thessalian league calendar.',
   months:['Itonios','Panamos','Themistios','Agagylios','Hermaios','Apollonios','Leschanorios','Aphrios','Thyios','Homoloios','Hippodromios','Phyllikos'],
   fest:[
-    {mi:1,d:12,n:'Itonia',g:['minerva','jupiter'],span:3,approx:true,note:'The national festival of the Thessalian League honoring Athena Itonia, goddess of the open plains.'},
-    {mi:3,d:12,n:'Peloria',g:['jupiter'],approx:true,note:'Thanksgiving banquet of Zeus Pelorios; masters serve slaves and strangers are welcomed at tables.'},
-    {mi:6,d:7,n:'Apollo of Larisa',g:['apollo'],approx:true,note:'Spring civic festival honoring Apollo at the acropolis of Larisa.'},
-    {mi:9,d:12,n:'Thyia',g:['liber'],approx:true,note:'Festivals honoring Dionysos and the sacred ecstatic rites of Mount Parnassus.'},
-    {mi:11,d:12,n:'Hippodromia',g:['neptune'],approx:true,note:'Equestrian games and sacrifices to Poseidon Petraios, who split the Thessalian rocks to drain the plains.'},
-    {mi:12,d:12,n:'Eleutheria at Larisa',g:['jupiter'],approx:true,note:'Freedom festival commemorating liberation with torch races and athletic games.'}
+    {mi:1,d:0,n:'Itonia',g:['minerva','jupiter'],span:3,note:'The national festival of the Thessalian League honoring Athena Itonia, goddess of the open plains.'},
+    {mi:3,d:0,n:'Peloria',g:['jupiter'],note:'Thanksgiving banquet of Zeus Pelorios; masters serve slaves and strangers are welcomed at tables.'},
+    {mi:6,d:0,n:'Apollo of Larisa',g:['apollo'],note:'Spring civic festival honoring Apollo at the acropolis of Larisa.'},
+    {mi:9,d:0,n:'Thyia',g:['liber'],note:'Festivals honoring Dionysos and the sacred ecstatic rites of Mount Parnassus.'},
+    {mi:11,d:0,n:'Hippodromia',g:['neptune'],note:'Equestrian games and sacrifices to Poseidon Petraios, who split the Thessalian rocks to drain the plains.'},
+    {mi:12,d:0,n:'Eleutheria at Larisa',g:['jupiter'],note:'Freedom festival commemorating liberation with torch races and athletic games.'}
   ]
 },
 {
@@ -1189,11 +1364,11 @@ var GREEK = [
   src:'League decrees at Thermon.',
   months:['Prokyklios','Athanaios','Boukatios','Dios','Euthyaios','Homoloios','Hermaios','Dadaphorios','Ischys','Laphraios','Panamos','Thermios'],
   fest:[
-    {mi:2,d:12,n:'Athanaia',g:['minerva'],approx:true,note:'Aetolian federal sacrifices honoring Athena protectress of the League.'},
-    {mi:10,d:12,n:'Laphria',g:['diana'],span:2,approx:true,note:'The great mountain festival of Artemis Laphria celebrated with massive sacrificial bonfires.'},
-    {mi:12,d:12,n:'Thermika',g:['apollo'],span:3,approx:true,note:'The autumn assembly and athletic games at Thermon honoring Apollo Thermios.'},
-    {mi:5,d:12,n:'Soteria at Delphi',g:['jupiter','apollo'],span:3,approx:true,note:'Celebration instituted by the Aetolians to commemorate the miraculous repulse of the Celtic invasion in 279 BCE.'},
-    {mi:8,d:12,n:'Panaitolika',g:['apollo','panhellenic'],approx:true,note:'The spring general assembly and religious council of the Aetolian League.'}
+    {mi:2,d:0,n:'Athanaia',g:['minerva'],note:'Aetolian federal sacrifices honoring Athena protectress of the League.'},
+    {mi:10,d:0,n:'Laphria',g:['diana'],span:2,note:'The great mountain festival of Artemis Laphria celebrated with massive sacrificial bonfires.'},
+    {mi:12,d:0,n:'Thermika',g:['apollo'],span:3,note:'The autumn assembly and athletic games at Thermon honoring Apollo Thermios.'},
+    {mi:5,d:0,n:'Soteria at Delphi',g:['jupiter','apollo'],span:3,note:'Celebration instituted by the Aetolians to commemorate the miraculous repulse of the Celtic invasion in 279 BCE.'},
+    {mi:8,d:0,n:'Panaitolika',g:['apollo','panhellenic'],note:'The spring general assembly and religious council of the Aetolian League.'}
   ]
 },
 {
@@ -1202,12 +1377,12 @@ var GREEK = [
   src:'Tauromenion accounts.',
   months:['Thesmophorios','Dionysios','Artamitios','Karneios','Dalios','Theudaisios','Agrianios','Badromios','Panamos','Lanotropios','Apollonios','Eukleios'],
   fest:[
-    {mi:1,d:11,n:'Thesmophoria',g:['ceres','proserpina'],span:3,approx:true,note:'Ten-day Sicilian festival of Demeter and Kore, where grain was said to have first appeared on earth.'},
-    {mi:2,d:12,n:'Dionysia at Syracuse',g:['liber'],span:3,approx:true,note:'Theatrical drama and comedy competitions in the great stone amphitheater of Syracuse.'},
-    {mi:3,d:12,n:'Artemisia at Syracuse',g:['diana'],approx:true,note:'Festival honoring Artemis of the spring of Arethousa on Ortygia island.'},
-    {mi:4,d:7,n:'Karneia',g:['apollo'],span:3,approx:true,note:'Sicilian Dorian observance honoring Apollo Karneios.'},
-    {mi:7,d:12,n:'Anthesphoria at Enna',g:['proserpina','kore','ceres'],approx:true,note:'The Flower-Gathering: celebrating the springtime return of Persephone to the blooming meadows of Enna.'},
-    {mi:9,d:12,n:'Koreia',g:['proserpina','ceres'],approx:true,note:'Sacrifices honoring Kore as queen of the harvest and the underworld.'}
+    {mi:1,d:0,n:'Thesmophoria',g:['ceres','proserpina'],span:3,note:'Ten-day Sicilian festival of Demeter and Kore, where grain was said to have first appeared on earth.'},
+    {mi:2,d:0,n:'Dionysia at Syracuse',g:['liber'],span:3,note:'Theatrical drama and comedy competitions in the great stone amphitheater of Syracuse.'},
+    {mi:3,d:0,n:'Artemisia at Syracuse',g:['diana'],note:'Festival honoring Artemis of the spring of Arethousa on Ortygia island.'},
+    {mi:4,d:0,n:'Karneia',g:['apollo'],span:3,note:'Sicilian Dorian observance honoring Apollo Karneios.'},
+    {mi:7,d:0,n:'Anthesphoria at Enna',g:['proserpina','kore','ceres'],note:'The Flower-Gathering: celebrating the springtime return of Persephone to the blooming meadows of Enna.'},
+    {mi:9,d:0,n:'Koreia',g:['proserpina','ceres'],note:'Sacrifices honoring Kore as queen of the harvest and the underworld.'}
   ]
 },
 {
@@ -1216,7 +1391,7 @@ var GREEK = [
   src:'PLACEHOLDER scaffolding.',
   months:['Skarpheian I','Skarpheian II','Skarpheian III','Skarpheian IV','Skarpheian V','Skarpheian VI','Skarpheian VII','Skarpheian VIII','Skarpheian IX','Skarpheian X','Skarpheian XI','Skarpheian XII'],
   fest:[
-    {mi:1,d:12,n:'Aianteia — the Lokrian hero Aias',g:['ajax'],approx:true,note:'Heroic rites honoring Ajax the Lesser; an empty seat was kept for him in the battle line.'}
+    {mi:1,d:0,n:'Aianteia — the Lokrian hero Aias',g:['ajax'],note:'Heroic rites honoring Ajax the Lesser; an empty seat was kept for him in the battle line.'}
   ]
 },
 {
@@ -1232,8 +1407,8 @@ var GREEK = [
   src:'Ordinal numbering attested.',
   months:['First month','Second month','Third month','Fourth month','Fifth month','Sixth month','Seventh month','Eighth month','Ninth month','Tenth month','Eleventh month','Twelfth month'],
   fest:[
-    {mi:4,d:12,n:'Asklepieia at Naupaktos',g:['aesculapius'],approx:true,note:'Healing rites and prayers for health at the seaside Asklepieion of Naupaktos.'},
-    {mi:10,d:12,n:'Artemis of Amphissa',g:['diana'],approx:true,note:'Feast honoring Artemis patroness of the olive groves of Amphissa.'}
+    {mi:4,d:0,n:'Asklepieia at Naupaktos',g:['aesculapius'],note:'Healing rites and prayers for health at the seaside Asklepieion of Naupaktos.'},
+    {mi:10,d:0,n:'Artemis of Amphissa',g:['diana'],note:'Feast honoring Artemis patroness of the olive groves of Amphissa.'}
   ]
 }
 ];
@@ -1306,16 +1481,16 @@ function toRoman(n) {
 }
 function romanDateLabel(y, m, d) {
   var non = nonesOf(m), ide = idesOf(m);
-  if (d === 1) return 'Kal. ' + ROMAN_MONTH_ABL[m - 1];
-  if (d === non) return 'Non. ' + ROMAN_MONTH_ABL[m - 1];
-  if (d === ide) return 'Eid. ' + ROMAN_MONTH_ABL[m - 1];
+  if (d === 1) return 'Kalends ' + ROMAN_MONTH_ABL[m - 1];
+  if (d === non) return 'Nones ' + ROMAN_MONTH_ABL[m - 1];
+  if (d === ide) return 'Idus ' + ROMAN_MONTH_ABL[m - 1];
   function before(target, label, mIdx) {
     var diff = target - d + 1;
     if (diff === 2) return 'prid. ' + label + ' ' + ROMAN_MONTH_NAMES[mIdx];
     return 'a.d. ' + toRoman(diff) + ' ' + label + ' ' + ROMAN_MONTH_NAMES[mIdx];
   }
-  if (d < non) return before(non, 'Non.', m - 1);
-  if (d < ide) return before(ide, 'Eid.', m - 1);
+  if (d < non) return before(non, 'Nones', m - 1);
+  if (d < ide) return before(ide, 'Idus.', m - 1);
   var nm = m === 12 ? 1 : m + 1;
   var diff = daysInMonth(y, m) - d + 2;
   if (diff === 2) return 'prid. Kal. ' + ROMAN_MONTH_NAMES[nm - 1];
@@ -1323,6 +1498,7 @@ function romanDateLabel(y, m, d) {
 }
 
 var INDEX = {};
+var MONTHBLOCKS = [];
 var RANGE = { first: 0, last: 0 };
 var WIN = { y0: 0, y1: 0, first: 0, last: 0 };
 function hasData(dn) { return dn >= WIN.first && dn <= WIN.last; }
@@ -1332,9 +1508,17 @@ function slot(dayNo) {
   return INDEX[dayNo];
 }
 function addFest(dayNo, f) { slot(dayNo).fests.push(f); }
+function addBlock(sys, name, start, len, year, f) {
+  var key = sys + ':' + start;
+  for (var i = 0; i < MONTHBLOCKS.length; i++) {
+    if (MONTHBLOCKS[i].key === key) { MONTHBLOCKS[i].fests.push(f); return; }
+  }
+  MONTHBLOCKS.push({ key: key, sys: sys, name: name, start: start, len: len, year: year, fests: [f] });
+}
 
 function buildIndex(y0, y1) {
   INDEX = {};
+  MONTHBLOCKS = [];
   WIN.y0 = y0; WIN.y1 = y1;
   WIN.first = dayNoOf(y0, 1, 1);
   WIN.last  = dayNoOf(y1, 12, 31);
@@ -1347,7 +1531,19 @@ function buildIndex(y0, y1) {
   for (y = y0; y <= y1; y++) {
     for (i = 0; i < ROMAN.length; i++) {
       var r = ROMAN[i], span = r.span || 1;
+      if (r.cycle && !r.cycle[1]) continue;
       if (r.cycle && ((y - r.cycle[1]) % r.cycle[0] + r.cycle[0]) % r.cycle[0] !== 0) continue;
+      if (r.unless && ((y - r.unless[1]) % r.unless[0] + r.unless[0]) % r.unless[0] === 0) continue;
+      if (r.movable) {
+        var mStart = dayNoOf(y, r.m, 1), mLen = daysInMonth(y, r.m);
+        if (mStart + mLen - 1 >= WIN.first && mStart <= WIN.last) {
+          addBlock('roman', ROMAN_MONTH_NAMES[r.m - 1], mStart, mLen, y, {
+            sys: 'roman', name: r.n, gods: r.g, note: r.note || '', undated: true,
+            window: r.window || '', native: 'Roman fasti \u00b7 ' + ROMAN_MONTH_ABL[r.m - 1]
+          });
+        }
+        continue;
+      }
       for (j = 0; j < span; j++) {
         var dn = dayNoOf(y, r.m, r.d) + j;
         if (!hasData(dn)) continue;
@@ -1384,15 +1580,26 @@ function buildIndex(y0, y1) {
           slot(dn3).cal[cal.id] = { name: mo.name, day: d + 1, len: mo.len, interc: mo.isInterc, ord: mo.ord, total: mo.total };
         }
         if (mo.isInterc) continue;
-        var list = (cal.fest || []).filter(function (f) {
+        var inMonth = (cal.fest || []).filter(function (f) {
           if (f.mi !== mo.mi) return false;
+          if (f.cycle && !f.cycle[1]) return false;
           if (f.cycle && ((mo.year - f.cycle[1]) % f.cycle[0] + f.cycle[0]) % f.cycle[0] !== 0) return false;
+          if (f.unless && ((mo.year - f.unless[1]) % f.unless[0] + f.unless[0]) % f.unless[0] === 0) return false;
           return true;
+        });
+        var list = inMonth.filter(function (f) { return f.d > 0; });
+        inMonth.filter(function (f) { return !f.d; }).forEach(function (f) {
+          addBlock(cal.id, mo.name, mo.start, mo.len, mo.year, {
+            sys: cal.id, name: f.n, gods: f.gods || f.g, note: f.note || '', undated: true,
+            cycle: f.cycle ? f.cycle[0] : 0, window: f.window || '',
+            native: cal.name + ' \u00b7 ' + mo.name
+          });
         });
         for (k = 0; k < list.length; k++) {
           var f = list[k], sp = f.span || 1;
+          var base = f.last ? mo.len : f.d;
           for (var s2 = 0; s2 < sp; s2++) {
-            var dd = f.d + s2;
+            var dd = base + s2;
             if (dd > mo.len) break;
             var dn4 = mo.start + dd - 1;
             if (!hasData(dn4)) continue;
@@ -1450,7 +1657,7 @@ var GMONTH = ['January','February','March','April','May','June','July','August',
 var S = {
   enabled: {}, gods: {}, q: '', view: 'grid',
   y: 0, m: 0, sel: null,
-  opts: { moon:true, roman:true, noum:true, monthly:true, approx:true, offset:1, theme:'night' }
+  opts: { moon:true, roman:true, noum:true, monthly:true, approx:true, undated:true, offset:1, theme:'night' }
 };
 
 function save() {
@@ -1473,11 +1680,11 @@ function esc(s) {
     return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c];
   });
 }
-function godLabel(k) { var d = DEITIES[k]; if (!d) return k; return d[0] !== '\u2014' ? d[0] : d[1]; }
+function godLabel(k) { var d = DEITIES[k]; if (!d) return k; return d[0] !== '—' ? d[0] : d[1]; }
 function godTitle(k) {
   var d = DEITIES[k]; if (!d) return k;
-  var pair = d[0] !== '\u2014' && d[1] !== '\u2014' && d[0] !== d[1] ? d[0] + ' / ' + d[1] : godLabel(k);
-  return pair + ' \u2014 ' + d[2];
+  var pair = d[0] !== '—' && d[1] !== '—' && d[0] !== d[1] ? d[0] + ' / ' + d[1] : godLabel(k);
+  return pair + ' — ' + d[2];
 }
 
 function festivalSlug(name) {
@@ -1517,7 +1724,6 @@ function evaluateSuitability(dn) {
   if (t.d === non) issues.push('Nones (Nonae) — holy announcement day; inauspicious for weddings.');
   if (t.d === ide) issues.push('Ides (Idus) — dedicated to Jupiter; inauspicious for weddings and secular contracts.');
 
-  // Roman marriage taboos (Ovid Fasti)
   if (t.m === 5) {
     issues.push('Month of May — considered ill-omened for marriages due to Lemuria and purification rites.');
   }
@@ -1657,6 +1863,37 @@ function noumOn(dayNo) {
   return out;
 }
 
+/* ---------- what cannot be placed on any day of any year ---------- */
+function renderUnplaced() {
+  var noMonth = [], noYear = [];
+  GREEK.forEach(function (cal) {
+    (cal.fest || []).forEach(function (f) {
+      var where = f.mi ? cal.months[f.mi - 1] : '';
+      if (!f.mi) noMonth.push([cal.name, f.n, '']);
+      else if (f.cycle && !f.cycle[1]) noYear.push([cal.name, f.n, where + ', every ' + f.cycle[0] + ' years']);
+    });
+  });
+  ROMAN.forEach(function (r) {
+    if (r.cycle && !r.cycle[1]) noYear.push(['Roman', r.n, ROMAN_MONTH_NAMES[r.m - 1] + ', every ' + r.cycle[0] + ' years']);
+  });
+  var h = '<p>Two kinds of festival cannot be put on this calendar without inventing something, and so ' +
+    'are listed here instead of being drawn on a day. They are no less real for it \u2014 each is attested; ' +
+    'what is missing is the date.</p>';
+  h += '<h4>The month is not known</h4><p>These are attested by an ancient text or an inscription, but ' +
+    'nothing survives to say when in the year they fell. Nothing here is a lost cause \u2014 a single ' +
+    'inscription could move any of them onto the grid.</p><ul>';
+  noMonth.forEach(function (r) { h += '<li><b>' + esc(r[1]) + '</b> \u2014 ' + esc(r[0]) + '</li>'; });
+  h += '</ul>';
+  h += '<h4>The interval is known, the years are not</h4><p>Each of these recurred on a stated cycle, and ' +
+    'for each the ancient count is broken: no celebration survives that can be counted forward from. Where ' +
+    'a cycle <em>can</em> be counted forward \u2014 the Olympiad festivals, the Delia from its restoration ' +
+    'in 426 BCE, the saeculum from 204 CE, the lustrum from 74 CE \u2014 it is on the calendar proper.</p><ul>';
+  noYear.forEach(function (r) { h += '<li><b>' + esc(r[1]) + '</b> \u2014 ' + esc(r[0]) + ' \u00b7 ' + esc(r[2]) + '</li>'; });
+  h += '</ul>';
+  var el = document.getElementById('unplacedBody');
+  if (el) el.innerHTML = h;
+}
+
 /* ---------- rail ---------- */
 function renderRail() {
   var h = '';
@@ -1691,6 +1928,71 @@ function renderRail() {
   gl.scrollTop = gtop;
 }
 
+/* ---------- month band: attested for the month, but not for any day ---------- */
+function blocksFor(first, last) {
+  return MONTHBLOCKS.filter(function (b) {
+    if (!S.enabled[b.sys]) return false;
+    if (b.start > last || b.start + b.len - 1 < first) return false;
+    return b.fests.some(visible);
+  }).sort(function (a, b) { return a.start - b.start; });
+}
+function renderBand() {
+  if (!S.opts.undated) return '';
+  var first = dayNoOf(S.y, S.m, 1), last = first + daysInMonth(S.y, S.m) - 1;
+  var blocks = blocksFor(first, last);
+  if (!blocks.length) return '';
+  var h = '<div class="band"><h2>Somewhere in these months</h2>' +
+    '<p class="lede">Attested festivals whose month is known and whose day is not. They are shown ' +
+    'against the month rather than given a date they never had.</p>';
+  blocks.forEach(function (b) {
+    var fs = b.fests.filter(visible);
+    if (!fs.length) return;
+    var a = ymdOf(b.start), z = ymdOf(b.start + b.len - 1);
+    h += '<div class="bandrow"><span class="bmonth">' + esc(b.name) + ' \u00b7 ' +
+      a.d + ' ' + GMONTH[a.m - 1].slice(0, 3) + ' \u2013 ' + z.d + ' ' + GMONTH[z.m - 1].slice(0, 3) +
+      '</span><span class="bfests">';
+    fs.forEach(function (f) {
+      h += '<button class="bf" style="--h:' + SYS[f.sys].hue + '" data-block="' + esc(b.key) +
+        '" data-fi="' + b.fests.indexOf(f) + '">' + esc(f.name) +
+        (f.window ? ' <em>' + esc(f.window) + '</em>' : '') + '</button>';
+    });
+    h += '</span></div>';
+  });
+  return h + '</div>';
+}
+function openBlockFest(key, fi) {
+  var b = null, i;
+  for (i = 0; i < MONTHBLOCKS.length; i++) if (MONTHBLOCKS[i].key === key) b = MONTHBLOCKS[i];
+  if (!b) return;
+  var f = b.fests[fi]; if (!f) return;
+  var a = ymdOf(b.start), z = ymdOf(b.start + b.len - 1);
+  var h = '<div class="drawer-head"><div><h3>' + esc(f.name) + '</h3>' +
+    '<span class="ameta" style="font-family:var(--data);font-size:11.5px;color:var(--bone-dim)">' +
+    esc(b.name) + ' \u00b7 ' + a.d + ' ' + GMONTH[a.m - 1] + ' \u2013 ' + z.d + ' ' + GMONTH[z.m - 1] + ' ' + z.y +
+    '</span></div><button class="close" id="closeDay" aria-label="Close">&#10005;</button></div><div class="drawer-body">';
+  h += '<div class="status-box caution"><b>No day is attested</b><span>The festival is attested and the ' +
+    'month is known, but nothing survives to fix the day within it' +
+    (f.window ? ', beyond that it fell ' + esc(f.window) : '') +
+    '. Picking one would be invention, so none is picked.</span></div>';
+  h += '<div class="entry" style="--h:' + SYS[f.sys].hue + '"><h4>' + esc(f.name) + '</h4>' +
+    '<span class="src">' + esc(f.native) + '</span>';
+  if (f.note) h += '<p>' + esc(f.note) + '</p>';
+  if (f.gods && f.gods.length) {
+    h += '<div class="gods">';
+    f.gods.forEach(function (g) {
+      h += '<button class="god" data-god="' + g + '" aria-pressed="' + (S.gods[g] ? 'true' : 'false') +
+        '" title="' + esc(godTitle(g)) + '">' + esc(godLabel(g)) + '</button>';
+    });
+    h += '</div>';
+  }
+  if (f.cycle) h += '<span class="warn" style="color:var(--verd)">Held every ' + f.cycle +
+    ' years \u2014 this is one of those years.</span>';
+  if (SYS[f.sys].conf === 'low' || SYS[f.sys].conf === 'placeholder')
+    h += '<span class="warn">' + esc(SYS[f.sys].name) + ': ' + esc(SYS[f.sys].src) + '</span>';
+  h += '</div></div>';
+  showDrawer(h);
+}
+
 /* ---------- month grid ---------- */
 function renderGrid() {
   var first = dayNoOf(S.y, S.m, 1);
@@ -1721,7 +2023,7 @@ function renderGrid() {
     h += '<span class="cell-top"><span><span class="dnum">' + t.d + '</span>' +
          (S.opts.roman && inRange ? '<span class="rdate' + (isProminent ? ' prominent' : '') + '">' + esc(romanDateLabel(t.y, t.m, t.d)) + '</span>' : '') +
          '</span><span style="display:flex;align-items:center;gap:4px">' +
-         (n > 3 ? '<span class="ncount" title="' + n + ' entries \u2014 scroll within the day">' + n + '</span>' : '') +
+         (n > 3 ? '<span class="ncount" title="' + n + ' entries — scroll within the day">' + n + '</span>' : '') +
          (S.opts.moon && mo ? moonSVG(15, mo.illum, mo.waxing) : '') + '</span></span>';
 
     if (n) {
@@ -1769,7 +2071,7 @@ function renderList() {
       h += '<span class="aitem"><i class="dot' + (f.isMarker ? ' marker' : '') + '" style="--h:' + SYS[f.sys].hue + '"></i>' +
         '<span class="aname' + (f.isMarker ? ' style="color:var(--flame);font-weight:600"' : '') + '">' + esc(f.name) +
         (f.span > 1 ? ' <span class="ameta">day ' + f.day + ' of ' + f.span + '</span>' : '') + '</span>' +
-        '<span class="ameta">' + esc(f.native) + (f.approx ? ' \u00b7 by convention' : '') + '</span></span>';
+        '<span class="ameta">' + esc(f.native) + (f.approx ? ' \u00b7 day disputed' : '') + '</span></span>';
     });
     h += '</span></button>';
   }
@@ -1875,7 +2177,7 @@ function openDay(dn) {
     natives.forEach(function (s) {
       var c = slot.cal[s.id];
       h += '<div><span class="lbl">' + esc(s.name) + '</span><span class="val' + (c.day === 1 ? ' n1' : '') + '">' +
-        esc(c.name) + ' ' + c.day + '<span style="color:var(--bone-dim)"> \u2014 m.' + c.ord + '/' + c.total +
+        esc(c.name) + ' ' + c.day + '<span style="color:var(--bone-dim)"> — m.' + c.ord + '/' + c.total +
         ', ' + c.len + 'd' + (c.interc ? ', intercalary' : '') + '</span></span></div>';
     });
     h += '</div>';
@@ -1892,10 +2194,10 @@ function openDay(dn) {
     var detailPageUrl = 'festivals/' + slug + '.html';
 
     h += '<div class="entry' + (f.isMarker ? ' marker-entry' : '') + '" style="--h:' + SYS[f.sys].hue + '">' +
-      '<h4>' + esc(f.name) + (f.span > 1 ? ' <span style="opacity:.65;font-weight:400">\u2014 day ' + f.day + ' of ' + f.span + '</span>' : '') + '</h4>' +
+      '<h4>' + esc(f.name) + (f.span > 1 ? ' <span style="opacity:.65;font-weight:400">— day ' + f.day + ' of ' + f.span + '</span>' : '') + '</h4>' +
       '<span class="src">' + esc(f.native) + '</span>';
     if (f.note) h += '<p>' + esc(f.note) + '</p>';
-    if (f.gods.length) {
+    if (f.gods && f.gods.length) {
       h += '<div class="gods">';
       f.gods.forEach(function (g) {
         h += '<button class="god" data-god="' + g + '" aria-pressed="' + (S.gods[g] ? 'true' : 'false') +
@@ -1904,8 +2206,8 @@ function openDay(dn) {
       h += '</div>';
     }
     if (f.cycle) h += '<span class="warn" style="color:var(--verd)">Held every ' + f.cycle +
-      ' years \u2014 this is one of those years.</span>';
-    if (f.approx) h += '<span class="warn">Day fixed by convention \u2014 only the month or season is attested.</span>';
+      ' years — this is one of those years.</span>';
+    if (f.approx) h += '<span class="warn">The day is argued from evidence rather than stated by a source, and is disputed.</span>';
     if (SYS[f.sys].conf === 'low' || SYS[f.sys].conf === 'placeholder')
       h += '<span class="warn">' + esc(SYS[f.sys].name) + ': ' + esc(SYS[f.sys].src) + '</span>';
     
@@ -1917,6 +2219,10 @@ function openDay(dn) {
   });
   h += '</div>';
 
+  showDrawer(h, function (g) { toggleGod(g); openDay(dn); });
+}
+
+function showDrawer(h, onGod) {
   var old = document.getElementById('drawer'); if (old) old.remove();
   var oldS = document.getElementById('scrim'); if (oldS) oldS.remove();
   var scrim = document.createElement('div');
@@ -1924,14 +2230,15 @@ function openDay(dn) {
   scrim.addEventListener('click', closeDay);
   var dr = document.createElement('div');
   dr.className = 'drawer'; dr.id = 'drawer';
-  dr.setAttribute('role', 'dialog'); dr.setAttribute('aria-label', 'Day detail');
+  dr.setAttribute('role', 'dialog'); dr.setAttribute('aria-label', 'Detail');
   dr.innerHTML = h;
   document.body.appendChild(scrim); document.body.appendChild(dr);
   document.getElementById('closeDay').addEventListener('click', closeDay);
   document.getElementById('closeDay').focus();
   dr.addEventListener('click', function (e) {
     var b = e.target.closest('.god');
-    if (b) { toggleGod(b.getAttribute('data-god')); openDay(dn); }
+    if (b && onGod) onGod(b.getAttribute('data-god'));
+    else if (b) toggleGod(b.getAttribute('data-god'));
   });
   render(true);
 }
@@ -1968,7 +2275,8 @@ function renderToday() {
 function render(skipDrawer) {
   document.getElementById('period').textContent = GMONTH[S.m - 1] + ' ' + S.y;
   document.getElementById('yearJump').value = S.y;
-  document.getElementById('view').innerHTML = S.view === 'grid' ? renderGrid() : renderList();
+  /* Undated month band is rendered BELOW the main calendar grid/list */
+  document.getElementById('view').innerHTML = (S.view === 'grid' ? renderGrid() : renderList()) + renderBand();
   var first = dayNoOf(S.y, S.m, 1), last = first + daysInMonth(S.y, S.m) - 1, c = 0;
   for (var dn = first; dn <= last; dn++) c += festsOn(dn).length;
   document.getElementById('count').textContent = c + (c === 1 ? ' fest.' : ' fests.');
@@ -2006,7 +2314,7 @@ function boot() {
   ensureWindow(y);
 
   document.documentElement.setAttribute('data-theme', S.opts.theme);
-  ['moon','roman','noum','monthly','approx'].forEach(function (k) {
+  ['moon','roman','noum','monthly','approx','undated'].forEach(function (k) {
     document.getElementById('opt' + k[0].toUpperCase() + k.slice(1)).checked = S.opts[k];
   });
   document.getElementById('optOffset').value = String(S.opts.offset);
@@ -2075,7 +2383,7 @@ function boot() {
   });
   document.getElementById('godClear').onclick = function () { S.gods = {}; save(); render(); };
 
-  ['moon','roman','noum','monthly','approx'].forEach(function (k) {
+  ['moon','roman','noum','monthly','approx','undated'].forEach(function (k) {
     document.getElementById('opt' + k[0].toUpperCase() + k.slice(1)).onchange = function () {
       S.opts[k] = this.checked; save(); render();
     };
@@ -2091,6 +2399,8 @@ function boot() {
   };
 
   function activate(e) {
+    var bb = e.target.closest('[data-block]');
+    if (bb) { openBlockFest(bb.getAttribute('data-block'), parseInt(bb.getAttribute('data-fi'), 10)); return; }
     var b = e.target.closest('[data-day]'); if (!b) return;
     var dn = parseInt(b.getAttribute('data-day'), 10);
     var t = ymdOf(dn);
@@ -2100,7 +2410,7 @@ function boot() {
   document.getElementById('view').addEventListener('click', activate);
   document.getElementById('view').addEventListener('keydown', function (e) {
     if (e.key !== 'Enter' && e.key !== ' ') return;
-    if (!e.target.closest('[data-day]')) return;
+    if (!e.target.closest('[data-day]') && !e.target.closest('[data-block]')) return;
     e.preventDefault(); activate(e);
   });
   document.addEventListener('keydown', function (e) {
@@ -2115,6 +2425,7 @@ function boot() {
     else if (e.key === 'ArrowRight') step(1);
   });
 
+  renderUnplaced();
   render();
 }
 document.addEventListener('DOMContentLoaded', boot);
