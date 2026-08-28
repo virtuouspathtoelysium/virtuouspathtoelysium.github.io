@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="night">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Become a Cultor &mdash; The Virtuous Path to Elysium</title>
+<meta name="description" content="Declare your dedication to the Virtuous Path to Elysium. Register as a follower by providing your name, nation, and affirming the personal oath.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M8 28 L50 6 L92 28 Z' fill='none' stroke='%23e0a13a' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M14 26 L50 9 L86 26 Z' fill='none' stroke='%23e0a13a' stroke-width='2'/%3E%3Cpath d='M10 28 H90 V34 H10 Z' fill='none' stroke='%23e0a13a' stroke-width='2'/%3E%3Cpath d='M17 38 V70 M23 38 V70 M38 38 V65 M42 38 V65 M58 38 V65 M62 38 V65 M77 38 V70 M83 38 V70' stroke='%23e0a13a' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M10 74 H90 M6 79 H94 M2 84 H98' stroke='%23e0a13a' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M37 70 H63 V90 H37 Z' fill='%23121722' stroke='%23e0a13a' stroke-width='2.5'/%3E%3Cpath d='M50 40 Q46 48 49 53 Q44 56 42 61 Q42 68 50 70 Q58 68 58 61 Q56 56 51 53 Q54 48 50 40 Z' fill='%23e0a13a'/%3E%3C/svg%3E">
+<style>
+/* ============================================================
+   The Virtuous Path to Elysium — Cultor Registration
+   Self-contained, neoclassical styling matching the portal.
+   ============================================================ */
+:root{
+  --ink-0:#090c12;
+  --ink-1:#111622;
+  --ink-2:#19202f;
+  --line:#283245;
+  --bone:#e9e4d7;
+  --bone-dim:#9ba3b5;
+  --flame:#e0a13a;
+  --flame-glow:rgba(224,161,58,0.18);
+  --verd:#4fa08c;
+  --verd-glow:rgba(79,160,140,0.15);
+  --porph:#a8404f;
+  --shadow:0 22px 50px -20px rgba(0,0,0,.85);
+  --display:Optima,Candara,"Gill Sans MT","Gill Sans","Trebuchet MS",sans-serif;
+  --body:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --data:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+html[data-theme="day"]{
+  --ink-0:#e8e2d4; --ink-1:#f5f0e6; --ink-2:#fcf9f2;
+  --line:#cfc6b2; --bone:#1e232d; --bone-dim:#5d6573;
+  --flame:#a87019; --flame-glow:rgba(168,112,25,0.14);
+  --verd:#2e6e5e; --verd-glow:rgba(46,110,94,0.12);
+  --porph:#8c2e3c;
+  --shadow:0 16px 36px -20px rgba(50,40,25,.5);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  background:var(--ink-0);color:var(--bone);
+  font-family:var(--body);font-size:16.5px;line-height:1.65;
+  -webkit-text-size-adjust:100%;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+a{color:var(--verd);text-decoration:none;transition:color .15s ease}
+a:hover{color:var(--flame)}
+:focus-visible{outline:2px solid var(--flame);outline-offset:2px;border-radius:2px}
+button,input,select{font:inherit;color:inherit}
+
+/* Navigation */
+.navbar{
+  position:sticky;top:0;z-index:50;
+  background:var(--ink-1);border-bottom:1px solid var(--line);
+}
+.nav-in{
+  max-width:1240px;margin:0 auto;padding:10px 16px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:12px;color:var(--bone);font-family:var(--display);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:14px}
+.brand svg{flex:none;width:34px;height:34px}
+.nav-menu{display:flex;align-items:center;gap:6px;list-style:none}
+.nav-link{
+  padding:6px 11px;border-radius:4px;font-family:var(--display);font-size:12px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--bone-dim);
+  border:1px solid transparent;transition:all .15s ease;
+}
+.nav-link:hover, .nav-link.active{color:var(--flame);border-color:var(--line);background:var(--ink-2)}
+.btn-cta{
+  background:var(--flame);color:var(--ink-0);border:1px solid var(--flame);
+  padding:7px 14px;border-radius:4px;font-family:var(--display);font-size:11.5px;
+  letter-spacing:.12em;text-transform:uppercase;font-weight:600;cursor:pointer;
+  display:inline-flex;align-items:center;gap:6px;transition:transform .15s ease, box-shadow .15s ease;
+}
+.btn-cta:hover{transform:translateY(-1px);box-shadow:0 4px 14px var(--flame-glow);color:var(--ink-0)}
+.icon-btn{background:var(--ink-2);border:1px solid var(--line);border-radius:4px;width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+
+/* Header */
+.hero{
+  position:relative;border-bottom:1px solid var(--line);
+  background:
+    radial-gradient(110% 130% at 85% -20%, rgba(224,161,58,.16), transparent 60%),
+    radial-gradient(90% 120% at 15% -20%, rgba(79,160,140,.13), transparent 60%),
+    var(--ink-1);
+  padding:46px 16px 36px;text-align:center;
+}
+.hero-in{max-width:800px;margin:0 auto}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:99px;
+  background:var(--flame-glow);border:1px solid var(--flame);color:var(--flame);
+  font-family:var(--data);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px;
+}
+.hero h1{
+  font-family:var(--display);font-size:clamp(24px,3.8vw,36px);line-height:1.2;
+  letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;font-weight:600;
+}
+.hero h1 span{color:var(--flame);display:block;font-size:.62em;letter-spacing:.2em;font-weight:400;margin-top:4px}
+.hero p{font-size:clamp(15px,1.8vw,17px);color:var(--bone-dim);line-height:1.55;margin:0 auto;max-width:64ch}
+
+/* Main Layout & Embed Card */
+.wrap{max-width:820px;width:100%;margin:0 auto;padding:36px 16px 60px;flex:1}
+.form-card{
+  background:var(--ink-1);border:1px solid var(--line);border-radius:8px;
+  padding:12px;box-shadow:var(--shadow);overflow:hidden;
+}
+.iframe-container{
+  width:100%;
+  position:relative;
+  min-height:1032px;
+  background:#ffffff;
+  border-radius:4px;
+  overflow:hidden;
+}
+.iframe-container iframe{
+  width:100%;
+  height:1032px;
+  border:none;
+  display:block;
+}
+
+/* Footer */
+footer{
+  background:var(--ink-1);border-top:1px solid var(--line);
+  padding:30px 16px 40px;text-align:center;color:var(--bone-dim);font-size:13px;
+  margin-top:auto;
+}
+.foot-links{display:flex;justify-content:center;gap:18px;margin-bottom:12px;list-style:none;flex-wrap:wrap}
+.foot-links a{color:var(--bone-dim);font-family:var(--display);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.foot-links a:hover{color:var(--flame)}
+
+@media(max-width:720px){
+  .hero{padding:34px 14px 28px}
+  .wrap{padding:20px 10px 40px}
+  .form-card{padding:6px;border-radius:6px}
+  .iframe-container, .iframe-container iframe{height:1150px;min-height:1150px}
+}
+</style>
+</head>
+<body>
+
+<!-- Header Navigation -->
+<nav class="navbar">
+  <div class="nav-in">
+    <a href="index.html" class="brand">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M 8 28 L 50 6 L 92 28 Z" fill="none" stroke="var(--flame)" stroke-width="2.5" stroke-linejoin="round"/>
+        <path d="M 14 26 L 50 9 L 86 26 Z" fill="none" stroke="var(--flame)" stroke-width="1.5"/>
+        <path d="M 10 28 H 90 V 34 H 10 Z" fill="none" stroke="var(--flame)" stroke-width="2"/>
+        <g stroke="var(--flame)" stroke-width="1.8" fill="none" stroke-linecap="round">
+          <circle cx="15.5" cy="35" r="2"/><circle cx="24.5" cy="35" r="2"/><path d="M 17 38 V 70 M 20 38 V 70 M 23 38 V 70"/>
+          <circle cx="36.5" cy="35" r="1.8"/><circle cx="43.5" cy="35" r="1.8"/><path d="M 38 38 V 65 M 40 38 V 65 M 42 38 V 65"/>
+          <circle cx="56.5" cy="35" r="1.8"/><circle cx="63.5" cy="35" r="1.8"/><path d="M 58 38 V 65 M 60 38 V 65 M 62 38 V 65"/>
+          <circle cx="75.5" cy="35" r="2"/><circle cx="84.5" cy="35" r="2"/><path d="M 77 38 V 70 M 80 38 V 70 M 83 38 V 70"/>
+        </g>
+        <path d="M 10 74 H 90 M 6 79 H 94 M 2 84 H 98" stroke="var(--flame)" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M 37 70 H 63 V 90 H 37 Z" fill="var(--ink-1)" stroke="var(--flame)" stroke-width="2.2"/>
+        <path d="M 50 38 C 45 46 47 52 44 56 C 41 60 42 66 48 68 C 44 63 45 59 48 57 C 50 55 53 58 54 62 C 55 65 54 67 52 68 C 58 67 60 61 57 56 C 54 52 57 48 52 44 C 51 46 50 49 50 51 C 49 46 51 42 50 38 Z" fill="var(--verd)"/>
+        <path d="M 50 44 C 47 49 48 54 46 58 C 45 60 46 64 50 66 C 54 64 54 61 53 58 C 51 55 53 51 50 44 Z" fill="var(--flame)"/>
+      </svg>
+      The Virtuous Path
+    </a>
+    <ul class="nav-menu">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="gods.html" class="nav-link">The Gods</a></li>
+      <li><a href="Calendar-Fasti.html" class="nav-link">Sacred Calendar</a></li>
+      <li><a href="about.html" class="nav-link">About &amp; Doctrine</a></li>
+      <li><a href="ritus.html" class="nav-link">Ritus</a></li>
+      <li><a href="Follower.html" class="nav-link">Become a Follower</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:8px">
+      <a href="index.html" class="btn-cta">Portal Home</a>
+      <button class="icon-btn" id="themeBtn" title="Switch Theme" aria-label="Switch Theme">&#9681;</button>
+    </div>
+  </div>
+</nav>
+
+<!-- Page Header -->
+<header class="hero">
+  <div class="hero-in">
+    <div class="hero-badge">🏛 Follower Registry &bull; Declaration of Oath</div>
+    <h1>Become a Cultor<span>The Virtuous Path to Elysium</span></h1>
+    <p>Register your dedication to Cultus Deorum and become a Follower of the Virtuous Path to Elysium. Enrollment requires only your name, your nation, and your solemn acceptance of the personal oath to live honorably and uphold the sacred virtues. Welcome, cultor, the immortal gods have been waiting.</p>
+  </div>
+</header>
+
+<!-- Form Container -->
+<main class="wrap">
+  <div class="form-card">
+    <div class="iframe-container">
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSforV0lhJ_LU9h02T_z8b_w8NL8gMBuiYpS5zyxJsCzfZky8Q/viewform?embedded=true" width="640" height="1032" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    </div>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer>
+  <ul class="foot-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="gods.html">The Gods</a></li>
+    <li><a href="Calendar-Fasti.html">Sacred Fasti</a></li>
+    <li><a href="about.html">About &amp; Doctrine</a></li>
+    <li><a href="ritus.html">Ritus</a></li>
+  </ul>
+  <p>&copy; 2026 The Virtuous Path to Elysium &bull; Cultus Deorum Romanorum &amp; Hellenic Traditions</p>
+</footer>
+
+<script>
+(function(){
+  var themeBtn = document.getElementById('themeBtn');
+  var currentTheme = localStorage.getItem('vpe.theme') || 'night';
+  document.documentElement.setAttribute('data-theme', currentTheme);
+
+  themeBtn.onclick = function(){
+    currentTheme = currentTheme === 'night' ? 'day' : 'night';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    localStorage.setItem('vpe.theme', currentTheme);
+  };
+})();
+</script>
+</body>
+</html>
