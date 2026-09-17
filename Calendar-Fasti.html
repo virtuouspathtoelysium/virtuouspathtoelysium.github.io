@@ -430,6 +430,9 @@ html[data-theme="day"] .modal-in{color-scheme:light}
   .cell{min-height:90px}
   .wrap{display:block;padding:0}
 }
+a.god.god-go{text-decoration:none;cursor:pointer}
+a.god.god-go:hover{color:var(--flame);border-color:var(--flame)}
+a.god.god-go .n{opacity:.7}
 </style>
 </head>
 <body>
@@ -1702,6 +1705,22 @@ function festivalSlug(name) {
     .replace(/^-+|-+$/g, '');
 }
 
+function festivalAnchor(f) {
+  // Must match the id scheme used by festivals.html:
+  //   Roman  -> slug(name)
+  //   Greek  -> slug(calendarId + '-' + name)
+  var base = String(f.name || '')
+    .normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-zA-Z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .toLowerCase();
+  var sys = f.sys || 'roman';
+  if (sys !== 'roman') {
+    base = (sys + '-' + base).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  }
+  return base.slice(0, 60);
+}
+
 function moonSVG(size, illum, waxing) {
   var r = size / 2 - 0.6, k = 1 - 2 * illum, rx = Math.max(0.001, r * Math.abs(k));
   var outer = waxing ? 1 : 0, inner = waxing ? (k > 0 ? 0 : 1) : (k > 0 ? 1 : 0);
@@ -1986,8 +2005,8 @@ function openBlockFest(key, fi) {
   if (f.gods && f.gods.length) {
     h += '<div class="gods">';
     f.gods.forEach(function (g) {
-      h += '<button class="god" data-god="' + g + '" aria-pressed="' + (S.gods[g] ? 'true' : 'false') +
-        '" title="' + esc(godTitle(g)) + '">' + esc(godLabel(g)) + '</button>';
+      h += '<a class="god god-go" href="gods.html#' + g + '" title="Open ' + esc(godLabel(g)) + ' on the Gods page">' +
+        esc(godLabel(g)) + ' <span class="n">&#8599;</span></a>';
     });
     h += '</div>';
   }
@@ -2196,8 +2215,7 @@ function openDay(dn) {
   
   fs.forEach(function (f) {
     var gcalLink = buildGCalUrl(f, dn);
-    var slug = festivalSlug(f.name);
-    var detailPageUrl = 'festivals/' + slug + '.html';
+    var detailPageUrl = 'festivals.html#' + festivalAnchor(f);
 
     h += '<div class="entry' + (f.isMarker ? ' marker-entry' : '') + '" style="--h:' + SYS[f.sys].hue + '">' +
       '<h4>' + esc(f.name) + (f.span > 1 ? ' <span style="opacity:.65;font-weight:400">— day ' + f.day + ' of ' + f.span + '</span>' : '') + '</h4>' +
@@ -2206,8 +2224,8 @@ function openDay(dn) {
     if (f.gods && f.gods.length) {
       h += '<div class="gods">';
       f.gods.forEach(function (g) {
-        h += '<button class="god" data-god="' + g + '" aria-pressed="' + (S.gods[g] ? 'true' : 'false') +
-          '" title="' + esc(godTitle(g)) + '">' + esc(godLabel(g)) + '</button>';
+        h += '<a class="god god-go" href="gods.html#' + g + '" title="Open ' + esc(godLabel(g)) + ' on the Gods page">' +
+          esc(godLabel(g)) + ' <span class="n">&#8599;</span></a>';
       });
       h += '</div>';
     }
@@ -2241,11 +2259,7 @@ function showDrawer(h, onGod) {
   document.body.appendChild(scrim); document.body.appendChild(dr);
   document.getElementById('closeDay').addEventListener('click', closeDay);
   document.getElementById('closeDay').focus();
-  dr.addEventListener('click', function (e) {
-    var b = e.target.closest('.god');
-    if (b && onGod) onGod(b.getAttribute('data-god'));
-    else if (b) toggleGod(b.getAttribute('data-god'));
-  });
+  /* god chips in the drawer are plain links to gods.html; filtering lives only in the left-hand list */
   render(true);
 }
 
