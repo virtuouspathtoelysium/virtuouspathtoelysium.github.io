@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="night">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>About &amp; Doctrine &mdash; The Virtuous Path to Elysium</title>
+<style>
+:root{
+  --ink-0:#090c12; --ink-1:#111622; --ink-2:#19202f;
+  --line:#283245; --bone:#e9e4d7; --bone-dim:#9ba3b5;
+  --flame:#e0a13a; --flame-glow:rgba(224,161,58,0.18);
+  --verd:#4fa08c; --verd-glow:rgba(79,160,140,0.15);
+  --porph:#a8404f;
+  --display:Optima,Candara,"Gill Sans MT","Gill Sans","Trebuchet MS",sans-serif;
+  --body:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+}
+html[data-theme="day"]{
+  --ink-0:#e8e2d4; --ink-1:#f5f0e6; --ink-2:#fcf9f2;
+  --line:#cfc6b2; --bone:#1e232d; --bone-dim:#5d6573;
+  --flame:#a87019; --flame-glow:rgba(168,112,25,0.14);
+  --verd:#2e6e5e; --verd-glow:rgba(46,110,94,0.12);
+  --porph:#8c2e3c;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--ink-0);color:var(--bone);font-family:var(--body);font-size:17px;line-height:1.7;-webkit-text-size-adjust:100%}
+a{color:var(--verd);text-decoration:none}
+a:hover{color:var(--flame)}
+:focus-visible{outline:2px solid var(--flame);outline-offset:2px;border-radius:2px}
+button{font:inherit;color:inherit}
+
+/* navbar (shared with index.html) */
+.navbar{position:sticky;top:0;z-index:50;background:var(--ink-1);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1240px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;color:var(--bone);font-family:var(--display);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:14px}
+.brand svg{flex:none;width:34px;height:34px}
+.nav-menu{display:flex;align-items:center;gap:6px;list-style:none;flex-wrap:wrap}
+.nav-link{padding:6px 11px;border-radius:4px;font-family:var(--display);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--bone-dim);border:1px solid transparent;transition:all .15s ease}
+.nav-link:hover,.nav-link.active{color:var(--flame);border-color:var(--line);background:var(--ink-2)}
+.icon-btn{background:var(--ink-2);border:1px solid var(--line);border-radius:4px;width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+
+/* page: centered reading column */
+.page{max-width:76ch;margin:0 auto;padding:44px 20px 90px}
+.page h1{font-family:var(--display);font-size:clamp(26px,4vw,38px);letter-spacing:.1em;text-transform:uppercase;text-align:center;color:var(--flame);margin:0 0 6px}
+.page .sub{text-align:center;color:var(--bone-dim);font-style:italic;margin:0 0 42px}
+.page h2{font-family:var(--display);font-size:clamp(18px,2.4vw,22px);letter-spacing:.06em;color:var(--flame);margin:44px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.page h3{font-family:var(--display);font-size:16px;letter-spacing:.05em;color:var(--bone);margin:26px 0 8px}
+.page p{margin:0 0 14px}
+.page p strong{color:var(--bone)}
+.page ul{margin:6px 0 18px 26px}
+.page ul ul{margin:6px 0 6px 22px}
+.page li{margin:0 0 6px}
+
+/* pilgrimage: temple cards */
+.map-link{font-family:var(--display);font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--verd);border-radius:4px;color:var(--verd)}
+.map-link:hover{color:var(--flame);border-color:var(--flame)}
+.temples{display:grid;grid-template-columns:1fr;gap:16px;margin:12px 0 20px}
+.temple{display:grid;grid-template-columns:200px 1fr;gap:0;background:var(--ink-1);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.temple-img{position:relative;background:var(--ink-2);min-height:150px}
+.temple-img img{width:100%;height:100%;object-fit:cover;display:block;min-height:150px}
+.temple-img img:not([src]),.temple-img img[src=""]{display:none}
+.temple-cap{position:absolute;left:0;right:0;bottom:0;padding:5px 8px;font-size:10.5px;line-height:1.35;color:var(--bone-dim);background:rgba(0,0,0,.55)}
+.temple-body{padding:14px 16px 12px}
+.temple-body h4{font-family:var(--display);font-size:15px;letter-spacing:.05em;color:var(--flame);margin:0 0 8px}
+.temple-body ul{margin:0 0 0 18px}
+.temple-body li{font-size:14.5px;margin-bottom:4px}
+.temple-body li b{color:var(--bone)}
+.temple-note{background:var(--ink-1);border-left:3px solid var(--flame);padding:10px 14px;border-radius:0 4px 4px 0;font-size:14.5px;color:var(--bone-dim)}
+.temple-note b{color:var(--bone)}
+@media(max-width:640px){.temple{grid-template-columns:1fr}.temple-img{min-height:170px}}
+.page .empty{color:var(--bone-dim);font-style:italic;font-size:15px}
+</style>
+</head>
+<body>
+
+<!-- Header Navigation -->
+<nav class="navbar">
+  <div class="nav-in">
+    <a href="index.html" class="brand">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M 8 28 L 50 6 L 92 28 Z" fill="none" stroke="var(--flame)" stroke-width="2.5" stroke-linejoin="round"/>
+        <path d="M 14 26 L 50 9 L 86 26 Z" fill="none" stroke="var(--flame)" stroke-width="1.5"/>
+        <path d="M 10 28 H 90 V 34 H 10 Z" fill="none" stroke="var(--flame)" stroke-width="2"/>
+        <g stroke="var(--flame)" stroke-width="1.8" fill="none" stroke-linecap="round">
+          <circle cx="15.5" cy="35" r="2"/><circle cx="24.5" cy="35" r="2"/><path d="M 17 38 V 70 M 20 38 V 70 M 23 38 V 70"/>
+          <circle cx="36.5" cy="35" r="1.8"/><circle cx="43.5" cy="35" r="1.8"/><path d="M 38 38 V 65 M 40 38 V 65 M 42 38 V 65"/>
+          <circle cx="56.5" cy="35" r="1.8"/><circle cx="63.5" cy="35" r="1.8"/><path d="M 58 38 V 65 M 60 38 V 65 M 62 38 V 65"/>
+          <circle cx="75.5" cy="35" r="2"/><circle cx="84.5" cy="35" r="2"/><path d="M 77 38 V 70 M 80 38 V 70 M 83 38 V 70"/>
+        </g>
+        <path d="M 10 74 H 90 M 6 79 H 94 M 2 84 H 98" stroke="var(--flame)" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M 37 70 H 63 V 90 H 37 Z" fill="var(--ink-1)" stroke="var(--flame)" stroke-width="2.2"/>
+        <path d="M 50 38 C 45 46 47 52 44 56 C 41 60 42 66 48 68 C 44 63 45 59 48 57 C 50 55 53 58 54 62 C 55 65 54 67 52 68 C 58 67 60 61 57 56 C 54 52 57 48 52 44 C 51 46 50 49 50 51 C 49 46 51 42 50 38 Z" fill="var(--verd)"/>
+        <path d="M 50 44 C 47 49 48 54 46 58 C 45 60 46 64 50 66 C 54 64 54 61 53 58 C 51 55 53 51 50 44 Z" fill="var(--flame)"/>
+      </svg>
+      The Virtuous Path
+    </a>
+    <ul class="nav-menu">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="gods.html" class="nav-link">The Gods</a></li>
+      <li><a href="Calendar-Fasti.html" class="nav-link">Sacred Calendar</a></li>
+      <li><a href="about.html" class="nav-link active">About &amp; Doctrine</a></li>
+      <li><a href="ritus.html" class="nav-link">Ritus</a></li>
+      <li><a href="Follower.html" class="nav-link">Become a Cultor</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:8px">
+      <button class="icon-btn" id="themeBtn" title="Switch Theme" aria-label="Switch Theme">&#9681;</button>
+    </div>
+  </div>
+</nav>
+
+<main class="page">
+<h1>About &amp; Doctrine</h1>
+<p class="sub">The Virtuous Path to Elysium</p>
+<h2>On The Virtuous Path to Elysium</h2>
+<p>The Virtuous Path to Elysium is designed as a method to lead the best life one can possibly lead in accordance with the importal gods and with the final goal of entrance into the Elysian Fields, aka Elysium. The Virtuous Path asks that cultors who decide to follow this path lead a life filled with virtue in thoughts, words and deeds, while ensuring prosperity of oneself and family, all while enjoying life's pleasures. If the cultor has lived life in this manner, there is nothing to fear when it is time to cross the bridge and meet the judges.   </p>
+<h2>On living a good life</h2>
+<p>It is said that there are 4 goals of life: Live virtuously, enjoy life's pleasures, attain prosperity in life, and attain salvation at the end. To live virtuously is easier said than done, as it means to live life by 21 core virtues in thoughts, speech, and actions. Those virtues are</p>
+<ul>
+<li>Justice - fair treatment in law</li>
+<li>Wisdom - learn</li>
+<li>Truth - be honest in mind, speech, and actions</li>
+<li>Benevolence - be kind to the righteous</li>
+<li>Courage - be brave</li>
+<li>Responsibility - take ownership when the need calls</li>
+<li>Integrity - do the right thing when no one is looking</li>
+<li>Temperance - moderation, humility</li>
+<li>Compassion - empathy towards others in their suffering</li>
+<li>Piety - towards gods, nation, ancestors, and parents</li>
+<li>Discipline - hardiness of mental and physical training</li>
+<li>Purity - in mind, speech, and actions. Do not be an adulterer</li>
+<li>Respect - honor, appreciate others when due</li>
+<li>Gratitude - appreciate when gifts are given to you</li>
+<li>Patience - do not rush</li>
+<li>Mindfulness - be aware of surroundings</li>
+<li>Perseverance - push through adversity</li>
+<li>Concord - live in harmony</li>
+<li>Hospitality - receive visitors and neighbors as is proper</li>
+<li>Diligence - find a career and work hard</li>
+<li>Generosity - give to charity; give nice gifts to friends and family</li>
+</ul>
+
+<p><strong>Virtue.</strong> The principles which true worshippers will embody in thoughts, speech, and actions are what will ensure that you as a human are a genuinely good person. Failing to exemplify the virtues is what will lead you to be seen as the worst kind of person and in the worst cases: evil.</p>
+<p>Some may argue all you need is wisdom and the others would be apparent, but to state such a thing isn't beneficial to the individual who wishes to know how to lead life in tune with the 4 goals.</p>
+
+<p><strong>Pleasure.</strong> That is to say actually enjoy life, embrace a desire without compromising virtues or prosperity. Depriving yourself of the pleasure that comes from a great taste or touch or smell is not needed provided you live life virtuously in thoughts, speech, and acts. Only those who cannot live virtuously should consider depriving themselves of pleasure so that it does not lead them into sin. And some sins are not things humans can forgive, as the gods will weigh our sins against us in death. This is different from what the Stoics called pleasure, as today we might call that decadence.</p>
+
+<p><strong>Prosperity.</strong> To simply live life in virtue and embracing pleasure will not do alone, as to prosper is to ensure that your family is able to thrive in the world without significant need or want, and that you as a human contribute to society in some regard. As an example, lack of prosperity can cause a virtuous person to lapse into committing a sin. Prosperity ensures the next generation being raised has the best start they can in life to do the same.</p>
+
+<p><strong>Salvation.</strong> This is the final goal, one that is always strived for but not always reached. To reach the Elysium fields, to have the salvation of the best and rewarding afterlife. Those who slipped and did not live life so virtuously will have a stay in the Asphodel Meadows, where so many wait for their next opportunity. Tartarus is reserved for those who cast aside virtue significantly in life, where their souls will be punished and purified of their sins.</p>
+<p>You may have noticed you have repressed memories of a past life. There is always another chance to achieve the goal of salvation of Elysium, but aspire to be the most righteous you can be so as to ensure your soul does not go through needless torment. How long souls exist in these realms, only the gods know.</p>
+
+<h2>On Judgement of the soul</h2>
+<p>Multiple religious traditions state that 3 deities are involved in the judgement of a soul.</p>
+<ul>
+<li>Greek</li>
+<li>Roman</li>
+<li>Egyptian</li>
+<li>Zoroastrianism</li>
+</ul>
+<p>Given such similar stories, why shouldn't you believe that this is going to occur?</p>
+<p>To achieve salvation, one must live life accordingly. There is no requirement to accept any specific god or goddess as a savior, and no god can wipe away any sin simply from your belief in them. Should a serial killer be pardoned from Tartarus because he or she accepted faith in some deity? Every single good and bad action your soul will be weighed against, and your next destination is determined by that. For some bad actions, there is no amount of good action that can ever remove the stain on your soul, but all should vigorously try to ensure their souls have their most amount of good, as this will increase the chance you spend less time in Tartarus. Continued evil actions result in significantly more time in Tartarus.</p>
+
+<h2>On goals of the Virtuous Path to Elysium</h2>
+<p>We have concrete goals to support growth of Cultus Deorum as a whole.</p>
+<ul>
+<li>Build an Ara: a modern method of building an Altar. Record and document this process and share it with the community.</li>
+<li>Build a Lararium: Build a modern rendition of several kinds of Lararia as discovered in Pompeii and share recordings of this process.</li>
+<li>Public and free livestreams of daily householder ritual and any festivals to the best degree that is known.</li>
+<li>Build an Aedicula to Diana and Apollo. Record the process to build a modern Aedicula to the gods as well as their statues.</li>
+<li>Adjust published text and ritual process with archeological discoveries.</li>
+<li>Build a templum, a sanctuary with multiple aedes and an augury.</li>
+<li>Ordain sacerdotes to spread Cultus Deorum.</li>
+<li>Establish Flamens, starting with Apollo and Diana.</li>
+<li>Establish Rex Sacrorum - High Priest of Janus</li>
+<li>Establish a Pontiff order &mdash; determine if a new deity requires a Flamen, 1 Pontiff per established Cultus Deorum or Greek religion organization with significant membership.</li>
+</ul>
+
+<h2>On myths</h2>
+<p>It's important to read the myths of old, but not to accept all acts as stated facts. In fact, much of that is to be rejected, for how can a single human writing any given myth know all the words and actions of any given god, much less multiple? And perspectives of adversaries as well. Some myths state thousands of years a human could live, which is impossible as not a single archeological find has backed this up. But the myths do provide those of us reviving worship with 2 things:</p>
+<ul>
+<li>Physical Descriptions of the gods.</li>
+<li>How to perform rituals to the gods.</li>
+</ul>
+<p>The physical descriptions are important, as they help us design the image that we already imagine in our minds to represent the god we worship at a given moment and the ritual helps us know how to worship.</p>
+<p>Ritual of course leads us to sacrifice. Ritual is important as we want to honor the gods in as close a way as the ancients did.</p>
+
+<h3>Sacrifice.</h3>
+<p>In the old days sacrifice was essential to give something to the gods in thanks for what they provided, or to ask for a future reward. This could be a sacrifice of grown foods, or animals, or of liquids.</p>
+<p>Rejection of animal sacrifice. There is evidence that many who followed the Platonic, Middle Platonic, Neoplatonic, and Pythagorean views did not partake in animal sacrifice; however, many did participate, as this was a method of obtaining communal meat. The entrails would be granted to the gods. While it appears many priests did their best to make it seem like the animal assented to being sacrificed, that was likely an attempt to pacify the mind of many. It is our belief we should do as little harm as we can in the world, and that means abstaining from eating meat and using products from animals that required their deaths. The Pythagoreans believed human souls could be reincarnated as animals, and while that is impossible to prove, it is evident that all life can feel pain, and who would want to stand before the judges at the afterlife and explain why they continued inflicting pain on animals or humans? See also Book 6 of Aeneid by Vergil and Plato's Republic, platonism, neoplatonism, and middle platonism all trended towards vegetarianism. </p>
+<p>Sacrifice of liquids, honey, oils, or vegetation will suffice for the gods, as they do not need anything from us, but we are giving a gift in the hope that they see fit to hear our prayers.</p>
+
+<h2>On Worship of the gods</h2>
+<p>The gods have many names. As there are millions of names of gods documented in history, some resonate more strongly than others. With this path, a revival of the gods of Rome, Greece, and Anatolia, these deities resonate strongly with so many that still to this year of 2026 CE we imagine them with founders of new nations and build their religious temples for our government buildings. This goes beyond trying to divide the gods into some number to make them manageable.</p>
+<p>Rome and Greece would occasionally accept foreign gods into their lands and some even made it to the upper echelon. Apollo, Diana, Venus, Bacchus, Mithras, Isis, Cybele. Many deities such as Minerva were Etruscan in origin. Jupiter himself is a mystery as he is attested to in the Rig Veda, although there his son takes on the lightning aspect. Some deities were identified with those Rome already adopted, such as Sulis from the Celts with Minerva, though she was distinct enough to become an aspect of one or a combination of the goddesses as Sulis-Minerva. This practice is common across many religions as it is a logical attempt to make sense of the unknown divine. Theoretically, if the ancient Greek and Roman religions continued today without pause from classical times, they likely would have adopted or interpreted more deities from other religions they didn't have as much contact with but existed in close proximity such as Hinduism, Irish religion, Baltic religion, and Slavic religions.</p>
+
+<h2>On interpolation</h2>
+<p>Venus was an interpretation of Inanna/Ishtar, and Anahita/Anahit was often conflated with Ishtar. Wodan was assumed to be Mercury. Thor to be Hercules. Mithras and Sol Invictus. Let's not forget the Romans adopted the Greek religious mythology by applying the names of the gods the Romans knew but kept Greek style and imagery.</p>
+
+<h3>List - not all inclusive</h3>
+<ul>
+<li>Jupiter</li>
+<li>Juno</li>
+<li>Saturn</li>
+<li>Ops / Cybele</li>
+<li>Terra</li>
+<li>Silvanus</li>
+<li>Apollo</li>
+<li>Diana</li>
+<li>Mercury</li>
+<li>Vulcan</li>
+<li>Venus</li>
+<li>Mars</li>
+<li>Minerva</li>
+<li>Bacchus</li>
+<li>Isis</li>
+<li>Mithra</li>
+<li>Ceres</li>
+<li>Neptune</li>
+<li>Vesta</li>
+<li>Vishnu and Avatars</li>
+</ul>
+
+<h3>Minor Deities</h3>
+<ul>
+<li>Lares</li>
+<li>Genius Loci</li>
+<li>Penates</li>
+<li>Graces</li>
+<li>Feronia</li>
+<li>Sylph</li>
+</ul>
+
+<h2>On monotheism</h2>
+<p>It is our opinion that monotheism should be rejected, for it is a definitive statement that there is only 1 god, which has not been proven, yet evidence of millions of images of various deities exists. And while some may be real and some may not, it is important to allow such worship to flourish so long as the people behind it are virtuous. As an example, see the numerous religious paths within Hinduism, Shinto, Chinese Folk religion, Celtic or Slavic revival religions. Monotheistic or monistic religions such as Zoroastrianism, Hetanism, and Sikhism are to be highly respected, as they have clear paths to living a righteous life without compromise of virtue.</p>
+<p>Some paths that have caused so much suffering were Abrahamic-based, which was and still is today undeniable in the 3 major branches. Specific to the fall of Rome is the rise of Christianity and ultimate forced conversion of the Roman empire by Constantine. Such an action was quickly followed by the fall of the Western empire as Constantine helped destroy the very foundations on which Rome was built. And how many Celts, Germanic, Baltic, Slavic, Indigenous American, and others were killed for the sake of Christian gain? The archeological and written evidence supports this. That said, the majority of Christians in today's world do not cause harm, but many do actively seek to convert and spread the statements that lack of belief in Jesus results in an eternity in hell. A rational person understands this is not true. Some radical Muslims take this a step further and seek to actively eradicate all that isn't Islam in today's world, and they accomplish this by burning temples and churches. They continue to permit slavery of non-Muslims when the rest of the world has outlawed it.</p>
+<p>That said, the majority will not attempt this. But keep the virtues close if any attempt to cause suffering is perpetuated.</p>
+
+<h2>On Human Deification</h2>
+<p>More importantly, the rejection of such. The Imperial Cult gave rise to worshipping humans as if they ascended godhood, making a mockery of the gods as if becoming a god were determined by a human governmental body. A modern example of this is the Church of Latter-day Saints, which teaches its followers to believe that they become gods. Godhood is not something so trivial.</p>
+<p>We see an issue with humans making belief that a human is a god a requirement for salvation, on pain of hell &mdash; that is, Tartarus &mdash; as in Christianity. Islam takes this a step further with Muhammad, who, while not treated like a god, is treated as a holy prophet no matter how abhorrent his accepted historical crimes in life. Some Hindu priests try to deify themselves by gathering a large following and claiming they are some reincarnation or avatar of a god and this leads to outsiders not taking seriously the righteous Hindus who never accepted the claims of that priest.</p>
+<p>Humans are not gods. Define a god. An otherworldly supremely powerful being that helps shape the universe. No humans have done this. It is our belief that human ancestors join the ranks of the Manes, the afterlife ancestor spirits; those who lived virtuously should be honored but never worshipped.</p>
+
+<h2>On duty</h2>
+<p>Duty is an abstract concept; sometimes the principle of diligence is what is generally meant. Other times integrity or generosity. It can be as abstract as Dharma at times. Generally it can be translated as doing the right thing with the right effort at the right time that is best suited for you to do. Generally, when following the principles while accomplishing the other tasks as part of a good life, one will perform their duty.</p>
+
+<h2>On priests</h2>
+<p>Historically, there were these:</p>
+<h3>Roman</h3>
+<ul>
+<li><strong>Pontiff</strong> &mdash; any high priest</li>
+<li><strong>Pontifex</strong> &mdash; priest of the highest-ranking college</li>
+<li><strong>Pontifex Maximus</strong> &mdash; high priest of all high priests; the most important position in the ancient Roman religion, later adopted by the Pope</li>
+<li><strong>Flamen</strong> &mdash; high-ranking members of the College of Pontiffs, 15 in number</li>
+<li><strong>Flamen Dialis</strong> &mdash; high priest of Jupiter</li>
+<li><strong>Flamen Martialis</strong> &mdash; high priest of Mars</li>
+<li><strong>Flamen Quirinalis</strong> &mdash; high priest of the god Quirinus</li>
+<li><strong>Rex Sacrorum</strong> &mdash; High Priest of Janus</li>
+<li><strong>Fetial</strong> &mdash; priests devoted to Jupiter</li>
+<li><strong>Augur</strong> &mdash; priest who solicited and interpreted the will of the gods regarding a proposed action</li>
+<li><strong>Sacerdos</strong> &mdash; a priest; the sacerdos was one who held the title, usually in relation to a specific deity or temple</li>
+<li><strong>Sacerdos Bonae Deae</strong> &mdash; priestess of the goddess Bona Dea</li>
+<li><strong>Sacerdos Cereris</strong> &mdash; priestess of the goddess Ceres</li>
+<li><strong>Sacerdos Fortunae Muliebris</strong> &mdash; priestess of the goddess Fortuna Muliebris</li>
+<li><strong>Sacerdos Liberi</strong> &mdash; priestess of the god Liber</li>
+<li><strong>Vestal Virgin</strong> &mdash; priestesses of Vesta, 6 in number</li>
+<li><strong>Rex Nemorensis</strong> &mdash; priest of the goddess Diana</li>
+<li><strong>Salii</strong> &mdash; leaping priests of Mars</li>
+<li><strong>Luperci</strong> &mdash; wolf priests</li>
+<li><strong>Fratres Arvales</strong> &mdash; Brothers of the Field</li>
+<li><strong>Calator</strong> &mdash; supported senior priests</li>
+<li><strong>Tiburtine Sibyl</strong> &mdash; Roman sibyl, whose seat was the ancient town of Tibur</li>
+</ul>
+<h3>Greek</h3>
+<ul>
+<li><strong>Hiereus, Hiereia</strong> &mdash; priests of Greek religion</li>
+<li><strong>&#7985;αρε&#8058;ς (iareus)</strong> &mdash; priest (Doric form); see Hiereus, Hiereia</li>
+<li><strong>Pythia</strong> &mdash; title of the high priestess of the Temple of Apollo at Delphi in central Greece</li>
+<li><strong>Hosioi</strong> &mdash; the 5 holy ones</li>
+<li><strong>Proph&#275;tai</strong> &mdash; prophets; the officials who delivered the oracle's response</li>
+<li><strong>Hierophant</strong> &mdash; chief priest at the Eleusinian Mysteries</li>
+<li><strong>Eumolpidae</strong> &mdash; family of priests at Eleusis who maintained the Eleusinian Mysteries</li>
+<li><strong>Hierophylakes</strong> &mdash; priests for the Eumolpidae involved in performing acts of sacrifice</li>
+<li><strong>Dadouchos</strong> &mdash; torch bearer</li>
+<li><strong>Keryx</strong> &mdash; holy herald</li>
+<li><strong>Pyrphoros</strong> &mdash; fire bearer</li>
+<li><strong>Arrephoros</strong> &mdash; a girl acolyte in the cult of Athena Polias</li>
+<li><strong>Melissonomoi (Bees)</strong> &mdash; title of the priestesses of the city cult of the goddess Artemis of Ephesus</li>
+<li><strong>Chrysis</strong> &mdash; the priestess of Hera at the ancient Greek sanctuary of Hera at Argos</li>
+<li><strong>Neokoros</strong> &mdash; associated with the custody of a temple, but not quite the priest</li>
+<li><strong>Zakoros</strong> &mdash; an attendant in a temple</li>
+<li><strong>Phrygian Sibyl</strong> &mdash; priestess presiding over an Apollonian oracle at Phrygia</li>
+<li><strong>Hellespontine Sibyl</strong> &mdash; priestess presiding over the Apollonian oracle at Dardania</li>
+<li><strong>Erythraean Sibyl</strong> &mdash; prophetess of classical antiquity presiding over the Apollonian oracle at Erythrae</li>
+</ul>
+<p>Today nothing so rigid exists, and while there is hope for the future, it's no easy task to just start all orders back up. Any individual who owns land may consecrate a temple there, with its construction following the recommendations of "On Architecture" where the temple should face west so the worshipper faces east during worship, unless the environment makes a different orientation sensible. Those temples created should be bona fide temples, open for worship, of the proper size, and held to the standard one would expect in a place of worship.</p>
+
+<h2>On prayer</h2>
+<p>Pray at the beginning of the day, at the end of the day, at each meal, and when great events occur. However, if you must miss a prayer because the time is needed to expedite the good of many, or of one who is vulnerable, then you should miss it and return to it when you get the chance. If time has taken you to the next prayer, then pray at the next opportunity. The gods need nothing from us, but we desire the peace they bring, so we must give them the utmost attention.</p>
+
+<h2>On Augury</h2>
+<p>It is our belief that magic, as in sorcery, as some would wish to be true, does not exist. Followers of this path will not make an attempt to deceive other followers in magic trickery as this violates a core virtue. However, the will of the gods can be interpreted by signs from the universe. This is outside the scope of general worship as only a trained Sacerdos can interpret the signs.</p>
+
+<h2>On conversion</h2>
+<p>We shall not hinder the masses by going door to door. It puts believers at risk. What a believer should do instead is demonstrate the faith through public service. It is permissible to outreach where there is no hindrance to the population, such as on university campuses, and efforts like these should be focused on sharing simple literature. Keeping in mind temperance, none should be screaming or using obnoxious methods to get conversion or, worse, actively dispatching others for not following the Virtuous Path.</p>
+
+<h2>On identifying fellow followers</h2>
+<p>Christians have a cross. Jews have their star, and Muslims the moon. We have the iconic Greco-Roman temples. These are iconic and can be identified by all without difficulty. Some of the new age Greek and Roman followers of other branches may use Laurel Wreath or Labrys. While these are recognizable by those who already are aware of the religion, they aren't instantly recognizable by non-followers. Almost all who went through schooling know of Greco-Roman style temples, as many government offices are now built in a similar manner, so this is the best symbol to use.</p>
+<p>Also, we should wear garb close in nature to that of the ancients when able. These should be made with materials they would have likely used, cotton, linen, and wool; however, it is important to be flexible. The white tunic and pants (if wearing) are best as linen or a linen cotton blend. The toga is best made of wool of some kind, in one of the colors below, and uses 12&ndash;16 square meters of material.</p>
+<ul>
+<li>White only: once of age, all should feel comfortable wearing</li>
+<li>Black: for funerals</li>
+<li>Togae praetextae - white with darkish red borders.</li>
+</ul>
+
+<h2>On weddings</h2>
+<p>Weddings of ancient Rome and Greece did not take place inside temples or even on temple grounds. They largely would take place in home estates or be very private affairs. For the Virtuous Path to Elysium:</p>
+<ul>
+<li>Day 1: Proaulia (Pre-wedding)
+  <ul>
+  <li>The bride prepares for her transition into adulthood.</li>
+  <li>She spends time with her female relatives and makes offerings to gods like Diana and Juno.</li>
+  </ul>
+</li>
+<li>Day 2: Gamos (The Wedding Day)
+  <ul>
+  <li>The main wedding event.</li>
+  <li>It starts with a ritual purification bath for the bride.</li>
+  <li>A grand feast and a five-torch procession follow, in which the couple is escorted to the groom's house. The bride says: "Where you are Gaius, I am Gaia." The husband carries her over the threshold.</li>
+  </ul>
+</li>
+<li>Day 3: Epaulia (Post-wedding)
+  <ul>
+  <li>Friends and family visit the newlyweds to present them with gifts to help the bride settle into her new home.</li>
+  </ul>
+</li>
+</ul>
+
+<h2>On divorce</h2>
+<p>It is every partner's responsibility to make every attempt at ensuring the bond is not severed, but it is understandable that sometimes it is best for both parties to part, even if one is reluctant.</p>
+
+<h2>On death</h2>
+<p>The fate of every human lies in the hands of the gods. When the human soul departs the body to approach the bridge and be led to his or her next destination, there is a duty upon the family and friends of the deceased to provide a proper send-off. In line with the ways of the classical era before Christianity, the Virtuous Path to Elysium recognizes cremation as the proper method of send-off. At that point the family can choose to scatter ashes back into nature, keep the ashes near the lararium, bury the ashes in a family site so as to reduce land usage, or inter them in a columbarium, which should exist in larger sanctuaries. Followers who have no friends or family left can will the temple to undertake this on behalf of the deceased. The final viewing should not be done with a body but with the body already in ashes, and photographs of the life led should be displayed. The closest family and friends or simply the priests will escort the remains to the final destination, and provide a final prayer. This moment is an inescapable moment that we all share, and we celebrate the life led. In the event the follower clearly did not lead a Virtuous life, priests will still do their duty, as the ultimate fate is now in the hands of the immortal gods, so the priests will take no such action to disparage the dead.</p>
+
+<h2>On Pilgrimage</h2>
+<p>There are 2 kinds of pilgrimage a cultor can undertake. A historic one, where the cultor visits historic sites still standing or sites listed in classical texts such as "A Description of Greece", and a modern temple pilgrimage, where the cultor visits modern temples and temple recreations created by organizations such as the Virtuous Path to Elysium, YSEE, Templvm, Labrys, Nova Roma, and others.</p>
+
+<h3>Historic pilgrimage</h3>
+<p>Coming soon</p> 
+<!--
+
+<h3>Modern Greek religion temples</h3>
+<p>Temples for workship of the Hellenic religion, open in some form to worshippers. Confirm access before travelling; the legal position of these sites in Greece is not settled.</p>
+<div class="temples">
+
+<article class="temple">
+  <div class="temple-img"><img src="images/temples/thessaloniki-hellenic-temple.jpg" alt="The Hellenic Temple near Thessaloniki" loading="lazy"><span class="temple-cap">Add photograph &mdash; images/temples/thessaloniki-hellenic-temple.jpg</span></div>
+  <div class="temple-body">
+    <h4>The Hellenic Temple of Thessaloniki</h4>
+    <ul>
+    <li><b>Dedicated to:</b> the gods of Greece; interior painted with scenes from Greek myth and history</li>
+    <li><b>Location:</b> private land on the outskirts of Thessaloniki, Macedonia, Greece</li>
+    <li><b>Built by:</b> Aristoteles Kakogeorgiou, veteran marathon runner and president of the Marathon Club of Macedonia, largely by his own hand with volunteer help</li>
+    <li><b>Opened:</b> July 2009; a second temple was later built on the same land</li>
+    <li><b>Access:</b> free to visitors, together with an events hall for gatherings and lectures</li>
+    <li><b>Note:</b> the first religious Hellenic temple of the modern era, built and maintained privately rather than by an organization</li>
+    </ul>
+  </div>
+</article>
+
+<article class="temple">
+  <div class="temple-img"><img src="images/temples/kalliani-temple-of-pan.jpg" alt="The Temple of Zeus, Dionysus and Pan at Kalliani" loading="lazy"><span class="temple-cap">Add photograph &mdash; images/temples/kalliani-temple-of-pan.jpg</span></div>
+  <div class="temple-body">
+    <h4>The Temple of Zeus, Dionysus and Pan at Kalliani</h4>
+    <ul>
+    <li><b>Dedicated to:</b> Zeus, Dionysus and Pan; central statue of Pan by the sculptor Deborah Conte</li>
+    <li><b>Location:</b> near the village of Kalliani, Gortynia, Arcadia, Peloponnese, Greece &mdash; on a 150-acre private estate</li>
+    <li><b>Built by:</b> funded by Dr. Manolis Heliotis; construction overseen by the archaeologist Evangelos Bexis; associated with the group Archegonos Ellinismos</li>
+    <li><b>Inaugurated:</b> 8 March 2025, before more than a thousand attendees, with a procession, incense offerings and hymns</li>
+    <li><b>Form:</b> Ionic, built to the golden ratio in marble from Thasos and Mount Pentelicus, with friezes and pediments; a working altar for offerings of milk, fruit and honey</li>
+    <li><b>Note:</b> a Greek court has ruled the building may stand but has contested its use as a place of worship, and the overseer was arrested during construction; confirm the current position before visiting</li>
+    </ul>
+  </div>
+</article>
+
+<article class="temple">
+  <div class="temple-img"><img src="images/temples/ysee-athens.jpg" alt="YSEE place of worship, Athens" loading="lazy"><span class="temple-cap">Add photograph &mdash; images/temples/ysee-athens.jpg</span></div>
+  <div class="temple-body">
+    <h4>YSEE place of worship, Athens</h4>
+    <ul>
+    <li><b>Dedicated to:</b> the gods of the Hellenic Ethnic Religion</li>
+    <li><b>Location:</b> Athens, Greece</li>
+    <li><b>Built by:</b> the Supreme Council of Ethnikoi Hellenes (YSEE), founded 1997</li>
+    <li><b>Opened:</b> 2017, under the first permit ever granted in Greece for a place of worship of the Hellenic religion, following the state's recognition of it as a "known religion"</li>
+    <li><b>Note:</b> a licensed indoor place of worship rather than a temple; YSEE's stated aims include a public altar and temple, which have not yet been built</li>
+    </ul>
+  </div>
+</article>
+
+</div>
+
+<h3>Modern Roman religion temples</h3>
+<p>Temples for workship of the Roman religion, consecrated and in use. All but one were built by Pietas Comunit&agrave; Gentile, which the Italian state has formally recognized as a religious body.</p>
+<div class="temples">
+
+<article class="temple">
+  <div class="temple-img"><img src="images/temples/pietas-tempio-di-giove-roma.jpg" alt="The Temple of Jupiter at the Sanctuarium Pietatis, Rome" loading="lazy"><span class="temple-cap">Photograph on Wikimedia Commons, CC BY-SA 4.0 &mdash; download to images/temples/pietas-tempio-di-giove-roma.jpg and credit the author</span></div>
+  <div class="temple-body">
+    <h4>Tempio di Giove &mdash; Sanctuarium Pietatis, Rome</h4>
+    <ul>
+    <li><b>Dedicated to:</b> Jupiter</li>
+    <li><b>Location:</b> the Sanctuarium Pietatis, Rome, Italy &mdash; the headquarters of the organization</li>
+    <li><b>Built by:</b> Pietas Comunit&agrave; Gentile (then the Associazione Tradizionale Pietas), under its president Giuseppe Barbera</li>
+    <li><b>Founded:</b> altar erected July 2012; first stone laid ritually 13 July 2013; structure completed 10 May 2017; officially active from June 2017</li>
+    <li><b>Also here:</b> the Templum Minervae, first inaugurated at La Storta on 31 January 2010 and later moved into this sanctuary</li>
+    <li><b>Access:</b> open to visitors by arrangement with the temple staff; delegations from YSEE, Thyrsos and Hindu communities have been received here</li>
+    </ul>
+  </div>
+</article>
+
+<article class="temple">
+  <div class="temple-img"><img src="images/temples/pietas-minerva-medica-pordenone.jpg" alt="The Temple of Minerva Medica, Pordenone" loading="lazy"><span class="temple-cap">Add photograph &mdash; images/temples/pietas-minerva-medica-pordenone.jpg</span></div>
+  <div class="temple-body">
+    <h4>Tempio di Minerva Medica &mdash; Pordenone</h4>
+    <ul>
+    <li><b>Dedicated to:</b> Minerva Medica; an altar to the Genius Loci stands within the sanctuary</li>
+    <li><b>Location:</b> Pordenone, Friuli, north-eastern Italy</li>
+    <li><b>Built by:</b> Pietas Comunit&agrave; Gentile; the temple has its own rector appointed by the president</li>
+    <li><b>Active from:</b> 15 August of its year of consecration; the organization records that the structure was raised in four days</li>
+    <li><b>Note:</b> serves the members of the Italian north-east; the sanctuary is laid out so that a visit is itself a walk through the fundamentals of the ancient religion</li>
+    </ul>
+  </div>
+</article>
+
+<article class="temple">
+  <div class="temple-img"><img src="images/temples/pietas-apollo-ardea.jpg" alt="The Temple of Apollo at Ardea" loading="lazy"><span class="temple-cap">Add photograph &mdash; images/temples/pietas-apollo-ardea.jpg</span></div>
+  <div class="temple-body">
+    <h4>Tempio di Apollo &mdash; Ardea</h4>
+    <ul>
+    <li><b>Dedicated to:</b> Apollo</li>
+    <li><b>Location:</b> Ardea, province of Rome, Lazio, Italy</li>
+    <li><b>Built by:</b> Pietas Comunit&agrave; Gentile</li>
+    <li><b>Note:</b> named by the president of Pietas in 2021 as one of its four principal temples, some of which are full complexes with everything a community needs</li>
+    </ul>
+  </div>
+</article>
+
+<article class="temple">
+  <div class="temple-img"><img src="images/temples/pietas-apollo-palermo.jpg" alt="The Temple of Apollo at Palermo" loading="lazy"><span class="temple-cap">Add photograph &mdash; images/temples/pietas-apollo-palermo.jpg</span></div>
+  <div class="temple-body">
+    <h4>Tempio di Apollo &mdash; Palermo</h4>
+    <ul>
+    <li><b>Dedicated to:</b> Apollo</li>
+    <li><b>Location:</b> Palermo, Sicily, Italy</li>
+    <li><b>Built by:</b> Pietas Comunit&agrave; Gentile</li>
+    <li><b>Note:</b> named by the president of Pietas in 2021 as one of its four principal temples</li>
+    </ul>
+  </div>
+</article>
+
+<article class="temple">
+  <div class="temple-img"><img src="images/temples/pietas-apollo-taranto.jpg" alt="The Temple of Apollo in the province of Taranto" loading="lazy"><span class="temple-cap">Add photograph &mdash; images/temples/pietas-apollo-taranto.jpg</span></div>
+  <div class="temple-body">
+    <h4>Tempio di Apollo &mdash; province of Taranto</h4>
+    <ul>
+    <li><b>Dedicated to:</b> Apollo</li>
+    <li><b>Location:</b> the Tarantino, Apulia, Italy &mdash; in the heart of what was Magna Graecia</li>
+    <li><b>Built by:</b> Pietas Comunit&agrave; Gentile</li>
+    <li><b>Consecrated:</b> September 2022, in a public rite with chants in Latin and ancient Greek; the first temple of the tradition in Apulia</li>
+    </ul>
+  </div>
+</article>
+
+<article class="temple">
+  <div class="temple-img"><img src="images/temples/pietas-minerva-taranto.jpg" alt="The Temple of Minerva at Taranto" loading="lazy"><span class="temple-cap">Add photograph &mdash; images/temples/pietas-minerva-taranto.jpg</span></div>
+  <div class="temple-body">
+    <h4>Tempio di Minerva &mdash; Taranto</h4>
+    <ul>
+    <li><b>Dedicated to:</b> Minerva</li>
+    <li><b>Location:</b> Taranto, Apulia, Italy</li>
+    <li><b>Built by:</b> Pietas Comunit&agrave; Gentile</li>
+    <li><b>Consecrated:</b> February 2023</li>
+    <li><b>Note:</b> with the Apollo temple above, one of two active Pietas temples in the Ionian region</li>
+    </ul>
+  </div>
+</article>
+
+<article class="temple">
+  <div class="temple-img"><img src="images/temples/pietas-apollo-soverato.jpg" alt="The Temple of Apollo near Soverato" loading="lazy"><span class="temple-cap">Add photograph &mdash; images/temples/pietas-apollo-soverato.jpg</span></div>
+  <div class="temple-body">
+    <h4>Tempio di Apollo &mdash; Soverato</h4>
+    <ul>
+    <li><b>Dedicated to:</b> Apollo</li>
+    <li><b>Location:</b> the Soverato area, Calabria, Italy</li>
+    <li><b>Built by:</b> the Associazione Tradizionale Pietas</li>
+    <li><b>Consecrated:</b> June 2009 &mdash; the organization's earliest temple</li>
+    <li><b>Note:</b> not listed among the four principal temples in 2021; confirm whether it remains in use before travelling</li>
+    </ul>
+  </div>
+</article>
+
+<article class="temple">
+  <div class="temple-img"><img src="images/temples/templvm-iuppiter-perunus.jpg" alt="The Temple of Iuppiter Perunus near Poltava" loading="lazy"><span class="temple-cap">Add photograph &mdash; images/temples/templvm-iuppiter-perunus.jpg</span></div>
+  <div class="temple-body">
+    <h4>Temple of Iuppiter Perunus &mdash; Poltava</h4>
+    <ul>
+    <li><b>Dedicated to:</b> Jupiter, under a title that joins him with the Slavic thunder god Perun</li>
+    <li><b>Location:</b> near Poltava, Ukraine</li>
+    <li><b>Built by:</b> TEMPLVM</li>
+    <li><b>Founded:</b> land purchased 2009; first ceremony held at the temple 2017; three Roman weddings and many lesser rites have been conducted there</li>
+    <li><b>Planned:</b> further temples to Minerva, Juno and Mars on the same site</li>
+    <li><b>Note:</b> the only Roman temple open for worship outside Italy; given the war in Ukraine, confirm the site's condition and reachability before any journey</li>
+    </ul>
+  </div>
+</article>
+
+</div>
+
+<p class="temple-note"><b>Organizations without a temple or larger sanctuary.</b> Nova Roma, Labrys (Athens) and Thyrsos hold public rites at archaeological sites, in rented halls or in the open; Nova Roma has celebrated at Aquincum in Budapest, and Labrys holds the Falliforia procession in Athens each February. They are worth seeking out on a pilgrimage, but they do not yet have temples of their own. </p>
+-->
+<h2>On visitation to temple</h2>
+<p>It is proper to visit a temple during festivals of the gods. In the absence of a temple, or of the ability to go to one, it is important on festival days to perform similar worship at the home lararium when appropriate. Given there are very few proper temples at this time, inviting fellow believers to your home to celebrate is a great way to start.</p>
+
+<h2>On building of sanctuaries and temples</h2>
+<p>All members with excess resources should consider taking it upon themselves to build this new generation of temples to revitalize the religion. In the United States at this time we have no proper temples but many temple-like buildings and some, like the Parthenon reconstruction, that looks exactly like a proper temple but does not generally permit worship. So we must build what we can on the land we are able to acquire. This is similarly true for all nations of the Americas and of Australia and New Zealand. In Italy, Greece, and Ukraine temples have been reconstructed in both the Roman and Greek traditions. The Virtuous Path to Elysium also has no temples as of yet though the goals are set to aqcuire land in 2033-2034 for the purpose of building a sanctuary in North Carolina or Virginia, United States.</p>
+
+
+<h2>On Rituals</h2>
+<p> See <a href>ritus.html</a></p>
+<h2>Mithras</h2>
+<p>Mithras. Mithra. Mitra. Mihr, Shamash. And many other names. Whatever name is chosen, Roman soldiers saw the danger coming, so they kept rituals and texts secret. And the relationship between Sol, Mithras, and Apollo goes deeper. Perhaps they saw them as one and the same &mdash; invincible, radiant light itself &mdash; or perhaps there is more to the story. The cultors who follow the Virtuous Path to Elysium are open to future archeological discoveries to provide the answers.</p>
+</main>
+
+<script>
+(function(){
+  var btn=document.getElementById('themeBtn');
+  var theme=(function(){try{return localStorage.getItem('vpe.theme');}catch(e){return null;}})()||'night';
+  document.documentElement.setAttribute('data-theme',theme);
+  if(btn) btn.onclick=function(){
+    theme=theme==='night'?'day':'night';
+    document.documentElement.setAttribute('data-theme',theme);
+    try{localStorage.setItem('vpe.theme',theme);}catch(e){}
+  };
+})();
+</script>
+</body>
+</html>

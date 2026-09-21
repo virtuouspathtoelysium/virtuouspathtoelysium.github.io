@@ -52,27 +52,21 @@ a{color:var(--verd)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* ---------- banner ---------- */
-.banner{
-  border-bottom:1px solid var(--line);
-  background:
-    radial-gradient(120% 140% at 82% -30%, rgba(224,161,58,.16), transparent 58%),
-    radial-gradient(90% 120% at 8% -20%, rgba(79,160,140,.13), transparent 60%),
-    var(--ink-1);
-}
-.banner-in{max-width:1420px;margin:0 auto;padding:20px 16px;
-  display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:space-between}
-.mark{display:flex;gap:14px;align-items:center}
-.mark svg{flex:none;width:46px;height:46px}
-h1{
-  font-family:var(--display); font-weight:600; margin:0;
-  font-size:clamp(18px,2.2vw,26px); letter-spacing:.12em; text-transform:uppercase;
-}
-h1 span{display:block;font-size:.55em;letter-spacing:.28em;color:var(--flame);
-  font-weight:400;margin-bottom:.35em}
-.today-line{
-  font-family:var(--data); font-size:12px; color:var(--bone-dim);
-  text-align:right; line-height:1.7; max-width:40ch;
-}
+.navbar{position:sticky;top:0;z-index:50;background:var(--ink-1);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1420px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;
+  justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;color:var(--bone);font-family:var(--display);
+  font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:14px;text-decoration:none;flex:none}
+.brand svg{flex:none;width:34px;height:34px}
+.nav-menu{display:flex;align-items:center;gap:6px;list-style:none;flex-wrap:wrap;margin:0;padding:0}
+.nav-link{padding:6px 11px;border-radius:4px;font-family:var(--display);font-size:12px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--bone-dim);border:1px solid transparent;
+  transition:all .15s ease;text-decoration:none;display:block}
+.nav-link:hover,.nav-link.active{color:var(--flame);border-color:var(--line);background:var(--ink-2)}
+.icon-btn{background:var(--ink-2);border:1px solid var(--line);border-radius:4px;width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;cursor:pointer;color:var(--bone);flex:none}
+.icon-btn:hover{border-color:var(--flame);color:var(--flame)}
+.nav-right{display:flex;align-items:center;gap:10px;margin-left:auto}
 .today-line b{color:var(--bone);font-weight:600}
 .today-line em{color:var(--flame);font-style:normal}
 
@@ -309,6 +303,8 @@ h1 span{display:block;font-size:.55em;letter-spacing:.28em;color:var(--flame);
   display:flex;flex-direction:column;gap:4px;
 }
 .status-box.fas{background:rgba(79,160,140,0.15);border:1px solid var(--verd);color:var(--bone)}
+.status-box.muted{border-color:var(--line);background:rgba(155,163,181,.10)}
+.status-box.muted b{color:var(--bone-dim)}
 .status-box.nefas{background:rgba(168,64,79,0.18);border:1px solid var(--porph);color:var(--bone)}
 .status-box.neutral{background:var(--ink-2);border:1px solid var(--line);color:var(--bone-dim)}
 .status-box b{font-family:var(--display);letter-spacing:.08em;text-transform:uppercase;font-size:11.5px}
@@ -366,8 +362,9 @@ html[data-theme="day"] .modal-in{color-scheme:light}
   .rail-scrim{position:fixed;inset:0;background:rgba(4,6,10,.7);z-index:69}
 }
 @media (max-width:720px){
-  .banner-in{gap:10px;padding:14px 12px}
-  .today-line{text-align:left;max-width:none;font-size:11px}
+  .nav-in{gap:8px;padding:10px 12px}
+  .today-line{margin:0;text-align:right;font-family:var(--data);font-size:11px;line-height:1.45;
+  color:var(--bone-dim);max-width:34ch}
   .wrap{padding:10px 8px 40px;gap:12px}
   .bar-in{padding:6px 8px;gap:5px}
 
@@ -436,50 +433,41 @@ a.god.god-go .n{opacity:.7}
 </style>
 </head>
 <body>
-<header class="banner">
-  <div class="banner-in">
-    <div class="mark">
-     <a href="index.html" aria-label="Home" class="icon-link">
-      <svg width="46" height="46" viewBox="0 0 100 100" aria-hidden="true">
-        <!-- Pediment & Tympanum -->
+<nav class="navbar">
+  <div class="nav-in">
+    <a href="index.html" class="brand">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
         <path d="M 8 28 L 50 6 L 92 28 Z" fill="none" stroke="var(--flame)" stroke-width="2.5" stroke-linejoin="round"/>
         <path d="M 14 26 L 50 9 L 86 26 Z" fill="none" stroke="var(--flame)" stroke-width="1.5"/>
-        <!-- Entablature -->
         <path d="M 10 28 H 90 V 34 H 10 Z" fill="none" stroke="var(--flame)" stroke-width="2"/>
-        <!-- Ionic Columns (Outer & Inner pairs) -->
         <g stroke="var(--flame)" stroke-width="1.8" fill="none" stroke-linecap="round">
-          <!-- Left Column -->
-          <circle cx="15.5" cy="35" r="2"/>
-          <circle cx="24.5" cy="35" r="2"/>
-          <path d="M 17 38 V 70 M 20 38 V 70 M 23 38 V 70"/>
-          <!-- Center-Left Column -->
-          <circle cx="36.5" cy="35" r="1.8"/>
-          <circle cx="43.5" cy="35" r="1.8"/>
-          <path d="M 38 38 V 65 M 40 38 V 65 M 42 38 V 65"/>
-          <!-- Center-Right Column -->
-          <circle cx="56.5" cy="35" r="1.8"/>
-          <circle cx="63.5" cy="35" r="1.8"/>
-          <path d="M 58 38 V 65 M 60 38 V 65 M 62 38 V 65"/>
-          <!-- Right Column -->
-          <circle cx="75.5" cy="35" r="2"/>
-          <circle cx="84.5" cy="35" r="2"/>
-          <path d="M 77 38 V 70 M 80 38 V 70 M 83 38 V 70"/>
+          <circle cx="15.5" cy="35" r="2"/><circle cx="24.5" cy="35" r="2"/><path d="M 17 38 V 70 M 20 38 V 70 M 23 38 V 70"/>
+          <circle cx="36.5" cy="35" r="1.8"/><circle cx="43.5" cy="35" r="1.8"/><path d="M 38 38 V 65 M 40 38 V 65 M 42 38 V 65"/>
+          <circle cx="56.5" cy="35" r="1.8"/><circle cx="63.5" cy="35" r="1.8"/><path d="M 58 38 V 65 M 60 38 V 65 M 62 38 V 65"/>
+          <circle cx="75.5" cy="35" r="2"/><circle cx="84.5" cy="35" r="2"/><path d="M 77 38 V 70 M 80 38 V 70 M 83 38 V 70"/>
         </g>
-        <!-- Crepidoma (Steps) -->
         <path d="M 10 74 H 90 M 6 79 H 94 M 2 84 H 98" stroke="var(--flame)" stroke-width="2.2" stroke-linecap="round"/>
-        <!-- Central Sacrificial Altar -->
         <path d="M 37 70 H 63 V 90 H 37 Z" fill="var(--ink-1)" stroke="var(--flame)" stroke-width="2.2"/>
-        <path d="M 35 68 H 65 V 71 H 35 Z M 34 89 H 66 V 92 H 34 Z" fill="var(--flame)"/>
-        <rect x="42" y="75" width="16" height="11" rx="1.5" fill="none" stroke="var(--flame)" stroke-width="1.2"/>
-        <!-- Sacred Flame -->
         <path d="M 50 38 C 45 46 47 52 44 56 C 41 60 42 66 48 68 C 44 63 45 59 48 57 C 50 55 53 58 54 62 C 55 65 54 67 52 68 C 58 67 60 61 57 56 C 54 52 57 48 52 44 C 51 46 50 49 50 51 C 49 46 51 42 50 38 Z" fill="var(--verd)"/>
         <path d="M 50 44 C 47 49 48 54 46 58 C 45 60 46 64 50 66 C 54 64 54 61 53 58 C 51 55 53 51 50 44 Z" fill="var(--flame)"/>
-      </svg> </a>
-      <h1><span>The Virtuous Path to Elysium</span>Calendar-Fasti</h1>
+      </svg>
+      The Virtuous Path
+    </a>
+    <ul class="nav-menu">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="gods.html" class="nav-link">The Gods</a></li>
+      <li><a href="Calendar-Fasti.html" class="nav-link active">Sacred Calendar</a></li>
+      <li><a href="festivals.html" class="nav-link">Festivals &amp; Rites</a></li>
+      <li><a href="about.html" class="nav-link">About &amp; Doctrine</a></li>
+      <li><a href="ritus.html" class="nav-link">Ritus</a></li>
+      <li><a href="Follower.html" class="nav-link">Become a Cultor</a></li>
+    </ul>
+    <div class="nav-right">
+      <p class="today-line" id="todayLine"></p>
+      <button class="icon-btn" id="themeBtn" title="Switch Theme" aria-label="Switch Theme">&#9681;</button>
     </div>
-    <p class="today-line" id="todayLine"></p>
   </div>
-</header>
+</nav>
 
 <div class="bar">
   <div class="bar-in">
@@ -501,7 +489,6 @@ a.god.god-go .n{opacity:.7}
     <label class="sr" for="q">Search festivals</label>
     <input class="search" id="q" type="search" placeholder="Search festivals&hellip;" autocomplete="off">
     <span class="count" id="count"></span>
-    <button class="btn icon" id="theme" title="Switch between the night and day palettes" aria-label="Switch palette">&#9681;</button>
   </div>
 </div>
 
@@ -939,18 +926,18 @@ var DEITIES = {
 
 var ROMAN = [
   { m:1,  d:1,  n:'Kalendae Ianuariae — Ianus; vota for the year', g:['janus','jupiter','juno'], note:'Sacred to Janus, looking back on the old year and forward into the new; public vows (vota) taken by magistrates; offerings of spelt, honey, and dates.' },
-  { m:1,  d:1,  n:'Dedication of the temples of Aesculapius and Vediovis', g:['aesculapius'], note:'Commemorates the dedication of the temple of Aesculapius on the Tiber Island (291 BCE) and the temple of Vediovis on the Capitoline.' },
+  { m:1,  d:1,  n:'Dedication of the temples of Aesculapius and Vediovis', g:['aesculapius'], note:'Commemorates the dedication of the temple of Aesculapius on the Tiber Island (291 BCE) and the temple of Vediovis on the Capitoline.' , wed:1},
   { m:1,  d:3,  n:'Compitalia', g:['lares'], movable:true, window:'a few days after the Saturnalia', span:1, note:'Crossroads festival honoring the Lares Compitales; woolen effigies (maniae) hung at boundary crossroads for protection.' },
-  { m:1,  d:5,  n:'Dedication of Vica Pota', g:['victoria'], note:'Feast honoring Vica Pota on the Velia, an archaic Roman goddess of victory and conquest.' },
+  { m:1,  d:5,  n:'Dedication of Vica Pota', g:['victoria'], note:'Feast honoring Vica Pota on the Velia, an archaic Roman goddess of victory and conquest.' , wed:1},
   { m:1,  d:9,  n:'Agonalia of Ianus', g:['janus'], note:'The Rex Sacrificulus sacrifices a ram in the Regia to Janus to secure harmony and auspicious passage.' },
   { m:1,  d:11, n:'Carmentalia (first day)', g:['carmentis'], note:'Honors Carmenta, prophetic nymph and mother of Evander; patroness of mothers, childbirth, and weaving.' },
   { m:1,  d:15, n:'Carmentalia (second day)', g:['carmentis'], note:'Second day of prayers and rites led by Roman matrons honoring Carmenta and her sisters Antevorta and Postvorta.' },
-  { m:1,  d:16, n:'Dedication of Concordia', g:['concordia'], note:'Honors the goddess of civic harmony and political peace, commemorating the vow of Camillus.' },
+  { m:1,  d:16, n:'Dedication of Concordia', g:['concordia'], note:'Honors the goddess of civic harmony and political peace, commemorating the vow of Camillus.' , wed:1},
   { m:1,  d:24, n:'Sementivae / Paganalia', g:['ceres','tellus'], span:3, movable:true, window:'at the winter sowing', note:'Movable sowing festival blessing the newly sown winter crops; draught animals rested and garlanded with flowers.' },
-  { m:1,  d:27, n:'Dedication of the temple of Castor and Pollux', g:['dioscuri'], note:'Dedication of the temple in the Forum Romanum commemorating their divine apparition at Lake Regillus.' },
-  { m:2,  d:1,  n:'Iuno Sospita; Kalends of February', g:['juno'], note:'Honors Juno the Savior/Preserver, patroness of state protection, armed defense, and civic vigor.' },
+  { m:1,  d:27, n:'Dedication of the temple of Castor and Pollux', g:['dioscuri'], note:'Dedication of the temple in the Forum Romanum commemorating their divine apparition at Lake Regillus.' , wed:1},
+  { m:2,  d:1,  n:'Iuno Sospita; Kalends of February', g:['juno'], note:'Honors Juno the Savior/Preserver, patroness of state protection, armed defense, and civic vigor.' , wed:1},
   { m:2,  d:2,  n:'Amburbium', g:['panhellenic','mars'], movable:true, window:'in a year of prodigies', note:'The lustration of the city: the victims of the suovetaurilia led in procession around the whole circuit of Rome before they are offered, carrying the pollution of the old year out beyond the boundary. Movable and announced by the pontiffs, often in a year of prodigies; placed here by convention at the start of February, the month of purification.' },
-  { m:2,  d:5,  n:'Concordia on the Capitol', g:['concordia'], note:'Observance of the temple of Concord on the slopes of the Capitoline Hill.' },
+  { m:2,  d:5,  n:'Concordia on the Capitol', g:['concordia'], note:'Observance of the temple of Concord on the slopes of the Capitoline Hill.' , wed:1},
   { m:2,  d:13, n:'Parentalia begins (Faunus on the Island)', g:['manes','faunus'], span:9, note:'Nine days of domestic rites honoring deceased family ancestors (Di Manes); temples closed and magistrates set aside insignias.' },
   { m:2,  d:15, n:'Lupercalia', g:['faunus'], note:'Archaic pastoral purification rite around the Palatine hill; Luperci priests run the bounds conferring fertility and protection.' },
   { m:2,  d:17, n:'Quirinalia; Fornacalia (the Feast of Fools)', g:['quirinus'], note:'Honors Quirinus (the deified Romulus); culminating Feast of Ovens where forgotten curiae could bake sacred spelt.' },
@@ -958,12 +945,12 @@ var ROMAN = [
   { m:2,  d:22, n:'Caristia / Cara Cognatio — the family meal of reconciliation', g:['lares','genius'], note:'Family reunion feast of reconciliation and harmony; disputes forgiven before the household Lares.' },
   { m:2,  d:23, n:'Terminalia', g:['terminus'], note:'Festival of boundary stones (Terminus); neighbors gather at property borders to garland markers and share a common feast.' },
   { m:2,  d:24, n:'Regifugium', g:['janus'], note:'Commemorates the ancient expulsion of the tyrannical Tarquin monarchy and the birth of the Roman Republic.' },
-  { m:2,  d:27, n:'Equirria', g:['mars'], note:'Chariot and horse races on the Campus Martius to train cavalry and consecrate war mounts to Mars.' },
+  { m:2,  d:27, n:'Equirria', g:['mars'], note:'Chariot and horse races on the Campus Martius to train cavalry and consecrate war mounts to Mars.' , wed:1},
   { m:3,  d:1,  n:'Matronalia; old New Year; the sacred fire renewed', g:['juno','mars','vesta'], note:'Mothers celebrated in honor of Juno Lucina; wives receive gifts, husbands pray for domestic preservation, and Vesta\'s perpetual flame is renewed.' },
   { m:3,  d:5,  n:'Navigium Isidis — opening of the seas', g:['isis','neptune'], note:'Major festival of Isis Pelagia celebrating the reopening of navigation; an elaborately decorated votive ship (carrus navalis) carrying spices and flowers is launched into the sea.' },
-  { m:3,  d:7,  n:'Vediovis', g:['jupiter'], note:'Sacrifices to the archaic youth-god Vediovis (the youthful or chthonic Jupiter) to avert misfortune.' },
+  { m:3,  d:7,  n:'Vediovis', g:['jupiter'], note:'Sacrifices to the archaic youth-god Vediovis (the youthful or chthonic Jupiter) to avert misfortune.' , wed:1},
   { m:3,  d:9,  n:'Ancilia moved by the Salii', g:['mars'], note:'The leaping priests of Mars (Salii) carry the twelve sacred bronze Ancilia shields through Rome in ritual dance.' },
-  { m:3,  d:14, n:'Equirria; Mamuralia', g:['mars'], note:'Second horse races of Mars; ritual driving out of the scapegoat figure Mamurius Veturius (the old year).' },
+  { m:3,  d:14, n:'Equirria; Mamuralia', g:['mars'], note:'Second horse races of Mars; ritual driving out of the scapegoat figure Mamurius Veturius (the old year).' , wed:1},
   { m:3,  d:15, n:'Anna Perenna; Idus Martiae', g:['anna','jupiter'], note:'Joyous riverside picnic festival celebrating the circle of the year, longevity, and renewal.' },
   { m:3,  d:15, n:'Canna intrat — Magna Mater cycle begins', g:['magnamater','attis'], span:1, note:'Procession of reed-bearers opening the springtime mystery rites of Magna Mater (Cybele) and Attis.' },
   { m:3,  d:16, n:'Argei procession (first)', g:['manes'], note:'Sacred procession visiting the 27 archaic chapels (sacraria) across the four traditional regions of Rome.' },
@@ -974,10 +961,10 @@ var ROMAN = [
   { m:3,  d:24, n:'Sanguem / Dies Sanguinis', g:['magnamater','attis'], note:'Day of Blood in the rites of Cybele, commemorating Attis with mourning, fasting, and ecstatic dedication.' },
   { m:3,  d:25, n:'Hilaria (Attis)', g:['magnamater','attis'], note:'Festival of rejoicing celebrating the resurrection of Attis and the rebirth of nature at the spring equinox.' },
   { m:3,  d:27, n:'Lavatio — the washing of the Mother', g:['magnamater'], note:'Procession bearing the sacred black stone image of Magna Mater to the Almo brook for ceremonial washing.' },
-  { m:3,  d:31, n:'Luna on the Aventine', g:['luna'], note:'Observance honoring Luna (the Moon) at her ancient temple on the Aventine Hill.' },
+  { m:3,  d:31, n:'Luna on the Aventine', g:['luna'], note:'Observance honoring Luna (the Moon) at her ancient temple on the Aventine Hill.' , wed:1},
   { m:4,  d:1,  n:'Veneralia — Venus Verticordia and Fortuna Virilis', g:['venus','fortuna'], note:'Women bathe and pray to Venus Verticordia (\'Turner of Hearts\') and Fortuna Virilis for marital harmony and good fortune.' },
-  { m:4,  d:4,  n:'Ludi Megalenses', g:['magnamater'], span:7, note:'Theatrical games, banquets, and processions instituted in 204 BCE honoring Magna Mater (Cybele).' },
-  { m:4,  d:12, n:'Ludi Ceriales', g:['ceres'], span:8, note:'Eight-day festival and games honoring Ceres, protector of agriculture and plebeian rights.' },
+  { m:4,  d:4,  n:'Ludi Megalenses', g:['magnamater'], span:7, note:'Theatrical games, banquets, and processions instituted in 204 BCE honoring Magna Mater (Cybele).' , wed:1},
+  { m:4,  d:12, n:'Ludi Ceriales', g:['ceres'], span:8, note:'Eight-day festival and games honoring Ceres, protector of agriculture and plebeian rights.' , wed:1},
   { m:4,  d:15, n:'Fordicidia', g:['tellus'], note:'Archaic rite where pregnant cows are sacrificed to Mother Earth (Tellus) to ensure the fertility of crops and livestock.' },
   { m:4,  d:19, n:'Cerialia', g:['ceres','proserpina'], note:'Main feast day of Ceres; torches lit and offerings made to safeguard grain ripening in the fields.' },
   { m:4,  d:21, n:'Parilia — and the birthday of Rome', g:['pales'], note:'Archaic shepherds\' purification festival (jumping through straw fires) and anniversary of the founding of Rome (Roma Natalis).' },
@@ -995,36 +982,36 @@ var ROMAN = [
   { m:5,  d:23, n:'Tubilustrium', g:['vulcan','mars'], note:'Second purification of the sacred bronze trumpets for religious rites and assembly calls.' },
   { m:5,  d:29, n:'Ambarvalia', g:['ceres','mars','tellus'], movable:true, window:'while the corn stands green', note:'The suovetaurilia driven round the standing crops — pig, sheep and bull led three times about the fields before they are offered, with the prayer that Mars keep blight, barrenness and bad weather from the boundary. Movable, kept in the country at the end of May; the Fratres Arvales held the state version in the grove of Dea Dia.' },
   { m:5,  d:31, n:'Lustrum — the closing of the census', g:['mars','tellus'], movable:true, window:'when the censors lay down office', cycle:[5,2029], note:'The purification that shuts the census: the citizens drawn up by centuries on the Campus Martius, the pig, sheep and bull led three times around them and offered to Mars, and the censors laying down office. The five-year interval gives the word its second meaning; the last recorded lustrum was performed by Vespasian and Titus in 74 CE, and the count here runs forward unbroken from it. No fixed day existed.' },
-  { m:5,  d:25, n:'Fortuna Primigenia', g:['fortuna'], note:'Feast honoring Fortuna First-Born on the Quirinal Hill.' },
+  { m:5,  d:25, n:'Fortuna Primigenia', g:['fortuna'], note:'Feast honoring Fortuna First-Born on the Quirinal Hill.' , wed:1},
   { m:6,  d:1,  n:'Carna; Iuno Moneta; Mars outside the Porta Capena', g:['carna','moneta','mars'], note:'Fabariae Kalendae; offerings of bean porridge and bacon to Carna (goddess of vital organs); honor to Juno the Warner.' },
-  { m:6,  d:1,  n:'Ludi Saeculares', g:['dis','proserpina','apollo','diana'], span:3, cycle:[110,2074], note:'The games of the age, held once in a saeculum so that no one should see them twice: nocturnal sacrifices to the Moerae, the Ilithyiae and Terra Mater on the Campus Martius, then daylight rites to Iuppiter, Iuno, Apollo and Diana, and the Carmen Saeculare sung by twenty-seven boys and twenty-seven girls. The Augustan celebration of 17 BCE and the Severan of 204 CE fix the 110-year reckoning followed here; the emperors themselves disagreed about the count, and Claudius and Philip used a 100-year one instead.' },
-  { m:6,  d:3,  n:'Bellona', g:['bellona'], note:'Commemoration of the temple of Bellona, goddess of martial ferocity, outside the sacred pomerium boundary.' },
-  { m:6,  d:5,  n:'Dius Fidius (Semo Sancus)', g:['sancus'], note:'Offerings to Semo Sancus Dius Fidius, divine protector of oaths, treaties, and honest speech.' },
+  { m:6,  d:1,  n:'Ludi Saeculares', g:['dis','proserpina','apollo','diana'], span:3, cycle:[110,2074], note:'The games of the age, held once in a saeculum so that no one should see them twice: nocturnal sacrifices to the Moerae, the Ilithyiae and Terra Mater on the Campus Martius, then daylight rites to Iuppiter, Iuno, Apollo and Diana, and the Carmen Saeculare sung by twenty-seven boys and twenty-seven girls. The Augustan celebration of 17 BCE and the Severan of 204 CE fix the 110-year reckoning followed here; the emperors themselves disagreed about the count, and Claudius and Philip used a 100-year one instead.' , wed:1},
+  { m:6,  d:3,  n:'Bellona', g:['bellona'], note:'Commemoration of the temple of Bellona, goddess of martial ferocity, outside the sacred pomerium boundary.' , wed:1},
+  { m:6,  d:5,  n:'Dius Fidius (Semo Sancus)', g:['sancus'], note:'Offerings to Semo Sancus Dius Fidius, divine protector of oaths, treaties, and honest speech.' , wed:1},
   { m:6,  d:7,  n:'Vestalia begins — the penus Vestae is opened', g:['vesta'], span:9, note:'The innermost sanctuary (Penus Vestae) is opened to barefoot matrons bringing simple food offerings.' },
-  { m:6,  d:7,  n:'Ludi Piscatorii', g:['volturnus','tiberinus','vulcan'], note:'The fishermen\'s games, held by the urban praetor across the Tiber for the men who fish the river; the live catch is not sold but thrown onto the fire at the altar of Vulcan in place of human lives.' },
+  { m:6,  d:7,  n:'Ludi Piscatorii', g:['volturnus','tiberinus','vulcan'], note:'The fishermen\'s games, held by the urban praetor across the Tiber for the men who fish the river; the live catch is not sold but thrown onto the fire at the altar of Vulcan in place of human lives.' , wed:1},
   { m:6,  d:9,  n:'Vestalia — the day proper', g:['vesta'], note:'Millers and bakers feast; work donkeys are crowned with flowers and hung with small bread loaves.' },
   { m:6,  d:11, n:'Matralia; Fortuna in the Forum Boarium', g:['matuta','fortuna'], note:'Mothers pray for their nieces and nephews to Mater Matuta (goddess of dawn and nurturing growth).' },
   { m:6,  d:13, n:'Quinquatrus minusculae; Idus Iuniae', g:['minerva','jupiter'], span:3, note:'Lesser Quinquatrus; joyous three-day holiday for the guild of flute players (tibicines) in masks and stolas.' },
   { m:6,  d:15, n:'Q.St.D.F. — the temple of Vesta is swept and closed', g:['vesta'], note:'Quando Nefas Tollitur; the temple of Vesta is swept clean, its rubbish cast into the Tiber, and normal court business resumes.' },
-  { m:6,  d:19, n:'Minerva on the Aventine', g:['minerva'], note:'Guild feast day for craftspeople, poets, and teachers at Minerva\'s Aventine shrine.' },
-  { m:6,  d:20, n:'Summanus', g:['summanus'], note:'Festival of Summanus, archaic lord of nocturnal lightning and nighttime storms.' },
+  { m:6,  d:19, n:'Minerva on the Aventine', g:['minerva'], note:'Guild feast day for craftspeople, poets, and teachers at Minerva\'s Aventine shrine.' , wed:1},
+  { m:6,  d:20, n:'Summanus', g:['summanus'], note:'Festival of Summanus, archaic lord of nocturnal lightning and nighttime storms.' , wed:1},
   { m:6,  d:24, n:'Fors Fortuna', g:['fortuna'], note:'Holiday where common people sail rowboats down the Tiber with garlands to celebrate Luck and Chance.' },
-  { m:6,  d:25, n:'Ludi Taurei Quinquennales', g:['dis','proserpina'], span:2, movable:true, cycle:[5,0], note:'Circus games for the gods below, held in the Circus Flaminius every fifth year — instituted, Festus says, under Tarquinius Superbus to avert a plague blamed on the meat of pregnant ewes. The five-year interval is attested; the anchor year here is a modern choice.' },
-  { m:6,  d:27, n:'Lares of the household; Iuppiter Stator', g:['lares','jupiter'], note:'Commemoration of the household guardians and Jupiter who steadies retreating battle lines.' },
+  { m:6,  d:25, n:'Ludi Taurei Quinquennales', g:['dis','proserpina'], span:2, movable:true, cycle:[5,0], note:'Circus games for the gods below, held in the Circus Flaminius every fifth year — instituted, Festus says, under Tarquinius Superbus to avert a plague blamed on the meat of pregnant ewes. The five-year interval is attested; the anchor year here is a modern choice.' , wed:1},
+  { m:6,  d:27, n:'Lares of the household; Iuppiter Stator', g:['lares','jupiter'], note:'Commemoration of the household guardians and Jupiter who steadies retreating battle lines.' , wed:1},
   { m:7,  d:5,  n:'Poplifugia', g:['jupiter'], note:'"Flight of the People", commemorating ancient military panic and the mysterious disappearance of Romulus.' },
-  { m:7,  d:6,  n:'Ludi Apollinares', g:['apollo'], span:8, note:'Theatrical games and circus races instituted during the Second Punic War honoring Apollo.' },
+  { m:7,  d:6,  n:'Ludi Apollinares', g:['apollo'], span:8, note:'Theatrical games and circus races instituted during the Second Punic War honoring Apollo.' , wed:1},
   { m:7,  d:7,  n:'Nonae Caprotinae; Ancillarum Feriae', g:['juno'], note:'Maidservants feast under wild fig trees honoring Juno Caprotina for saving Rome during the Gallic incursions.' },
-  { m:7,  d:8,  n:'Vitulatio', g:['victoria'], note:'Public thanksgiving and joyous victory celebration.' },
-  { m:7,  d:15, n:'Transvectio Equitum', g:['dioscuri'], note:'Grand parade of five thousand Roman cavalrymen in olive wreaths and purple mantles.' },
-  { m:7,  d:17, n:'Honos and Victoria', g:['honos','victoria'], note:'Commemoration of military honor, virtue, and divine victory.' },
-  { m:7,  d:20, n:'Ludi Victoriae Caesaris', g:['venus','victoria'], span:11, note:'Games for Venus Genetrix and the victory of Caesar, first held in 46 BCE; it was during these games in 44 that the comet appeared which was taken for the soul of the deified Caesar.' },
+  { m:7,  d:8,  n:'Vitulatio', g:['victoria'], note:'Public thanksgiving and joyous victory celebration.' , wed:1},
+  { m:7,  d:15, n:'Transvectio Equitum', g:['dioscuri'], note:'Grand parade of five thousand Roman cavalrymen in olive wreaths and purple mantles.' , wed:1},
+  { m:7,  d:17, n:'Honos and Victoria', g:['honos','victoria'], note:'Commemoration of military honor, virtue, and divine victory.' , wed:1},
+  { m:7,  d:20, n:'Ludi Victoriae Caesaris', g:['venus','victoria'], span:11, note:'Games for Venus Genetrix and the victory of Caesar, first held in 46 BCE; it was during these games in 44 that the comet appeared which was taken for the soul of the deified Caesar.' , wed:1},
   { m:7,  d:19, n:'Lucaria (first)', g:['silvanus'], note:'Sacred forest festival held in the woodland clearing between the Via Salaria and the Tiber.' },
   { m:7,  d:21, n:'Lucaria (second)', g:['silvanus'], note:'Second day of sacred woodland rites appeasing the forest spirits.' },
   { m:7,  d:23, n:'Neptunalia', g:['neptune'], note:'Midsummer festival of Neptune; shady leafy huts (umbrae) built along waterways to stave off drought.' },
   { m:7,  d:25, n:'Furrinalia', g:['furrina'], note:'Ancient rites honoring Furrina, patron goddess of deep springs and subterranean waters.' },
-  { m:8,  d:1,  n:'Spes; Victoria on the Palatine', g:['spes','victoria'], note:'Observance honoring Hope and Victory at their Palatine temples.' },
-  { m:8,  d:5,  n:'Salus on the Quirinal', g:['salus'], note:'Feast of Salus Publica, goddess of individual health and public safety.' },
-  { m:8,  d:9,  n:'Sol Indiges', g:['sol'], note:'Offerings to the primordial ancestral Sun god at Lavinium and the Quirinal.' },
+  { m:8,  d:1,  n:'Spes; Victoria on the Palatine', g:['spes','victoria'], note:'Observance honoring Hope and Victory at their Palatine temples.' , wed:1},
+  { m:8,  d:5,  n:'Salus on the Quirinal', g:['salus'], note:'Feast of Salus Publica, goddess of individual health and public safety.' , wed:1},
+  { m:8,  d:9,  n:'Sol Indiges', g:['sol'], note:'Offerings to the primordial ancestral Sun god at Lavinium and the Quirinal.' , wed:1},
   { m:8,  d:12, n:'Hercules Invictus at the Ara Maxima', g:['hercules'], note:'Great banquet and sacrifice of choice meats at the Great Altar of Hercules near the Forum Boarium.' },
   { m:8,  d:12, n:'Lychnapsia — festival of lamps', g:['isis','sol'], note:'Nocturnal festival of lamp-lighting and illumination honoring the birth and radiant wisdom of Isis.' },
   { m:8,  d:13, n:'Nemoralia — Diana at Aricia; Vertumnus; Fortuna Equestris', g:['diana','vertumnus','fortuna'], span:3, note:'Festival of Torches at Lake Nemi honoring Diana, patroness of woods, women, and the marginalized.' },
@@ -1035,36 +1022,36 @@ var ROMAN = [
   { m:8,  d:24, n:'Mundus patet — the world of the dead stands open', g:['dis','proserpina'], note:'The sacred underground pit (Mundus) is opened, letting the souls of the dead commune with the living.' },
   { m:8,  d:25, n:'Opiconsivia', g:['ops'], note:'Secret harvest thanksgiving rites in the Regia to Ops Consiva, goddess of agricultural storehouses.' },
   { m:8,  d:27, n:'Volturnalia', g:['volturnus'], note:'Offerings to Volturnus, god of the south-east river breeze, to safeguard crops from dry heat.' },
-  { m:9,  d:5,  n:'Ludi Romani', g:['jupiter','juno','minerva'], span:15, note:'The Great Roman Games honoring the Capitoline Triad (Jupiter, Juno, Minerva) with chariot races and pageantry.' },
+  { m:9,  d:5,  n:'Ludi Romani', g:['jupiter','juno','minerva'], span:15, note:'The Great Roman Games honoring the Capitoline Triad (Jupiter, Juno, Minerva) with chariot races and pageantry.' , wed:1},
   { m:9,  d:13, n:'Epulum Iovis; Idus Septembres', g:['jupiter','juno','minerva'], note:'Sacred ritual banquet held for Jupiter, Juno, and Minerva during the Ludi Romani.' },
-  { m:9,  d:23, n:'Apollo in the Campus; birthday of Augustus', g:['apollo','latona'], note:'Dedication of Apollo\'s temple on the Campus Martius and Augustus\'s birthday ceremonies.' },
-  { m:9,  d:26, n:'Venus Genetrix', g:['venus'], note:'Dedication of Caesar\'s temple honoring Venus as divine mother and ancestress of Rome.' },
+  { m:9,  d:23, n:'Apollo in the Campus; birthday of Augustus', g:['apollo','latona'], note:'Dedication of Apollo\'s temple on the Campus Martius and Augustus\'s birthday ceremonies.' , wed:1},
+  { m:9,  d:26, n:'Venus Genetrix', g:['venus'], note:'Dedication of Caesar\'s temple honoring Venus as divine mother and ancestress of Rome.' , wed:1},
   { m:10, d:1,  n:'Fides Publica; Tigillum Sororium', g:['fides','juno'], note:'Sacrifices to Good Faith where priests ride in a covered carriage with right hands wrapped in white cloth.' },
   { m:10, d:4,  n:'Ieiunium Cereris — the fast of Ceres', g:['ceres'], note:'Fast of Ceres, a solemn daylight fast instituted in 191 BCE before grain harvest rites.' },
   { m:10, d:5,  n:'Mundus patet', g:['dis','proserpina'], note:'Second opening of the underground pit of the spirits for autumnal remembrance.' },
-  { m:10, d:9,  n:'Genius Publicus; Fausta Felicitas; Venus Victrix', g:['genius','fortuna','venus'], note:'Rites honoring the indwelling collective spirit of the Roman people and favorable luck.' },
+  { m:10, d:9,  n:'Genius Publicus; Fausta Felicitas; Venus Victrix', g:['genius','fortuna','venus'], note:'Rites honoring the indwelling collective spirit of the Roman people and favorable luck.' , wed:1},
   { m:10, d:11, n:'Meditrinalia — the first tasting of the new wine', g:['jupiter'], note:'First tasting of the newly pressed grape must mixed with aged wine as a health-giving tonic.' },
   { m:10, d:13, n:'Fontinalia', g:['fons','nymphs'], note:'Well and fountain festival; garlands of autumn flowers lowered into wells in honor of Fons.' },
   { m:10, d:15, n:'October Horse; Idus Octobres', g:['mars','jupiter'], note:'Champion right-hand chariot horse sacrificed to Mars on the Campus Martius for martial vigor and crop protection.' },
-  { m:10, d:15, n:'Ludi Capitolini', g:['jupiter'], note:'Games for Iuppiter Feretrius kept by the college of Capitolini, said to have been vowed by Camillus in thanks for the Capitol\'s deliverance from the Gauls; an old man in a purple toga wearing a child\'s bulla was led through the forum with a herald crying that the Sardinians were for sale.' },
+  { m:10, d:15, n:'Ludi Capitolini', g:['jupiter'], note:'Games for Iuppiter Feretrius kept by the college of Capitolini, said to have been vowed by Camillus in thanks for the Capitol\'s deliverance from the Gauls; an old man in a purple toga wearing a child\'s bulla was led through the forum with a herald crying that the Sardinians were for sale.' , wed:1},
   { m:10, d:19, n:'Armilustrium — the arms are purified and stored', g:['mars'], note:'Soldiers purify, wash, and lay away their weapons on the Aventine Hill at the end of the campaign season.' },
-  { m:10, d:26, n:'Ludi Victoriae Sullanae', g:['victoria','venus'], span:7, note:'Games vowed by Sulla for Victoria after the battle at the Colline Gate and kept annually thereafter, closing on the Kalends of November with races in the Circus.' },
+  { m:10, d:26, n:'Ludi Victoriae Sullanae', g:['victoria','venus'], span:7, note:'Games vowed by Sulla for Victoria after the battle at the Colline Gate and kept annually thereafter, closing on the Kalends of November with races in the Circus.' , wed:1},
   { m:10, d:28, n:'The Isia (Inventio Osiridis)', g:['isis','osiris'], span:5, note:'Solemn mystery festival reenacting the search for Osiris, mourning, and the joyful Inventio Osiridis (finding and restoration).' },
   { m:11, d:3,  n:'Hilaria (Isiac conclusion)', g:['isis','osiris'], note:'Joyful festival closing the Isia with games, banquets, and masquerades celebrating the resurrection of Osiris.' },
-  { m:11, d:4,  n:'Ludi Plebeii', g:['jupiter'], span:14, note:'Plebeian Games held in the Circus Flaminius celebrating democratic liberties and reconciliation.' },
+  { m:11, d:4,  n:'Ludi Plebeii', g:['jupiter'], span:14, note:'Plebeian Games held in the Circus Flaminius celebrating democratic liberties and reconciliation.' , wed:1},
   { m:11, d:8,  n:'Mundus patet', g:['dis','proserpina'], note:'Third and final opening of the sacred Mundus chamber before winter sets in.' },
   { m:11, d:13, n:'Epulum Iovis; Feronia; Fortuna Primigenia', g:['jupiter','fortuna'], note:'Feast of Jupiter during the Plebeian Games with offerings for the welfare of the citizenry.' },
-  { m:12, d:1,  n:'Neptune; Pietas', g:['neptune','pietas'], note:'Winter offerings honoring Neptune and filial piety.' },
+  { m:12, d:1,  n:'Neptune; Pietas', g:['neptune','pietas'], note:'Winter offerings honoring Neptune and filial piety.' , wed:1},
   { m:12, d:3,  n:'Bona Dea — the rite of the women', g:['bonadea'], note:'Nocturnal women\'s mystery rite held at the home of a senior magistrate, banishing all male presence.' },
   { m:12, d:5,  n:'Faunalia rustica', g:['faunus'], note:'Countryside festival where herdsmen and cattle roam free through pastures in honor of Faunus.' },
-  { m:12, d:8,  n:'Tiberinus and Gaia', g:['tiberinus','gaia'], note:'Commemoration honoring Father Tiber and Mother Earth.' },
+  { m:12, d:8,  n:'Tiberinus and Gaia', g:['tiberinus','gaia'], note:'Commemoration honoring Father Tiber and Mother Earth.' , wed:1},
   { m:12, d:11, n:'Agonalia of Sol Indiges; Septimontium', g:['sol'], note:'Winter solstice sun rites and the hill-festival of the seven archaic mounts of Rome.' },
   { m:12, d:13, n:'Tellus and Ceres; Idus Decembres', g:['tellus','ceres','jupiter'], note:'Offerings to Mother Earth and Ceres for the fertility of the winter sown crops.' },
   { m:12, d:15, n:'Consualia', g:['consus'], note:'Second festival of Consus marking the completion and underground sealing of autumn stores.' },
   { m:12, d:17, n:'Saturnalia', g:['saturn'], span:7, note:'Joyous seven-day festival of the Golden Age; social roles inverted, masters serve slaves, gifts exchanged (Io Saturnalia!).' },
   { m:12, d:19, n:'Opalia', g:['ops'], note:'Feast of Ops, consort of Saturn, celebrating the abundance of the earth and domestic wealth.' },
   { m:12, d:21, n:'Divalia / Angeronalia', g:['angerona'], note:'Solstice rites honoring Angerona, goddess of silence and keeper of the secret name of Rome.' },
-  { m:12, d:22, n:'Lares Permarini', g:['lares'], note:'Dedication of the temple honoring the Lares who protect sailors on the seas.' },
+  { m:12, d:22, n:'Lares Permarini', g:['lares'], note:'Dedication of the temple honoring the Lares who protect sailors on the seas.' , wed:1},
   { m:12, d:23, n:'Sigillaria', g:['saturn','lares'], note:'The last day of the Saturnalia and its fair: little figures of clay and wax, sigilla, bought in the porticoes and given to children and to the household — the old substitutes, Macrobius says, for offerings once made in kind to Saturn and the powers below.' },
   { m:12, d:23, n:'Larentalia', g:['larentia','manes'], note:'Funeral offerings and memorial rites honoring Acca Larentia, foster-mother of Romulus and Remus.' },
   { m:12, d:25, n:'Dies Natalis Solis Invicti', g:['sol'], note:'Birth of the Unconquered Sun following the winter solstice turning point.' }
@@ -1548,6 +1535,7 @@ function buildIndex(y0, y1) {
         if (mStart + mLen - 1 >= WIN.first && mStart <= WIN.last) {
           addBlock('roman', ROMAN_MONTH_NAMES[r.m - 1], mStart, mLen, y, {
             sys: 'roman', name: r.n, gods: r.g, note: r.note || '', undated: true,
+            wed: !!r.wed,
             window: r.window || '', native: 'Roman fasti \u00b7 ' + ROMAN_MONTH_ABL[r.m - 1]
           });
         }
@@ -1559,6 +1547,7 @@ function buildIndex(y0, y1) {
         addFest(dn, {
           sys: 'roman', name: r.n, gods: r.g, note: r.note || '',
           approx: !!r.cf, day: j + 1, span: span, cycle: r.cycle ? r.cycle[0] : 0,
+          wed: !!r.wed,
           native: 'Roman fasti \u00b7 ' + r.d + ' ' + ROMAN_MONTH_NAMES[r.m - 1]
         });
       }
@@ -1743,39 +1732,60 @@ function evaluateSuitability(dn) {
   var t = ymdOf(dn);
   var non = nonesOf(t.m), ide = idesOf(t.m);
   var issues = [];
-  var isMarker = (t.d === 1 || t.d === non || t.d === ide);
-  
-  if (t.d === 1) issues.push('Kalends (Kalendae) — dedicated to Juno/Janus; traditionally avoided for weddings.');
-  if (t.d === non) issues.push('Nones (Nonae) — holy announcement day; inauspicious for weddings.');
-  if (t.d === ide) issues.push('Ides (Idus) — dedicated to Jupiter; inauspicious for weddings and secular contracts.');
+  var romanOn = !!S.enabled['roman'];
+  var isMarker = romanOn && (t.d === 1 || t.d === non || t.d === ide);
 
-  if (t.m === 5) {
-    issues.push('Month of May — considered ill-omened for marriages due to Lemuria and purification rites.');
-  }
-  if (t.m === 6 && t.d <= 15) {
-    issues.push('Early June (1–15 June) — Vestalia period until the temple is cleansed (Q.St.D.F.).');
-  }
-  if (t.m === 2 && t.d >= 13 && t.d <= 21) {
-    issues.push('Parentalia / Feralia (13–21 Feb) — ancestral mourning rites; temples closed and weddings barred.');
-  }
-  if ((t.m === 8 && t.d === 24) || (t.m === 10 && t.d === 5) || (t.m === 11 && t.d === 8)) {
-    issues.push('Mundus Patet — underworld chamber open; religious taboo on initiating contracts/marriages.');
+  /* The Roman marriage taboos below are Roman law and custom. If the Roman
+     tradition is switched off in the filters, they are not the user's rule
+     and are not reported. */
+  if (romanOn) {
+    if (t.d === 1) issues.push('Kalends (Kalendae) — dedicated to Juno/Janus; traditionally avoided for weddings.');
+    if (t.d === non) issues.push('Nones (Nonae) — holy announcement day; inauspicious for weddings.');
+    if (t.d === ide) issues.push('Ides (Idus) — dedicated to Jupiter; inauspicious for weddings and secular contracts.');
+    if (t.d === 2 || t.d === non + 1 || t.d === ide + 1) {
+      issues.push('Dies ater (the day after a Kalends, Nones or Ides) — reckoned black; no rite or marriage is begun on it.');
+    }
+    if (t.m === 5) {
+      issues.push('Month of May — considered ill-omened for marriages due to Lemuria and purification rites.');
+    }
+    if (t.m === 6 && t.d <= 15) {
+      issues.push('Early June (1–15 June) — Vestalia period until the temple is cleansed (Q.St.D.F.).');
+    }
+    if (t.m === 2 && t.d >= 13 && t.d <= 21) {
+      issues.push('Parentalia / Feralia (13–21 Feb) — ancestral mourning rites; temples closed and weddings barred.');
+    }
+    if ((t.m === 8 && t.d === 24) || (t.m === 10 && t.d === 5) || (t.m === 11 && t.d === 8)) {
+      issues.push('Mundus Patet — underworld chamber open; religious taboo on initiating contracts/marriages.');
+    }
   }
 
-  var fs = (INDEX[dn] ? INDEX[dn].fests : []).filter(function(f) { return !f.isMarker && !f.monthly; });
-  if (fs.length > 0) {
-    fs.forEach(function(f) {
-      issues.push('Festival Day: ' + f.name + ' (' + (SYS[f.sys] ? SYS[f.sys].name : f.sys) + ')');
-    });
-  }
+  /* Festivals count only from traditions the user has enabled, and only when
+     they are feriae. A temple-dedication anniversary or a day of games is a
+     festal day but not a feria, and carries no marriage bar (Macrobius,
+     Saturnalia 1.15.21). Those entries carry wed:1 and are listed separately. */
+  var all = (INDEX[dn] ? INDEX[dn].fests : []).filter(function (f) {
+    return !f.isMarker && !f.monthly && S.enabled[f.sys];
+  });
+  var blocking = [], observed = [];
+  all.forEach(function (f) {
+    var label = f.name + ' (' + (SYS[f.sys] ? SYS[f.sys].name : f.sys) + ')';
+    if (f.wed) observed.push(label);
+    else blocking.push(label);
+  });
+  blocking.forEach(function (label) { issues.push('Festival Day: ' + label); });
 
+  var anyOn = SYSTEMS.some(function (s) { return S.enabled[s.id]; });
   var suitable = issues.length === 0;
   return {
     suitable: suitable,
     isMarker: isMarker,
     issues: issues,
-    verdict: suitable ? 'FAS — Clear for Weddings & Private Rites' : 'NEFAS / CONFLICTING — Caution Advised',
-    statusClass: suitable ? 'fas' : 'nefas'
+    observed: observed,
+    anyOn: anyOn,
+    verdict: !anyOn ? 'NO TRADITION ENABLED'
+           : (suitable ? 'FAS — Clear for Weddings & Private Rites'
+                       : 'NEFAS / CONFLICTING — Caution Advised'),
+    statusClass: !anyOn ? 'muted' : (suitable ? 'fas' : 'nefas')
   };
 }
 
@@ -2148,13 +2158,28 @@ function openChecker() {
               '<span>' + dd + ' ' + GMONTH[mm - 1] + ' ' + yy + ' &middot; <em>' + esc(rLabel) + '</em></span>' +
               '</div>';
 
-    if (evalRes.issues.length) {
+    if (!evalRes.anyOn) {
+      out += '<p style="font-size:13.5px;color:var(--bone-dim);margin:0">No tradition is enabled in the filters, so there is no rule to evaluate this date against. Enable at least one tradition in the Filters panel.</p>';
+    } else if (evalRes.issues.length) {
       out += '<div style="font-size:13px;line-height:1.45"><b style="font-family:var(--display);color:var(--flame)">Prohibitions &amp; Observances:</b><ul style="margin:6px 0 0;padding-left:18px">';
       evalRes.issues.forEach(function(iss) { out += '<li style="margin-bottom:4px">' + esc(iss) + '</li>'; });
       out += '</ul></div>';
     } else {
-      out += '<p style="font-size:13.5px;color:var(--bone-dim);margin:0">This date has no public festivals, is clear of Kalends, Nones, and Ides, and avoids classical marriage taboos. Auspicious for solemn vows and private ceremonies.</p>';
+      out += '<p style="font-size:13.5px;color:var(--bone-dim);margin:0">This date carries no feria and no marriage taboo in the traditions you have enabled. Auspicious for solemn vows and private ceremonies.</p>';
     }
+
+    if (evalRes.observed.length) {
+      out += '<div style="font-size:13px;line-height:1.45;margin-top:10px">' +
+             '<b style="font-family:var(--display);color:var(--verd)">Observed, but no marriage bar:</b>' +
+             '<ul style="margin:6px 0 0;padding-left:18px">';
+      evalRes.observed.forEach(function(o) { out += '<li style="margin-bottom:4px">' + esc(o) + '</li>'; });
+      out += '</ul><p style="margin:6px 0 0;color:var(--bone-dim);font-size:12px">' +
+             'Temple-dedication anniversaries and days of games are festal days but are not feriae publicae, ' +
+             'so the marriage prohibition does not attach to them (Macrobius, Saturnalia 1.15.21).</p></div>';
+    }
+
+    out += '<p style="margin:12px 0 0;font-size:11.5px;color:var(--bone-dim);font-family:var(--data)">' +
+           'Evaluated against the traditions currently enabled in the Filters panel.</p>';
 
     document.getElementById('checkerResults').innerHTML = out;
   }
@@ -2187,9 +2212,22 @@ function openDay(dn) {
   h += '<div class="drawer-body">';
   
   // Ritual Status Header
+  var boxMsg;
+  if (!evalRes.anyOn) {
+    boxMsg = 'No tradition is enabled in the filters, so no suitability rule applies.';
+  } else if (evalRes.suitable) {
+    boxMsg = 'No feriae or monthly division taboos on this day in the traditions you have enabled.';
+    if (evalRes.observed.length) {
+      boxMsg += ' ' + evalRes.observed.length + ' observance' +
+                (evalRes.observed.length > 1 ? 's fall' : ' falls') +
+                ' here that carry no marriage bar.';
+    }
+  } else {
+    boxMsg = evalRes.issues[0];
+  }
   h += '<div class="status-box ' + evalRes.statusClass + '">' +
        '<b>' + evalRes.verdict + '</b>' +
-       '<span>' + (evalRes.suitable ? 'No festivals or monthly division taboos on this day.' : evalRes.issues[0]) + '</span>' +
+       '<span>' + esc(boxMsg) + '</span>' +
        '</div>';
 
   h += '<div class="moonbox">' + moonSVG(42, mo.illum, mo.waxing) +
@@ -2383,10 +2421,14 @@ function boot() {
 
   document.getElementById('exportIcsBtn').onclick = exportMonthICS;
 
-  document.getElementById('theme').onclick = function () {
+  function toggleTheme() {
     S.opts.theme = S.opts.theme === 'night' ? 'day' : 'night';
     document.documentElement.setAttribute('data-theme', S.opts.theme); save();
-  };
+  }
+  var themeOld = document.getElementById('theme');
+  if (themeOld) themeOld.onclick = toggleTheme;
+  var themeNav = document.getElementById('themeBtn');
+  if (themeNav) themeNav.onclick = toggleTheme;
   document.getElementById('q').addEventListener('input', function () { S.q = this.value.trim(); render(); });
 
   document.getElementById('sysList').addEventListener('change', function (e) {
