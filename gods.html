@@ -16,7 +16,28 @@
 .nav-link:hover,.nav-link.active{color:var(--flame);border-color:var(--line);background:var(--ink-2)}
 .btn-cta{background:var(--flame);color:var(--ink-0);border:1px solid var(--flame);padding:7px 14px;border-radius:4px;font-family:var(--display);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;text-decoration:none}
 .btn-cta:hover{transform:translateY(-1px);box-shadow:0 4px 14px var(--flame-glow);color:var(--ink-0)}
-.icon-btn{background:var(--ink-2);border:1px solid var(--line);border-radius:4px;width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.icon-btn{background:var(--ink-2);border:1px solid var(--line);border-radius:4px;width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.nav-actions{display:flex;align-items:center;gap:8px}
+/* Mobile nav toggle (as index.html) */
+.nav-toggle{display:none;background:var(--ink-2);border:1px solid var(--line);color:var(--bone);border-radius:4px;
+  width:36px;height:34px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:4px;padding:0;flex-shrink:0}
+.nav-toggle span{display:block;width:18px;height:2px;background:var(--bone);transition:transform .2s ease,opacity .2s ease}
+.nav-toggle.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+@media (max-width:1160px){
+  .nav-in{flex-wrap:nowrap}
+  .nav-toggle{display:inline-flex}
+  .nav-menu{position:absolute;top:100%;left:0;right:0;background:var(--ink-1);border-bottom:1px solid var(--line);
+    flex-direction:column;align-items:stretch;gap:0;padding:8px 12px;display:none;box-shadow:0 22px 50px -20px rgba(0,0,0,.85);z-index:60}
+  .nav-menu.open{display:flex}
+  .nav-menu li{width:100%}
+  .nav-menu .nav-link{display:block;padding:10px 14px;font-size:13px}
+}
+@media (max-width:720px){
+  .brand{font-size:12.5px;gap:8px}
+  .brand svg{width:28px;height:28px}
+}
 footer{background:var(--ink-1);border-top:1px solid var(--line);padding:35px 16px 45px;text-align:center;color:var(--bone-dim);font-size:13px}
 .foot-links{display:flex;justify-content:center;gap:18px;margin-bottom:12px;list-style:none;flex-wrap:wrap}
 .foot-links a{color:var(--bone-dim);font-family:var(--display);font-size:12px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none}
@@ -256,9 +277,9 @@ h3.sec{
         <path d="M 50 38 C 45 46 47 52 44 56 C 41 60 42 66 48 68 C 44 63 45 59 48 57 C 50 55 53 58 54 62 C 55 65 54 67 52 68 C 58 67 60 61 57 56 C 54 52 57 48 52 44 C 51 46 50 49 50 51 C 49 46 51 42 50 38 Z" fill="var(--verd)"/>
         <path d="M 50 44 C 47 49 48 54 46 58 C 45 60 46 64 50 66 C 54 64 54 61 53 58 C 51 55 53 51 50 44 Z" fill="var(--flame)"/>
       </svg>
-      The Virtuous Path to Elysium
+      The Virtuous Path
     </a>
-    <ul class="nav-menu">
+    <ul class="nav-menu" id="navMenu">
       <li><a href="index.html" class="nav-link">Home</a></li>
       <li><a href="gods.html" class="nav-link active">The Gods</a></li>
       <li><a href="Calendar-Fasti.html" class="nav-link">Sacred Calendar</a></li>
@@ -266,10 +287,12 @@ h3.sec{
       <li><a href="about.html" class="nav-link">About &amp; Doctrine</a></li>
       <li><a href="ritus.html" class="nav-link">Ritus</a></li>
       <li><a href="Follower.html" class="nav-link">Become a Cultor</a></li>
-      <li><button class="icon-btn" id="themeBtn" title="Switch Theme" aria-label="Switch Theme">&#9681;</button></li>
     </ul>
-    <div style="display:flex;align-items:center;gap:8px">
-
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeBtn" title="Switch Theme" aria-label="Switch Theme">&#9681;</button>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </nav>
@@ -8612,6 +8635,19 @@ h3.sec{
   "use strict";
 
   /* theme, shared with the rest of the site */
+  /* mobile navigation toggle, as index.html */
+  var navToggle = document.getElementById('navToggle'), navMenu = document.getElementById('navMenu');
+  if (navToggle && navMenu) {
+    navToggle.onclick = function () {
+      var open = navToggle.getAttribute('aria-expanded') !== 'true';
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      navToggle.classList.toggle('open', open);
+      navMenu.classList.toggle('open', open);
+    };
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && navMenu.classList.contains('open')) navToggle.onclick();
+    });
+  }
   var themeBtn = document.getElementById('themeBtn');
   var theme = (function(){ try{ return localStorage.getItem('vpe.theme'); }catch(e){ return null; } })() || 'night';
   document.documentElement.setAttribute('data-theme', theme);
