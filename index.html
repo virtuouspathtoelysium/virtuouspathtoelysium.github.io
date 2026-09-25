@@ -56,7 +56,7 @@ button,input,select{font:inherit;color:inherit}
 }
 .nav-in{
   max-width:1240px;margin:0 auto;padding:10px 16px;
-  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
 }
 .brand{display:flex;align-items:center;gap:12px;color:var(--bone);font-family:var(--display);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:14px}
 .brand svg{flex:none;width:34px;height:34px}
@@ -64,17 +64,52 @@ button,input,select{font:inherit;color:inherit}
 .nav-link{
   padding:6px 11px;border-radius:4px;font-family:var(--display);font-size:12px;
   letter-spacing:.08em;text-transform:uppercase;color:var(--bone-dim);
-  border:1px solid transparent;transition:all .15s ease;
+  border:1px solid transparent;transition:all .15s ease;display:inline-block;
 }
 .nav-link:hover, .nav-link.active{color:var(--flame);border-color:var(--line);background:var(--ink-2)}
+.nav-actions{display:flex;align-items:center;gap:8px}
 .btn-cta{
   background:var(--flame);color:var(--ink-0);border:1px solid var(--flame);
   padding:7px 14px;border-radius:4px;font-family:var(--display);font-size:11.5px;
   letter-spacing:.12em;text-transform:uppercase;font-weight:600;cursor:pointer;
   display:inline-flex;align-items:center;gap:6px;transition:transform .15s ease, box-shadow .15s ease;
+  white-space:nowrap;
 }
 .btn-cta:hover{transform:translateY(-1px);box-shadow:0 4px 14px var(--flame-glow);color:var(--ink-0)}
-.icon-btn{background:var(--ink-2);border:1px solid var(--line);border-radius:4px;width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.icon-btn{background:var(--ink-2);border:1px solid var(--line);border-radius:4px;width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+
+/* Mobile Nav Toggle */
+.nav-toggle{
+  display:none;
+  background:var(--ink-2);
+  border:1px solid var(--line);
+  color:var(--bone);
+  border-radius:4px;
+  width:36px;
+  height:34px;
+  cursor:pointer;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:4px;
+  padding:0;
+}
+.nav-toggle span{
+  display:block;
+  width:18px;
+  height:2px;
+  background:var(--bone);
+  transition:transform .2s ease, opacity .2s ease;
+}
+.nav-toggle.open span:nth-child(1){
+  transform:translateY(6px) rotate(45deg);
+}
+.nav-toggle.open span:nth-child(2){
+  opacity:0;
+}
+.nav-toggle.open span:nth-child(3){
+  transform:translateY(-6px) rotate(-45deg);
+}
 
 /* Hero Section */
 .hero{
@@ -96,7 +131,15 @@ button,input,select{font:inherit;color:inherit}
   letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px;font-weight:600;
 }
 .hero h1 span{color:var(--flame);display:block;font-size:.58em;letter-spacing:.22em;font-weight:400;margin-top:6px}
-.hero p{font-size:clamp(16px,1.9vw,19px);color:var(--bone-dim);line-height:1.6;margin:0 auto 28px;max-width:72ch}
+.hero p{font-size:clamp(16px,1.9vw,19px);color:var(--bone-dim);line-height:1.6;margin:0 auto 20px;max-width:72ch}
+.hero-emblem{
+  display:block;
+  margin:0 auto 28px;
+  max-width:180px;
+  width:100%;
+  height:auto;
+  filter:drop-shadow(0 8px 24px rgba(0,0,0,.45));
+}
 .hero-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
 .btn-sec{
   background:var(--ink-2);color:var(--bone);border:1px solid var(--line);
@@ -114,7 +157,7 @@ button,input,select{font:inherit;color:inherit}
 }
 .section-title p{color:var(--bone-dim);font-size:15px}
 
-/* Core Value Cards (Why Choose the Virtuous Path) */
+/* Core Value Cards */
 .pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px}
 .card{
   background:var(--ink-1);border:1px solid var(--line);border-radius:6px;
@@ -179,10 +222,53 @@ footer{
 .foot-links a{color:var(--bone-dim);font-family:var(--display);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
 .foot-links a:hover{color:var(--flame)}
 
+/* Mobile Responsive Breakpoints */
+@media(max-width:860px){
+  .nav-in{flex-wrap:nowrap}
+  .nav-toggle{display:inline-flex}
+
+  .nav-menu{
+    position:absolute;
+    top:100%;
+    left:0;
+    right:0;
+    background:var(--ink-1);
+    border-bottom:1px solid var(--line);
+    flex-direction:column;
+    align-items:stretch;
+    gap:0;
+    padding:8px 12px;
+    display:none;
+    box-shadow:var(--shadow);
+  }
+
+  .nav-menu.open{
+    display:flex;
+  }
+
+  .nav-menu li{
+    width:100%;
+  }
+
+  .nav-link{
+    display:block;
+    padding:10px 14px;
+    border-radius:4px;
+    font-size:13px;
+  }
+
+  #openCultorModal{
+    display:none;
+  }
+}
+
 @media(max-width:720px){
   .hero{padding:45px 14px 40px}
   .wrap{padding:30px 12px 60px;gap:40px}
   .teaser-banner{padding:22px 18px}
+  .brand{font-size:12.5px;gap:8px}
+  .brand svg{width:28px;height:28px}
+  .hero-emblem{max-width:145px;margin-bottom:22px}
 }
 </style>
 </head>
@@ -207,18 +293,24 @@ footer{
         <path d="M 50 38 C 45 46 47 52 44 56 C 41 60 42 66 48 68 C 44 63 45 59 48 57 C 50 55 53 58 54 62 C 55 65 54 67 52 68 C 58 67 60 61 57 56 C 54 52 57 48 52 44 C 51 46 50 49 50 51 C 49 46 51 42 50 38 Z" fill="var(--verd)"/>
         <path d="M 50 44 C 47 49 48 54 46 58 C 45 60 46 64 50 66 C 54 64 54 61 53 58 C 51 55 53 51 50 44 Z" fill="var(--flame)"/>
       </svg>
-      The Virtuous Path
+      The Virtuous Path to Elysium
     </a>
-    <ul class="nav-menu">
+    <ul class="nav-menu" id="navMenu">
       <li><a href="index.html" class="nav-link active">Home</a></li>
       <li><a href="gods.html" class="nav-link">The Gods</a></li>
       <li><a href="Calendar-Fasti.html" class="nav-link">Sacred Calendar</a></li>
       <li><a href="about.html" class="nav-link">About &amp; Doctrine</a></li>
       <li><a href="ritus.html" class="nav-link">Ritus</a></li>
-      <li><a href="Follower.html" class="nav-link">Become a Cultor</a></li>
+      <li><a href="Follower.html" class="nav-link">Become a Follower</a></li>
     </ul>
-    <div style="display:flex;align-items:center;gap:8px">
+    <div class="nav-actions">
+      <button class="btn-cta" id="openCultorModal">Become a Cultor</button>
       <button class="icon-btn" id="themeBtn" title="Switch Theme" aria-label="Switch Theme">&#9681;</button>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </div>
 </nav>
@@ -229,6 +321,7 @@ footer{
     <div class="hero-badge">🏛 Cultus Deorum &bull; Living Tradition</div>
     <h1>The Virtuous Path to Elysium<span>A Modern, Ethical Revival of Roman &amp; Hellenic Polytheism</span></h1>
     <p>A living branch of <em>Cultus Deorum</em> dedicated to honoring the gods of Rome and Greece through ethical conduct, rational polytheism, bloodless offerings, and harmonious living.</p>
+    <img src="VP2E.png" alt="Sacred temple flame and altar emblem of The Virtuous Path to Elysium" class="hero-emblem" width="180" height="215">
     <div class="hero-actions">
       <button class="btn-cta" id="heroCultorBtn">Join the Path &bull; Become a Cultor</button>
       <a href="Calendar-Fasti.html" class="btn-sec">Explore the Fasti Calendar &rarr;</a>
@@ -249,25 +342,21 @@ footer{
 
     <div class="pillars">
       <div class="card">
-        <div class="card-icon">🕊</div>
         <h3>Ethical, Bloodless Sacrifice</h3>
         <p>Following Platonic and Pythagorean lineages, we reject animal slaughter. The gods lack nothing; our offerings are gifts of gratitude: wine, spring water, honey, grains, spelt cakes (<em>mola salsa</em>), and incense.</p>
       </div>
 
       <div class="card">
-        <div class="card-icon">📜</div>
         <h3>Dual Roman &amp; Greek Fasti</h3>
         <p>While anchored firmly in Roman civic order and liturgical formulas, we incorporate the lunar festival cycles of Athens, Delphi, Sparta, and Macedonia—honoring the full breadth of classical Mediterranean religion.</p>
       </div>
 
       <div class="card">
-        <div class="card-icon">⚖️</div>
         <h3>Virtue Above Dogma</h3>
         <p>No deity wipes away misdeeds through blind belief. Salvation in Elysium is earned through your actions, measured across 21 core virtues. We reject eternal damnation, dogmatic guilt, and human deification.</p>
       </div>
 
       <div class="card">
-        <div class="card-icon">🏛</div>
         <h3>Living, Rational Polytheism</h3>
         <p>We see myths not as literal history, but as sacred allegories and ritual guides. We respect global ethical paths, rejecting superstition while embodying our faith through quiet public service.</p>
       </div>
@@ -305,7 +394,7 @@ footer{
   <section>
     <div class="section-title">
       <h2>The 21 Core Virtues</h2>
-      <p>The standard of thought, speech, and action for every Cultor.</p>
+      <p>The daily standard of thought, speech, and action for every Cultor.</p>
     </div>
 
     <div class="virtues-grid">
@@ -318,14 +407,14 @@ footer{
       <div class="virtue"><b>Integrity</b><span>Doing right when no one is watching.</span></div>
       <div class="virtue"><b>Temperance</b><span>Moderation, humility, and balanced living.</span></div>
       <div class="virtue"><b>Compassion</b><span>Active empathy for others in suffering.</span></div>
-      <div class="virtue"><b>Piety</b><span>Honoring gods, nation, ancestors, and parents.</span></div>
+      <div class="virtue"><b>Piety (Pietas)</b><span>Honoring gods, nation, ancestors, and parents.</span></div>
       <div class="virtue"><b>Discipline</b><span>Physical and mental training and hardiness.</span></div>
       <div class="virtue"><b>Purity</b><span>Cleanliness in mind, speech, deeds, and fidelity.</span></div>
       <div class="virtue"><b>Respect</b><span>Giving due honor and esteem to others.</span></div>
       <div class="virtue"><b>Gratitude</b><span>Deep appreciation for gifts and life's blessings.</span></div>
       <div class="virtue"><b>Patience</b><span>Calm endurance without rushing or anger.</span></div>
       <div class="virtue"><b>Mindfulness</b><span>Awareness of one's surroundings and soul.</span></div>
-      <div class="virtue"><b>Perseverance</b><span>The will to push through adversity.</span></div>
+      <div class="virtue"><b>Perseverance</b><span>Resolute will to push through adversity.</span></div>
       <div class="virtue"><b>Concord</b><span>Fostering harmony in family and community.</span></div>
       <div class="virtue"><b>Hospitality</b><span>Warm and proper reception of guests and neighbors.</span></div>
       <div class="virtue"><b>Diligence</b><span>Pride and dedicated hard work in one's vocation.</span></div>
@@ -336,15 +425,15 @@ footer{
   <!-- Section 4: Explore Calendar / Fasti Teaser -->
   <section class="teaser-banner">
     <div class="teaser-txt">
-      <h3>The Greek and Roman combined Fasti</h3>
-      <p>Our integrated religious calendar calculates all Greek and Roman festivals, Attic lunar months, games, and moon phases computed directly in your browser. Plan sacred rites, weddings, and offerings and import montly events into your own preferred calendar.</p>
+      <h3>The Perpetual Astronomical Fasti</h3>
+      <p>Our integrated liturgical calendar calculates all fixed Roman feasts, Attic lunar months, Delphic games, and moon phases computed directly in your browser out to the year 3000 CE. Plan sacred rites, weddings, and offerings with complete precision.</p>
     </div>
     <a href="Calendar-Fasti.html" class="btn-cta">Open Sacred Calendar &rarr;</a>
   </section>
 
 </main>
 
-<!-- Become a Cultor Modal (Strictly Hidden by Default) -->
+<!-- Become a Cultor Modal -->
 <div class="scrim" id="cultorModal" hidden>
   <div class="modal">
     <div class="modal-head">
@@ -394,6 +483,18 @@ footer{
     document.documentElement.setAttribute('data-theme', currentTheme);
     localStorage.setItem('vpe.theme', currentTheme);
   };
+
+  /* Mobile Nav Menu Toggle */
+  var navToggle = document.getElementById('navToggle');
+  var navMenu = document.getElementById('navMenu');
+  if(navToggle && navMenu){
+    navToggle.onclick = function(){
+      var expanded = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', !expanded);
+      navToggle.classList.toggle('open');
+      navMenu.classList.toggle('open');
+    };
+  }
 
   var modal = document.getElementById('cultorModal');
   var openBtns = [document.getElementById('openCultorModal'), document.getElementById('heroCultorBtn')];

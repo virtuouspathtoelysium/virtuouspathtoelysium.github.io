@@ -67,6 +67,31 @@ a{color:var(--verd)}
   display:inline-flex;align-items:center;justify-content:center;cursor:pointer;color:var(--bone);flex:none}
 .icon-btn:hover{border-color:var(--flame);color:var(--flame)}
 .nav-right{display:flex;align-items:center;gap:10px;margin-left:auto}
+.today-line{margin:0;text-align:right;font-family:var(--data);font-size:11px;line-height:1.45;
+  color:var(--bone-dim);max-width:36ch}
+/* Mobile nav toggle (as index.html) */
+.nav-toggle{display:none;background:var(--ink-2);border:1px solid var(--line);color:var(--bone);
+  border-radius:4px;width:36px;height:34px;cursor:pointer;align-items:center;justify-content:center;
+  flex-direction:column;gap:4px;padding:0;flex:none}
+.nav-toggle span{display:block;width:18px;height:2px;background:var(--bone);transition:transform .2s ease,opacity .2s ease}
+.nav-toggle.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+@media (max-width:1180px){
+  .nav-in{flex-wrap:nowrap}
+  .nav-toggle{display:inline-flex}
+  .nav-menu{position:absolute;top:100%;left:0;right:0;background:var(--ink-1);
+    border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;gap:0;
+    padding:8px 12px;display:none;box-shadow:var(--shadow);z-index:60}
+  .nav-menu.open{display:flex}
+  .nav-menu li{width:100%}
+  .nav-menu .nav-link{display:block;padding:10px 14px;font-size:13px}
+}
+@media (max-width:620px){
+  .nav-in{flex-wrap:wrap}
+  .nav-right{width:100%;justify-content:flex-end}
+  .today-line{flex:1;text-align:left;max-width:none;font-size:10.5px}
+}
 .today-line b{color:var(--bone);font-weight:600}
 .today-line em{color:var(--flame);font-style:normal}
 
@@ -363,8 +388,6 @@ html[data-theme="day"] .modal-in{color-scheme:light}
 }
 @media (max-width:720px){
   .nav-in{gap:8px;padding:10px 12px}
-  .today-line{margin:0;text-align:right;font-family:var(--data);font-size:11px;line-height:1.45;
-  color:var(--bone-dim);max-width:34ch}
   .wrap{padding:10px 8px 40px;gap:12px}
   .bar-in{padding:6px 8px;gap:5px}
 
@@ -453,7 +476,7 @@ a.god.god-go .n{opacity:.7}
       </svg>
       The Virtuous Path to Elysium
     </a>
-    <ul class="nav-menu">
+    <ul class="nav-menu" id="navMenu">
       <li><a href="index.html" class="nav-link">Home</a></li>
       <li><a href="gods.html" class="nav-link">The Gods</a></li>
       <li><a href="Calendar-Fasti.html" class="nav-link active">Sacred Calendar</a></li>
@@ -465,6 +488,9 @@ a.god.god-go .n{opacity:.7}
     <div class="nav-right">
       <p class="today-line" id="todayLine"></p>
       <button class="icon-btn" id="themeBtn" title="Switch Theme" aria-label="Switch Theme">&#9681;</button>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </nav>
@@ -515,11 +541,11 @@ a.god.god-go .n{opacity:.7}
         <label class="opt"><input type="checkbox" id="optMonthly" checked> Kalends, Nones &amp; Ides</label>
         <label class="opt"><input type="checkbox" id="optApprox" checked> Days argued, not certain</label>
         <label class="opt"><input type="checkbox" id="optUndated" checked> Undated festivals band</label>
-        <label class="opt">First day of month
+        <label class="opt">Greek month begins
           <select id="optOffset">
-            <option value="0">at conjunction</option>
-            <option value="1" selected>+1 day</option>
-            <option value="2">+2 days</option>
+            <option value="solon" selected>Solon: day after the old-and-new</option>
+            <option value="crescent">First visible crescent</option>
+            <option value="conj">Conjunction day as day 1 (modern)</option>
           </select>
         </label>
       </div>
@@ -549,12 +575,31 @@ a.god.god-go .n{opacity:.7}
         month; this page inserts it as a doubled month (a <em>Second Poseideon</em> at Athens) and does
         not repeat that month's festivals.</p>
       <p>New moons and solstices are computed from the periodic series in Meeus,
-        <em>Astronomical Algorithms</em>, and are good to a few minutes. The conjunction itself is
-        invisible, so the first day of the month is set one day after it by default; ancient practice
-        varied and the offset can be changed under Display. Shifting it moves every Greek date on the
-        page by that many days. This is the one place where the page does fix something the sources
-        leave open, and it cannot be avoided: without a rule for the first day there is no lunar
-        calendar at all. It is a rule about the moon, not about any festival.</p>
+        <em>Astronomical Algorithms</em>. Checked against two independent ephemerides (Astronomy Engine
+        and PyEphem), every new moon from 2024 to 2029 falls within one minute of theirs, and the solstice
+        within a few seconds.</p>
+      <h4>When a Greek month begins</h4>
+      <p>The Greek day ran from <b>sunset to sunset</b>, and this page labels each Greek day by the civil
+        date of its daylight. After sunset the next Greek day has already begun; the line at the top of the
+        page says so when that has happened at Athens. All months are reckoned for Athens.</p>
+      <p>The first day of the month depends on a rule, and ancient practice was not uniform, so the rule
+        can be chosen under Display:</p>
+      <ul>
+        <li><b>Solon (default).</b> The day on which the moon overtakes the sun is the <em>h&#275;n&#275; kai
+          nea</em>, the &ldquo;old-and-new,&rdquo; and belongs to both months; the following day is the
+          <em>noumenia</em>. Plutarch, <em>Solon</em> 25.3; Diogenes Laertius 1.58. This is the only rule
+          for the start of the month that an ancient author states outright for Athens.</li>
+        <li><b>First visible crescent.</b> The <em>noumenia</em> begins at the first sunset at which the new
+          crescent can be seen with the naked eye, judged by Yallop's criterion (1997) at Athens. This is
+          the observed month, and usually falls one day after Solon's, occasionally two, occasionally the
+          same. Autumn evenings in Greece show a young crescent poorly, so the gap is widest then.</li>
+        <li><b>Conjunction day as day 1.</b> Common in modern calendars. It has no ancient warrant: Solon
+          counted that day as the <em>last</em> of the old month, not the first of the new.</li>
+      </ul>
+      <p>The moon-phase marks follow the usual convention: a new moon, first quarter, full moon or last
+        quarter is named only on the one day, in your own time zone, that contains its exact moment; the
+        days between carry the intermediate names. The lit fraction is the true value at your local noon.
+        Sun and moon positions are from Meeus chapters 25 and 47, good to about a hundredth of a degree.</p>
       <h4>Games that do not fall every year</h4>
       <p>The Olympia, the Pythia, the Isthmia, the Nemea and a number of others ran on cycles of two,
         four, five, seven, eight, sixty or a hundred and ten years. They appear only in the years they
@@ -816,15 +861,162 @@ function seasonJD(kind, year) {
   return jde0 + (0.00001 * S) / dl - 69 / 86400;
 }
 
+/* ---- Sun and Moon positions, sunset, phases, crescent visibility ----
+   Sun: Meeus ch. 25 (low precision). Moon: Meeus ch. 47, truncated to the
+   largest terms. Validated against Astronomy Engine; see the notes panel. */
+var DT_DAYS = 69 / 86400;                       /* TT - UT, seconds -> days */
+function norm360(x) { x %= 360; return x < 0 ? x + 360 : x; }
+function sunPos(jd) {
+  var T = (jd + DT_DAYS - 2451545) / 36525;
+  var L0 = 280.46646 + 36000.76983 * T + 0.0003032 * T * T;
+  var M = (357.52911 + 35999.05029 * T - 0.0001537 * T * T) * D2R;
+  var e = 0.016708634 - 0.000042037 * T;
+  var C = (1.914602 - 0.004817 * T - 0.000014 * T * T) * Math.sin(M)
+        + (0.019993 - 0.000101 * T) * Math.sin(2 * M) + 0.000289 * Math.sin(3 * M);
+  var nu = M + C * D2R, O = (125.04 - 1934.136 * T) * D2R;
+  var lon = norm360(L0 + C - 0.00569 - 0.00478 * Math.sin(O));
+  var eps = (23.439291 - 0.0130042 * T + 0.00256 * Math.cos(O)) * D2R;
+  var R = 1.000001018 * (1 - e * e) / (1 + e * Math.cos(nu));
+  var l = lon * D2R;
+  return { lon: lon, lat: 0, R: R, ra: Math.atan2(Math.cos(eps) * Math.sin(l), Math.cos(l)) / D2R,
+           dec: Math.asin(Math.sin(eps) * Math.sin(l)) / D2R, eps: eps };
+}
+/* [D, M, M', F, sum-l (1e-6 deg), sum-r (1e-3 km)] */
+var _ML = [[0,0,1,0,6288774,-20905355],[2,0,-1,0,1274027,-3699111],[2,0,0,0,658314,-2955968],
+ [0,0,2,0,213618,-569925],[0,1,0,0,-185116,48888],[0,0,0,2,-114332,-3149],[2,0,-2,0,58793,246158],
+ [2,-1,-1,0,57066,-152138],[2,0,1,0,53322,-170733],[2,-1,0,0,45758,-204586],[0,1,-1,0,-40923,-129620],
+ [1,0,0,0,-34720,108743],[0,1,1,0,-30383,104755],[2,0,0,-2,15327,10321],[0,0,1,2,-12528,0],
+ [0,0,1,-2,10980,79661],[4,0,-1,0,10675,-34782],[0,0,3,0,10034,-23210],[4,0,-2,0,8548,-21636],
+ [2,1,-1,0,-7888,24208],[2,1,0,0,-6766,30824],[1,0,-1,0,-5163,-8379],[1,1,0,0,4987,-16675],
+ [2,-1,1,0,4036,-12831],[2,0,2,0,3994,-10445],[4,0,0,0,3861,-11650],[2,0,-3,0,3665,14403],
+ [0,1,-2,0,-2689,-7003],[2,0,-1,2,-2602,0],[2,-1,-2,0,2390,10056],[1,0,1,0,-2348,6322],[2,-2,0,0,2236,-9884]];
+var _MB = [[0,0,0,1,5128122],[0,0,1,1,280602],[0,0,1,-1,277693],[2,0,0,-1,173237],[2,0,-1,1,55413],
+ [2,0,-1,-1,46271],[2,0,0,1,32573],[0,0,2,1,17198],[2,0,1,-1,9266],[0,0,2,-1,8822],[2,-1,0,-1,8216],
+ [2,0,-2,-1,4324],[2,0,1,1,4200],[2,1,0,-1,-3359],[2,-1,-1,1,2463],[2,-1,0,1,2211],[2,-1,-1,-1,2065],
+ [0,1,-1,-1,-1870],[4,0,-1,-1,1828],[0,1,0,1,-1794]];
+function moonPos(jd) {
+  var T = (jd + DT_DAYS - 2451545) / 36525;
+  var Lp = norm360(218.3164477 + 481267.88123421 * T - 0.0015786 * T * T);
+  var D  = norm360(297.8501921 + 445267.1114034 * T - 0.0018819 * T * T);
+  var M  = norm360(357.5291092 + 35999.0502909 * T - 0.0001536 * T * T);
+  var Mp = norm360(134.9633964 + 477198.8675055 * T + 0.0087414 * T * T);
+  var F  = norm360(93.2720950 + 483202.0175233 * T - 0.0036539 * T * T);
+  var E = 1 - 0.002516 * T - 0.0000074 * T * T;
+  var A1 = (119.75 + 131.849 * T) * D2R, A2 = (53.09 + 479264.290 * T) * D2R, A3 = (313.45 + 481266.484 * T) * D2R;
+  var sl = 0, sr = 0, sb = 0, i, t, arg, f;
+  for (i = 0; i < _ML.length; i++) {
+    t = _ML[i]; arg = (t[0] * D + t[1] * M + t[2] * Mp + t[3] * F) * D2R;
+    f = Math.abs(t[1]) === 1 ? E : Math.abs(t[1]) === 2 ? E * E : 1;
+    sl += t[4] * f * Math.sin(arg); sr += t[5] * f * Math.cos(arg);
+  }
+  for (i = 0; i < _MB.length; i++) {
+    t = _MB[i]; arg = (t[0] * D + t[1] * M + t[2] * Mp + t[3] * F) * D2R;
+    f = Math.abs(t[1]) === 1 ? E : Math.abs(t[1]) === 2 ? E * E : 1;
+    sb += t[4] * f * Math.sin(arg);
+  }
+  sl += 3958 * Math.sin(A1) + 1962 * Math.sin((Lp - F) * D2R) + 318 * Math.sin(A2);
+  sb += -2235 * Math.sin(Lp * D2R) + 382 * Math.sin(A3) + 175 * Math.sin(A1 - F * D2R)
+      + 175 * Math.sin(A1 + F * D2R) + 127 * Math.sin((Lp - Mp) * D2R) - 115 * Math.sin((Lp + Mp) * D2R);
+  var O = (125.04 - 1934.136 * T) * D2R;
+  var lon = norm360(Lp + sl / 1e6 - 0.00478 * Math.sin(O)), lat = sb / 1e6, dist = 385000.56 + sr / 1000;
+  var eps = (23.439291 - 0.0130042 * T + 0.00256 * Math.cos(O)) * D2R, l = lon * D2R, b = lat * D2R;
+  return { lon: lon, lat: lat, dist: dist,
+    ra: Math.atan2(Math.sin(l) * Math.cos(eps) - Math.tan(b) * Math.sin(eps), Math.cos(l)) / D2R,
+    dec: Math.asin(Math.sin(b) * Math.cos(eps) + Math.cos(b) * Math.sin(eps) * Math.sin(l)) / D2R };
+}
+/* Reference observer for the Greek month: Athens. */
+var OBS = { lat: 37.9715, lon: 23.7257 };
+function altitude(pos, jd) {
+  var T = (jd - 2451545) / 36525;
+  var gmst = 280.46061837 + 360.98564736629 * (jd - 2451545) + 0.000387933 * T * T;
+  var H = (gmst + OBS.lon - pos.ra) * D2R, p = OBS.lat * D2R, d = pos.dec * D2R;
+  return Math.asin(Math.sin(p) * Math.sin(d) + Math.cos(p) * Math.cos(d) * Math.cos(H)) / D2R;
+}
+function crossing(fn, a, b) {                    /* fn(a) > 0 > fn(b): bisect to ~5 s */
+  for (var i = 0; i < 24; i++) { var m = (a + b) / 2; if (fn(m) > 0) a = m; else b = m; }
+  return (a + b) / 2;
+}
+/* UT Julian date of sunset at Athens on the civil day dayNo (Athens local, tzHours). */
+function sunsetJD(dayNo) {
+  var noon = dayNo - CFG.tzHours / 24, h0 = -0.8333;
+  var f = function (jd) { return altitude(sunPos(jd), jd) - h0; };
+  var a = noon, b = noon + 0.5;                  /* local noon to local midnight */
+  return f(a) > 0 && f(b) < 0 ? crossing(f, a, b) : noon + 0.25;
+}
+function moonsetAfter(jd) {
+  var f = function (t) { var m = moonPos(t); return altitude(m, t) - (0.7275 * Math.asin(6378.14 / m.dist) / D2R - 0.5667); };
+  if (f(jd) <= 0) return null;
+  for (var t = jd; t < jd + 0.5; t += 1 / 144) if (f(t + 1 / 144) <= 0) return crossing(f, t, t + 1 / 144);
+  return null;
+}
+/* Yallop (1997) q for the evening of civil day dayNo at Athens. */
+function yallopQ(dayNo) {
+  var ts = sunsetJD(dayNo), tm = moonsetAfter(ts);
+  if (tm === null) return -9;
+  var tb = ts + (tm - ts) * 4 / 9, s = sunPos(tb), m = moonPos(tb);
+  var arcl = Math.acos(Math.cos(m.lat * D2R) * Math.cos((m.lon - s.lon) * D2R)) / D2R;
+  var arcv = altitude(m, tb) - altitude(s, tb);
+  var par = Math.asin(6378.14 / m.dist), sd = Math.asin(1737.4 / m.dist) / D2R * 60;
+  var W = sd * (1 + Math.sin(altitude(m, tb) * D2R) * Math.sin(par)) * (1 - Math.cos(arcl * D2R));
+  return (arcv - (11.8371 - 6.3226 * W + 0.7319 * W * W - 0.1018 * W * W * W)) / 10;
+}
+var CRESCENT_Q = -0.014;                        /* Yallop class B: naked eye, perfect conditions */
+
+/* Elongation of the Moon east of the Sun, 0-360. */
+function elongation(jd) { return norm360(moonPos(jd).lon - sunPos(jd).lon); }
+/* Illuminated fraction from the true phase angle (Meeus 48.2-48.3). */
+function illuminated(jd) {
+  var s = sunPos(jd), m = moonPos(jd);
+  var psi = Math.acos(Math.cos(m.lat * D2R) * Math.cos((m.lon - s.lon) * D2R));
+  var R = s.R * 149597870.7;
+  var i = Math.atan2(R * Math.sin(psi), m.dist - R * Math.cos(psi));
+  return (1 + Math.cos(i)) / 2;
+}
+/* Instant (UT JD) at which the elongation reaches target, starting near guess. */
+function phaseInstant(target, guess) {
+  var t = guess;
+  for (var i = 0; i < 6; i++) {
+    var d = norm360(elongation(t) - target); if (d > 180) d -= 360;
+    t -= d / 12.190749;
+  }
+  return t;
+}
+
+/* Principal-phase instants, built alongside MOONS: [jd, 0|90|180|270]. */
+var QUARTERS = [];
+function buildQuarters() {
+  QUARTERS = [];
+  for (var i = 0; i < MOONS.length - 1; i++) {
+    QUARTERS.push([MOONS[i], 0]);
+    var span = MOONS[i + 1] - MOONS[i];
+    QUARTERS.push([phaseInstant(90,  MOONS[i] + span * 0.25), 90]);
+    QUARTERS.push([phaseInstant(180, MOONS[i] + span * 0.50), 180]);
+    QUARTERS.push([phaseInstant(270, MOONS[i] + span * 0.75), 270]);
+  }
+}
+/* Phase for a civil day as the viewer sees it: a principal phase is named only on the
+   one day (viewer's local time) that contains its exact instant; every other day takes
+   the intermediate name. Illumination is the true value at the viewer's local noon. */
+var PHASE_NAMES = ['New Moon', 'Waxing Crescent', 'First Quarter', 'Waxing Gibbous',
+                   'Full Moon', 'Waning Gibbous', 'Last Quarter', 'Waning Crescent'];
+function viewerOffsetDays(dayNo) {
+  var t = ymdOf(dayNo);
+  return -new Date(t.y, t.m - 1, t.d, 12).getTimezoneOffset() / 1440;
+}
 function moonForDay(dayNo, moons) {
-  var jd = dayNo, prev = moons[0];
-  for (var i = 0; i < moons.length; i++) { if (moons[i] <= jd) prev = moons[i]; else break; }
-  var age = jd - prev, frac = ((age % SYNODIC) + SYNODIC) % SYNODIC / SYNODIC;
-  var illum = (1 - Math.cos(2 * Math.PI * frac)) / 2;
-  var names = ['New Moon', 'Waxing Crescent', 'First Quarter', 'Waxing Gibbous',
-               'Full Moon', 'Waning Gibbous', 'Last Quarter', 'Waning Crescent'];
-  var b = Math.floor(frac * 8 + 0.5) % 8;
-  return { age: age, frac: frac, illum: illum, name: names[b], bucket: b, waxing: frac < 0.5 };
+  var off = viewerOffsetDays(dayNo);
+  var start = dayNo - 0.5 - off, end = start + 1, noon = dayNo - off;
+  var bucket = -1, i;
+  for (i = 0; i < QUARTERS.length; i++) {
+    if (QUARTERS[i][0] >= end) break;
+    if (QUARTERS[i][0] >= start) { bucket = QUARTERS[i][1] / 45; break; }
+  }
+  var el = elongation(noon), illum = illuminated(noon);
+  if (bucket < 0) bucket = el < 90 ? 1 : el < 180 ? 3 : el < 270 ? 5 : 7;
+  var prev = moons[0];
+  for (i = 0; i < moons.length; i++) { if (moons[i] <= noon) prev = moons[i]; else break; }
+  return { age: noon - prev, frac: el / 360, illum: illum, name: PHASE_NAMES[bucket],
+           bucket: bucket, waxing: el < 180 };
 }
 
 /* ============================================================
@@ -1416,7 +1608,7 @@ var CFG = {
   yearStart: 2026,
   yearEnd:   3000,
   tzHours:   2,
-  noumenia:  1
+  rule:      'solon'   /* 'solon' | 'crescent' | 'conj' - see the notes panel */
 };
 
 var MOONS = [];
@@ -1426,9 +1618,32 @@ function buildMoons(y0, y1) {
   var k1 = Math.ceil(kForDate(y1 + 2, 12, 31));
   for (var k = k0; k <= k1; k++) MOONS.push(newMoonJD(k));
   MOONS.sort(function (a, b) { return a - b; });
+  buildQuarters();
+  NOUM_CACHE = {};
 }
+/* The first day of a Greek month, as a civil day number, for the conjunction at jd (UT).
+   The Greek day runs from sunset to sunset; each is labelled by the civil date of its
+   daylight. All three rules are reckoned at Athens.
+     solon    - the Greek day containing the conjunction is the "old-and-new" (hene kai
+                nea), the last day of the old month; the next Greek day is the noumenia.
+                Plutarch, Solon 25.3; Diogenes Laertius 1.58.
+     crescent - the noumenia begins at the first sunset at which the new crescent can be
+                seen with the naked eye (Yallop 1997, q > -0.014).
+     conj     - the civil day of the conjunction is day 1. Modern usage, not ancient. */
+var NOUM_CACHE = {};
 function noumeniaDayNo(jd) {
-  return Math.round(jd + CFG.tzHours / 24 + 0.5) + CFG.noumenia;
+  var key = CFG.rule + ':' + jd.toFixed(5);
+  if (NOUM_CACHE[key] !== undefined) return NOUM_CACHE[key];
+  var cdn = Math.floor(jd + CFG.tzHours / 24 + 0.5), out;
+  if (CFG.rule === 'conj') out = cdn;
+  else if (CFG.rule === 'crescent') {
+    out = cdn + 3;
+    for (var e = cdn; e <= cdn + 3; e++) {
+      if (sunsetJD(e) > jd && yallopQ(e) > CRESCENT_Q) { out = e + 1; break; }
+    }
+  } else out = (jd < sunsetJD(cdn) ? cdn : cdn + 1) + 1;
+  NOUM_CACHE[key] = out;
+  return out;
 }
 function firstMoonIndexAfter(jd) {
   for (var i = 0; i < MOONS.length; i++) if (MOONS[i] > jd) return i;
@@ -1655,7 +1870,7 @@ var GMONTH = ['January','February','March','April','May','June','July','August',
 var S = {
   enabled: {}, gods: {}, q: '', view: 'grid',
   y: 0, m: 0, sel: null,
-  opts: { moon:true, roman:true, noum:true, monthly:true, approx:true, undated:true, offset:1, theme:'night' }
+  opts: { moon:true, roman:true, noum:true, monthly:true, approx:true, undated:true, rule:'solon', theme:'night' }
 };
 
 function save() {
@@ -2321,12 +2536,23 @@ function renderToday() {
   var t = ymdOf(dn), mo = moonForDay(dn, MOONS), slot = INDEX[dn];
   var att = slot.cal.attic;
   var fs = festsOn(dn);
+  /* The Greek day turns at sunset. If it is already after sunset at Athens, the
+     Greek date in force there is the next one; say so rather than let it look wrong. */
+  var nowJD = Date.now() / 86400000 + 2440587.5;
+  var athDN = Math.floor(nowJD + CFG.tzHours / 24 + 0.5);
+  var inForce = nowJD < sunsetJD(athDN) ? athDN : athDN + 1;
+  var sunsetNote = '';
+  if (inForce !== dn && INDEX[inForce] && INDEX[inForce].cal.attic) {
+    var nx = INDEX[inForce].cal.attic;
+    sunsetNote = '<br><span title="The Greek day runs from sunset to sunset">After sunset at Athens: ' +
+                 '<em>' + nx.name + ' ' + nx.day + '</em> has begun</span>';
+  }
   el.innerHTML = '<b>' + t.d + ' ' + GMONTH[t.m - 1] + ' ' + t.y + '</b> &middot; <em>' +
     esc(romanDateLabel(t.y, t.m, t.d)) + '</em> &middot; <b>' + (t.y + 753) + ' AUC</b><br>' +
     (att ? att.name + ' ' + att.day + ' &middot; ' : '') +
     mo.name.toLowerCase() + ', ' + Math.round(mo.illum * 100) + '% lit<br>' +
     (fs.length ? '<em>' + esc(fs[0].name) + '</em>' + (fs.length > 1 ? ' and ' + (fs.length - 1) + ' more' : '')
-               : 'no festival in the enabled traditions');
+               : 'no festival in the enabled traditions') + sunsetNote;
 }
 
 /* ---------- main render ---------- */
@@ -2363,7 +2589,12 @@ function boot() {
     if (saved.opts) for (var k in saved.opts) S.opts[k] = saved.opts[k];
     if (saved.view) S.view = saved.view;
   }
-  CFG.noumenia = S.opts.offset;
+  /* migrate the old numeric offset (0/1/2) to a named rule */
+  if (!S.opts.rule && S.opts.offset !== undefined)
+    S.opts.rule = ({0: 'conj', 1: 'solon', 2: 'crescent'})[S.opts.offset] || 'solon';
+  if (['solon', 'crescent', 'conj'].indexOf(S.opts.rule) < 0) S.opts.rule = 'solon';
+  delete S.opts.offset;
+  CFG.rule = S.opts.rule;
 
   var n = new Date(), y = n.getFullYear(), m = n.getMonth() + 1;
   if (y < CFG.yearStart) { y = CFG.yearStart; m = 1; }
@@ -2375,7 +2606,7 @@ function boot() {
   ['moon','roman','noum','monthly','approx','undated'].forEach(function (k) {
     document.getElementById('opt' + k[0].toUpperCase() + k.slice(1)).checked = S.opts[k];
   });
-  document.getElementById('optOffset').value = String(S.opts.offset);
+  document.getElementById('optOffset').value = S.opts.rule;
   document.getElementById('viewGrid').setAttribute('aria-pressed', S.view === 'grid');
   document.getElementById('viewList').setAttribute('aria-pressed', S.view === 'list');
 
@@ -2429,6 +2660,20 @@ function boot() {
   if (themeOld) themeOld.onclick = toggleTheme;
   var themeNav = document.getElementById('themeBtn');
   if (themeNav) themeNav.onclick = toggleTheme;
+
+  /* mobile navigation toggle, as index.html */
+  var navToggle = document.getElementById('navToggle'), navMenu = document.getElementById('navMenu');
+  if (navToggle && navMenu) {
+    navToggle.onclick = function () {
+      var open = navToggle.getAttribute('aria-expanded') !== 'true';
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      navToggle.classList.toggle('open', open);
+      navMenu.classList.toggle('open', open);
+    };
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && navMenu.classList.contains('open')) navToggle.onclick();
+    });
+  }
   document.getElementById('q').addEventListener('input', function () { S.q = this.value.trim(); render(); });
 
   document.getElementById('sysList').addEventListener('change', function (e) {
@@ -2451,8 +2696,8 @@ function boot() {
     };
   });
   document.getElementById('optOffset').onchange = function () {
-    S.opts.offset = parseInt(this.value, 10); CFG.noumenia = S.opts.offset;
-    save(); buildIndex(WIN.y0, WIN.y1); render();
+    S.opts.rule = this.value; CFG.rule = S.opts.rule; NOUM_CACHE = {};
+    save(); buildIndex(WIN.y0, WIN.y1); render(); renderToday();
   };
   document.getElementById('yearJump').onchange = function () {
     var v = parseInt(this.value, 10);

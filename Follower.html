@@ -77,6 +77,30 @@ button,input,select{font:inherit;color:inherit}
 }
 .btn-cta:hover{transform:translateY(-1px);box-shadow:0 4px 14px var(--flame-glow);color:var(--ink-0)}
 .icon-btn{background:var(--ink-2);border:1px solid var(--line);border-radius:4px;width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+/* Mobile nav toggle (as index.html) */
+.nav-actions{display:flex;align-items:center;gap:8px}
+.nav-toggle{display:none;background:var(--ink-2);border:1px solid var(--line);color:var(--bone);border-radius:4px;
+  width:36px;height:34px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:4px;padding:0;flex-shrink:0}
+.nav-toggle span{display:block;width:18px;height:2px;background:var(--bone);transition:transform .2s ease,opacity .2s ease}
+.nav-toggle.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+@media (max-width:1240px){
+  .nav-in{flex-wrap:nowrap}
+  .nav-toggle{display:inline-flex}
+  .nav-menu{position:absolute;top:100%;left:0;right:0;background:var(--ink-1);border-bottom:1px solid var(--line);
+    flex-direction:column;align-items:stretch;gap:0;padding:8px 12px;display:none;box-shadow:var(--shadow);z-index:60}
+  .nav-menu.open{display:flex}
+  .nav-menu li{width:100%}
+  .nav-menu .nav-link{display:block;padding:10px 14px;font-size:13px}
+}
+@media (max-width:720px){
+  .brand{font-size:12.5px;gap:8px}
+  .brand svg{width:28px;height:28px}
+}
+@media (max-width:560px){
+  .nav-actions .btn-cta{display:none}
+}
 
 /* Header */
 .hero{
@@ -160,9 +184,9 @@ footer{
         <path d="M 50 38 C 45 46 47 52 44 56 C 41 60 42 66 48 68 C 44 63 45 59 48 57 C 50 55 53 58 54 62 C 55 65 54 67 52 68 C 58 67 60 61 57 56 C 54 52 57 48 52 44 C 51 46 50 49 50 51 C 49 46 51 42 50 38 Z" fill="var(--verd)"/>
         <path d="M 50 44 C 47 49 48 54 46 58 C 45 60 46 64 50 66 C 54 64 54 61 53 58 C 51 55 53 51 50 44 Z" fill="var(--flame)"/>
       </svg>
-      The Virtuous Path
+      The Virtuous Path to Elysium
     </a>
-    <ul class="nav-menu">
+    <ul class="nav-menu" id="navMenu">
       <li><a href="index.html" class="nav-link">Home</a></li>
       <li><a href="gods.html" class="nav-link">The Gods</a></li>
       <li><a href="Calendar-Fasti.html" class="nav-link">Sacred Calendar</a></li>
@@ -170,8 +194,12 @@ footer{
       <li><a href="ritus.html" class="nav-link">Ritus</a></li>
       <li><a href="Follower.html" class="nav-link active">Become a Follower</a></li>
     </ul>
-    <div style="display:flex;align-items:center;gap:8px">
+    <div class="nav-actions">
+      <a href="index.html" class="btn-cta">Portal Home</a>
       <button class="icon-btn" id="themeBtn" title="Switch Theme" aria-label="Switch Theme">&#9681;</button>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </nav>
@@ -217,6 +245,22 @@ footer{
     document.documentElement.setAttribute('data-theme', currentTheme);
     localStorage.setItem('vpe.theme', currentTheme);
   };
+})();
+</script>
+<script>
+/* mobile navigation toggle, as index.html */
+(function(){
+  var navToggle=document.getElementById('navToggle'), navMenu=document.getElementById('navMenu');
+  if(!navToggle || !navMenu) return;
+  navToggle.onclick=function(){
+    var open=navToggle.getAttribute('aria-expanded')!=='true';
+    navToggle.setAttribute('aria-expanded', open?'true':'false');
+    navToggle.classList.toggle('open', open);
+    navMenu.classList.toggle('open', open);
+  };
+  document.addEventListener('keydown', function(e){
+    if(e.key==='Escape' && navMenu.classList.contains('open')) navToggle.onclick();
+  });
 })();
 </script>
 </body>
