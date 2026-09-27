@@ -181,6 +181,8 @@ footer{background:var(--ink-1);border-top:1px solid var(--line);padding:35px 16p
   .fest{break-inside:avoid;border:1px solid #999}
   .fest-body{display:block !important}
 }
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+#q.rejected{border-color:#a8404f;box-shadow:0 0 0 2px rgba(168,64,79,.28)}
 </style>
 </head>
 <body>
@@ -243,7 +245,10 @@ footer{background:var(--ink-1);border-top:1px solid var(--line);padding:35px 16p
   </section>
 
   <div class="toolbar">
-    <input type="search" id="q" placeholder="Search festival, deity or source&hellip;" aria-label="Search festivals">
+    <input type="search" id="q" placeholder="Search festival, deity or source&hellip;" aria-label="Search festivals"
+           maxlength="60" pattern="[A-Za-z ]*" spellcheck="false" inputmode="text"
+           aria-describedby="qHint" title="Letters and spaces only">
+    <span id="qHint" class="sr-only" aria-live="polite"></span>
     <select id="fTrad" aria-label="Tradition">
       <option value="">All traditions</option>
       <option value="roman">Roman</option>
@@ -8102,7 +8107,7 @@ footer{background:var(--ink-1);border-top:1px solid var(--line);padding:35px 16p
   var rendering = false;
 
   function render(){
-    var q     = qEl.value.trim().toLowerCase();
+    var q     = qEl.value.replace(/[^A-Za-z ]/g, '').trim().toLowerCase();
     var trad  = tradEl.value;
     var scope = scopeEl.value;
     var onlyR = riteEl.checked;
@@ -8198,7 +8203,37 @@ footer{background:var(--ink-1);border-top:1px solid var(--line);padding:35px 16p
   }
 
   /* ---------- events ---------- */
-  qEl.addEventListener('input', render);
+  /* Search box: A-Z, a-z and space only, to 60 characters. Typed characters are
+     refused before they land; paste, drag-and-drop, autofill and IME composition
+     are sanitised on the input event. */
+  var qHint = document.getElementById('qHint'), qTimer = null;
+  var Q_BAD = /[^A-Za-z ]/g, Q_MAX = 60;
+  function qRefuse(){
+    qEl.classList.add('rejected');
+    if (qHint) qHint.textContent = 'Only letters and spaces are allowed.';
+    clearTimeout(qTimer);
+    qTimer = setTimeout(function(){
+      qEl.classList.remove('rejected'); if (qHint) qHint.textContent = '';
+    }, 900);
+  }
+  qEl.addEventListener('beforeinput', function(e){
+    if (e.data && /[^A-Za-z ]/.test(e.data)) { e.preventDefault(); qRefuse(); }
+  });
+  qEl.addEventListener('input', function(e){
+    if (e.isComposing) return;
+    var raw = qEl.value, clean = raw.replace(Q_BAD, '').slice(0, Q_MAX);
+    if (clean !== raw) {
+      var caret = qEl.selectionStart === null ? clean.length : qEl.selectionStart;
+      var kept = raw.slice(0, caret).replace(Q_BAD, '').length;
+      qEl.value = clean;
+      try { qEl.setSelectionRange(kept, kept); } catch (err) {}
+      qRefuse();
+    }
+    render();
+  });
+  qEl.addEventListener('compositionend', function(){
+    qEl.dispatchEvent(new Event('input', { bubbles: true }));
+  });
   tradEl.addEventListener('change', function(){ buildScope(); render(); });
   scopeEl.addEventListener('change', render);
   riteEl.addEventListener('change', render);

@@ -100,6 +100,23 @@ a:hover{color:var(--ochre)}
 .brand{padding:0 1.5rem 1.1rem;border-bottom:1px solid var(--panel-edge);margin-bottom:1.1rem}
 .brand h1{font-size:1.12rem;font-weight:600;margin:0 0 .2rem;letter-spacing:.01em}
 .brand p{margin:0;font-size:.82rem;color:var(--ink-faint);line-height:1.45}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+#q.rejected{border-color:var(--red);box-shadow:0 0 0 2px rgba(168,64,79,.28)}
+.namesw{display:flex;align-items:center;justify-content:center;gap:.5rem;margin:.6rem 0 0;
+  font-size:.78rem;cursor:pointer;user-select:none}
+.namesw input{position:absolute;opacity:0;width:0;height:0}
+.nsw-lbl{color:var(--ink-faint);letter-spacing:.02em;transition:color .18s ease}
+.namesw .nsw-rom{color:var(--ink)}                     /* Roman is the default position */
+.namesw input:checked ~ .nsw-rom{color:var(--ink-faint)}
+.namesw input:checked ~ .nsw-grk{color:var(--ink)}
+.nsw-track{position:relative;flex:none;width:34px;height:18px;border-radius:9px;
+  background:var(--ink-2);border:1px solid var(--panel-edge);transition:background .18s ease,border-color .18s ease}
+.nsw-knob{position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;
+  background:var(--ink-faint);transition:transform .18s ease,background .18s ease}
+.namesw input:checked + .nsw-rom + .nsw-track{border-color:var(--flame)}
+.namesw input:checked + .nsw-rom + .nsw-track .nsw-knob{transform:translateX(16px);background:var(--flame)}
+.namesw input:focus-visible + .nsw-rom + .nsw-track{outline:2px solid var(--ochre);outline-offset:2px}
+.grp li a .sub.rom{color:var(--ink-faint);font-style:italic}
 .searchbox{padding:0 1.5rem 1rem}
 #q{
   width:100%;padding:.55rem .7rem;
@@ -299,11 +316,20 @@ h3.sec{
 <div class="shell">
   <nav class="rail collapsed" id="rail">
     <div class="brand">
-      <h1>Pantheon</h1>
+      <h1>Gods, Demigods, Heroes, and Daemons</h1>
       <p>Bodily descriptions, epithets and attested prayers, with the source for each. Every deity tagged in the Fasti has an entry here.</p>
     </div>
     <div class="searchbox">
-      <input id="q" type="search" placeholder="Search name, epithet or domain" autocomplete="off" aria-label="Search">
+      <input id="q" type="search" placeholder="Search name, epithet or domain" autocomplete="off" aria-label="Search"
+             maxlength="60" pattern="[A-Za-z ]*" spellcheck="false" inputmode="text"
+             aria-describedby="qHint" title="Letters and spaces only">
+      <span id="qHint" class="sr-only" aria-live="polite"></span>
+      <label class="namesw" title="Show Roman or Greek names in the index">
+        <input type="checkbox" id="greekNames" role="switch" aria-label="Use Greek names">
+        <span class="nsw-lbl nsw-rom">Roman</span>
+        <span class="nsw-track" aria-hidden="true"><span class="nsw-knob"></span></span>
+        <span class="nsw-lbl nsw-grk">Greek</span>
+      </label>
     </div>
     <button class="railtoggle" id="railtoggle" aria-expanded="false">Show index</button>
     <p class="counts" id="counts"></p>
@@ -665,7 +691,8 @@ h3.sec{
         "Pausanias 5.11.1-9 (the Olympian Zeus of Pheidias, gold and ivory)",
         "Pliny, NH 33.111 and 35.157 (the red-painted face of the Capitoline image)"
       ]
-    }
+    },
+    "greek": "Zeus"
   },
   {
     "id": "juno",
@@ -811,7 +838,8 @@ h3.sec{
         "Homer, Iliad 1.551 and passim (βοῶπις, ox-eyed)",
         "Homer, Iliad 1.55 and passim (λευκώλενος, white-armed)"
       ]
-    }
+    },
+    "greek": "Hera"
   },
   {
     "id": "apollo",
@@ -1002,7 +1030,8 @@ h3.sec{
         "Euripides, Trojan Women 254 (golden-haired Apollo)",
         "Homeric Hymn 3, to Apollo, 134 and 182-206"
       ]
-    }
+    },
+    "greek": "Apollon"
   },
   {
     "id": "mithras",
@@ -1090,7 +1119,8 @@ h3.sec{
       "sources": [
         "Material: the tauroctony reliefs, several hundred surviving"
       ]
-    }
+    },
+    "greek": "Mithras"
   },
   {
     "id": "diana",
@@ -1240,7 +1270,8 @@ h3.sec{
         "Homer, Iliad 20.70 (χρυσηλάκατος)",
         "Homeric Hymn 27, to Artemis"
       ]
-    }
+    },
+    "greek": "Artemis"
   },
   {
     "id": "mars",
@@ -1388,7 +1419,8 @@ h3.sec{
         "Homer, Iliad 5.704, 5.859-863 (χάλκεος, and the fall covering seven plethra)",
         "Homer, Iliad 21.406-407"
       ]
-    }
+    },
+    "greek": "Ares"
   },
   {
     "id": "venus",
@@ -1526,7 +1558,8 @@ h3.sec{
         "Vergil, Aeneid 1.402-403 (rosy neck, ambrosial hair)",
         "Homeric Hymn 6, to Aphrodite, 5-13"
       ]
-    }
+    },
+    "greek": "Aphrodite"
   },
   {
     "id": "vulcan",
@@ -1623,7 +1656,8 @@ h3.sec{
         "Homer, Iliad 1.607 (ἀμφιγυήεις)",
         "Homer, Iliad 18.371 (κυλλοποδίων)"
       ]
-    }
+    },
+    "greek": "Hephaistos"
   },
   {
     "id": "ceres",
@@ -1760,7 +1794,8 @@ h3.sec{
         "Homeric Hymn to Demeter 275-280 (the yellow hair, the light, the fragrance)",
         "Homeric Hymn to Demeter 42 (κυανόπεπλος, dark-robed)"
       ]
-    }
+    },
+    "greek": "Demeter"
   },
   {
     "id": "vesta",
@@ -1853,7 +1888,8 @@ h3.sec{
       "sources": [
         "Ovid, Fasti 6.291-298"
       ]
-    }
+    },
+    "greek": "Hestia"
   },
   {
     "id": "mercury",
@@ -1980,7 +2016,8 @@ h3.sec{
         "Homer, Iliad 24.347-348 (the first down on the lip)",
         "Homeric Hymn 4, to Hermes"
       ]
-    }
+    },
+    "greek": "Hermes"
   },
   {
     "id": "neptune",
@@ -2076,7 +2113,8 @@ h3.sec{
         "Homeric Hymn 22, to Poseidon, 6",
         "Homer, Odyssey 9.536"
       ]
-    }
+    },
+    "greek": "Poseidon"
   },
   {
     "id": "minerva",
@@ -2207,7 +2245,8 @@ h3.sec{
         "Pausanias 1.14.6 (the ancient debate on the epithet)",
         "Material: painted marble Athena types from the Acropolis with traces of hair colour"
       ]
-    }
+    },
+    "greek": "Athena"
   },
   {
     "id": "pluto",
@@ -2309,7 +2348,8 @@ h3.sec{
       "sources": [
         "Homeric Hymn to Demeter 347 (κυανοχαῖτα, dark-haired Aidoneus)"
       ]
-    }
+    },
+    "greek": "Hades"
   },
   {
     "id": "liber",
@@ -2448,7 +2488,8 @@ h3.sec{
         "Euripides, Bacchae 235-236 (golden curls, wine-dark eyes), 353 (womanly form), 438 and 457-459 (white skin, long hair)",
         "Ovid, Metamorphoses 4.17-20 (unshorn youth)"
       ]
-    }
+    },
+    "greek": "Dionysos"
   },
   {
     "id": "persephone",
@@ -2545,7 +2586,8 @@ h3.sec{
       "sources": [
         "Homeric Hymn to Demeter 2, 77, 453"
       ]
-    }
+    },
+    "greek": "Persephone"
   },
   {
     "id": "ops",
@@ -2619,13 +2661,14 @@ h3.sec{
     "notes": "Ops and Cybele were both identified with Rhea and with the Great Mother, and Roman sources make that link themselves. Durga belongs to an unrelated tradition; a practitioner may make that identification devotionally, but it must not be presented as ancient.",
     "tags": [],
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greek": "Rhea"
   },
   {
     "id": "saturn",
@@ -2716,7 +2759,8 @@ h3.sec{
       "sources": [
         "Macrobius, Saturnalia 1.8.5"
       ]
-    }
+    },
+    "greek": "Kronos"
   },
   {
     "id": "terra",
@@ -2810,7 +2854,8 @@ h3.sec{
         "Homeric Hymn 30, to Earth",
         "Material: the Tellus panel of the Ara Pacis"
       ]
-    }
+    },
+    "greek": "Gaia"
   },
   {
     "id": "isis",
@@ -2909,7 +2954,8 @@ h3.sec{
         "Apuleius, Metamorphoses 11.3-4",
         "Material: Egyptian and Graeco-Roman images of Isis"
       ]
-    }
+    },
+    "greek": "Isis"
   },
   {
     "id": "vishnu",
@@ -3139,8 +3185,8 @@ h3.sec{
     },
     "tags": [],
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
@@ -3240,7 +3286,8 @@ h3.sec{
         "Pindar, Pythian 1.1-2 (violet-tressed Muses)",
         "Hesiod, Theogony 1-115"
       ]
-    }
+    },
+    "greek": "Mousai"
   },
   {
     "id": "furies",
@@ -3328,7 +3375,8 @@ h3.sec{
       "sources": [
         "Aeschylus, Eumenides 46-59"
       ]
-    }
+    },
+    "greek": "Erinyes"
   },
   {
     "id": "graces",
@@ -3414,7 +3462,8 @@ h3.sec{
         "Hesiod, Theogony 907-911",
         "Pausanias 9.35.1-7"
       ]
-    }
+    },
+    "greek": "Charites"
   },
   {
     "id": "hercules",
@@ -3519,7 +3568,8 @@ h3.sec{
         "Homeric Hymn 15",
         "Material: the Farnese Hercules and the standing Herakles types"
       ]
-    }
+    },
+    "greek": "Herakles"
   },
   {
     "id": "latona",
@@ -3610,7 +3660,8 @@ h3.sec{
       "sources": [
         "Homeric Hymn 3, to Apollo, 4 (κυανόπεπλος), 101, 178 (εὐπλόκαμος)"
       ]
-    }
+    },
+    "greek": "Leto"
   },
   {
     "id": "silvanus",
@@ -3827,7 +3878,8 @@ h3.sec{
       "sources": [
         "Homeric Hymn 5.256-272"
       ]
-    }
+    },
+    "greek": "Dryades"
   },
   {
     "id": "naiads",
@@ -3977,7 +4029,8 @@ h3.sec{
       "sources": [
         "Homer, Odyssey 13.102-112"
       ]
-    }
+    },
+    "greek": "Naiades"
   },
   {
     "id": "camenae",
@@ -4215,7 +4268,8 @@ h3.sec{
       "sources": [
         "Hesiod, Theogony 185-187"
       ]
-    }
+    },
+    "greek": "Meliai"
   },
   {
     "id": "genius-loci",
@@ -4389,7 +4443,8 @@ h3.sec{
       "sources": [
         "Material: the Tower of the Winds, Athens"
       ]
-    }
+    },
+    "greek": "Anemoi"
   },
   {
     "id": "justitia",
@@ -4474,7 +4529,8 @@ h3.sec{
       "sources": [
         "Hesiod, Works and Days 256-262"
       ]
-    }
+    },
+    "greek": "Dike"
   },
   {
     "id": "victoria",
@@ -4556,7 +4612,8 @@ h3.sec{
       "sources": [
         "Material: the Nike of Samothrace"
       ]
-    }
+    },
+    "greek": "Nike"
   },
   {
     "id": "fortuna",
@@ -4674,7 +4731,8 @@ h3.sec{
       "sources": [
         "Material: the Fortuna types on coinage"
       ]
-    }
+    },
+    "greek": "Tyche"
   },
   {
     "id": "other-personifications",
@@ -4806,8 +4864,8 @@ h3.sec{
     "notes": "This class is the direct link between Part I of the Liber Cultorum and the cult. Most of the twenty-one virtues on this path were gods at Rome with altars, festival days and coin types. Honouring them is not a modern ethical overlay on the religion; it is one of the oldest things in it.",
     "tags": [],
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
@@ -4903,7 +4961,8 @@ h3.sec{
       "sources": [
         "Material: the Epidauros and Roman Asklepios types"
       ]
-    }
+    },
+    "greek": "Asklepios"
   },
   {
     "id": "dioscuri",
@@ -4998,7 +5057,8 @@ h3.sec{
       "sources": [
         "Homeric Hymn 33"
       ]
-    }
+    },
+    "greek": "Dioskouroi"
   },
   {
     "id": "quirinus",
@@ -5164,7 +5224,8 @@ h3.sec{
       "sources": [
         "Homeric Hymn 19, to Pan, 5-6, 36-39"
       ]
-    }
+    },
+    "greek": "Pan"
   },
   {
     "id": "bellona",
@@ -5234,7 +5295,8 @@ h3.sec{
       "sources": [
         "Vergil, Aeneid 8.703"
       ]
-    }
+    },
+    "greek": "Enyo"
   },
   {
     "id": "carmentis",
@@ -5396,7 +5458,8 @@ h3.sec{
       "sources": [
         "Ovid, Fasti 5.183-378"
       ]
-    }
+    },
+    "greek": "Chloris"
   },
   {
     "id": "pales",
@@ -5697,7 +5760,8 @@ h3.sec{
       "sources": [
         "Material: the Cybele enthroned types"
       ]
-    }
+    },
+    "greek": "Kybele"
   },
   {
     "id": "attis",
@@ -5777,7 +5841,8 @@ h3.sec{
       "sources": [
         "Catullus 63"
       ]
-    }
+    },
+    "greek": "Attis"
   },
   {
     "id": "sol",
@@ -5872,7 +5937,8 @@ h3.sec{
       "sources": [
         "Homeric Hymn 31, to Helios, 9-14"
       ]
-    }
+    },
+    "greek": "Helios"
   },
   {
     "id": "luna",
@@ -5957,7 +6023,8 @@ h3.sec{
       "sources": [
         "Homeric Hymn 32, to Selene, 6-7, 17-18"
       ]
-    }
+    },
+    "greek": "Selene"
   },
   {
     "id": "genius",
@@ -6050,7 +6117,8 @@ h3.sec{
       "sources": [
         "Material: the Pompeian lararia"
       ]
-    }
+    },
+    "greek": "Daimon"
   },
   {
     "id": "manes",
@@ -6227,13 +6295,14 @@ h3.sec{
     "notes": "Among the twenty-one virtues of this path. Cicero explains the whole class at De Natura Deorum 2.79: these qualities were given temples so that people would understand that the things themselves are in their own souls.",
     "tags": [],
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greek": "Harmonia"
   },
   {
     "id": "fides",
@@ -6297,13 +6366,14 @@ h3.sec{
     "notes": "The natural companion of Mithras for oath-taking, and of the virtue of Truth. Note the related deity Semo Sancus Dius Fidius, under whose name oaths were sworn only under the open sky.",
     "tags": [],
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greek": "Pistis"
   },
   {
     "id": "salus",
@@ -6385,13 +6455,14 @@ h3.sec{
     "notes": "Salus governs the wellbeing of the whole body politic as much as of a person; the augurium salutis was a state rite, and its condition — that no Roman army be in the field — is a striking piece of religious design.",
     "tags": [],
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greek": "Hygieia"
   },
   {
     "id": "spes",
@@ -6458,13 +6529,14 @@ h3.sec{
     "notes": "One of the oldest personified cults at Rome, and among the few whose temple is securely located: the church of San Nicola in Carcere incorporates the remains of three temples in the Forum Holitorium, of which hers is one.",
     "tags": [],
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greek": "Elpis"
   },
   {
     "id": "pietas",
@@ -6538,13 +6610,14 @@ h3.sec{
     "notes": "The central Roman virtue and the first of the twenty-one on this path in practical weight. Strong religious feeling combined with neglected obligations is the exact failure this god names.",
     "tags": [],
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greek": "Eusebeia"
   },
   {
     "id": "honos",
@@ -6616,8 +6689,8 @@ h3.sec{
     "also": "",
     "tags": [],
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
@@ -6668,8 +6741,8 @@ h3.sec{
     "attributes": [],
     "prayers": [],
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
@@ -6716,8 +6789,8 @@ h3.sec{
     "attributes": [],
     "prayers": [],
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
@@ -6770,8 +6843,8 @@ h3.sec{
     "attributes": [],
     "prayers": [],
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
@@ -6825,8 +6898,8 @@ h3.sec{
     "attributes": [],
     "prayers": [],
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
@@ -6872,8 +6945,8 @@ h3.sec{
     "attributes": [],
     "prayers": [],
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
@@ -6924,8 +6997,8 @@ h3.sec{
     "attributes": [],
     "prayers": [],
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
@@ -6985,13 +7058,14 @@ h3.sec{
     "attributes": [],
     "prayers": [],
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greek": "Leukothea"
   },
   {
     "id": "carna",
@@ -7038,8 +7112,8 @@ h3.sec{
     "attributes": [],
     "prayers": [],
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
@@ -7092,8 +7166,8 @@ h3.sec{
     "attributes": [],
     "prayers": [],
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
@@ -7146,8 +7220,8 @@ h3.sec{
     "attributes": [],
     "prayers": [],
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
@@ -7204,13 +7278,14 @@ h3.sec{
     "attributes": [],
     "prayers": [],
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greek": "Maia"
   },
   {
     "id": "tiberinus",
@@ -7268,8 +7343,8 @@ h3.sec{
     "attributes": [],
     "prayers": [],
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
@@ -7314,8 +7389,8 @@ h3.sec{
     "attributes": [],
     "prayers": [],
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
@@ -7360,8 +7435,8 @@ h3.sec{
     "attributes": [],
     "prayers": [],
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
@@ -7414,8 +7489,8 @@ h3.sec{
     "attributes": [],
     "prayers": [],
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
@@ -7468,13 +7543,14 @@ h3.sec{
     "attributes": [],
     "prayers": [],
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greek": "Mnemosyne"
   },
   {
     "id": "eros",
@@ -7554,7 +7630,8 @@ h3.sec{
         "Aristophanes, Birds 697 (golden wings)",
         "Hesiod, Theogony 120-122"
       ]
-    }
+    },
+    "greek": "Eros"
   },
   {
     "id": "hebe",
@@ -7624,7 +7701,8 @@ h3.sec{
       "sources": [
         "Homer, Iliad 4.2-3"
       ]
-    }
+    },
+    "greek": "Hebe"
   },
   {
     "id": "eileithyia",
@@ -7694,7 +7772,8 @@ h3.sec{
       "sources": [
         "Homer, Iliad 11.269-272"
       ]
-    }
+    },
+    "greek": "Eileithyia"
   },
   {
     "id": "prometheus",
@@ -7755,7 +7834,8 @@ h3.sec{
       "sources": [
         "Hesiod, Theogony 507-616"
       ]
-    }
+    },
+    "greek": "Prometheus"
   },
   {
     "id": "osiris",
@@ -7829,7 +7909,8 @@ h3.sec{
         "Plutarch, De Iside et Osiride 33",
         "Material: Egyptian representation of Osiris"
       ]
-    }
+    },
+    "greek": "Osiris"
   },
   {
     "id": "bendis",
@@ -7890,7 +7971,8 @@ h3.sec{
       "sources": [
         "Material: the Piraeus reliefs of Bendis"
       ]
-    }
+    },
+    "greek": "Bendis"
   },
   {
     "id": "britomartis",
@@ -7957,7 +8039,8 @@ h3.sec{
       "sources": [
         "Callimachus, Hymn 3.189-205"
       ]
-    }
+    },
+    "greek": "Britomartis"
   },
   {
     "id": "trophonios",
@@ -8011,7 +8094,8 @@ h3.sec{
       "sources": [
         "Pausanias 9.39.5-14"
       ]
-    }
+    },
+    "greek": "Trophonios"
   },
   {
     "id": "theseus",
@@ -8077,7 +8161,8 @@ h3.sec{
       "sources": [
         "Plutarch, Theseus"
       ]
-    }
+    },
+    "greek": "Theseus"
   },
   {
     "id": "hyakinthos",
@@ -8129,7 +8214,8 @@ h3.sec{
       "sources": [
         "Pausanias 3.19.3-5"
       ]
-    }
+    },
+    "greek": "Hyakinthos"
   },
   {
     "id": "palaimon",
@@ -8193,7 +8279,8 @@ h3.sec{
       "sources": [
         "Pausanias 2.1.3"
       ]
-    }
+    },
+    "greek": "Palaimon"
   },
   {
     "id": "ajax",
@@ -8258,7 +8345,8 @@ h3.sec{
       "sources": [
         "Homer, Iliad 2.527-530, 3.226-229"
       ]
-    }
+    },
+    "greek": "Aias"
   },
   {
     "id": "iolaos",
@@ -8311,7 +8399,8 @@ h3.sec{
       "sources": [
         "Pausanias 9.23.1"
       ]
-    }
+    },
+    "greek": "Iolaos"
   },
   {
     "id": "asklepiadai",
@@ -8369,7 +8458,8 @@ h3.sec{
       "sources": [
         "Homer, Iliad 4.193-219"
       ]
-    }
+    },
+    "greek": "Asklepiadai"
   },
   {
     "id": "sosipolis",
@@ -8420,7 +8510,8 @@ h3.sec{
       "sources": [
         "Pausanias 6.20.2-6"
       ]
-    }
+    },
+    "greek": "Sosipolis"
   },
   {
     "id": "tlapolemos",
@@ -8471,7 +8562,8 @@ h3.sec{
       "sources": [
         "Homer, Iliad 2.653-670"
       ]
-    }
+    },
+    "greek": "Tlepolemos"
   },
   {
     "id": "panhellenic",
@@ -8538,13 +8630,14 @@ h3.sec{
       "the open clause"
     ],
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greek": "Theoi Pantes"
   },
   {
     "id": "bona-dea",
@@ -8620,8 +8713,8 @@ h3.sec{
     "offering": "Wine called milk, poured from a jar called a honey-pot; vine branches and every flower except myrtle; incense.",
     "notes": "The interior of this rite is genuinely unrecoverable, and the reason we know even this much is the scandal of 62 BCE, when Clodius entered the house in women's clothes and the resulting prosecution put the details on public record. The exclusion of myrtle, the vine branches and the renaming of the wine are the attested and usable elements.",
     "features": {
-      "hair": "Not given a colour in any surviving ancient text or image.",
-      "eyes": "Not given a colour in any surviving ancient text or image.",
+      "hair": "No color identified in any surviving ancient text.",
+      "eyes": "No color identified in any surviving ancient text.",
       "skin": null,
       "build": null,
       "conflict": null,
@@ -8699,7 +8792,20 @@ h3.sec{
     }
     return bits.join(' ').toLowerCase();
   }
-  D.forEach(function(d){ d._h = haystack(d); });
+  D.forEach(function(d){ d._h = haystack(d) + ' ' + (d.greek || '').toLowerCase(); });
+
+  /* Greek-name mode for the index, remembered between visits. */
+  var greekMode = false;
+  try { greekMode = localStorage.getItem('vpe.gods.greek') === '1'; } catch (e) {}
+  var greekEl = document.getElementById('greekNames');
+  if (greekEl) {
+    greekEl.checked = greekMode;
+    greekEl.addEventListener('change', function(){
+      greekMode = this.checked;
+      try { localStorage.setItem('vpe.gods.greek', greekMode ? '1' : '0'); } catch (e) {}
+      renderList(qEl.value);
+    });
+  }
 
   function currentId(){
     var h = decodeURIComponent(location.hash.replace(/^#\/?/, '')).toLowerCase();
@@ -8741,6 +8847,15 @@ h3.sec{
     }
   }
 
+  /* Which name heads each index entry. In Greek mode an entry with no Greek
+     counterpart keeps its own name and shows it plainly, rather than being hidden
+     or given a Greek name it never had. */
+  function listName(d){ return greekMode && d.greek ? d.greek : d.name; }
+  function listSub(d){
+    if (greekMode) return d.greek ? d.name : null;   /* Roman name underneath */
+    return d.also || null;
+  }
+
   function renderList(filter){
     var f = (filter || '').trim().toLowerCase();
     var shown = 0, html = '';
@@ -8749,11 +8864,17 @@ h3.sec{
         return d.category === g.key && (!f || d._h.indexOf(f) > -1);
       });
       if (!items.length) return;
+      /* re-sort on the name actually displayed, so the index stays alphabetical
+         whichever naming is in force */
+      items = items.slice().sort(function(a, b){
+        return listName(a).localeCompare(listName(b), 'en', { sensitivity: 'base' });
+      });
       shown += items.length;
       html += '<div class="grp"><h2>' + esc(g.label) + '</h2><ul>';
       items.forEach(function(d){
-        html += '<li><a href="#' + esc(d.id) + '" data-id="' + esc(d.id) + '">' + esc(d.name);
-        if (d.also) html += '<span class="sub">' + esc(d.also) + '</span>';
+        html += '<li><a href="#' + esc(d.id) + '" data-id="' + esc(d.id) + '">' + esc(listName(d));
+        var sub = listSub(d);
+        if (sub) html += '<span class="sub' + (greekMode ? ' rom' : '') + '">' + esc(sub) + '</span>';
         html += '</a></li>';
       });
       html += '</ul></div>';
@@ -8840,7 +8961,7 @@ h3.sec{
         h += '</div>';
       });
     } else {
-      h += '<p class="none">No prayer to this power survives. Nothing is supplied in its place.</p>';
+      h += '<p class="none">No prayer survives.</p>';
     }
 
     if (d.roster && d.roster.items && d.roster.items.length) {
@@ -8881,7 +9002,37 @@ h3.sec{
   /* ---------- events ---------- */
   window.addEventListener('hashchange', route);
 
-  qEl.addEventListener('input', function(){ renderList(qEl.value); });
+  /* Search box: A-Z, a-z and space only, to 60 characters. Typed characters are
+     refused before they land; paste, drag-and-drop, autofill and IME composition
+     are sanitised on the input event. */
+  var qHint = document.getElementById('qHint'), qTimer = null;
+  var Q_BAD = /[^A-Za-z ]/g, Q_MAX = 60;
+  function qRefuse(){
+    qEl.classList.add('rejected');
+    if (qHint) qHint.textContent = 'Only letters and spaces are allowed.';
+    clearTimeout(qTimer);
+    qTimer = setTimeout(function(){
+      qEl.classList.remove('rejected'); if (qHint) qHint.textContent = '';
+    }, 900);
+  }
+  qEl.addEventListener('beforeinput', function(e){
+    if (e.data && /[^A-Za-z ]/.test(e.data)) { e.preventDefault(); qRefuse(); }
+  });
+  qEl.addEventListener('input', function(e){
+    if (e.isComposing) return;
+    var raw = this.value, clean = raw.replace(Q_BAD, '').slice(0, Q_MAX);
+    if (clean !== raw) {
+      var caret = this.selectionStart === null ? clean.length : this.selectionStart;
+      var kept = raw.slice(0, caret).replace(Q_BAD, '').length;
+      this.value = clean;
+      try { this.setSelectionRange(kept, kept); } catch (err) {}
+      qRefuse();
+    }
+    renderList(clean);
+  });
+  qEl.addEventListener('compositionend', function(){
+    qEl.dispatchEvent(new Event('input', { bubbles: true }));
+  });
 
   toggle.addEventListener('click', function(){
     var open = rail.classList.toggle('collapsed') === false;
