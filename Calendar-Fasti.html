@@ -369,6 +369,9 @@ a{color:var(--verd)}
   color-scheme:dark}
 html[data-theme="day"] .modal-in{color-scheme:light}
 .modal-in::-webkit-calendar-picker-indicator{cursor:pointer}
+.modal-foot{display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  border-top:1px solid var(--line);padding-top:12px;margin-top:2px}
+.modal-foot .jump-note{font-family:var(--data);font-size:11px;color:var(--bone-dim)}
 
 /* ---------- footer & notes ---------- */
 .notes{max-width:1420px;margin:0 auto;padding:0 14px 60px}
@@ -1908,6 +1911,22 @@ function save() {
     }));
   } catch (e) {}
 }
+/* The palette is shared with every other page of the site, so it lives under the
+   common 'vpe.theme' key rather than inside this page's own settings. */
+function loadTheme() {
+  try {
+    var t = localStorage.getItem('vpe.theme');
+    if (t === 'night' || t === 'day') return t;
+  } catch (e) {}
+  return null;
+}
+function applyTheme(t) {
+  S.opts.theme = t;
+  document.documentElement.setAttribute('data-theme', t);
+}
+function saveTheme(t) {
+  try { localStorage.setItem('vpe.theme', t); } catch (e) {}
+}
 function load() {
   try {
     var raw = localStorage.getItem('vpe.Calendar-Fasti');
@@ -2381,6 +2400,10 @@ function openChecker() {
           '<input type="date" id="checkDateInput" class="modal-in" min="' + CFG.yearStart + '-01-01" max="' + CFG.yearEnd + '-12-31" value="' + defaultIso + '">' +
           '</div>' +
           '<div id="checkerResults"></div>' +
+          '<div class="modal-foot" id="checkerFoot" hidden>' +
+          '<button class="btn" id="jumpBtn">\u21b3 Go to this date</button>' +
+          '<span class="jump-note" id="jumpNote"></span>' +
+          '</div>' +
           '</div>';
 
   var scrim = document.createElement('div');
@@ -2392,6 +2415,8 @@ function openChecker() {
   document.body.appendChild(scrim);
   document.body.appendChild(modal);
 
+  var lastCheck = null;
+
   function runCheck() {
     var val = document.getElementById('checkDateInput').value;
     if (!val) return;
@@ -2399,6 +2424,7 @@ function openChecker() {
     var yy = parseInt(pts[0], 10), mm = parseInt(pts[1], 10), dd = parseInt(pts[2], 10);
     var dn = dayNoOf(yy, mm, dd);
     ensureWindow(yy);
+    lastCheck = { y: yy, m: mm, d: dd, dn: dn };
     var evalRes = evaluateSuitability(dn);
     var rLabel = romanDateLabel(yy, mm, dd);
 
@@ -2431,9 +2457,31 @@ function openChecker() {
            'Evaluated against the traditions currently enabled in the Filters panel.</p>';
 
     document.getElementById('checkerResults').innerHTML = out;
+
+    var foot = document.getElementById('checkerFoot'),
+        note = document.getElementById('jumpNote');
+    if (foot) {
+      foot.hidden = false;
+      var sameMonth = (yy === S.y && mm === S.m);
+      note.textContent = sameMonth
+        ? 'Already showing ' + GMONTH[mm - 1] + ' ' + yy + ' \u2014 this will select the day.'
+        : 'Currently showing ' + GMONTH[S.m - 1] + ' ' + S.y + '.';
+    }
   }
 
   document.getElementById('checkDateInput').addEventListener('change', runCheck);
+
+  /* Jump the calendar to the date just checked, select that day and open it. */
+  document.getElementById('jumpBtn').onclick = function () {
+    if (!lastCheck) return;
+    ensureWindow(lastCheck.y);
+    S.y = lastCheck.y; S.m = lastCheck.m; S.sel = lastCheck.dn;
+    render();
+    scrim.remove(); modal.remove();          /* close the checker */
+    var cell = document.querySelector('[data-day="' + lastCheck.dn + '"]');
+    if (cell && cell.scrollIntoView) cell.scrollIntoView({ block: 'center' });
+    openDay(lastCheck.dn);
+  };
   scrim.onclick = function() { scrim.remove(); modal.remove(); };
   document.getElementById('closeChecker').onclick = function() { scrim.remove(); modal.remove(); };
   runCheck();
@@ -2636,7 +2684,7 @@ function boot() {
   S.y = y; S.m = m;
   ensureWindow(y);
 
-  document.documentElement.setAttribute('data-theme', S.opts.theme);
+  applyTheme(loadTheme() || S.opts.theme || 'night');
   ['moon','roman','noum','monthly','approx','undated'].forEach(function (k) {
     document.getElementById('opt' + k[0].toUpperCase() + k.slice(1)).checked = S.opts[k];
   });
@@ -2687,13 +2735,20 @@ function boot() {
   document.getElementById('exportIcsBtn').onclick = exportMonthICS;
 
   function toggleTheme() {
-    S.opts.theme = S.opts.theme === 'night' ? 'day' : 'night';
-    document.documentElement.setAttribute('data-theme', S.opts.theme); save();
+    applyTheme(S.opts.theme === 'night' ? 'day' : 'night');
+    saveTheme(S.opts.theme); save();
   }
   var themeOld = document.getElementById('theme');
   if (themeOld) themeOld.onclick = toggleTheme;
   var themeNav = document.getElementById('themeBtn');
   if (themeNav) themeNav.onclick = toggleTheme;
+
+  /* Another page of the site changed the palette: follow it. */
+  window.addEventListener('storage', function (e) {
+    if (e.key === 'vpe.theme' && (e.newValue === 'night' || e.newValue === 'day')) {
+      applyTheme(e.newValue); save();
+    }
+  });
 
   /* mobile navigation toggle, as index.html */
   var navToggle = document.getElementById('navToggle'), navMenu = document.getElementById('navMenu');
