@@ -344,6 +344,27 @@ a{color:var(--verd)}
   display:flex;flex-direction:column;gap:4px;
 }
 .status-box.fas{background:rgba(79,160,140,0.15);border:1px solid var(--verd);color:var(--bone)}
+.wbadge{font-family:var(--data);font-size:9px;line-height:1;padding:2px 3px;border-radius:3px;border:1px solid;letter-spacing:.02em}
+.wbadge.w-rest{color:var(--red);border-color:var(--red);background:rgba(168,64,79,.14)}
+.wbadge.w-let{color:var(--bone-dim);border-color:var(--line);background:transparent;opacity:.75}
+.worklegend b{font-family:var(--data);color:var(--bone);margin-right:3px}
+.worklegend .l-rest b{color:var(--red)}
+.wlet{font-family:var(--data);color:var(--flame);margin-right:4px}
+.chartab{width:100%;border-collapse:collapse;margin:8px 0 4px;font-size:12.5px}
+.chartab th,.chartab td{text-align:left;vertical-align:top;padding:5px 8px;border-bottom:1px solid var(--line)}
+.chartab th{font-family:var(--data);color:var(--flame);white-space:nowrap;width:4.5rem}
+.chartab td em{color:var(--bone)}
+.worklegend{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 8px;font-family:var(--data);font-size:10.5px;color:var(--bone-dim)}
+.worklegend span{display:inline-flex;align-items:center;gap:5px}
+.worklegend i{width:9px;height:9px;border-radius:2px;border:1px solid;font-style:normal}
+.worklegend .l-rest i{border-color:var(--red);background:rgba(168,64,79,.18)}
+.workbox{border:1px solid var(--line);border-left:3px solid var(--line);border-radius:4px;padding:9px 12px;margin:0 0 10px;background:var(--ink-1)}
+.workbox.w-rest{border-left-color:var(--red)}
+.workbox b{display:block;font-family:var(--display);font-size:12.5px;letter-spacing:.06em;margin-bottom:3px}
+.workbox.w-rest b{color:var(--red)}
+.workbox.w-open b{color:var(--verd)}
+.workbox .wline{display:block;font-size:12px;color:var(--bone-dim);line-height:1.5}
+.workbox .wterm{font-family:var(--data);font-size:10.5px;color:var(--bone-dim)}
 .status-box.muted{border-color:var(--line);background:rgba(155,163,181,.10)}
 .status-box.muted b{color:var(--bone-dim)}
 .status-box.nefas{background:rgba(168,64,79,0.18);border:1px solid var(--porph);color:var(--bone)}
@@ -569,6 +590,7 @@ a.god.god-go .n{opacity:.7}
         <label class="opt"><input type="checkbox" id="optMonthly" checked> Kalends, Nones &amp; Ides</label>
         <label class="opt"><input type="checkbox" id="optApprox" checked> Days argued, not certain</label>
         <label class="opt"><input type="checkbox" id="optUndated" checked> Undated festivals band</label>
+        <label class="opt"><input type="checkbox" id="optWork" checked> Mark working &amp; rest days</label>
         <label class="opt">Greek month begins
           <select id="optOffset">
             <option value="solon" selected>Solon: day after the old-and-new</option>
@@ -630,6 +652,59 @@ a.god.god-go .n{opacity:.7}
         quarter is named only on the one day, in your own time zone, that contains its exact moment; the
         days between carry the intermediate names. The lit fraction is the true value at your local noon.
         Sun and moon positions are from Meeus chapters 25 and 47, good to about a hundredth of a degree.</p>
+      <h4>The letters on each day &mdash; the Roman day-character</h4>
+      <p>Every day of the Republican and early Imperial calendar carried a letter fixing what
+        could lawfully be done on it. These letters govern <b>legal and public business</b>, not
+        manual labour: on a <em>dies nefastus</em> the courts were shut, but the fields were worked
+        and the shops were open. Only the feriae, marked <b>NP</b>, actually set work aside.</p>
+      <table class="chartab">
+        <tr><th>F</th><td><em>dies fastus</em> &mdash; court day. Legal business may be initiated;
+          the praetor may speak the three words <em>do, dico, addico</em>. Work unrestricted.</td></tr>
+        <tr><th>C</th><td><em>dies comitialis</em> &mdash; assembly day. The people may be convened
+          to vote, and the courts may also sit. The commonest letter in the year. Work unrestricted.</td></tr>
+        <tr><th>N</th><td><em>dies nefastus</em> &mdash; no legal or public business: the courts are
+          shut and the assemblies may not vote. <b>Not a rest day.</b> This is the term most often
+          misread as forbidding work.</td></tr>
+        <tr><th>NP</th><td><em>dies festus</em>, a day of <em>feriae publicae</em> &mdash; a public
+          holiday. Work is set aside except what necessity requires. The expansion of NP is still
+          disputed; the days it marks are not. These are the only days on which Roman religion
+          restricted labour.</td></tr>
+        <tr><th>EN</th><td><em>dies endotercisus</em> (archaic for <em>intercisus</em>, &ldquo;cut in
+          half&rdquo;) &mdash; <em>nefastus</em> in the morning while the victim is prepared, and again
+          in the evening while it is offered, but <em>fastus</em> in the middle of the day.
+          Eight days in the year.</td></tr>
+        <tr><th>QRCF</th><td><em>quando rex comitiavit fas</em> &mdash; lawful once the
+          <em>rex sacrorum</em> has called the assembly. Two days only: 24 March and 24 May.</td></tr>
+        <tr><th>QSDF</th><td><em>quando stercus delatum fas</em> &mdash; lawful once the sweepings have
+          been carried out of the Temple of Vesta. One day only: 15 June (Varro, <em>LL</em> 6.32).</td></tr>
+        <tr><th>&mdash;</th><td>No traditional letter: a day added to its month by the Julian reform
+          of 46 BC. Three such days fall in the year (30 and 31 January, 30 November).</td></tr>
+      </table>
+      <p>Some days carry the further note <em>dies religiosus</em>, on which nothing new was to be
+        begun. The rule for what remained lawful on the feriae is Scaevola's: <em>quod praetermissum
+        noceret</em>, whatever would do harm if left undone &mdash; haul the ox from the pit, prop the
+        falling house (Macrobius, <em>Saturnalia</em> 1.16.11). Umbro allowed work
+        <em>ad urgentem vitae utilitatem</em>, for the pressing needs of life (1.16.10), and Vergil
+        (<em>Georgics</em> 1.268&ndash;275) and Columella (2.21) list the farm work that stays
+        lawful: divert a stream, fence a crop, trap birds, burn brambles, dip sheep.</p>
+      <p><b>Source.</b> The letters follow H. H. Scullard, <em>Festivals and Ceremonies of the Roman
+        Republic</em> (1981), tabulated month by month, and ultimately Degrassi,
+        <em>Inscriptiones Italiae</em> XIII.2. Across the year they fall out as 201 C, 58 N, 50 NP,
+        42 F, 8 EN, 2 QRCF, 1 QSDF and 3 unlettered &mdash; so N and NP together bar public business
+        on 108 days, the figure usually quoted for the Republican year.</p>
+      <p><b>The letter and the wedding verdict answer different questions.</b> The letter says what
+        could lawfully be <em>done</em> on the day &mdash; whether the courts sat, and whether work was
+        set aside. The suitability verdict says whether the day was a good one to <em>marry</em>, and
+        that rests on a different body of evidence: Ovid and Plutarch on the Kalends, Nones and Ides,
+        on the whole of May, on early June and on the Parentalia; Ovid again (<em>Fasti</em>
+        3.393&ndash;398) on the days the Salii carried the sacred shields. So the two readings diverge
+        by design. A <b>C</b> day &mdash; courts open, work unrestricted &mdash; can still be a poor day
+        for a wedding, and the Kalends are the clearest case: lawful for business, inauspicious for
+        marriage. Every <b>NP</b> day, by contrast, bars a wedding, since on the feriae a virgin was
+        not to marry (Macrobius, <em>Saturnalia</em> 1.15.21).</p>
+      <p><b>Athens had no such system.</b> Greek festival days closed the courts and the Assembly,
+        but no Athenian text forbids a potter or a farmer to work on them, so no Greek day is marked
+        here as a day of rest.</p>
       <h4>Games that do not fall every year</h4>
       <p>The Olympia, the Pythia, the Isthmia, the Nemea and a number of others ran on cycles of two,
         four, five, seven, eight, sixty or a hundred and ten years. They appear only in the years they
@@ -1167,12 +1242,12 @@ var ROMAN = [
   { m:2,  d:22, n:'Caristia / Cara Cognatio — the family meal of reconciliation', g:['lares','genius'], note:'Family reunion feast of reconciliation and harmony; disputes forgiven before the household Lares.' },
   { m:2,  d:23, n:'Terminalia', g:['terminus'], note:'Festival of boundary stones (Terminus); neighbors gather at property borders to garland markers and share a common feast.' },
   { m:2,  d:24, n:'Regifugium', g:['janus'], note:'Commemorates the ancient expulsion of the tyrannical Tarquin monarchy and the birth of the Roman Republic.' },
-  { m:2,  d:27, n:'Equirria', g:['mars'], note:'Chariot and horse races on the Campus Martius to train cavalry and consecrate war mounts to Mars.' , wed:1},
+  { m:2,  d:27, n:'Equirria', g:['mars'], note:'Chariot and horse races on the Campus Martius to train cavalry and consecrate war mounts to Mars. Marked NP in the fasti: feriae of Mars, not merely games.'},
   { m:3,  d:1,  n:'Matronalia; old New Year; the sacred fire renewed', g:['juno','mars','vesta'], note:'Mothers celebrated in honor of Juno Lucina; wives receive gifts, husbands pray for domestic preservation, and Vesta\'s perpetual flame is renewed.' },
   { m:3,  d:5,  n:'Navigium Isidis — opening of the seas', g:['isis','neptune'], note:'Major festival of Isis Pelagia celebrating the reopening of navigation; an elaborately decorated votive ship (carrus navalis) carrying spices and flowers is launched into the sea.' },
   { m:3,  d:7,  n:'Vediovis', g:['jupiter'], note:'Sacrifices to the archaic youth-god Vediovis (the youthful or chthonic Jupiter) to avert misfortune.' , wed:1},
   { m:3,  d:9,  n:'Ancilia moved by the Salii', g:['mars'], note:'The leaping priests of Mars (Salii) carry the twelve sacred bronze Ancilia shields through Rome in ritual dance.' },
-  { m:3,  d:14, n:'Equirria; Mamuralia', g:['mars'], note:'Second horse races of Mars; ritual driving out of the scapegoat figure Mamurius Veturius (the old year).' , wed:1},
+  { m:3,  d:14, n:'Equirria; Mamuralia', g:['mars'], note:'Second horse races of Mars; ritual driving out of the scapegoat figure Mamurius Veturius (the old year). Marked NP in the fasti: feriae of Mars, not merely games.'},
   { m:3,  d:15, n:'Anna Perenna; Idus Martiae', g:['anna','jupiter'], note:'Joyous riverside picnic festival celebrating the circle of the year, longevity, and renewal.' },
   { m:3,  d:15, n:'Canna intrat — Magna Mater cycle begins', g:['magnamater','attis'], span:1, note:'Procession of reed-bearers opening the springtime mystery rites of Magna Mater (Cybele) and Attis.' },
   { m:3,  d:16, n:'Argei procession (first)', g:['manes'], note:'Sacred procession visiting the 27 archaic chapels (sacraria) across the four traditional regions of Rome.' },
@@ -1901,7 +1976,7 @@ var GMONTH = ['January','February','March','April','May','June','July','August',
 var S = {
   enabled: {}, gods: {}, q: '', view: 'grid',
   y: 0, m: 0, sel: null,
-  opts: { moon:true, roman:true, noum:true, monthly:true, approx:true, undated:true, rule:'solon', greekNames:false, theme:'night' }
+  opts: { moon:true, roman:true, noum:true, monthly:true, approx:true, undated:true, work:true, rule:'solon', greekNames:false, theme:'night' }
 };
 
 function save() {
@@ -2126,6 +2201,153 @@ function exportMonthICS() {
   URL.revokeObjectURL(url);
 }
 
+/* The day-letters of the Roman fasti, in the Julian arrangement.
+   Source: H. H. Scullard, Festivals and Ceremonies of the Roman Republic (1981),
+   tabulated month by month; ultimately Degrassi, Inscriptiones Italiae XIII.2.
+   A trailing R marks a day also noted dies religiosus. An empty string is a day
+   added by the Julian reform, which carries no traditional letter. */
+var DAYCHAR = {
+  1:['F','F','C','C','F','F','C','C','NP','EN','NP','C','NP','EN','NP','C','C','C','C','C','C','C','C','C','C','C','C','C','C','',''],
+  2:['N','N','N','N','N','N','N','N','N','N','N','N','NPR','N','NPR','EN','NPR','C','C','C','FR','C','NP','N','C','EN','NP','C'],
+  3:['NP','F','C','C','C','C','F','F','C','C','C','C','EN','NP','NP','F','NP','C','NP','C','C','N','NP','QRCF','C','C','C','C','C','C','C'],
+  4:['F','F','C','C','N','N','N','N','N','N','N','N','NP','N','NP','N','N','N','NP','N','NP','N','F','C','NP','C','C','C','C','C'],
+  5:['F','F','C','C','C','C','F','F','NR','C','NR','C','NR','C','NP','F','C','C','C','C','NP','N','NP','QRCF','C','C','C','C','C','C','C'],
+  6:['N','F','C','C','N','N','NR','NR','NR','N','NPR','N','NPR','N','QSDF','C','C','C','C','C','C','C','C','C','C','C','C','C','C','C'],
+  7:['N','N','N','N','NP','N','N','NR','N','C','C','C','C','C','NP','F','C','CR','NP','C','NP','C','NP','N','NP','C','C','C','C','C','C'],
+  8:['F','F','C','C','F','F','C','C','C','C','C','C','NP','F','C','C','NP','C','F','C','NP','EN','NP','CR','NP','C','NP','C','C','C','C'],
+  9:['F','F','C','C','F','F','C','C','C','C','C','N','NP','FR','N','C','C','N','C','C','C','C','C','C','C','C','C','C','C','C'],
+  10:['N','F','C','C','CR','C','F','F','C','C','NP','C','NP','EN','NP','F','C','C','NPR','C','C','C','C','C','C','C','C','C','C','C','C'],
+  11:['F','F','C','C','F','F','C','C','C','C','C','C','NP','FR','C','C','C','C','C','C','C','C','C','C','C','C','C','C','C',''],
+  12:['N','N','N','C','F','F','C','C','C','C','NP','EN','NP','F','NP','C','NP','C','NP','C','NP','C','NP','C','C','C','C','C','C','C','C']
+};
+var CHARDEF = {
+  F:    ['dies fastus', 'Court day. Legal business may be initiated; the praetor may speak the three words. Work is unrestricted.'],
+  C:    ['dies comitialis', 'Assembly day. The people may be convened to vote, and the courts may also sit. Work is unrestricted.'],
+  N:    ['dies nefastus', 'No legal or public business: the courts are shut and the assemblies may not vote. This is NOT a day of rest — fields, workshops and shops carried on as usual.'],
+  NP:   ['dies festus (feriae publicae)', 'A public holiday. Work is set aside except what necessity requires. These are the only days on which Roman religion actually restricted labour.'],
+  EN:   ['dies endotercisus', 'A day cut in half: nefastus in the morning while the victim is prepared, and again in the evening while it is offered, but fastus in the middle of the day.'],
+  QRCF: ['quando rex comitiavit fas', 'Lawful once the rex sacrorum has called the assembly — 24 March and 24 May only.'],
+  QSDF: ['quando stercus delatum fas', 'Lawful once the sweepings have been carried out of the Temple of Vesta — 15 June only.'],
+  '':   ['no traditional letter', 'A day added to the month by the Julian reform of 46 BC; the old fasti give it no letter.']
+};
+function charOf(y, m, d) {
+  var row = DAYCHAR[m]; if (!row) return null;
+  var v = row[d - 1]; if (v === undefined) return null;
+  var religiosus = /R$/.test(v) && v !== 'QRCF';
+  return { letter: religiosus ? v.slice(0, -1) : v, religiosus: religiosus };
+}
+
+/* ---------- day character: may work be done? ----------
+   Rome is the only one of the two traditions that restricted WORK. The familiar
+   letters of the inscribed fasti - F, C, N, NP, EN - govern LEGAL and PUBLIC
+   business, not manual labour: on a dies nefastus the courts were shut but the
+   fields were worked. What stopped work was the feriae, marked NP, and even then
+   the pontiffs allowed whatever necessity required.
+
+     Macrobius, Sat. 1.16.9: "the priests affirmed that the feriae were polluted
+       if, once they had been proclaimed, any work was done."
+     Macrobius, Sat. 1.16.10 (Umbro): no pollution for one "who did work bearing
+       on the gods or for the sake of the rites, or with a view to the pressing
+       needs of life" (ad urgentem vitae utilitatem).
+     Macrobius, Sat. 1.16.11: Scaevola, asked what might be done on the feriae,
+       answered - "quod praetermissum noceret", whatever would do harm if left
+       undone; the ox fallen in the pit may be hauled out, the falling house propped.
+     Vergil, Georgics 1.268-275 and Columella 2.21 list the farm work that remains
+       lawful: divert a stream, fence a crop, trap birds, burn brambles, dip sheep.
+     Cicero, de Legibus 2.8.19-22: on feriae free men rest from lawsuits and
+       quarrels, and slaves rest from labour.
+
+   Athens had no comparable prohibition. Festival days closed the courts and the
+   Assembly, but no Athenian text forbids a potter or a farmer to work on them, so
+   Greek days are never counted here as days of rest - only as days when public
+   business stopped.
+   ------------------------------------------------------------------ */
+var WORK = {
+  open:    { key:'open',    tier:1, label:'Working day',          sub:'All work and public business' },
+  partial: { key:'partial', tier:2, label:'Working, part barred', sub:'Work permitted; some business suspended' },
+  rest:    { key:'rest',    tier:3, label:'Feriae',               sub:'Only work that necessity requires' }
+};
+
+function romanDayChar(dn) {
+  var t = ymdOf(dn);
+  var ch = charOf(t.y, t.m, t.d) || { letter: '', religiosus: false };
+  var def = CHARDEF[ch.letter] || CHARDEF[''];
+  var feriae = [], observed = [];
+  (INDEX[dn] ? INDEX[dn].fests : []).forEach(function (f) {
+    if (f.sys !== 'roman' || f.isMarker || f.monthly) return;
+    (f.wed ? observed : feriae).push(f.name);
+  });
+  /* Only NP - the feriae publicae - set work aside. F, C, N, EN and the two
+     special formulae all govern legal and public business, not labour. */
+  return {
+    st: ch.letter === 'NP' ? WORK.rest : WORK.open,
+    letter: ch.letter, religiosus: ch.religiosus,
+    term: def[0], gloss: def[1],
+    why: feriae, observed: observed
+  };
+}
+
+function greekDayChar(dn) {
+  var fest = [], monthly = [];
+  (INDEX[dn] ? INDEX[dn].fests : []).forEach(function (f) {
+    if (f.sys === 'roman' || f.isMarker || !S.enabled[f.sys]) return;
+    (f.monthly ? monthly : fest).push(f.name);
+  });
+  if (fest.length)    return { st: WORK.partial, why: fest,
+                               term: 'festival day - courts and Assembly did not sit', monthly: monthly };
+  if (monthly.length) return { st: WORK.partial, why: monthly,
+                               term: 'monthly sacred day - the Assembly did not meet', monthly: monthly };
+  return { st: WORK.open, why: [], term: 'ordinary day', monthly: [] };
+}
+
+/* The day's character across the traditions the user has enabled. The strictest
+   verdict wins, and a tradition that is switched off contributes nothing. */
+function dayWork(dn) {
+  var romanOn = !!S.enabled['roman'];
+  var greekOn = SYSTEMS.some(function (s) { return s.greek && S.enabled[s.id]; });
+  var r = romanOn ? romanDayChar(dn) : null;
+  var g = greekOn ? greekDayChar(dn) : null;
+  var tier = Math.max(r ? r.st.tier : 0, g ? g.st.tier : 0);
+  var st = tier === 3 ? WORK.rest : tier === 2 ? WORK.partial : WORK.open;
+  return { roman: r, greek: g, st: (romanOn || greekOn) ? st : null, tier: tier };
+}
+
+/* A readable account of the day's working character, for the drawer and the checker. */
+function workPanel(dn) {
+  var w = dayWork(dn);
+  if (!w.st) return '';
+  /* Two states only: a day of feriae, or a working day. The finer gradations stay
+     in the per-tradition lines below rather than in a heading of their own. */
+  var head = w.tier === 3 ? WORK.rest : WORK.open;
+  var o = '<div class="workbox w-' + head.key + '"><b>' + esc(head.label) + '</b>';
+  o += '<span class="wline">' + esc(head.sub) + '</span>';
+  if (w.roman) {
+    var r = w.roman;
+    var line = 'Rome: <b class="wlet">' + esc(r.letter || '—') + '</b> <span class="wterm">' +
+               esc(r.term) + '</span>' + (r.religiosus ? ' <span class="wterm">+ dies religiosus</span>' : '') +
+               ' &mdash; ' + r.gloss;
+    if (r.letter === 'NP') {
+      line += ' Scaevola\'s rule for the feriae was <em>quod praetermissum noceret</em>, whatever ' +
+              'would do harm if left undone (Macrobius, <em>Sat.</em> 1.16.11): crops and livestock may be tended.';
+    }
+    if (r.religiosus) {
+      line += ' On a dies religiosus nothing new is begun.';
+    }
+    if (r.why.length)      line += ' Feriae here: ' + esc(r.why.join('; ')) + '.';
+    if (r.observed.length) line += ' Also observed: ' + esc(r.observed.join('; ')) + '.';
+    o += '<span class="wline">' + line + '</span>';
+  }
+  if (w.greek) {
+    var g = w.greek, gl = 'Greece: <span class="wterm">' + esc(g.term) + '</span>';
+    gl += g.st.key === 'open'
+      ? ' &mdash; courts and Assembly may sit.'
+      : ' &mdash; ' + esc(g.why.slice(0, 4).join('; ')) +
+        '. No Athenian law forbade labour on such a day; it is public business that stops.';
+    o += '<span class="wline">' + gl + '</span>';
+  }
+  return o + '</div>';
+}
+
 /* ---------- filtering ---------- */
 function anyGods() { for (var k in S.gods) if (S.gods[k]) return true; return false; }
 function matchQ(f) {
@@ -2304,7 +2526,11 @@ function renderGrid() {
   var start = first - lead, total = Math.ceil((lead + dim) / 7) * 7;
   var non = nonesOf(S.m), ide = idesOf(S.m);
 
-  var h = '<div class="grid-head">';
+  var h = (S.opts.work ? '<div class="worklegend">' +
+       '<span class="l-rest"><b>NP</b> feriae &mdash; only work necessity requires</span>' +
+       '<span class="l-let"><b>F C N EN</b> business days &mdash; work unrestricted</span>' +
+       '<span class="l-let">full table in <em>Sources and cautions</em>, below</span>' +
+       '</div>' : '') + '<div class="grid-head">';
   WEEK.forEach(function (w) {
     h += '<div><abbr title="' + w[1] + '" style="text-decoration:none">' + w[0] + '</abbr></div>';
   });
@@ -2319,6 +2545,7 @@ function renderGrid() {
     var n = fs.length + nm.length;
     var isProminent = inRange && (t.d === 1 || t.d === non || t.d === ide);
 
+    var wk = inRange ? dayWork(dn) : null;
     h += '<div class="cell' + (out ? ' out' : '') + (isToday(dn) ? ' today' : '') +
          (S.sel === dn ? ' sel' : '') + '" data-day="' + dn + '" role="button" tabindex="0"' +
          ' aria-label="' + t.d + ' ' + GMONTH[t.m - 1] + ' ' + t.y +
@@ -2327,6 +2554,10 @@ function renderGrid() {
          (S.opts.roman && inRange ? '<span class="rdate' + (isProminent ? ' prominent' : '') + '">' + esc(romanDateLabel(t.y, t.m, t.d)) + '</span>' : '') +
          '</span><span style="display:flex;align-items:center;gap:4px">' +
          (n > 3 ? '<span class="ncount" title="' + n + ' entries — scroll within the day">' + n + '</span>' : '') +
+         (S.opts.work && wk && wk.roman && wk.roman.letter ?
+            '<span class="wbadge' + (wk.roman.letter === 'NP' ? ' w-rest' : ' w-let') + '" title="' +
+            esc(wk.roman.letter + ' — ' + wk.roman.term + (wk.roman.religiosus ? ' (dies religiosus)' : '')) +
+            '">' + esc(wk.roman.letter) + '</span>' : '') +
          (S.opts.moon && mo ? moonSVG(15, mo.illum, mo.waxing) : '') + '</span></span>';
 
     if (n) {
@@ -2431,7 +2662,7 @@ function openChecker() {
     var out = '<div class="status-box ' + evalRes.statusClass + '">' +
               '<b>' + evalRes.verdict + '</b>' +
               '<span>' + dd + ' ' + GMONTH[mm - 1] + ' ' + yy + ' &middot; <em>' + esc(rLabel) + '</em></span>' +
-              '</div>';
+              '</div>' + workPanel(dn);
 
     if (!evalRes.anyOn) {
       out += '<p style="font-size:13.5px;color:var(--bone-dim);margin:0">No tradition is enabled in the filters, so there is no rule to evaluate this date against. Enable at least one tradition in the Filters panel.</p>';
@@ -2508,6 +2739,8 @@ function openDay(dn) {
 
   h += '<div class="drawer-body">';
   
+  if (S.opts.work) h += workPanel(dn);
+
   // Ritual Status Header
   var boxMsg;
   if (!evalRes.anyOn) {
@@ -2685,7 +2918,7 @@ function boot() {
   ensureWindow(y);
 
   applyTheme(loadTheme() || S.opts.theme || 'night');
-  ['moon','roman','noum','monthly','approx','undated'].forEach(function (k) {
+  ['moon','roman','noum','monthly','approx','undated','work'].forEach(function (k) {
     document.getElementById('opt' + k[0].toUpperCase() + k.slice(1)).checked = S.opts[k];
   });
   document.getElementById('optOffset').value = S.opts.rule;
@@ -2819,7 +3052,7 @@ function boot() {
   }
   document.getElementById('godClear').onclick = function () { S.gods = {}; save(); render(); };
 
-  ['moon','roman','noum','monthly','approx','undated'].forEach(function (k) {
+  ['moon','roman','noum','monthly','approx','undated','work'].forEach(function (k) {
     document.getElementById('opt' + k[0].toUpperCase() + k.slice(1)).onchange = function () {
       S.opts[k] = this.checked; save(); render();
     };
