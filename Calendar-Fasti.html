@@ -702,6 +702,12 @@ a.god.god-go .n{opacity:.7}
         for a wedding, and the Kalends are the clearest case: lawful for business, inauspicious for
         marriage. Every <b>NP</b> day, by contrast, bars a wedding, since on the feriae a virgin was
         not to marry (Macrobius, <em>Saturnalia</em> 1.15.21).</p>
+      <p><b>The marriage check is Roman only.</b> No Greek source forbids a wedding on a festival day,
+        so Greek festivals are listed in the checker as observed but never count against a date. Greek
+        custom expressed preferences rather than prohibitions: Athenians favoured the winter month
+        Gamelion, named for weddings (Aristotle, <em>Politics</em> 1335a36&ndash;38); Hesiod advises
+        bringing a bride home on the fourth of the month (<em>Works and Days</em> 800); and Euripides
+        has a wedding set for the full moon (<em>Iphigenia at Aulis</em> 716&ndash;717).</p>
       <p><b>Athens had no such system.</b> Greek festival days closed the courts and the Assembly,
         but no Athenian text forbids a potter or a farmer to work on them, so no Greek day is marked
         here as a day of rest.</p>
@@ -1268,7 +1274,7 @@ var ROMAN = [
   { m:4,  d:23, n:'Vinalia Priora', g:['jupiter','venus'], note:'Tasting and blessing of the previous autumn\'s vintage wine, consecrated to Jupiter and Venus.' },
   { m:4,  d:24, n:'Feriae Latinae', g:['jupiter'], span:4, movable:true, window:'announced by the consuls, usually in spring', note:'The oldest common festival of the Latin name, announced each year by the consuls before they left for their provinces and held on the Alban Mount: a pure white heifer sacrificed to Iuppiter Latiaris, the flesh shared among the delegates of the Latin cities, and a truce kept for its duration. Movable by nature — no fixed day exists; placed here by convention in late April.' },
   { m:4,  d:25, n:'Robigalia', g:['robigus','mars'], note:'Procession to the sacred grove of Robigo to offer prayers against wheat rust and mildew before the summer heat.' },
-  { m:4,  d:28, n:'Floralia (Ludi Florales)', g:['flora'], span:6, note:'Joyous floral festival honoring Flora; theater, dancing, scattering of beans, and release of hares.' },
+  { m:4,  d:28, n:'Ludi Florales', g:['flora'], span:6, anchor:'floralia-ludi-florales', wed:1, note:'Games for Flora: theater, dancing, scattering of beans, and release of hares. Lettered C in the fasti, not NP: a festival of games rather than feriae, so it carries no marriage bar.' },
   { m:5,  d:1,  n:'Lares Praestites; Bona Dea; Maia', g:['lares','bonadea','maia'], note:'Spring offerings to the guardian spirits of the state, secret women\'s rites of Bona Dea, and sacrifices to Maia.' },
   { m:5,  d:9,  n:'Lemuria (first)', g:['manes'], note:'Midnight household ritual where the paterfamilias walks barefoot casting black beans to pacify restless ancestral spirits (Lemures).' },
   { m:5,  d:11, n:'Lemuria (second)', g:['manes'], note:'Second nocturnal observance of the Lemuria to purify the home and ward off unsettled spectres.' },
@@ -1856,7 +1862,7 @@ function buildIndex(y0, y1) {
         if (mStart + mLen - 1 >= WIN.first && mStart <= WIN.last) {
           addBlock('roman', ROMAN_MONTH_NAMES[r.m - 1], mStart, mLen, y, {
             sys: 'roman', name: r.n, gods: r.g, note: r.note || '', undated: true,
-            wed: !!r.wed,
+            wed: !!r.wed, anchor: r.anchor || '',
             window: r.window || '', native: 'Roman fasti \u00b7 ' + ROMAN_MONTH_ABL[r.m - 1]
           });
         }
@@ -1868,7 +1874,7 @@ function buildIndex(y0, y1) {
         addFest(dn, {
           sys: 'roman', name: r.n, gods: r.g, note: r.note || '',
           approx: !!r.cf, day: j + 1, span: span, cycle: r.cycle ? r.cycle[0] : 0,
-          wed: !!r.wed,
+          wed: !!r.wed, anchor: r.anchor || '',
           native: 'Roman fasti \u00b7 ' + r.d + ' ' + ROMAN_MONTH_NAMES[r.m - 1]
         });
       }
@@ -2038,6 +2044,7 @@ function festivalSlug(name) {
 }
 
 function festivalAnchor(f) {
+  if (f.anchor) return f.anchor;     /* pinned when a display name changes */
   // Must match the id scheme used by festivals.html:
   //   Roman  -> slug(name)
   //   Greek  -> slug(calendarId + '-' + name)
@@ -2112,7 +2119,10 @@ function evaluateSuitability(dn) {
   var blocking = [], observed = [];
   all.forEach(function (f) {
     var label = f.name + ' (' + (SYS[f.sys] ? SYS[f.sys].name : f.sys) + ')';
-    if (f.wed) observed.push(label);
+    /* The marriage bar is Roman: it attaches to the feriae (Macrobius, Sat. 1.15.21).
+       No Greek source forbids a wedding on a festival day, so Greek festivals are
+       shown as observed but never counted against the date. */
+    if (f.wed || f.sys !== 'roman') observed.push(label);
     else blocking.push(label);
   });
   blocking.forEach(function (label) { issues.push('Festival Day: ' + label); });
@@ -2680,8 +2690,9 @@ function openChecker() {
              '<ul style="margin:6px 0 0;padding-left:18px">';
       evalRes.observed.forEach(function(o) { out += '<li style="margin-bottom:4px">' + esc(o) + '</li>'; });
       out += '</ul><p style="margin:6px 0 0;color:var(--bone-dim);font-size:12px">' +
-             'Temple-dedication anniversaries and days of games are festal days but are not feriae publicae, ' +
-             'so the marriage prohibition does not attach to them (Macrobius, Saturnalia 1.15.21).</p></div>';
+             'The marriage prohibition is Roman and attaches only to the feriae (Macrobius, Saturnalia 1.15.21). ' +
+             'Temple anniversaries and games such as the Ludi Florales are festal days but not feriae, and Greek ' +
+             'festivals carried no such prohibition at all.</p></div>';
     }
 
     out += '<p style="margin:12px 0 0;font-size:11.5px;color:var(--bone-dim);font-family:var(--data)">' +

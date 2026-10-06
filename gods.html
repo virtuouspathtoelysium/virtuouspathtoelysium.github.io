@@ -220,6 +220,11 @@ h3.sec{
 .fests li{display:flex;gap:1rem;padding:.25rem 0;border-bottom:1px dotted var(--panel-edge)}
 .fests li span:first-child{flex:1}
 .fests li span:last-child{color:var(--ochre);white-space:nowrap;font-size:.92rem}
+.fests li span:last-child{text-align:right}
+.fsub{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);
+  margin:.9rem 0 .1rem;font-weight:600}
+.fcity{display:block;font-style:normal;font-size:.75rem;color:var(--ink-faint);letter-spacing:.02em}
+.fnone{font-size:.9rem;color:var(--ink-faint);font-style:italic;margin:.3rem 0 0}
 
 .offer{background:var(--ink-2);border-left:3px solid var(--ochre);padding:.8rem 1.1rem;margin:.5rem 0 0}
 .roster-intro{color:var(--ink-dim);margin:0 0 1.1rem}
@@ -342,6 +347,7 @@ h3.sec{
 
 <!-- Footer -->
 <footer>
+  
   <ul class="foot-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="gods.html">The Gods</a></li>
@@ -477,16 +483,29 @@ h3.sec{
     ],
     "festivals": [
       {
-        "name": "Agonalia of Janus",
-        "date": "9 January"
+        "name": "Kalends of every month",
+        "date": "the 1st",
+        "cal": "roman"
       },
       {
-        "name": "Kalends of every month",
-        "date": "the 1st"
+        "name": "Kalendae Ianuariae — Ianus; vota for the year",
+        "date": "1 January",
+        "cal": "roman"
+      },
+      {
+        "name": "Agonalia of Janus",
+        "date": "9 January",
+        "cal": "roman"
+      },
+      {
+        "name": "Regifugium",
+        "date": "24 February",
+        "cal": "roman"
       },
       {
         "name": "Dedication of the temple of Janus",
-        "date": "17 August"
+        "date": "17 August",
+        "cal": "roman"
       }
     ],
     "offering": "Wine, incense, and a cake of spelt. Cato prescribes the strues, a layered cake. He receives the first portion of any rite before the god the rite is actually for.",
@@ -502,7 +521,8 @@ h3.sec{
         "Ovid, Fasti 1.65-144",
         "Material: the bifrons head on the Republican as"
       ]
-    }
+    },
+    "greekNone": "roman"
   },
   {
     "id": "jupiter",
@@ -658,23 +678,273 @@ h3.sec{
     "festivals": [
       {
         "name": "Ides of every month",
-        "date": "13th or 15th"
+        "date": "13th or 15th",
+        "cal": "roman"
+      },
+      {
+        "name": "Kalendae Ianuariae — Ianus; vota for the year",
+        "date": "1 January",
+        "cal": "roman"
+      },
+      {
+        "name": "Vediovis",
+        "date": "7 March",
+        "cal": "roman"
+      },
+      {
+        "name": "Anna Perenna; Idus Martiae",
+        "date": "15 March",
+        "cal": "roman"
       },
       {
         "name": "Vinalia Priora",
-        "date": "23 April"
+        "date": "23 April",
+        "cal": "roman"
       },
       {
-        "name": "Ludi Romani",
-        "date": "5-19 September"
+        "name": "Feriae Latinae",
+        "date": "movable, announced by the consuls, usually in spring",
+        "cal": "roman"
+      },
+      {
+        "name": "Mercuralia; Idus Maiae",
+        "date": "15 May",
+        "cal": "roman"
+      },
+      {
+        "name": "Quinquatrus minusculae; Idus Iuniae",
+        "date": "13–15 June",
+        "cal": "roman"
+      },
+      {
+        "name": "Lares of the household; Iuppiter Stator",
+        "date": "27 June",
+        "cal": "roman"
+      },
+      {
+        "name": "Poplifugia",
+        "date": "5 July",
+        "cal": "roman"
       },
       {
         "name": "Vinalia Rustica",
-        "date": "19 August"
+        "date": "19 August",
+        "cal": "roman"
+      },
+      {
+        "name": "Ludi Romani",
+        "date": "5-19 September",
+        "cal": "roman"
       },
       {
         "name": "Epulum Iovis",
-        "date": "13 September"
+        "date": "13 September",
+        "cal": "roman"
+      },
+      {
+        "name": "Meditrinalia — the first tasting of the new wine",
+        "date": "11 October",
+        "cal": "roman"
+      },
+      {
+        "name": "October Horse; Idus Octobres",
+        "date": "15 October",
+        "cal": "roman"
+      },
+      {
+        "name": "Ludi Capitolini",
+        "date": "15 October",
+        "cal": "roman"
+      },
+      {
+        "name": "Ludi Plebeii",
+        "date": "4–17 November",
+        "cal": "roman"
+      },
+      {
+        "name": "Tellus and Ceres; Idus Decembres",
+        "date": "13 December",
+        "cal": "roman"
+      },
+      {
+        "name": "Apatouria",
+        "date": "Pyanopsion (day not attested)",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Maimakteria",
+        "date": "Maimakterion (day not attested)",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Pompaia",
+        "date": "Maimakterion (day not attested)",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Theogamia — the marriage of Zeus and Hera",
+        "date": "Gamelion 27",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Diasia",
+        "date": "Anthesterion 23",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Pandia",
+        "date": "Elaphebolion 17",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Olympieia",
+        "date": "Mounichion 19",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Dipolieia / Bouphonia",
+        "date": "Skirophorion 14",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Diisoteria",
+        "date": "Skirophorion 30",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Apatouria",
+        "date": "Apatourion (day not attested)",
+        "cal": "greek",
+        "city": "Delian"
+      },
+      {
+        "name": "Apatouria",
+        "date": "Apatourion (day not attested)",
+        "cal": "greek",
+        "city": "Ionian (Milesian)"
+      },
+      {
+        "name": "Zeus Polieus — selection of the bull",
+        "date": "Panamos 27",
+        "cal": "greek",
+        "city": "Coan (Kos)"
+      },
+      {
+        "name": "Zeus Polieus & Hera Argeia — grand sacrifice",
+        "date": "Panamos 28",
+        "cal": "greek",
+        "city": "Coan (Kos)"
+      },
+      {
+        "name": "Poitropia — averting rites",
+        "date": "Poitropios (day not attested)",
+        "cal": "greek",
+        "city": "Delphic"
+      },
+      {
+        "name": "Olympia at Dion",
+        "date": "Dios (day not attested)",
+        "cal": "greek",
+        "city": "Macedonian"
+      },
+      {
+        "name": "Hetairideia",
+        "date": "Dios (day not attested)",
+        "cal": "greek",
+        "city": "Macedonian"
+      },
+      {
+        "name": "Boukatia",
+        "date": "Boukatios (day not attested)",
+        "cal": "greek",
+        "city": "Boeotian"
+      },
+      {
+        "name": "Homoloia",
+        "date": "Homoloios (day not attested)",
+        "cal": "greek",
+        "city": "Boeotian"
+      },
+      {
+        "name": "Basileia at Lebadeia",
+        "date": "Theilouthios (day not attested)",
+        "cal": "greek",
+        "city": "Boeotian"
+      },
+      {
+        "name": "Little Daidala at Plataia",
+        "date": "Panamos (day not attested)",
+        "cal": "greek",
+        "city": "Boeotian"
+      },
+      {
+        "name": "Great Daidala at Plataia",
+        "date": "Panamos (day not attested)",
+        "cal": "greek",
+        "city": "Boeotian"
+      },
+      {
+        "name": "Zeus Machaneus",
+        "date": "Machaneus (day not attested)",
+        "cal": "greek",
+        "city": "Corinthian"
+      },
+      {
+        "name": "Nemea",
+        "date": "Agyieios (day not attested)",
+        "cal": "greek",
+        "city": "Argive"
+      },
+      {
+        "name": "Olympia",
+        "date": "Parthenios (day not attested)",
+        "cal": "greek",
+        "city": "Elean"
+      },
+      {
+        "name": "Hekatomb at the altar of Zeus",
+        "date": "Parthenios (day not attested)",
+        "cal": "greek",
+        "city": "Elean"
+      },
+      {
+        "name": "Welchania",
+        "date": "Welchanios (day not attested)",
+        "cal": "greek",
+        "city": "Cretan"
+      },
+      {
+        "name": "Itonia",
+        "date": "Itonios (day not attested)",
+        "cal": "greek",
+        "city": "Thessalian"
+      },
+      {
+        "name": "Peloria",
+        "date": "Themistios (day not attested)",
+        "cal": "greek",
+        "city": "Thessalian"
+      },
+      {
+        "name": "Eleutheria at Larisa",
+        "date": "Phyllikos (day not attested)",
+        "cal": "greek",
+        "city": "Thessalian"
+      },
+      {
+        "name": "Soteria at Delphi",
+        "date": "Euthyaios (day not attested)",
+        "cal": "greek",
+        "city": "Aetolian"
       }
     ],
     "offering": "Wine above all, and spelt cake. The Ides belong to him.",
@@ -692,7 +962,8 @@ h3.sec{
         "Pliny, NH 33.111 and 35.157 (the red-painted face of the Capitoline image)"
       ]
     },
-    "greek": "Zeus"
+    "greek": "Zeus",
+    "greekNone": false
   },
   {
     "id": "juno",
@@ -807,19 +1078,85 @@ h3.sec{
     "festivals": [
       {
         "name": "Kalends of every month",
-        "date": "the 1st"
+        "date": "the 1st",
+        "cal": "roman"
+      },
+      {
+        "name": "Kalendae Ianuariae — Ianus; vota for the year",
+        "date": "1 January",
+        "cal": "roman"
       },
       {
         "name": "Matronalia",
-        "date": "1 March"
+        "date": "1 March",
+        "cal": "roman"
       },
       {
         "name": "Nonae Caprotinae",
-        "date": "7 July"
+        "date": "7 July",
+        "cal": "roman"
       },
       {
         "name": "Juno Regina, temple day",
-        "date": "1 September"
+        "date": "1 September",
+        "cal": "roman"
+      },
+      {
+        "name": "Ludi Romani",
+        "date": "5–19 September",
+        "cal": "roman"
+      },
+      {
+        "name": "Epulum Iovis; Idus Septembres",
+        "date": "13 September",
+        "cal": "roman"
+      },
+      {
+        "name": "Fides Publica; Tigillum Sororium",
+        "date": "1 October",
+        "cal": "roman"
+      },
+      {
+        "name": "Theogamia — the marriage of Zeus and Hera",
+        "date": "Gamelion 27",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Zeus Polieus & Hera Argeia — grand sacrifice",
+        "date": "Panamos 28",
+        "cal": "greek",
+        "city": "Coan (Kos)"
+      },
+      {
+        "name": "Little Daidala at Plataia",
+        "date": "Panamos (day not attested)",
+        "cal": "greek",
+        "city": "Boeotian"
+      },
+      {
+        "name": "Great Daidala at Plataia",
+        "date": "Panamos (day not attested)",
+        "cal": "greek",
+        "city": "Boeotian"
+      },
+      {
+        "name": "Hybristika",
+        "date": "Arneios (day not attested)",
+        "cal": "greek",
+        "city": "Argive"
+      },
+      {
+        "name": "Heraia / Hekatombaia",
+        "date": "Teleos (day not attested)",
+        "cal": "greek",
+        "city": "Argive"
+      },
+      {
+        "name": "Heraia at Olympia (the Heraean Games)",
+        "date": "Alpheios (day not attested)",
+        "cal": "greek",
+        "city": "Elean"
       }
     ],
     "offering": "Wine, incense, flowers, cakes. The Kalends are hers.",
@@ -839,7 +1176,8 @@ h3.sec{
         "Homer, Iliad 1.55 and passim (λευκώλενος, white-armed)"
       ]
     },
-    "greek": "Hera"
+    "greek": "Hera",
+    "greekNone": false
   },
   {
     "id": "apollo",
@@ -1005,12 +1343,253 @@ h3.sec{
     ],
     "festivals": [
       {
+        "name": "Ludi Saeculares",
+        "date": "1–3 June (once in 110 years)",
+        "cal": "roman"
+      },
+      {
         "name": "Ludi Apollinares",
-        "date": "6-13 July"
+        "date": "6-13 July",
+        "cal": "roman"
       },
       {
         "name": "Temple of Apollo Palatinus",
-        "date": "9 October"
+        "date": "9 October",
+        "cal": "roman"
+      },
+      {
+        "name": "Metageitnia",
+        "date": "Metageitnion (day not attested)",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Boedromia",
+        "date": "Boedromion 7",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Proerosia",
+        "date": "Pyanopsion 5",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Pyanopsia; Oschophoria",
+        "date": "Pyanopsion 7",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Delphinia",
+        "date": "Mounichion 6",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Thargelia — the offering",
+        "date": "Thargelion 7",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Apollonia — the lesser Delia",
+        "date": "Hieros (day not attested)",
+        "cal": "greek",
+        "city": "Delian"
+      },
+      {
+        "name": "Galaxia on Delos",
+        "date": "Galaxion 14",
+        "cal": "greek",
+        "city": "Delian"
+      },
+      {
+        "name": "Delia (Great Delian Panegyris)",
+        "date": "Thargelion 15–16",
+        "cal": "greek",
+        "city": "Delian"
+      },
+      {
+        "name": "Apollonia of Bouphonion",
+        "date": "Bouphonion 7",
+        "cal": "greek",
+        "city": "Delian"
+      },
+      {
+        "name": "Procession of the Molpoi to Didyma",
+        "date": "Taureon 1–5",
+        "cal": "greek",
+        "city": "Ionian (Milesian)"
+      },
+      {
+        "name": "Didyma Spring Feast",
+        "date": "Taureon 7",
+        "cal": "greek",
+        "city": "Ionian (Milesian)"
+      },
+      {
+        "name": "Metageitnia at Miletos",
+        "date": "Metageitnion 7",
+        "cal": "greek",
+        "city": "Ionian (Milesian)"
+      },
+      {
+        "name": "Didymeia (Great Games of Didyma)",
+        "date": "Boedromion 7–9",
+        "cal": "greek",
+        "city": "Ionian (Milesian)"
+      },
+      {
+        "name": "Alseia — Apollo of the Sacred Grove",
+        "date": "Alseios 20",
+        "cal": "greek",
+        "city": "Coan (Kos)"
+      },
+      {
+        "name": "Great Asklepieia of Kos",
+        "date": "Badromios 9–10",
+        "cal": "greek",
+        "city": "Coan (Kos)"
+      },
+      {
+        "name": "Apellai — the phratry month opens",
+        "date": "Apellaios (day not attested)",
+        "cal": "greek",
+        "city": "Delphic"
+      },
+      {
+        "name": "Pythia (Pythian Games)",
+        "date": "Boukatios (day not attested)",
+        "cal": "greek",
+        "city": "Delphic"
+      },
+      {
+        "name": "Poitropia — averting rites",
+        "date": "Poitropios (day not attested)",
+        "cal": "greek",
+        "city": "Delphic"
+      },
+      {
+        "name": "Theophania — the god shows himself",
+        "date": "Bysios (day not attested)",
+        "cal": "greek",
+        "city": "Delphic"
+      },
+      {
+        "name": "Theoxenia — the gods are hosted at table",
+        "date": "Theoxenios (day not attested)",
+        "cal": "greek",
+        "city": "Delphic"
+      },
+      {
+        "name": "Septeria; Herois; Charila",
+        "date": "Ilaios (day not attested)",
+        "cal": "greek",
+        "city": "Delphic"
+      },
+      {
+        "name": "Ptoia",
+        "date": "Hippodromios (day not attested)",
+        "cal": "greek",
+        "city": "Boeotian"
+      },
+      {
+        "name": "Daphnephoria at Thebes",
+        "date": "Hippodromios (day not attested)",
+        "cal": "greek",
+        "city": "Boeotian"
+      },
+      {
+        "name": "Apellai",
+        "date": "Apellaios (day not attested)",
+        "cal": "greek",
+        "city": "Laconian (Spartan)"
+      },
+      {
+        "name": "Hyakinthia at Amyklai",
+        "date": "Hyakinthios (day not attested)",
+        "cal": "greek",
+        "city": "Laconian (Spartan)"
+      },
+      {
+        "name": "Gymnopaidiai",
+        "date": "Hekatombeus (day not attested)",
+        "cal": "greek",
+        "city": "Laconian (Spartan)"
+      },
+      {
+        "name": "Karneia",
+        "date": "Karneios (day not attested)",
+        "cal": "greek",
+        "city": "Laconian (Spartan)"
+      },
+      {
+        "name": "Karneia at Argos",
+        "date": "Karneios (day not attested)",
+        "cal": "greek",
+        "city": "Argive"
+      },
+      {
+        "name": "Karneia",
+        "date": "Karneios (day not attested)",
+        "cal": "greek",
+        "city": "Epidaurian"
+      },
+      {
+        "name": "Asklepieia",
+        "date": "Posidaios (day not attested)",
+        "cal": "greek",
+        "city": "Epidaurian"
+      },
+      {
+        "name": "Karneia",
+        "date": "Karneios (day not attested)",
+        "cal": "greek",
+        "city": "Rhodian"
+      },
+      {
+        "name": "Dalia — Apollo of Delos",
+        "date": "Dalios (day not attested)",
+        "cal": "greek",
+        "city": "Rhodian"
+      },
+      {
+        "name": "Sminthia",
+        "date": "Sminthios (day not attested)",
+        "cal": "greek",
+        "city": "Rhodian"
+      },
+      {
+        "name": "Hyakinthia",
+        "date": "Hyakinthios (day not attested)",
+        "cal": "greek",
+        "city": "Rhodian"
+      },
+      {
+        "name": "Soteria at Delphi",
+        "date": "Euthyaios (day not attested)",
+        "cal": "greek",
+        "city": "Aetolian"
+      },
+      {
+        "name": "Panaitolika",
+        "date": "Dadaphorios (day not attested)",
+        "cal": "greek",
+        "city": "Aetolian"
+      },
+      {
+        "name": "Thermika",
+        "date": "Thermios (day not attested)",
+        "cal": "greek",
+        "city": "Aetolian"
+      },
+      {
+        "name": "Karneia",
+        "date": "Karneios (day not attested)",
+        "cal": "greek",
+        "city": "Sicilian Greek (Doric)"
       }
     ],
     "offering": "Laurel, incense, wine, cakes, the first-fruits of the year. Music is itself an offering to him.",
@@ -1031,7 +1610,8 @@ h3.sec{
         "Homeric Hymn 3, to Apollo, 134 and 182-206"
       ]
     },
-    "greek": "Apollon"
+    "greek": "Apollon",
+    "greekNone": false
   },
   {
     "id": "mithras",
@@ -1104,7 +1684,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Dies Natalis Solis Invicti",
-        "date": "25 December (of Sol; the link to Mithras is inferred, not attested)"
+        "date": "25 December (of Sol; the link to Mithras is inferred, not attested)",
+        "cal": "roman"
       }
     ],
     "offering": "Wine, bread, incense, light. The cult meal of bread and wine is depicted on reliefs.",
@@ -1120,7 +1701,8 @@ h3.sec{
         "Material: the tauroctony reliefs, several hundred surviving"
       ]
     },
-    "greek": "Mithras"
+    "greek": "Mithras",
+    "greekNone": "named"
   },
   {
     "id": "diana",
@@ -1248,12 +1830,145 @@ h3.sec{
     ],
     "festivals": [
       {
+        "name": "Ludi Saeculares",
+        "date": "1–3 June (once in 110 years)",
+        "cal": "roman"
+      },
+      {
         "name": "Nemoralia, Diana on the Aventine",
-        "date": "13 August"
+        "date": "13 August",
+        "cal": "roman"
       },
       {
         "name": "Temple of Diana Nemorensis",
-        "date": "13 August"
+        "date": "13 August",
+        "cal": "roman"
+      },
+      {
+        "name": "Charisteria — Artemis Agrotera",
+        "date": "Boedromion 6",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Elaphebolia",
+        "date": "Elaphebolion 6",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Brauronia",
+        "date": "Mounichion (day not attested)",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Delphinia",
+        "date": "Mounichion 6",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Mounichia",
+        "date": "Mounichion 16",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Thargelia — the purification",
+        "date": "Thargelion 6",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Thargelia — the offering",
+        "date": "Thargelion 7",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Bendideia",
+        "date": "Thargelion 19",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Apollonia — the lesser Delia",
+        "date": "Hieros (day not attested)",
+        "cal": "greek",
+        "city": "Delian"
+      },
+      {
+        "name": "Britomartia",
+        "date": "Artemision (day not attested)",
+        "cal": "greek",
+        "city": "Delian"
+      },
+      {
+        "name": "Artemisia on Delos",
+        "date": "Artemision 6",
+        "cal": "greek",
+        "city": "Delian"
+      },
+      {
+        "name": "Birthday of Artemis (Delos)",
+        "date": "Thargelion 6",
+        "cal": "greek",
+        "city": "Delian"
+      },
+      {
+        "name": "Delia (Great Delian Panegyris)",
+        "date": "Thargelion 15–16",
+        "cal": "greek",
+        "city": "Delian"
+      },
+      {
+        "name": "Didymeia (Great Games of Didyma)",
+        "date": "Boedromion 7–9",
+        "cal": "greek",
+        "city": "Ionian (Milesian)"
+      },
+      {
+        "name": "Artemis Orthia — the endurance of the boys",
+        "date": "Artemisios (day not attested)",
+        "cal": "greek",
+        "city": "Laconian (Spartan)"
+      },
+      {
+        "name": "Tithenidia",
+        "date": "Artemisios (day not attested)",
+        "cal": "greek",
+        "city": "Laconian (Spartan)"
+      },
+      {
+        "name": "Gymnopaidiai",
+        "date": "Hekatombeus (day not attested)",
+        "cal": "greek",
+        "city": "Laconian (Spartan)"
+      },
+      {
+        "name": "Eukleia",
+        "date": "Eukleios (day not attested)",
+        "cal": "greek",
+        "city": "Corinthian"
+      },
+      {
+        "name": "Laphria",
+        "date": "Laphraios (day not attested)",
+        "cal": "greek",
+        "city": "Aetolian"
+      },
+      {
+        "name": "Artemisia at Syracuse",
+        "date": "Artamitios (day not attested)",
+        "cal": "greek",
+        "city": "Sicilian Greek (Doric)"
+      },
+      {
+        "name": "Artemis of Amphissa",
+        "date": "Tenth month (day not attested)",
+        "cal": "greek",
+        "city": "Locrian — Ozolian (ordinal)"
       }
     ],
     "offering": "Torches, flowers, first-fruits, wine, cakes. Women brought torches to Nemi and hung inscribed tablets there.",
@@ -1271,7 +1986,8 @@ h3.sec{
         "Homeric Hymn 27, to Artemis"
       ]
     },
-    "greek": "Artemis"
+    "greek": "Artemis",
+    "greekNone": false
   },
   {
     "id": "mars",
@@ -1386,24 +2102,81 @@ h3.sec{
     ],
     "festivals": [
       {
-        "name": "Feriae Marti",
-        "date": "1 March"
+        "name": "Amburbium",
+        "date": "movable, in a year of prodigies",
+        "cal": "roman"
       },
       {
         "name": "Equirria",
-        "date": "27 February and 14 March"
+        "date": "27 February and 14 March",
+        "cal": "roman"
+      },
+      {
+        "name": "Feriae Marti",
+        "date": "1 March",
+        "cal": "roman"
+      },
+      {
+        "name": "Ancilia moved by the Salii",
+        "date": "9 March",
+        "cal": "roman"
+      },
+      {
+        "name": "Liberalia; Agonalia of Mars",
+        "date": "17 March",
+        "cal": "roman"
       },
       {
         "name": "Quinquatrus",
-        "date": "19 March"
+        "date": "19 March",
+        "cal": "roman"
       },
       {
         "name": "Tubilustrium",
-        "date": "23 March and 23 May"
+        "date": "23 March and 23 May",
+        "cal": "roman"
+      },
+      {
+        "name": "Robigalia",
+        "date": "25 April",
+        "cal": "roman"
+      },
+      {
+        "name": "Ambarvalia",
+        "date": "movable, while the corn stands green",
+        "cal": "roman"
+      },
+      {
+        "name": "Lustrum — the closing of the census",
+        "date": "movable, when the censors lay down office (once in 5 years)",
+        "cal": "roman"
+      },
+      {
+        "name": "Carna; Iuno Moneta; Mars outside the Porta Capena",
+        "date": "1 June",
+        "cal": "roman"
+      },
+      {
+        "name": "October Horse; Idus Octobres",
+        "date": "15 October",
+        "cal": "roman"
       },
       {
         "name": "Armilustrium",
-        "date": "19 October"
+        "date": "19 October",
+        "cal": "roman"
+      },
+      {
+        "name": "Xandika — purification of the army",
+        "date": "Xandikos (day not attested)",
+        "cal": "greek",
+        "city": "Macedonian"
+      },
+      {
+        "name": "Hybristika",
+        "date": "Arneios (day not attested)",
+        "cal": "greek",
+        "city": "Argive"
       }
     ],
     "offering": "Cake, wine, milk, spelt and salt. In the Cato rites the offering is bloodless on the Virtuous Path, with the words kept intact.",
@@ -1420,7 +2193,8 @@ h3.sec{
         "Homer, Iliad 21.406-407"
       ]
     },
-    "greek": "Ares"
+    "greek": "Ares",
+    "greekNone": false
   },
   {
     "id": "venus",
@@ -1532,15 +2306,41 @@ h3.sec{
     "festivals": [
       {
         "name": "Veneralia (Venus Verticordia)",
-        "date": "1 April"
+        "date": "1 April",
+        "cal": "roman"
       },
       {
         "name": "Vinalia Urbana",
-        "date": "23 April"
+        "date": "23 April",
+        "cal": "roman"
+      },
+      {
+        "name": "Ludi Victoriae Caesaris",
+        "date": "20–30 July",
+        "cal": "roman"
       },
       {
         "name": "Venus Genetrix",
-        "date": "26 September"
+        "date": "26 September",
+        "cal": "roman"
+      },
+      {
+        "name": "Aphrodisia",
+        "date": "Hekatombaion 4",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Arrhephoria",
+        "date": "Skirophorion (day not attested)",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Aphrodite of Akrokorinth",
+        "date": "Agrianios (day not attested)",
+        "cal": "greek",
+        "city": "Corinthian"
       }
     ],
     "offering": "Roses and myrtle above all, incense, wine, honey. Her image may be washed and re-adorned at the Veneralia.",
@@ -1559,7 +2359,8 @@ h3.sec{
         "Homeric Hymn 6, to Aphrodite, 5-13"
       ]
     },
-    "greek": "Aphrodite"
+    "greek": "Aphrodite",
+    "greekNone": false
   },
   {
     "id": "vulcan",
@@ -1634,12 +2435,42 @@ h3.sec{
     ],
     "festivals": [
       {
+        "name": "Tubilustrium",
+        "date": "23 May",
+        "cal": "roman"
+      },
+      {
+        "name": "Ludi Piscatorii",
+        "date": "7 June",
+        "cal": "roman"
+      },
+      {
         "name": "Volcanalia",
-        "date": "23 August"
+        "date": "23 August",
+        "cal": "roman"
       },
       {
         "name": "Volcanal, the ancient altar in the Forum",
-        "date": "-"
+        "date": "-",
+        "cal": "roman"
+      },
+      {
+        "name": "Chalkeia",
+        "date": "Pyanopsion 30",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Prometheia",
+        "date": "date not attested",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Hephaisteia",
+        "date": "date not attested",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
       }
     ],
     "offering": "Fire itself. At the Volcanalia, offerings were thrown into the flames; small fish from the Tiber were cast in on behalf of human lives. The Virtuous Path substitutes cakes and first-fruits, thrown into the fire in the same manner.",
@@ -1657,7 +2488,8 @@ h3.sec{
         "Homer, Iliad 18.371 (κυλλοποδίων)"
       ]
     },
-    "greek": "Hephaistos"
+    "greek": "Hephaistos",
+    "greekNone": false
   },
   {
     "id": "ceres",
@@ -1763,20 +2595,118 @@ h3.sec{
     ],
     "festivals": [
       {
+        "name": "Sementivae / Paganalia",
+        "date": "movable, at the winter sowing",
+        "cal": "roman"
+      },
+      {
         "name": "Cerialia",
-        "date": "12-19 April"
+        "date": "12-19 April",
+        "cal": "roman"
       },
       {
         "name": "Ambarvalia",
-        "date": "late May, movable"
+        "date": "late May, movable",
+        "cal": "roman"
       },
       {
         "name": "Sacrum anniversarium Cereris",
-        "date": "August, by women"
+        "date": "August, by women",
+        "cal": "roman"
+      },
+      {
+        "name": "Tellus and Ceres; Idus Decembres",
+        "date": "13 December",
+        "cal": "roman"
+      },
+      {
+        "name": "Eleusinia",
+        "date": "Metageitnion (day not attested)",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Greater Eleusinia",
+        "date": "Metageitnion (day not attested)",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Eleusinian Mysteries",
+        "date": "Boedromion 15–23",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Proerosia",
+        "date": "Pyanopsion 5",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Stenia",
+        "date": "Pyanopsion 9",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
       },
       {
         "name": "Thesmophoria (Greek)",
-        "date": "Pyanopsion 11-13"
+        "date": "Pyanopsion 11-13",
+        "cal": "greek"
+      },
+      {
+        "name": "Haloa",
+        "date": "Poseideon 26",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Lesser Mysteries at Agrai",
+        "date": "Anthesterion (day not attested)",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Skira (Skirophoria)",
+        "date": "Skirophorion 12",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Trophoneia at Lebadeia",
+        "date": "Prostaterios (day not attested)",
+        "cal": "greek",
+        "city": "Boeotian"
+      },
+      {
+        "name": "Homoloia",
+        "date": "Homoloios (day not attested)",
+        "cal": "greek",
+        "city": "Boeotian"
+      },
+      {
+        "name": "Damatria",
+        "date": "Damatrios (day not attested)",
+        "cal": "greek",
+        "city": "Boeotian"
+      },
+      {
+        "name": "Lernaia",
+        "date": "Apellaios (day not attested)",
+        "cal": "greek",
+        "city": "Argive"
+      },
+      {
+        "name": "Anthesphoria at Enna",
+        "date": "Agrianios (day not attested)",
+        "cal": "greek",
+        "city": "Sicilian Greek (Doric)"
+      },
+      {
+        "name": "Koreia",
+        "date": "Panamos (day not attested)",
+        "cal": "greek",
+        "city": "Sicilian Greek (Doric)"
       }
     ],
     "offering": "Spelt, the first ears of the harvest, honeycomb thinned with milk and wine, poppies, cakes.",
@@ -1795,7 +2725,8 @@ h3.sec{
         "Homeric Hymn to Demeter 42 (κυανόπεπλος, dark-robed)"
       ]
     },
-    "greek": "Demeter"
+    "greek": "Demeter",
+    "greekNone": false
   },
   {
     "id": "vesta",
@@ -1864,16 +2795,24 @@ h3.sec{
     ],
     "festivals": [
       {
+        "name": "Every meal",
+        "date": "the hearth portion",
+        "cal": "roman"
+      },
+      {
+        "name": "Matronalia; old New Year; the sacred fire renewed",
+        "date": "1 March",
+        "cal": "roman"
+      },
+      {
         "name": "Vestalia",
-        "date": "7-15 June"
+        "date": "7-15 June",
+        "cal": "roman"
       },
       {
         "name": "Q.St.D.F., the sweeping of the temple",
-        "date": "15 June"
-      },
-      {
-        "name": "Every meal",
-        "date": "the hearth portion"
+        "date": "15 June",
+        "cal": "roman"
       }
     ],
     "offering": "The hearth fire itself, kept and tended. A portion of every meal placed in the flame. Salt, spelt, and the first and last pouring of wine.",
@@ -1889,7 +2828,8 @@ h3.sec{
         "Ovid, Fasti 6.291-298"
       ]
     },
-    "greek": "Hestia"
+    "greek": "Hestia",
+    "greekNone": "named"
   },
   {
     "id": "mercury",
@@ -2000,7 +2940,26 @@ h3.sec{
     "festivals": [
       {
         "name": "Mercuralia",
-        "date": "15 May"
+        "date": "15 May",
+        "cal": "roman"
+      },
+      {
+        "name": "Pompaia",
+        "date": "Maimakterion (day not attested)",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Anthesteria — Chytroi",
+        "date": "Anthesterion 13",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Charitesia & Hermes",
+        "date": "Hyakinthios 20",
+        "cal": "greek",
+        "city": "Coan (Kos)"
       }
     ],
     "offering": "Milk and honey, incense, cakes, and the first portion of a profit. Offerings were left at herms and crossroads.",
@@ -2017,7 +2976,8 @@ h3.sec{
         "Homeric Hymn 4, to Hermes"
       ]
     },
-    "greek": "Hermes"
+    "greek": "Hermes",
+    "greekNone": false
   },
   {
     "id": "neptune",
@@ -2091,12 +3051,90 @@ h3.sec{
     ],
     "festivals": [
       {
+        "name": "Navigium Isidis — opening of the seas",
+        "date": "5 March",
+        "cal": "roman"
+      },
+      {
         "name": "Neptunalia",
-        "date": "23 July"
+        "date": "23 July",
+        "cal": "roman"
       },
       {
         "name": "Consualia",
-        "date": "21 August and 15 December"
+        "date": "21 August and 15 December",
+        "cal": "roman"
+      },
+      {
+        "name": "Neptune; Pietas",
+        "date": "1 December",
+        "cal": "roman"
+      },
+      {
+        "name": "Kybernesia",
+        "date": "Boedromion (day not attested)",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Niketeria",
+        "date": "Boedromion 2",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Theseia",
+        "date": "Pyanopsion 8",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Poseidea",
+        "date": "Poseideon 8",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Skira (Skirophoria)",
+        "date": "Skirophorion 12",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Posideia on Delos",
+        "date": "Posideon 10",
+        "cal": "greek",
+        "city": "Delian"
+      },
+      {
+        "name": "Panionia at Mykale",
+        "date": "Boedromion (day not attested)",
+        "cal": "greek",
+        "city": "Ionian (Milesian)"
+      },
+      {
+        "name": "Gerastia — Poseidon of the Cape",
+        "date": "Gerastios 12",
+        "cal": "greek",
+        "city": "Coan (Kos)"
+      },
+      {
+        "name": "Isthmia",
+        "date": "Artemisios (day not attested)",
+        "cal": "greek",
+        "city": "Corinthian"
+      },
+      {
+        "name": "Palaimonia",
+        "date": "Artemisios (day not attested)",
+        "cal": "greek",
+        "city": "Corinthian"
+      },
+      {
+        "name": "Hippodromia",
+        "date": "Hippodromios (day not attested)",
+        "cal": "greek",
+        "city": "Thessalian"
       }
     ],
     "offering": "Wine poured into water, incense, cakes, first-fruits. At the Neptunalia the Romans built leafy shelters against the summer heat and feasted.",
@@ -2114,7 +3152,8 @@ h3.sec{
         "Homer, Odyssey 9.536"
       ]
     },
-    "greek": "Poseidon"
+    "greek": "Poseidon",
+    "greekNone": false
   },
   {
     "id": "minerva",
@@ -2217,15 +3256,171 @@ h3.sec{
     "festivals": [
       {
         "name": "Quinquatrus",
-        "date": "19-23 March"
-      },
-      {
-        "name": "Quinquatrus Minusculae",
-        "date": "13 June"
+        "date": "19-23 March",
+        "cal": "roman"
       },
       {
         "name": "Dedication of the temple on the Aventine",
-        "date": "19 March"
+        "date": "19 March",
+        "cal": "roman"
+      },
+      {
+        "name": "Tubilustrium — purification of the trumpets",
+        "date": "23 March",
+        "cal": "roman"
+      },
+      {
+        "name": "Quinquatrus Minusculae",
+        "date": "13 June",
+        "cal": "roman"
+      },
+      {
+        "name": "Ludi Romani",
+        "date": "5–19 September",
+        "cal": "roman"
+      },
+      {
+        "name": "Epulum Iovis; Idus Septembres",
+        "date": "13 September",
+        "cal": "roman"
+      },
+      {
+        "name": "Synoikia",
+        "date": "Hekatombaion 16",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Greater Panathenaia",
+        "date": "Hekatombaion 23–28",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Greater Panathenaia — the great day",
+        "date": "Hekatombaion 28",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Lesser Panathenaia",
+        "date": "Hekatombaion 28",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Niketeria",
+        "date": "Boedromion 2",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Apatouria",
+        "date": "Pyanopsion (day not attested)",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Pyanopsia; Oschophoria",
+        "date": "Pyanopsion 7",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Chalkeia",
+        "date": "Pyanopsion 30",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Kallynteria",
+        "date": "Thargelion 24",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Plynteria",
+        "date": "Thargelion 25",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Arrhephoria",
+        "date": "Skirophorion (day not attested)",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Skira (Skirophoria)",
+        "date": "Skirophorion 12",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Diisoteria",
+        "date": "Skirophorion 30",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Hephaisteia",
+        "date": "date not attested",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Apatouria",
+        "date": "Apatourion (day not attested)",
+        "cal": "greek",
+        "city": "Delian"
+      },
+      {
+        "name": "Apatouria",
+        "date": "Apatourion (day not attested)",
+        "cal": "greek",
+        "city": "Ionian (Milesian)"
+      },
+      {
+        "name": "Xandika — purification of the army",
+        "date": "Xandikos (day not attested)",
+        "cal": "greek",
+        "city": "Macedonian"
+      },
+      {
+        "name": "Pamboiotia",
+        "date": "Pamboiotios (day not attested)",
+        "cal": "greek",
+        "city": "Boeotian"
+      },
+      {
+        "name": "Alalkomenia",
+        "date": "Alalkomenios (day not attested)",
+        "cal": "greek",
+        "city": "Boeotian"
+      },
+      {
+        "name": "Hellotia",
+        "date": "Psydreus (day not attested)",
+        "cal": "greek",
+        "city": "Corinthian"
+      },
+      {
+        "name": "The bath of Pallas at the Inachos",
+        "date": "Amyklaios (day not attested)",
+        "cal": "greek",
+        "city": "Argive"
+      },
+      {
+        "name": "Itonia",
+        "date": "Itonios (day not attested)",
+        "cal": "greek",
+        "city": "Thessalian"
+      },
+      {
+        "name": "Athanaia",
+        "date": "Athanaios (day not attested)",
+        "cal": "greek",
+        "city": "Aetolian"
       }
     ],
     "offering": "Cakes, oil, incense, and the products of one's own craft. Ovid names the trades that kept her day: weavers, fullers, cobblers, doctors, teachers, painters and sculptors.",
@@ -2246,7 +3441,8 @@ h3.sec{
         "Material: painted marble Athena types from the Acropolis with traces of hair colour"
       ]
     },
-    "greek": "Athena"
+    "greek": "Athena",
+    "greekNone": false
   },
   {
     "id": "pluto",
@@ -2326,12 +3522,48 @@ h3.sec{
     ],
     "festivals": [
       {
-        "name": "Mundus patet, the opening of the pit",
-        "date": "24 August, 5 October, 8 November"
+        "name": "Parentalia",
+        "date": "13-21 February",
+        "cal": "roman"
       },
       {
-        "name": "Parentalia",
-        "date": "13-21 February"
+        "name": "Ludi Saeculares",
+        "date": "1–3 June (once in 110 years)",
+        "cal": "roman"
+      },
+      {
+        "name": "Ludi Taurei Quinquennales",
+        "date": "movable (once in 5 years)",
+        "cal": "roman"
+      },
+      {
+        "name": "Mundus patet, the opening of the pit",
+        "date": "24 August, 5 October, 8 November",
+        "cal": "roman"
+      },
+      {
+        "name": "Eleusinian Mysteries",
+        "date": "Boedromion 15–23",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Anthesteria — Chytroi",
+        "date": "Anthesterion 13",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Lernaia",
+        "date": "Apellaios (day not attested)",
+        "cal": "greek",
+        "city": "Argive"
+      },
+      {
+        "name": "Nekysia — rites for the dead",
+        "date": "Nekysios (day not attested)",
+        "cal": "greek",
+        "city": "Cretan"
       }
     ],
     "offering": "Night offerings, made downward and not on a raised altar: wine, or wineless offerings of honey, milk and water. Black victims in antiquity; the Virtuous Path offers dark cakes, dark flowers, and poured liquids.",
@@ -2349,7 +3581,8 @@ h3.sec{
         "Homeric Hymn to Demeter 347 (κυανοχαῖτα, dark-haired Aidoneus)"
       ]
     },
-    "greek": "Hades"
+    "greek": "Hades",
+    "greekNone": false
   },
   {
     "id": "liber",
@@ -2461,15 +3694,84 @@ h3.sec{
     "festivals": [
       {
         "name": "Liberalia",
-        "date": "17 March"
+        "date": "17 March",
+        "cal": "roman"
       },
       {
-        "name": "Anthesteria (Greek)",
-        "date": "Anthesterion 11-13"
+        "name": "Pyanopsia; Oschophoria",
+        "date": "Pyanopsion 7",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
       },
       {
         "name": "Rural Dionysia (Greek)",
-        "date": "Poseideon"
+        "date": "Poseideon",
+        "cal": "greek"
+      },
+      {
+        "name": "Haloa",
+        "date": "Poseideon 26",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Lenaia",
+        "date": "Gamelion 12–15",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Anthesteria (Greek)",
+        "date": "Anthesterion 11-13",
+        "cal": "greek"
+      },
+      {
+        "name": "Daisia",
+        "date": "Daisios (day not attested)",
+        "cal": "greek",
+        "city": "Macedonian"
+      },
+      {
+        "name": "Agrionia",
+        "date": "Agrionios (day not attested)",
+        "cal": "greek",
+        "city": "Boeotian"
+      },
+      {
+        "name": "Gymnopaidiai",
+        "date": "Hekatombeus (day not attested)",
+        "cal": "greek",
+        "city": "Laconian (Spartan)"
+      },
+      {
+        "name": "Lernaia",
+        "date": "Apellaios (day not attested)",
+        "cal": "greek",
+        "city": "Argive"
+      },
+      {
+        "name": "Thyia — vats of Dionysos",
+        "date": "Thyios (day not attested)",
+        "cal": "greek",
+        "city": "Elean"
+      },
+      {
+        "name": "Theodaisia",
+        "date": "Theodaisios (day not attested)",
+        "cal": "greek",
+        "city": "Cretan"
+      },
+      {
+        "name": "Theudaisia",
+        "date": "Theudaisios (day not attested)",
+        "cal": "greek",
+        "city": "Rhodian"
+      },
+      {
+        "name": "Thyia",
+        "date": "Thyios (day not attested)",
+        "cal": "greek",
+        "city": "Thessalian"
       }
     ],
     "offering": "Wine above all, and honey, and honey cakes. Ivy. The first pouring from a newly opened jar belongs to him.",
@@ -2489,7 +3791,8 @@ h3.sec{
         "Ovid, Metamorphoses 4.17-20 (unshorn youth)"
       ]
     },
-    "greek": "Dionysos"
+    "greek": "Dionysos",
+    "greekNone": false
   },
   {
     "id": "persephone",
@@ -2559,16 +3862,87 @@ h3.sec{
     ],
     "festivals": [
       {
-        "name": "Eleusinian Mysteries (Greek)",
-        "date": "Boedromion 15-23"
-      },
-      {
-        "name": "Thesmophoria (Greek)",
-        "date": "Pyanopsion 11-13"
+        "name": "Liberalia; Agonalia of Mars",
+        "date": "17 March",
+        "cal": "roman"
       },
       {
         "name": "Cerialia",
-        "date": "12-19 April"
+        "date": "12-19 April",
+        "cal": "roman"
+      },
+      {
+        "name": "Ludi Saeculares",
+        "date": "1–3 June (once in 110 years)",
+        "cal": "roman"
+      },
+      {
+        "name": "Ludi Taurei Quinquennales",
+        "date": "movable (once in 5 years)",
+        "cal": "roman"
+      },
+      {
+        "name": "Mundus patet — the world of the dead stands open",
+        "date": "24 August",
+        "cal": "roman"
+      },
+      {
+        "name": "Eleusinia",
+        "date": "Metageitnion (day not attested)",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Greater Eleusinia",
+        "date": "Metageitnion (day not attested)",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Eleusinian Mysteries (Greek)",
+        "date": "Boedromion 15-23",
+        "cal": "greek"
+      },
+      {
+        "name": "Stenia",
+        "date": "Pyanopsion 9",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Thesmophoria (Greek)",
+        "date": "Pyanopsion 11-13",
+        "cal": "greek"
+      },
+      {
+        "name": "Haloa",
+        "date": "Poseideon 26",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Septeria; Herois; Charila",
+        "date": "Ilaios (day not attested)",
+        "cal": "greek",
+        "city": "Delphic"
+      },
+      {
+        "name": "Lernaia",
+        "date": "Apellaios (day not attested)",
+        "cal": "greek",
+        "city": "Argive"
+      },
+      {
+        "name": "Anthesphoria at Enna",
+        "date": "Agrianios (day not attested)",
+        "cal": "greek",
+        "city": "Sicilian Greek (Doric)"
+      },
+      {
+        "name": "Koreia",
+        "date": "Panamos (day not attested)",
+        "cal": "greek",
+        "city": "Sicilian Greek (Doric)"
       }
     ],
     "offering": "Pomegranate, narcissus, honey, milk, water, grain. Offerings to her are chthonic in form: poured out, made low, not eaten.",
@@ -2587,7 +3961,8 @@ h3.sec{
         "Homeric Hymn to Demeter 2, 77, 453"
       ]
     },
-    "greek": "Persephone"
+    "greek": "Persephone",
+    "greekNone": false
   },
   {
     "id": "ops",
@@ -2650,11 +4025,19 @@ h3.sec{
     "festivals": [
       {
         "name": "Opiconsivia",
-        "date": "25 August"
+        "date": "25 August",
+        "cal": "roman"
       },
       {
         "name": "Opalia",
-        "date": "19 December, within the Saturnalia"
+        "date": "19 December, within the Saturnalia",
+        "cal": "roman"
+      },
+      {
+        "name": "Galaxia",
+        "date": "date not attested",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
       }
     ],
     "offering": "First-fruits, grain, and the produce of the store. Offered seated, with the hand on the ground.",
@@ -2668,7 +4051,8 @@ h3.sec{
       "conflict": null,
       "sources": []
     },
-    "greek": "Rhea"
+    "greek": "Rhea",
+    "greekNone": false
   },
   {
     "id": "saturn",
@@ -2740,11 +4124,24 @@ h3.sec{
     "festivals": [
       {
         "name": "Saturnalia",
-        "date": "17 December, extended in practice to the 23rd"
+        "date": "17 December, extended in practice to the 23rd",
+        "cal": "roman"
       },
       {
         "name": "Opalia",
-        "date": "19 December"
+        "date": "19 December",
+        "cal": "roman"
+      },
+      {
+        "name": "Sigillaria",
+        "date": "23 December",
+        "cal": "roman"
+      },
+      {
+        "name": "Kronia",
+        "date": "Hekatombaion 12",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
       }
     ],
     "offering": "Offered with the head uncovered. Wine, cakes, first-fruits, and light: wax tapers were the customary gift of the season.",
@@ -2760,7 +4157,8 @@ h3.sec{
         "Macrobius, Saturnalia 1.8.5"
       ]
     },
-    "greek": "Kronos"
+    "greek": "Kronos",
+    "greekNone": false
   },
   {
     "id": "terra",
@@ -2825,16 +4223,40 @@ h3.sec{
     ],
     "festivals": [
       {
-        "name": "Fordicidia",
-        "date": "15 April"
+        "name": "Sementivae / Paganalia",
+        "date": "January, movable",
+        "cal": "roman"
       },
       {
-        "name": "Sementivae / Paganalia",
-        "date": "January, movable"
+        "name": "Fordicidia",
+        "date": "15 April",
+        "cal": "roman"
       },
       {
         "name": "Ambarvalia",
-        "date": "late May, movable"
+        "date": "late May, movable",
+        "cal": "roman"
+      },
+      {
+        "name": "Lustrum — the closing of the census",
+        "date": "movable, when the censors lay down office (once in 5 years)",
+        "cal": "roman"
+      },
+      {
+        "name": "Tiberinus and Gaia",
+        "date": "8 December",
+        "cal": "roman"
+      },
+      {
+        "name": "Tellus and Ceres; Idus Decembres",
+        "date": "13 December",
+        "cal": "roman"
+      },
+      {
+        "name": "Genesia",
+        "date": "Boedromion 5",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
       }
     ],
     "offering": "First-fruits, grain, milk, honey, flowers. Poured onto the ground rather than burnt.",
@@ -2855,7 +4277,8 @@ h3.sec{
         "Material: the Tellus panel of the Ara Pacis"
       ]
     },
-    "greek": "Gaia"
+    "greek": "Gaia",
+    "greekNone": false
   },
   {
     "id": "isis",
@@ -2934,11 +4357,23 @@ h3.sec{
     "festivals": [
       {
         "name": "Navigium Isidis",
-        "date": "5 March"
+        "date": "5 March",
+        "cal": "roman"
+      },
+      {
+        "name": "Lychnapsia — festival of lamps",
+        "date": "12 August",
+        "cal": "roman"
       },
       {
         "name": "Isia",
-        "date": "28 October - 3 November"
+        "date": "28 October - 3 November",
+        "cal": "roman"
+      },
+      {
+        "name": "Hilaria (Isiac conclusion)",
+        "date": "3 November",
+        "cal": "roman"
       }
     ],
     "offering": "Water above all, carried in the situla as the holiest thing in her rite; also milk, incense, flowers, lamps, and music from the sistrum.",
@@ -2955,7 +4390,8 @@ h3.sec{
         "Material: Egyptian and Graeco-Roman images of Isis"
       ]
     },
-    "greek": "Isis"
+    "greek": "Isis",
+    "greekNone": "named"
   },
   {
     "id": "vishnu",
@@ -3054,15 +4490,18 @@ h3.sec{
     "festivals": [
       {
         "name": "Vaikuntha Ekadashi",
-        "date": "lunar, Margashirsha/Pausha"
+        "date": "lunar, Margashirsha/Pausha",
+        "cal": "roman"
       },
       {
         "name": "Rama Navami",
-        "date": "lunar, Chaitra"
+        "date": "lunar, Chaitra",
+        "cal": "roman"
       },
       {
         "name": "Krishna Janmashtami",
-        "date": "lunar, Bhadrapada"
+        "date": "lunar, Bhadrapada",
+        "cal": "roman"
       }
     ],
     "offering": "Flowers, especially tulsi; fruit; cooked food offered and then taken back as prasada; lamp and incense; water. Strictly without meat, which is the ordinary rule of this worship.",
@@ -3191,7 +4630,8 @@ h3.sec{
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greekNone": "roman"
   },
   {
     "id": "muses",
@@ -3266,11 +4706,19 @@ h3.sec{
     "festivals": [
       {
         "name": "With Minerva, at the Quinquatrus",
-        "date": "19-23 March"
+        "date": "19-23 March",
+        "cal": "roman"
       },
       {
         "name": "Hercules Musarum, temple day",
-        "date": "30 June"
+        "date": "30 June",
+        "cal": "roman"
+      },
+      {
+        "name": "Olympia at Dion",
+        "date": "Dios (day not attested)",
+        "cal": "greek",
+        "city": "Macedonian"
       }
     ],
     "offering": "Laurel, water from a spring, incense, and the work itself. A composition made well is the proper offering.",
@@ -3287,7 +4735,8 @@ h3.sec{
         "Hesiod, Theogony 1-115"
       ]
     },
-    "greek": "Mousai"
+    "greek": "Mousai",
+    "greekNone": false
   },
   {
     "id": "furies",
@@ -3360,7 +4809,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Their sanctuary at the Areopagus, Athens",
-        "date": "-"
+        "date": "-",
+        "cal": "roman"
       }
     ],
     "offering": "Wineless: honey mixed with water, milk, and water alone. Black flowers. Offered low and poured away, never eaten, never shared.",
@@ -3376,7 +4826,8 @@ h3.sec{
         "Aeschylus, Eumenides 46-59"
       ]
     },
-    "greek": "Erinyes"
+    "greek": "Erinyes",
+    "greekNone": "named"
   },
   {
     "id": "graces",
@@ -3444,7 +4895,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Charitesia at Orchomenos",
-        "date": "-"
+        "date": "-",
+        "cal": "roman"
       }
     ],
     "offering": "Flowers, honey, wine, music, and the company of others. They are among the few powers best honoured by a party.",
@@ -3463,7 +4915,8 @@ h3.sec{
         "Pausanias 9.35.1-7"
       ]
     },
-    "greek": "Charites"
+    "greek": "Charites",
+    "greekNone": "named"
   },
   {
     "id": "hercules",
@@ -3548,11 +5001,61 @@ h3.sec{
     "festivals": [
       {
         "name": "Hercules at the Ara Maxima",
-        "date": "12 August"
+        "date": "12 August",
+        "cal": "roman"
       },
       {
         "name": "Hercules Invictus / Victor",
-        "date": "13 August"
+        "date": "13 August",
+        "cal": "roman"
+      },
+      {
+        "name": "Herakleia at Kynosarges",
+        "date": "Metageitnion 2",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Herakleia at Marathon",
+        "date": "date not attested",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Herakleia at Kos",
+        "date": "Karpathios 10",
+        "cal": "greek",
+        "city": "Coan (Kos)"
+      },
+      {
+        "name": "Herakleia",
+        "date": "Herakleios (day not attested)",
+        "cal": "greek",
+        "city": "Delphic"
+      },
+      {
+        "name": "Gorpiaia",
+        "date": "Gorpiaios (day not attested)",
+        "cal": "greek",
+        "city": "Macedonian"
+      },
+      {
+        "name": "Herakleia (Iolaeia) at Thebes",
+        "date": "Agrionios (day not attested)",
+        "cal": "greek",
+        "city": "Boeotian"
+      },
+      {
+        "name": "Olympia",
+        "date": "Parthenios (day not attested)",
+        "cal": "greek",
+        "city": "Elean"
+      },
+      {
+        "name": "Tlapolemeia",
+        "date": "Badromios (day not attested)",
+        "cal": "greek",
+        "city": "Rhodian"
       }
     ],
     "offering": "Offered with the head uncovered. Wine, cakes, first-fruits, and a tenth part of a profit or a windfall.",
@@ -3569,7 +5072,8 @@ h3.sec{
         "Material: the Farnese Hercules and the standing Herakles types"
       ]
     },
-    "greek": "Herakles"
+    "greek": "Herakles",
+    "greekNone": false
   },
   {
     "id": "latona",
@@ -3641,11 +5145,31 @@ h3.sec{
     "festivals": [
       {
         "name": "With Apollo and Diana at the Ludi Apollinares",
-        "date": "6-13 July"
+        "date": "6-13 July",
+        "cal": "roman"
       },
       {
         "name": "Carmen Saeculare, in which she is named",
-        "date": "17 BCE, not annual"
+        "date": "17 BCE, not annual",
+        "cal": "roman"
+      },
+      {
+        "name": "Apollonia — the lesser Delia",
+        "date": "Hieros (day not attested)",
+        "cal": "greek",
+        "city": "Delian"
+      },
+      {
+        "name": "Letia",
+        "date": "Artemision (day not attested)",
+        "cal": "greek",
+        "city": "Delian"
+      },
+      {
+        "name": "Delia (Great Delian Panegyris)",
+        "date": "Thargelion 15–16",
+        "cal": "greek",
+        "city": "Delian"
       }
     ],
     "offering": "Water above all, given freely; palm, olive, incense, and cakes.",
@@ -3661,7 +5185,8 @@ h3.sec{
         "Homeric Hymn 3, to Apollo, 4 (κυανόπεπλος), 101, 178 (εὐπλόκαμος)"
       ]
     },
-    "greek": "Leto"
+    "greek": "Leto",
+    "greekNone": false
   },
   {
     "id": "silvanus",
@@ -3743,8 +5268,14 @@ h3.sec{
     ],
     "festivals": [
       {
+        "name": "Lucaria (first)",
+        "date": "19 July",
+        "cal": "roman"
+      },
+      {
         "name": "No fixed festival is attested in the state calendar",
-        "date": "-"
+        "date": "-",
+        "cal": "roman"
       }
     ],
     "offering": "Wine, spelt, milk, grapes, pine, and the first-fruits of an orchard. Offered at the edge of a property or under a tree.",
@@ -3759,7 +5290,8 @@ h3.sec{
       "sources": [
         "Material: the Silvanus reliefs and dedications"
       ]
-    }
+    },
+    "greekNone": "roman"
   },
   {
     "id": "querquetulanae",
@@ -3863,7 +5395,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Lucaria, the festival of the grove",
-        "date": "19 and 21 July"
+        "date": "19 and 21 July",
+        "cal": "roman"
       }
     ],
     "offering": "Water, milk, honey and olive oil poured at the root; a garland hung in the branches; first-fruits of the tree itself. Cato's expiation is offered before any cutting, and repeated on each day the work continues. The greatest offering is the tree left standing.",
@@ -3879,7 +5412,8 @@ h3.sec{
         "Homeric Hymn 5.256-272"
       ]
     },
-    "greek": "Dryades"
+    "greek": "Dryades",
+    "greekNone": "named"
   },
   {
     "id": "naiads",
@@ -4003,16 +5537,24 @@ h3.sec{
     ],
     "festivals": [
       {
-        "name": "Fontinalia",
-        "date": "13 October"
-      },
-      {
         "name": "Iuturnalia",
-        "date": "11 January"
+        "date": "11 January",
+        "cal": "roman"
       },
       {
         "name": "Nemoralia, at the lake of Nemi",
-        "date": "13 August"
+        "date": "13 August",
+        "cal": "roman"
+      },
+      {
+        "name": "Volcanalia",
+        "date": "23 August",
+        "cal": "roman"
+      },
+      {
+        "name": "Fontinalia",
+        "date": "13 October",
+        "cal": "roman"
       }
     ],
     "offering": "Wine and flowers thrown into the water; garlands laid on a wellhead; milk, honey and oil. Coins and small objects were thrown into springs in enormous numbers, which is why spring sites are among the richest excavations we have. Never foul the water with the offering.",
@@ -4030,7 +5572,8 @@ h3.sec{
         "Homer, Odyssey 13.102-112"
       ]
     },
-    "greek": "Naiades"
+    "greek": "Naiades",
+    "greekNone": "named"
   },
   {
     "id": "camenae",
@@ -4087,7 +5630,8 @@ h3.sec{
     "festivals": [
       {
         "name": "An offering of water and milk was made in the grove",
-        "date": "-"
+        "date": "-",
+        "cal": "roman"
       }
     ],
     "offering": "Water and milk. Livy's account and the general Roman treatment of spring nymphs agree on these; wine is not indicated.",
@@ -4102,7 +5646,8 @@ h3.sec{
       "sources": [
         "Livy 1.21.3"
       ]
-    }
+    },
+    "greekNone": "roman"
   },
   {
     "id": "lares",
@@ -4194,16 +5739,29 @@ h3.sec{
     ],
     "festivals": [
       {
+        "name": "Kalends, Nones, Ides",
+        "date": "monthly",
+        "cal": "roman"
+      },
+      {
         "name": "Compitalia",
-        "date": "movable, late December to early January"
+        "date": "movable, late December to early January",
+        "cal": "roman"
+      },
+      {
+        "name": "Caristia / Cara Cognatio — the family meal of reconciliation",
+        "date": "22 February",
+        "cal": "roman"
       },
       {
         "name": "Lares Praestites",
-        "date": "1 May"
+        "date": "1 May",
+        "cal": "roman"
       },
       {
-        "name": "Kalends, Nones, Ides",
-        "date": "monthly"
+        "name": "Sigillaria",
+        "date": "23 December",
+        "cal": "roman"
       }
     ],
     "offering": "Garland on the hearth, incense, wine, a portion of every meal, and cakes. At the Compitalia, a woollen figure hung for each member of the household.",
@@ -4218,7 +5776,8 @@ h3.sec{
       "sources": [
         "Material: the Pompeian lararia"
       ]
-    }
+    },
+    "greekNone": "roman"
   },
   {
     "id": "meliae",
@@ -4269,7 +5828,8 @@ h3.sec{
         "Hesiod, Theogony 185-187"
       ]
     },
-    "greek": "Meliai"
+    "greek": "Meliai",
+    "greekNone": "named"
   },
   {
     "id": "genius-loci",
@@ -4348,7 +5908,8 @@ h3.sec{
       "sources": [
         "Servius, ad Aen. 5.95"
       ]
-    }
+    },
+    "greekNone": "roman"
   },
   {
     "id": "venti",
@@ -4428,7 +5989,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Favonius, the west wind, marked as the start of spring",
-        "date": "7-8 February"
+        "date": "7-8 February",
+        "cal": "roman"
       }
     ],
     "offering": "Poured libations of wine or water, made standing in the open. Achilles promises offerings before the act and pays after.",
@@ -4444,7 +6006,8 @@ h3.sec{
         "Material: the Tower of the Winds, Athens"
       ]
     },
-    "greek": "Anemoi"
+    "greek": "Anemoi",
+    "greekNone": "named"
   },
   {
     "id": "justitia",
@@ -4514,7 +6077,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Altar of Iustitia Augusta",
-        "date": "8 January"
+        "date": "8 January",
+        "cal": "roman"
       }
     ],
     "offering": "Incense, wine, cakes. Appropriate before giving judgment, before testifying, or before any decision affecting another person.",
@@ -4530,7 +6094,8 @@ h3.sec{
         "Hesiod, Works and Days 256-262"
       ]
     },
-    "greek": "Dike"
+    "greek": "Dike",
+    "greekNone": "named"
   },
   {
     "id": "victoria",
@@ -4592,12 +6157,29 @@ h3.sec{
     ],
     "festivals": [
       {
+        "name": "Dedication of Vica Pota",
+        "date": "5 January",
+        "cal": "roman"
+      },
+      {
+        "name": "Vitulatio",
+        "date": "8 July",
+        "cal": "roman"
+      },
+      {
+        "name": "Ludi Victoriae Caesaris",
+        "date": "20–30 July",
+        "cal": "roman"
+      },
+      {
         "name": "Victoria on the Palatine",
-        "date": "1 August"
+        "date": "1 August",
+        "cal": "roman"
       },
       {
         "name": "Victoria Virgo",
-        "date": "1 August"
+        "date": "1 August",
+        "cal": "roman"
       }
     ],
     "offering": "Wreath, palm, incense, wine. Offered after success rather than before it, in thanksgiving.",
@@ -4613,7 +6195,8 @@ h3.sec{
         "Material: the Nike of Samothrace"
       ]
     },
-    "greek": "Nike"
+    "greek": "Nike",
+    "greekNone": "named"
   },
   {
     "id": "fortuna",
@@ -4704,19 +6287,33 @@ h3.sec{
     "festivals": [
       {
         "name": "Fortuna Virilis",
-        "date": "1 April"
+        "date": "1 April",
+        "cal": "roman"
       },
       {
         "name": "Fors Fortuna",
-        "date": "24 June"
-      },
-      {
-        "name": "Fortuna Primigenia at Praeneste",
-        "date": "-"
+        "date": "24 June",
+        "cal": "roman"
       },
       {
         "name": "Fortuna Huiusce Diei",
-        "date": "30 July"
+        "date": "30 July",
+        "cal": "roman"
+      },
+      {
+        "name": "Nemoralia — Diana at Aricia; Vertumnus; Fortuna Equestris",
+        "date": "13–15 August",
+        "cal": "roman"
+      },
+      {
+        "name": "Genius Publicus; Fausta Felicitas; Venus Victrix",
+        "date": "9 October",
+        "cal": "roman"
+      },
+      {
+        "name": "Fortuna Primigenia at Praeneste",
+        "date": "-",
+        "cal": "roman"
       }
     ],
     "offering": "Incense, wine, flowers, cakes. Fortuna Huiusce Diei is the appropriate address at the start of a particular day.",
@@ -4732,7 +6329,8 @@ h3.sec{
         "Material: the Fortuna types on coinage"
       ]
     },
-    "greek": "Tyche"
+    "greek": "Tyche",
+    "greekNone": "named"
   },
   {
     "id": "other-personifications",
@@ -4837,27 +6435,33 @@ h3.sec{
     "festivals": [
       {
         "name": "Concordia",
-        "date": "16 January and 22 July"
-      },
-      {
-        "name": "Salus",
-        "date": "5 August"
-      },
-      {
-        "name": "Spes",
-        "date": "1 August"
-      },
-      {
-        "name": "Fides",
-        "date": "1 October"
-      },
-      {
-        "name": "Pietas",
-        "date": "1 December"
+        "date": "16 January and 22 July",
+        "cal": "roman"
       },
       {
         "name": "Virtus and Honos",
-        "date": "29 May and 17 July"
+        "date": "29 May and 17 July",
+        "cal": "roman"
+      },
+      {
+        "name": "Spes",
+        "date": "1 August",
+        "cal": "roman"
+      },
+      {
+        "name": "Salus",
+        "date": "5 August",
+        "cal": "roman"
+      },
+      {
+        "name": "Fides",
+        "date": "1 October",
+        "cal": "roman"
+      },
+      {
+        "name": "Pietas",
+        "date": "1 December",
+        "cal": "roman"
       }
     ],
     "offering": "Incense, wine, cakes and flowers. These powers have no appetite of their own; the offering is made and the quality is then practised, which is the actual observance.",
@@ -4870,7 +6474,8 @@ h3.sec{
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greekNone": "roman"
   },
   {
     "id": "aesculapius",
@@ -4942,11 +6547,37 @@ h3.sec{
     "festivals": [
       {
         "name": "Temple of Aesculapius on the Tiber Island",
-        "date": "1 January"
+        "date": "1 January",
+        "cal": "roman"
       },
       {
         "name": "Epidauria, within the Eleusinian days",
-        "date": "Boedromion 17-18"
+        "date": "Boedromion 17-18",
+        "cal": "greek"
+      },
+      {
+        "name": "Asklepieia on Delos",
+        "date": "Galaxion (day not attested)",
+        "cal": "greek",
+        "city": "Delian"
+      },
+      {
+        "name": "Great Asklepieia of Kos",
+        "date": "Badromios 9–10",
+        "cal": "greek",
+        "city": "Coan (Kos)"
+      },
+      {
+        "name": "Asklepieia",
+        "date": "Posidaios (day not attested)",
+        "cal": "greek",
+        "city": "Epidaurian"
+      },
+      {
+        "name": "Asklepieia at Naupaktos",
+        "date": "Fourth month (day not attested)",
+        "cal": "greek",
+        "city": "Locrian — Ozolian (ordinal)"
       }
     ],
     "offering": "Cakes, honey cakes, incense, and the votive model of the part healed. Terracotta and marble models of eyes, ears, limbs, breasts and internal organs are among the commonest finds at every healing sanctuary in the Mediterranean.",
@@ -4962,7 +6593,8 @@ h3.sec{
         "Material: the Epidauros and Roman Asklepios types"
       ]
     },
-    "greek": "Asklepios"
+    "greek": "Asklepios",
+    "greekNone": false
   },
   {
     "id": "dioscuri",
@@ -5034,15 +6666,36 @@ h3.sec{
     "festivals": [
       {
         "name": "Dedication of their temple in the Forum",
-        "date": "27 January"
+        "date": "27 January",
+        "cal": "roman"
       },
       {
         "name": "Ludi Castores / the equestrian parade",
-        "date": "15 July"
+        "date": "15 July",
+        "cal": "roman"
       },
       {
         "name": "Anakeia at Athens",
-        "date": "month not securely attested"
+        "date": "month not securely attested",
+        "cal": "roman"
+      },
+      {
+        "name": "Dioskouria",
+        "date": "Thargelion (day not attested)",
+        "cal": "greek",
+        "city": "Delian"
+      },
+      {
+        "name": "Theoxenia — the gods are hosted at table",
+        "date": "Theoxenios (day not attested)",
+        "cal": "greek",
+        "city": "Delphic"
+      },
+      {
+        "name": "Dioskouria",
+        "date": "Dioskouros (day not attested)",
+        "cal": "greek",
+        "city": "Cretan"
       }
     ],
     "offering": "Wine, cakes, and above all hospitality: the theoxenia, at which a couch and a table of food are set for the two of them as guests of the house.",
@@ -5058,7 +6711,8 @@ h3.sec{
         "Homeric Hymn 33"
       ]
     },
-    "greek": "Dioskouroi"
+    "greek": "Dioskouroi",
+    "greekNone": false
   },
   {
     "id": "quirinus",
@@ -5112,11 +6766,13 @@ h3.sec{
     "festivals": [
       {
         "name": "Quirinalia",
-        "date": "17 February"
+        "date": "17 February",
+        "cal": "roman"
       },
       {
         "name": "Robigalia, conducted by his flamen",
-        "date": "25 April"
+        "date": "25 April",
+        "cal": "roman"
       }
     ],
     "offering": "Spelt, wine, incense, cakes. The Quirinalia is also the Feast of Fools, the day for those who missed their own curia's turn at the Fornacalia.",
@@ -5132,7 +6788,8 @@ h3.sec{
       "sources": [
         "Ovid, Fasti 2.475-512"
       ]
-    }
+    },
+    "greekNone": "roman"
   },
   {
     "id": "faunus",
@@ -5204,12 +6861,14 @@ h3.sec{
     ],
     "festivals": [
       {
-        "name": "Lupercalia",
-        "date": "15 February"
+        "name": "Faunalia (rustic)",
+        "date": "13 February and 5 December",
+        "cal": "roman"
       },
       {
-        "name": "Faunalia (rustic)",
-        "date": "13 February and 5 December"
+        "name": "Lupercalia",
+        "date": "15 February",
+        "cal": "roman"
       }
     ],
     "offering": "Wine, milk, cakes, pine and a garland hung in a tree. Horace, Odes 3.18, gives a December rite: wine poured, incense burnt, and the flock let alone.",
@@ -5225,7 +6884,8 @@ h3.sec{
         "Homeric Hymn 19, to Pan, 5-6, 36-39"
       ]
     },
-    "greek": "Pan"
+    "greek": "Pan",
+    "greekNone": "named"
   },
   {
     "id": "bellona",
@@ -5280,7 +6940,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Dedication of the temple of Bellona",
-        "date": "3 June"
+        "date": "3 June",
+        "cal": "roman"
       }
     ],
     "offering": "Incense and wine. The historical cult of the Asiatic Bellona involved self-wounding by her priests; this path does not practise it and records it as attested.",
@@ -5296,7 +6957,8 @@ h3.sec{
         "Vergil, Aeneid 8.703"
       ]
     },
-    "greek": "Enyo"
+    "greek": "Enyo",
+    "greekNone": "named"
   },
   {
     "id": "carmentis",
@@ -5365,11 +7027,13 @@ h3.sec{
     "festivals": [
       {
         "name": "Carmentalia, first day",
-        "date": "11 January"
+        "date": "11 January",
+        "cal": "roman"
       },
       {
         "name": "Carmentalia, second day",
-        "date": "15 January"
+        "date": "15 January",
+        "cal": "roman"
       }
     ],
     "offering": "Grain, wine, incense, flowers. Nothing of leather, hide, or anything that has died may be brought to her.",
@@ -5384,7 +7048,8 @@ h3.sec{
       "sources": [
         "Ovid, Fasti 1.617-636"
       ]
-    }
+    },
+    "greekNone": "roman"
   },
   {
     "id": "flora",
@@ -5439,11 +7104,13 @@ h3.sec{
     "festivals": [
       {
         "name": "Floralia",
-        "date": "28 April - 3 May"
+        "date": "28 April - 3 May",
+        "cal": "roman"
       },
       {
         "name": "Dedication of her temple near the Circus Maximus",
-        "date": "28 April"
+        "date": "28 April",
+        "cal": "roman"
       }
     ],
     "offering": "Flowers above all, wine, milk, honey. Beans and lupins are scattered to the crowd at her games instead of costlier gifts.",
@@ -5459,7 +7126,8 @@ h3.sec{
         "Ovid, Fasti 5.183-378"
       ]
     },
-    "greek": "Chloris"
+    "greek": "Chloris",
+    "greekNone": "named"
   },
   {
     "id": "pales",
@@ -5504,11 +7172,13 @@ h3.sec{
     "festivals": [
       {
         "name": "Parilia",
-        "date": "21 April"
+        "date": "21 April",
+        "cal": "roman"
       },
       {
         "name": "Pales at the Palatine, second Parilia",
-        "date": "7 July"
+        "date": "7 July",
+        "cal": "roman"
       }
     ],
     "offering": "Millet, millet cakes, and pails of warm milk. The burranica, milk mixed with boiled must, is drunk.",
@@ -5524,7 +7194,8 @@ h3.sec{
       "sources": [
         "Ovid, Fasti 4.721-806"
       ]
-    }
+    },
+    "greekNone": "roman"
   },
   {
     "id": "terminus",
@@ -5581,7 +7252,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Terminalia",
-        "date": "23 February"
+        "date": "23 February",
+        "cal": "roman"
       }
     ],
     "offering": "Garlands on the stone from both sides; grain thrown three times into the fire; honeycomb; poured wine. The ancient rite closed with a lamb or suckling pig, for which a cake is substituted.",
@@ -5597,7 +7269,8 @@ h3.sec{
       "sources": [
         "Livy 1.55.2-4"
       ]
-    }
+    },
+    "greekNone": "roman"
   },
   {
     "id": "fons",
@@ -5651,7 +7324,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Fontinalia",
-        "date": "13 October"
+        "date": "13 October",
+        "cal": "roman"
       }
     ],
     "offering": "Garlands thrown into the water and wreaths laid on the wellhead. Wine and flowers by the Bandusia precedent.",
@@ -5666,7 +7340,8 @@ h3.sec{
       "sources": [
         "Varro, De Lingua Latina 6.22"
       ]
-    }
+    },
+    "greekNone": "roman"
   },
   {
     "id": "magna-mater",
@@ -5741,12 +7416,41 @@ h3.sec{
     ],
     "festivals": [
       {
-        "name": "Megalesia",
-        "date": "4-10 April"
+        "name": "Canna intrat — Magna Mater cycle begins",
+        "date": "15 March",
+        "cal": "roman"
+      },
+      {
+        "name": "Sanguem / Dies Sanguinis",
+        "date": "24 March",
+        "cal": "roman"
+      },
+      {
+        "name": "Hilaria (Attis)",
+        "date": "25 March",
+        "cal": "roman"
       },
       {
         "name": "Lavatio, the washing in the Almo",
-        "date": "27 March"
+        "date": "27 March",
+        "cal": "roman"
+      },
+      {
+        "name": "Megalesia",
+        "date": "4-10 April",
+        "cal": "roman"
+      },
+      {
+        "name": "Galaxia",
+        "date": "date not attested",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Galaxia on Delos",
+        "date": "Galaxion 14",
+        "cal": "greek",
+        "city": "Delian"
       }
     ],
     "offering": "Moretum, a dish of herbs pounded with cheese, which Ovid explains as the first food of those who worshipped her. Also incense, wine, and pine.",
@@ -5761,7 +7465,8 @@ h3.sec{
         "Material: the Cybele enthroned types"
       ]
     },
-    "greek": "Kybele"
+    "greek": "Kybele",
+    "greekNone": false
   },
   {
     "id": "attis",
@@ -5817,15 +7522,18 @@ h3.sec{
     "festivals": [
       {
         "name": "Arbor intrat, the pine carried in",
-        "date": "22 March"
+        "date": "22 March",
+        "cal": "roman"
       },
       {
         "name": "Dies Sanguinis",
-        "date": "24 March"
+        "date": "24 March",
+        "cal": "roman"
       },
       {
         "name": "Hilaria",
-        "date": "25 March"
+        "date": "25 March",
+        "cal": "roman"
       }
     ],
     "offering": "Violets, a garlanded pine or pine branch, wine, cakes.",
@@ -5842,7 +7550,8 @@ h3.sec{
         "Catullus 63"
       ]
     },
-    "greek": "Attis"
+    "greek": "Attis",
+    "greekNone": "named"
   },
   {
     "id": "sol",
@@ -5913,16 +7622,30 @@ h3.sec{
     ],
     "festivals": [
       {
-        "name": "Dies Natalis Solis Invicti",
-        "date": "25 December"
+        "name": "Sol Indiges",
+        "date": "9 August",
+        "cal": "roman"
       },
       {
-        "name": "Sol Indiges",
-        "date": "9 August"
+        "name": "Lychnapsia — festival of lamps",
+        "date": "12 August",
+        "cal": "roman"
       },
       {
         "name": "Agon Solis",
-        "date": "19-22 October"
+        "date": "19-22 October",
+        "cal": "roman"
+      },
+      {
+        "name": "Dies Natalis Solis Invicti",
+        "date": "25 December",
+        "cal": "roman"
+      },
+      {
+        "name": "Halieia",
+        "date": "Panamos (day not attested)",
+        "cal": "greek",
+        "city": "Rhodian"
       }
     ],
     "offering": "Incense, wine and cakes, offered at sunrise facing east, with the right hand raised.",
@@ -5938,7 +7661,8 @@ h3.sec{
         "Homeric Hymn 31, to Helios, 9-14"
       ]
     },
-    "greek": "Helios"
+    "greek": "Helios",
+    "greekNone": false
   },
   {
     "id": "luna",
@@ -5999,16 +7723,19 @@ h3.sec{
     ],
     "festivals": [
       {
+        "name": "Every new moon (Kalends, noumenia)",
+        "date": "monthly",
+        "cal": "roman"
+      },
+      {
         "name": "Luna on the Aventine",
-        "date": "31 March"
+        "date": "31 March",
+        "cal": "roman"
       },
       {
         "name": "Luna Noctiluca on the Palatine",
-        "date": "attested without a date"
-      },
-      {
-        "name": "Every new moon (Kalends, noumenia)",
-        "date": "monthly"
+        "date": "attested without a date",
+        "cal": "roman"
       }
     ],
     "offering": "Offered at night: milk, honey, water, white flowers, incense. Wineless offerings are appropriate.",
@@ -6024,7 +7751,8 @@ h3.sec{
         "Homeric Hymn 32, to Selene, 6-7, 17-18"
       ]
     },
-    "greek": "Selene"
+    "greek": "Selene",
+    "greekNone": "named"
   },
   {
     "id": "genius",
@@ -6101,8 +7829,19 @@ h3.sec{
     ],
     "festivals": [
       {
+        "name": "Caristia / Cara Cognatio — the family meal of reconciliation",
+        "date": "22 February",
+        "cal": "roman"
+      },
+      {
+        "name": "Genius Publicus; Fausta Felicitas; Venus Victrix",
+        "date": "9 October",
+        "cal": "roman"
+      },
+      {
         "name": "The birthday of the head of the household",
-        "date": "annually, on the day itself"
+        "date": "annually, on the day itself",
+        "cal": "roman"
       }
     ],
     "offering": "Wine, flowers, incense, cakes, and a garland. Never blood.",
@@ -6118,7 +7857,8 @@ h3.sec{
         "Material: the Pompeian lararia"
       ]
     },
-    "greek": "Daimon"
+    "greek": "Daimon",
+    "greekNone": "named"
   },
   {
     "id": "manes",
@@ -6189,19 +7929,45 @@ h3.sec{
     "festivals": [
       {
         "name": "Parentalia",
-        "date": "13-21 February"
+        "date": "13-21 February",
+        "cal": "roman"
       },
       {
         "name": "Feralia",
-        "date": "21 February"
+        "date": "21 February",
+        "cal": "roman"
+      },
+      {
+        "name": "Argei procession (first)",
+        "date": "16 March",
+        "cal": "roman"
       },
       {
         "name": "Lemuria",
-        "date": "9, 11 and 13 May"
+        "date": "9, 11 and 13 May",
+        "cal": "roman"
       },
       {
         "name": "Mundus patet",
-        "date": "24 August, 5 October, 8 November"
+        "date": "24 August, 5 October, 8 November",
+        "cal": "roman"
+      },
+      {
+        "name": "Larentalia",
+        "date": "23 December",
+        "cal": "roman"
+      },
+      {
+        "name": "Genesia",
+        "date": "Boedromion 5",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Nekysia — rites for the dead",
+        "date": "Nekysios (day not attested)",
+        "cal": "greek",
+        "city": "Cretan"
       }
     ],
     "offering": "Wine, milk, honey, water, grain, salt, bread soaked in wine, and violets. Poured out low and left; nothing offered to the dead is eaten.",
@@ -6216,7 +7982,8 @@ h3.sec{
       "sources": [
         "Ovid, Fasti 2.533-570"
       ]
-    }
+    },
+    "greekNone": false
   },
   {
     "id": "concordia",
@@ -6279,16 +8046,19 @@ h3.sec{
     ],
     "festivals": [
       {
-        "name": "Concordia in the Forum",
-        "date": "16 January"
+        "name": "Concordia Augusta",
+        "date": "11 January and 30 March",
+        "cal": "roman"
       },
       {
-        "name": "Concordia Augusta",
-        "date": "11 January and 30 March"
+        "name": "Concordia in the Forum",
+        "date": "16 January",
+        "cal": "roman"
       },
       {
         "name": "With Pax and Salus at the Caristia",
-        "date": "22 February"
+        "date": "22 February",
+        "cal": "roman"
       }
     ],
     "offering": "Incense, wine, cakes, flowers. Appropriate when a quarrel has been settled, and at the Caristia, where quarrelling kin are told to stay away from the table.",
@@ -6302,7 +8072,8 @@ h3.sec{
       "conflict": null,
       "sources": []
     },
-    "greek": "Harmonia"
+    "greek": "Harmonia",
+    "greekNone": "named"
   },
   {
     "id": "fides",
@@ -6359,7 +8130,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Fides on the Capitol",
-        "date": "1 October"
+        "date": "1 October",
+        "cal": "roman"
       }
     ],
     "offering": "Incense, wine, cakes, fruit. Performed with the right hand wrapped in white cloth.",
@@ -6373,7 +8145,8 @@ h3.sec{
       "conflict": null,
       "sources": []
     },
-    "greek": "Pistis"
+    "greek": "Pistis",
+    "greekNone": "named"
   },
   {
     "id": "salus",
@@ -6443,12 +8216,20 @@ h3.sec{
     ],
     "festivals": [
       {
-        "name": "Salus on the Quirinal",
-        "date": "5 August"
+        "name": "Salus, Pax and Concordia",
+        "date": "30 March",
+        "cal": "roman"
       },
       {
-        "name": "Salus, Pax and Concordia",
-        "date": "30 March"
+        "name": "Salus on the Quirinal",
+        "date": "5 August",
+        "cal": "roman"
+      },
+      {
+        "name": "Hygieia",
+        "date": "Kyklios (day not attested)",
+        "cal": "greek",
+        "city": "Epidaurian"
       }
     ],
     "offering": "Incense, wine, cakes, honey. Water from a healing spring where one is available.",
@@ -6462,7 +8243,8 @@ h3.sec{
       "conflict": null,
       "sources": []
     },
-    "greek": "Hygieia"
+    "greek": "Hygieia",
+    "greekNone": false
   },
   {
     "id": "spes",
@@ -6522,7 +8304,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Spes in the Forum Holitorium",
-        "date": "1 August"
+        "date": "1 August",
+        "cal": "roman"
       }
     ],
     "offering": "Flowers, especially buds not yet open; incense, wine, cakes.",
@@ -6536,7 +8319,8 @@ h3.sec{
       "conflict": null,
       "sources": []
     },
-    "greek": "Elpis"
+    "greek": "Elpis",
+    "greekNone": "named"
   },
   {
     "id": "pietas",
@@ -6603,7 +8387,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Pietas in the Forum Holitorium",
-        "date": "1 December"
+        "date": "1 December",
+        "cal": "roman"
       }
     ],
     "offering": "Incense on a lit altar, wine, cakes. The observance proper to her is the obligation itself, discharged.",
@@ -6617,7 +8402,8 @@ h3.sec{
       "conflict": null,
       "sources": []
     },
-    "greek": "Eusebeia"
+    "greek": "Eusebeia",
+    "greekNone": "named"
   },
   {
     "id": "honos",
@@ -6677,11 +8463,13 @@ h3.sec{
     "festivals": [
       {
         "name": "Honos and Virtus, the twin temples",
-        "date": "29 May"
+        "date": "29 May",
+        "cal": "roman"
       },
       {
         "name": "Honos and Virtus at the Porta Capena",
-        "date": "17 July"
+        "date": "17 July",
+        "cal": "roman"
       }
     ],
     "offering": "Incense, wine, cakes, laurel.",
@@ -6695,7 +8483,8 @@ h3.sec{
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greekNone": "roman"
   },
   {
     "id": "consus",
@@ -6729,11 +8518,13 @@ h3.sec{
     "festivals": [
       {
         "name": "Consualia (summer)",
-        "date": "21 August"
+        "date": "21 August",
+        "cal": "roman"
       },
       {
         "name": "Consualia (winter)",
-        "date": "15 December"
+        "date": "15 December",
+        "cal": "roman"
       }
     ],
     "offering": "First-fruits of the stored harvest. On his days horses, mules and asses do no work at all and are garlanded with flowers and led through the streets.",
@@ -6747,7 +8538,8 @@ h3.sec{
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greekNone": "roman"
   },
   {
     "id": "portunus",
@@ -6781,7 +8573,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Portunalia",
-        "date": "17 August"
+        "date": "17 August",
+        "cal": "roman"
       }
     ],
     "offering": "Keys were thrown into the fire on his day; incense, wine and cakes are appropriate.",
@@ -6795,7 +8588,8 @@ h3.sec{
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greekNone": "roman"
   },
   {
     "id": "vertumnus",
@@ -6835,7 +8629,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Vertumnalia",
-        "date": "13 August"
+        "date": "13 August",
+        "cal": "roman"
       }
     ],
     "offering": "The first-fruits of an orchard, flowers, and a garland — the offering changing with the season, which is the point of him.",
@@ -6849,7 +8644,8 @@ h3.sec{
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greekNone": "roman"
   },
   {
     "id": "anna-perenna",
@@ -6890,7 +8686,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Anna Perenna",
-        "date": "15 March"
+        "date": "15 March",
+        "cal": "roman"
       }
     ],
     "offering": "Wine. Ovid records that the people pray for as many years of life as cups they can drink, which is reported here as attested and not as instruction.",
@@ -6904,7 +8701,8 @@ h3.sec{
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greekNone": "roman"
   },
   {
     "id": "summanus",
@@ -6937,7 +8735,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Summanus, temple by the Circus Maximus",
-        "date": "20 June"
+        "date": "20 June",
+        "cal": "roman"
       }
     ],
     "offering": "Festus records wheel-shaped cakes (summanalia) made of flour offered to him. Wine and incense besides.",
@@ -6951,7 +8750,8 @@ h3.sec{
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greekNone": "roman"
   },
   {
     "id": "robigus",
@@ -6989,7 +8789,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Robigalia",
-        "date": "25 April"
+        "date": "25 April",
+        "cal": "roman"
       }
     ],
     "offering": "Incense, wine and a cake burnt at the fifth milestone on the Via Claudia. The ancient rite offered the entrails of a dog and a sheep; the Virtuous Path substitutes the cake.",
@@ -7003,7 +8804,8 @@ h3.sec{
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greekNone": "roman"
   },
   {
     "id": "matuta",
@@ -7050,7 +8852,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Matralia",
-        "date": "11 June"
+        "date": "11 June",
+        "cal": "roman"
       }
     ],
     "offering": "Toasted cakes baked in old-fashioned earthenware pots. Only women married once may make the offering.",
@@ -7065,7 +8868,8 @@ h3.sec{
       "conflict": null,
       "sources": []
     },
-    "greek": "Leukothea"
+    "greek": "Leukothea",
+    "greekNone": "named"
   },
   {
     "id": "carna",
@@ -7104,7 +8908,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Carnaria / Kalends of June",
-        "date": "1 June"
+        "date": "1 June",
+        "cal": "roman"
       }
     ],
     "offering": "Beans and bacon-fat were the traditional food of her day, and a porridge of spelt and beans. The Virtuous Path offers the bean-and-spelt dish without the fat.",
@@ -7118,7 +8923,8 @@ h3.sec{
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greekNone": "roman"
   },
   {
     "id": "angerona",
@@ -7158,7 +8964,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Divalia / Angeronalia",
-        "date": "21 December"
+        "date": "21 December",
+        "cal": "roman"
       }
     ],
     "offering": "Incense and wine, offered in silence.",
@@ -7172,7 +8979,8 @@ h3.sec{
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greekNone": "roman"
   },
   {
     "id": "larentia",
@@ -7212,7 +9020,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Larentalia",
-        "date": "23 December"
+        "date": "23 December",
+        "cal": "roman"
       }
     ],
     "offering": "Chthonic in form, offered at her supposed tomb in the Velabrum: poured out low and not shared. Wineless offerings of honey, milk and water are appropriate.",
@@ -7226,7 +9035,8 @@ h3.sec{
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greekNone": "roman"
   },
   {
     "id": "maia",
@@ -7266,11 +9076,13 @@ h3.sec{
     "festivals": [
       {
         "name": "Kalends of May",
-        "date": "1 May"
+        "date": "1 May",
+        "cal": "roman"
       },
       {
         "name": "Mercury and Maia",
-        "date": "15 May"
+        "date": "15 May",
+        "cal": "roman"
       }
     ],
     "offering": "A pregnant sow was the ancient offering, made by the Flamen Volcanalis; the Virtuous Path offers first-fruits, grain and milk on the day.",
@@ -7285,7 +9097,8 @@ h3.sec{
       "conflict": null,
       "sources": []
     },
-    "greek": "Maia"
+    "greek": "Maia",
+    "greekNone": "named"
   },
   {
     "id": "tiberinus",
@@ -7330,12 +9143,19 @@ h3.sec{
     ],
     "festivals": [
       {
-        "name": "Tiberinalia",
-        "date": "8 December"
+        "name": "Argei, the rush figures cast from the bridge",
+        "date": "14 May",
+        "cal": "roman"
       },
       {
-        "name": "Argei, the rush figures cast from the bridge",
-        "date": "14 May"
+        "name": "Ludi Piscatorii",
+        "date": "7 June",
+        "cal": "roman"
+      },
+      {
+        "name": "Tiberinalia",
+        "date": "8 December",
+        "cal": "roman"
       }
     ],
     "offering": "Poured libations made into the water itself; garlands cast in. Vergil has Aeneas fill a vessel from the river and pray with it in his hands.",
@@ -7349,7 +9169,8 @@ h3.sec{
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greekNone": "roman"
   },
   {
     "id": "volturnus",
@@ -7380,8 +9201,14 @@ h3.sec{
     ],
     "festivals": [
       {
+        "name": "Ludi Piscatorii",
+        "date": "7 June",
+        "cal": "roman"
+      },
+      {
         "name": "Volturnalia",
-        "date": "27 August"
+        "date": "27 August",
+        "cal": "roman"
       }
     ],
     "offering": "No offering is attested. By the general Roman treatment of river gods: poured libations into the water, and garlands.",
@@ -7395,7 +9222,8 @@ h3.sec{
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greekNone": "roman"
   },
   {
     "id": "furrina",
@@ -7427,7 +9255,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Furrinalia",
-        "date": "25 July"
+        "date": "25 July",
+        "cal": "roman"
       }
     ],
     "offering": "No offering is attested. Her grove on the Janiculum had springs, and the general treatment of spring nymphs would apply, but that is inference and is marked as such.",
@@ -7441,7 +9270,8 @@ h3.sec{
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greekNone": "roman"
   },
   {
     "id": "sancus",
@@ -7481,7 +9311,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Semo Sancus Dius Fidius",
-        "date": "5 June"
+        "date": "5 June",
+        "cal": "roman"
       }
     ],
     "offering": "Incense, wine and cakes, offered under the open sky and not under a roof.",
@@ -7495,7 +9326,8 @@ h3.sec{
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greekNone": "roman"
   },
   {
     "id": "moneta",
@@ -7535,7 +9367,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Iuno Moneta on the Capitol",
-        "date": "1 June"
+        "date": "1 June",
+        "cal": "roman"
       }
     ],
     "offering": "Incense, wine, cakes, flowers, as for Juno.",
@@ -7550,7 +9383,8 @@ h3.sec{
       "conflict": null,
       "sources": []
     },
-    "greek": "Mnemosyne"
+    "greek": "Mnemosyne",
+    "greekNone": "named"
   },
   {
     "id": "eros",
@@ -7602,11 +9436,19 @@ h3.sec{
     "festivals": [
       {
         "name": "Erotidia at Thespiai",
-        "date": "every four years; month not securely attested"
+        "date": "every four years; month not securely attested",
+        "cal": "roman"
       },
       {
         "name": "With Venus, 4th of every month",
-        "date": "monthly"
+        "date": "monthly",
+        "cal": "roman"
+      },
+      {
+        "name": "Aphrodisia",
+        "date": "Hekatombaion 4",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
       }
     ],
     "offering": "Flowers, especially roses; wine, honey, incense.",
@@ -7631,7 +9473,8 @@ h3.sec{
         "Hesiod, Theogony 120-122"
       ]
     },
-    "greek": "Eros"
+    "greek": "Eros",
+    "greekNone": false
   },
   {
     "id": "hebe",
@@ -7676,12 +9519,20 @@ h3.sec{
     ],
     "festivals": [
       {
-        "name": "Iuventas on the Capitol",
-        "date": "19 December"
+        "name": "The taking of the toga virilis",
+        "date": "usually at the Liberalia, 17 March",
+        "cal": "roman"
       },
       {
-        "name": "The taking of the toga virilis",
-        "date": "usually at the Liberalia, 17 March"
+        "name": "Iuventas on the Capitol",
+        "date": "19 December",
+        "cal": "roman"
+      },
+      {
+        "name": "Olympia",
+        "date": "Parthenios (day not attested)",
+        "cal": "greek",
+        "city": "Elean"
       }
     ],
     "offering": "Wine poured, flowers, cakes. Dionysius records that a coin was paid into her treasury for each youth reaching manhood, which served as a census.",
@@ -7702,7 +9553,8 @@ h3.sec{
         "Homer, Iliad 4.2-3"
       ]
     },
-    "greek": "Hebe"
+    "greek": "Hebe",
+    "greekNone": false
   },
   {
     "id": "eileithyia",
@@ -7748,11 +9600,25 @@ h3.sec{
     "festivals": [
       {
         "name": "Matronalia (Juno Lucina)",
-        "date": "1 March"
+        "date": "1 March",
+        "cal": "roman"
       },
       {
         "name": "Nonae Caprotinae",
-        "date": "7 July"
+        "date": "7 July",
+        "cal": "roman"
+      },
+      {
+        "name": "Eileithyiaia",
+        "date": "Posideon (day not attested)",
+        "cal": "greek",
+        "city": "Delian"
+      },
+      {
+        "name": "Eileithyia and Sosipolis at Olympia",
+        "date": "Athanaios (day not attested)",
+        "cal": "greek",
+        "city": "Elean"
       }
     ],
     "offering": "Flowers, incense, wine, cakes. Women dedicated their garments after a safe delivery, which is attested both in tragedy and in inscribed temple inventories.",
@@ -7773,7 +9639,8 @@ h3.sec{
         "Homer, Iliad 11.269-272"
       ]
     },
-    "greek": "Eileithyia"
+    "greek": "Eileithyia",
+    "greekNone": false
   },
   {
     "id": "prometheus",
@@ -7813,7 +9680,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Prometheia, with a torch race from the Academy",
-        "date": "month not securely attested"
+        "date": "month not securely attested",
+        "cal": "roman"
       }
     ],
     "offering": "Fire itself, and the first portion of a meal. The torch race is the attested observance.",
@@ -7835,7 +9703,8 @@ h3.sec{
         "Hesiod, Theogony 507-616"
       ]
     },
-    "greek": "Prometheus"
+    "greek": "Prometheus",
+    "greekNone": "named"
   },
   {
     "id": "osiris",
@@ -7881,12 +9750,19 @@ h3.sec{
     ],
     "festivals": [
       {
-        "name": "Isia, the search and finding of Osiris",
-        "date": "28 October - 3 November"
+        "name": "Navigium Isidis",
+        "date": "5 March",
+        "cal": "roman"
       },
       {
-        "name": "Navigium Isidis",
-        "date": "5 March"
+        "name": "Isia, the search and finding of Osiris",
+        "date": "28 October - 3 November",
+        "cal": "roman"
+      },
+      {
+        "name": "Hilaria (Isiac conclusion)",
+        "date": "3 November",
+        "cal": "roman"
       }
     ],
     "offering": "Water above all, carried in the situla; also milk, incense, lamps, and grain. Corn-mummies — beds of soil sown with grain in the shape of the god and watered until they sprouted — are attested archaeologically.",
@@ -7910,7 +9786,8 @@ h3.sec{
         "Material: Egyptian representation of Osiris"
       ]
     },
-    "greek": "Osiris"
+    "greek": "Osiris",
+    "greekNone": "named"
   },
   {
     "id": "bendis",
@@ -7950,7 +9827,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Bendideia, at the Piraeus",
-        "date": "Thargelion 19"
+        "date": "Thargelion 19",
+        "cal": "greek"
       }
     ],
     "offering": "The attested observance is the procession and the torch race on horseback, which Plato says had never been seen before at Athens.",
@@ -7972,7 +9850,8 @@ h3.sec{
         "Material: the Piraeus reliefs of Bendis"
       ]
     },
-    "greek": "Bendis"
+    "greek": "Bendis",
+    "greekNone": false
   },
   {
     "id": "britomartis",
@@ -8019,7 +9898,14 @@ h3.sec{
     "festivals": [
       {
         "name": "Diktynnaia, in Crete",
-        "date": "month not securely attested"
+        "date": "month not securely attested",
+        "cal": "roman"
+      },
+      {
+        "name": "Britomartia",
+        "date": "Artemision (day not attested)",
+        "cal": "greek",
+        "city": "Delian"
       }
     ],
     "offering": "Offerings at mountain and coastal sanctuaries; no detailed procedure survives.",
@@ -8040,7 +9926,8 @@ h3.sec{
         "Callimachus, Hymn 3.189-205"
       ]
     },
-    "greek": "Britomartis"
+    "greek": "Britomartis",
+    "greekNone": false
   },
   {
     "id": "trophonios",
@@ -8074,7 +9961,14 @@ h3.sec{
     "festivals": [
       {
         "name": "The oracle was consulted year-round, not on a fixed festival",
-        "date": "—"
+        "date": "—",
+        "cal": "roman"
+      },
+      {
+        "name": "Trophoneia at Lebadeia",
+        "date": "Prostaterios (day not attested)",
+        "cal": "greek",
+        "city": "Boeotian"
       }
     ],
     "offering": "Pausanias records honey-cakes carried in both hands during the descent, given to the serpents below. Before descending, the enquirer lodges for days in a building, bathes in the river Herkyna, and drinks from two springs, Lethe and Mnemosyne, to forget what he knew and remember what he will see.",
@@ -8095,7 +9989,8 @@ h3.sec{
         "Pausanias 9.39.5-14"
       ]
     },
-    "greek": "Trophonios"
+    "greek": "Trophonios",
+    "greekNone": false
   },
   {
     "id": "theseus",
@@ -8128,20 +10023,30 @@ h3.sec{
     ],
     "festivals": [
       {
-        "name": "Theseia",
-        "date": "Pyanopsion 8"
+        "name": "Synoikia",
+        "date": "Hekatombaion 16",
+        "cal": "greek"
       },
       {
-        "name": "Synoikia",
-        "date": "Hekatombaion 16"
+        "name": "Kybernesia",
+        "date": "Boedromion (day not attested)",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
       },
       {
         "name": "Oschophoria",
-        "date": "Pyanopsion 7"
+        "date": "Pyanopsion 7",
+        "cal": "greek"
       },
       {
         "name": "Pyanopsia",
-        "date": "Pyanopsion 7"
+        "date": "Pyanopsion 7",
+        "cal": "greek"
+      },
+      {
+        "name": "Theseia",
+        "date": "Pyanopsion 8",
+        "cal": "greek"
       }
     ],
     "offering": "Offerings on the eighth of each month, which was his day as it was Poseidon's. Plutarch says the eighth was chosen because he was reckoned a son of Poseidon.",
@@ -8162,7 +10067,8 @@ h3.sec{
         "Plutarch, Theseus"
       ]
     },
-    "greek": "Theseus"
+    "greek": "Theseus",
+    "greekNone": false
   },
   {
     "id": "hyakinthos",
@@ -8195,7 +10101,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Hyakinthia",
-        "date": "Hekatombeus (Spartan), three days"
+        "date": "Hekatombeus (Spartan), three days",
+        "cal": "greek"
       }
     ],
     "offering": "Pausanias records that offerings to the hero were passed through a bronze door in the side of the altar-base before the offerings to Apollo were made above — the hero fed below, the god above, at the same structure and in a fixed order.",
@@ -8215,7 +10122,8 @@ h3.sec{
         "Pausanias 3.19.3-5"
       ]
     },
-    "greek": "Hyakinthos"
+    "greek": "Hyakinthos",
+    "greekNone": false
   },
   {
     "id": "palaimon",
@@ -8254,12 +10162,20 @@ h3.sec{
     ],
     "festivals": [
       {
-        "name": "Isthmia",
-        "date": "biennially, in the second and fourth years of each Olympiad"
+        "name": "Matralia, at Rome, with Mater Matuta",
+        "date": "11 June",
+        "cal": "roman"
       },
       {
-        "name": "Matralia, at Rome, with Mater Matuta",
-        "date": "11 June"
+        "name": "Isthmia",
+        "date": "biennially, in the second and fourth years of each Olympiad",
+        "cal": "roman"
+      },
+      {
+        "name": "Palaimonia",
+        "date": "Artemisios (day not attested)",
+        "cal": "greek",
+        "city": "Corinthian"
       }
     ],
     "offering": "Pausanias records night offerings in an underground chamber, and that an oath sworn there was held to be inescapable. Excavation has recovered large numbers of lamps from the pit, consistent with nocturnal rites.",
@@ -8280,7 +10196,8 @@ h3.sec{
         "Pausanias 2.1.3"
       ]
     },
-    "greek": "Palaimon"
+    "greek": "Palaimon",
+    "greekNone": false
   },
   {
     "id": "ajax",
@@ -8326,7 +10243,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Aianteia, on Salamis",
-        "date": "month not securely attested"
+        "date": "month not securely attested",
+        "cal": "roman"
       }
     ],
     "offering": "Hero offerings: made low, at night, and destroyed rather than shared. Herodotus records that before Salamis the Greeks sent a ship to Aigina to fetch Aiakos and the Aiakidai, and prayed to the Aiantes on the spot.",
@@ -8346,7 +10264,8 @@ h3.sec{
         "Homer, Iliad 2.527-530, 3.226-229"
       ]
     },
-    "greek": "Aias"
+    "greek": "Aias",
+    "greekNone": "named"
   },
   {
     "id": "iolaos",
@@ -8380,7 +10299,14 @@ h3.sec{
     "festivals": [
       {
         "name": "Iolaeia at Thebes, with athletic contests",
-        "date": "month not securely attested"
+        "date": "month not securely attested",
+        "cal": "roman"
+      },
+      {
+        "name": "Herakleia (Iolaeia) at Thebes",
+        "date": "Agrionios (day not attested)",
+        "cal": "greek",
+        "city": "Boeotian"
       }
     ],
     "offering": "Hero offerings at the tomb. The attested observance is the games and the swearing of oaths of loyalty.",
@@ -8400,7 +10326,8 @@ h3.sec{
         "Pausanias 9.23.1"
       ]
     },
-    "greek": "Iolaos"
+    "greek": "Iolaos",
+    "greekNone": false
   },
   {
     "id": "asklepiadai",
@@ -8439,7 +10366,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Honoured at Asklepieia with their father",
-        "date": "—"
+        "date": "—",
+        "cal": "roman"
       }
     ],
     "offering": "Hero offerings at their shrines. Pausanias records incubation at the sanctuary of Machaon at Gerenia.",
@@ -8459,7 +10387,8 @@ h3.sec{
         "Homer, Iliad 4.193-219"
       ]
     },
-    "greek": "Asklepiadai"
+    "greek": "Asklepiadai",
+    "greekNone": "named"
   },
   {
     "id": "sosipolis",
@@ -8490,7 +10419,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Honoured at Olympia with Eileithyia; oaths were sworn by him",
-        "date": "—"
+        "date": "—",
+        "cal": "roman"
       }
     ],
     "offering": "Pausanias records the rule precisely: barley cakes kneaded with honey are set out for the snake, and the priestess who serves him must veil her head and face with a white cloth, and may not drink wine nor eat certain foods.",
@@ -8511,7 +10441,8 @@ h3.sec{
         "Pausanias 6.20.2-6"
       ]
     },
-    "greek": "Sosipolis"
+    "greek": "Sosipolis",
+    "greekNone": "named"
   },
   {
     "id": "tlapolemos",
@@ -8543,7 +10474,8 @@ h3.sec{
     "festivals": [
       {
         "name": "Tlapolemeia, with athletic games at Rhodes",
-        "date": "month not securely attested"
+        "date": "month not securely attested",
+        "cal": "roman"
       }
     ],
     "offering": "Hero offerings and games. Pindar names a procession of victims, for which this path substitutes cakes and poured offerings.",
@@ -8563,7 +10495,8 @@ h3.sec{
         "Homer, Iliad 2.653-670"
       ]
     },
-    "greek": "Tlepolemos"
+    "greek": "Tlepolemos",
+    "greekNone": "named"
   },
   {
     "id": "panhellenic",
@@ -8609,8 +10542,62 @@ h3.sec{
     ],
     "festivals": [
       {
+        "name": "Amburbium",
+        "date": "movable, in a year of prodigies",
+        "cal": "roman"
+      },
+      {
         "name": "Invoked at the close of any rite",
-        "date": "—"
+        "date": "—",
+        "cal": "roman"
+      },
+      {
+        "name": "Greater Panathenaia — the great day",
+        "date": "Hekatombaion 28",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Greater Eleusinia",
+        "date": "Metageitnion (day not attested)",
+        "cal": "greek",
+        "city": "Athenian (Attic)"
+      },
+      {
+        "name": "Delia (Great Delian Panegyris)",
+        "date": "Thargelion 15–16",
+        "cal": "greek",
+        "city": "Delian"
+      },
+      {
+        "name": "Panionia at Mykale",
+        "date": "Boedromion (day not attested)",
+        "cal": "greek",
+        "city": "Ionian (Milesian)"
+      },
+      {
+        "name": "Theoxenia — the gods are hosted at table",
+        "date": "Theoxenios (day not attested)",
+        "cal": "greek",
+        "city": "Delphic"
+      },
+      {
+        "name": "Great Daidala at Plataia",
+        "date": "Panamos (day not attested)",
+        "cal": "greek",
+        "city": "Boeotian"
+      },
+      {
+        "name": "Theodaisia",
+        "date": "Theodaisios (day not attested)",
+        "cal": "greek",
+        "city": "Cretan"
+      },
+      {
+        "name": "Panaitolika",
+        "date": "Dadaphorios (day not attested)",
+        "cal": "greek",
+        "city": "Aetolian"
       }
     ],
     "offering": "Whatever has already been offered; the clause is spoken over it rather than requiring anything additional.",
@@ -8637,7 +10624,8 @@ h3.sec{
       "conflict": null,
       "sources": []
     },
-    "greek": "Theoi Pantes"
+    "greek": "Theoi Pantes",
+    "greekNone": false
   },
   {
     "id": "bona-dea",
@@ -8702,12 +10690,14 @@ h3.sec{
     ],
     "festivals": [
       {
-        "name": "Bona Dea, the December rite at the house of a magistrate",
-        "date": "early December, the night of 3-4"
+        "name": "Bona Dea on the Aventine",
+        "date": "1 May",
+        "cal": "roman"
       },
       {
-        "name": "Bona Dea on the Aventine",
-        "date": "1 May"
+        "name": "Bona Dea, the December rite at the house of a magistrate",
+        "date": "early December, the night of 3-4",
+        "cal": "roman"
       }
     ],
     "offering": "Wine called milk, poured from a jar called a honey-pot; vine branches and every flower except myrtle; incense.",
@@ -8719,7 +10709,8 @@ h3.sec{
       "build": null,
       "conflict": null,
       "sources": []
-    }
+    },
+    "greekNone": "roman"
   }
 ]
 </script>
@@ -8977,12 +10968,32 @@ h3.sec{
       h += '</ol>';
     }
 
-    if (d.festivals && d.festivals.length) {
-      h += '<h3 class="sec">Days</h3><ul class="fests">';
-      d.festivals.forEach(function(f){
-        h += '<li><span>' + esc(f.name) + '</span><span>' + esc(f.date) + '</span></li>';
-      });
-      h += '</ul>';
+    /* Days, in two groups: the Roman calendar, and the Greek city calendars with
+       each date given in its own month and city. */
+    var romanDays = (d.festivals || []).filter(function(f){ return f.cal !== 'greek'; });
+    var greekDays = (d.festivals || []).filter(function(f){ return f.cal === 'greek'; });
+    if (romanDays.length || greekDays.length || d.greekNone) {
+      h += '<h3 class="sec">Days</h3>';
+      if (romanDays.length) {
+        h += '<h4 class="fsub">Roman calendar</h4><ul class="fests">';
+        romanDays.forEach(function(f){
+          h += '<li><span>' + esc(f.name) + '</span><span>' + esc(f.date) + '</span></li>';
+        });
+        h += '</ul>';
+      }
+      h += '<h4 class="fsub">Greek calendars</h4>';
+      if (greekDays.length) {
+        h += '<ul class="fests">';
+        greekDays.forEach(function(f){
+          h += '<li><span>' + esc(f.name) + '</span><span>' + esc(f.date) +
+               (f.city ? '<em class="fcity">' + esc(f.city) + '</em>' : '') + '</span></li>';
+        });
+        h += '</ul>';
+      } else {
+        h += '<p class="fnone">' + (d.greekNone === 'named'
+          ? 'No dated festival for this deity survives in the Greek city calendars.'
+          : 'A Roman deity with no Greek counterpart, and so no Greek festival day.') + '</p>';
+      }
     }
 
     if (d.offering) h += '<h3 class="sec">Offering</h3><p class="offer">' + esc(d.offering) + '</p>';
