@@ -1433,6 +1433,7 @@ var GREEK = [
     {mi:12,d:30,last:true,n:'Diisoteria',g:['jupiter','minerva'],note:'The closing day of Skirophorion and of the Athenian year: sacrifice of thanks to Zeus Soter and Athena Soteira in the Piraeus, with a procession and a contest. Kept on the last day of the month whether it runs to twenty-nine days or thirty.'}
   ],
   monthly:[
+    {d:0,n:'Deipnon',g:['Hekate'],note:'three main parts: 1) the meal that was set out at a crossroads, 2) an expiation sacrifice, and 3) purification of the household.'},
     {d:1,n:'Noumenia',g:['panhellenic','apollo','vesta'],note:'The new month: wreaths, incense, and the household gods.'},
     {d:2,n:'Agathos Daimon',g:['agathos'],note:'Libations poured to the Good Spirit of fortune and household health.'},
     {d:3,n:'Athena',g:['minerva'],note:'Monthly honor to Athena on the third day of the lunar cycle.'},
@@ -1941,9 +1942,17 @@ function buildIndex(y0, y1) {
             if (mm.d > mo.len) continue;
             var dn5 = mo.start + mm.d - 1;
             if (!hasData(dn5)) continue;
+            /* d:0 is the last day of the month before this one (the hene kai nea), so it is
+               labelled with that month's own name and day, not with "<this month> 0". */
+            var nat = cal.name + ' \u00b7 ' + mo.name + ' ' + mm.d;
+            if (mm.d < 1) {
+              var pc = INDEX[dn5] && INDEX[dn5].cal[cal.id];
+              nat = pc ? cal.name + ' \u00b7 ' + pc.name + ' ' + pc.day
+                       : cal.name + ' \u00b7 last day of the month before ' + mo.name;
+            }
             addFest(dn5, {
               sys: cal.id, monthly: true, name: mm.n, gods: mm.g, note: mm.note || '',
-              day: 1, span: 1, native: cal.name + ' \u00b7 ' + mo.name + ' ' + mm.d
+              day: 1, span: 1, native: nat
             });
           }
         }
